@@ -60,46 +60,57 @@
 					</ul>
 				</div>
 				<div id="searchby">
-					<div class="inner-addon right-addon">
-						<i class="glyphicon glyphicon-search"></i> <input type="search"
-							name="s" placeholder="Search By..." />
-					</div>
+					
+						
+						<button type="button" class="btn btn-primary btn-md">
+							Search By ... &nbsp &nbsp &nbsp &nbsp<span class="glyphicon glyphicon-search"></span>
+						</button>
+				
 
 					<table style="width: 100%">
 						<tr>
 							<th>Doc Type:</th>
-							<td>Bill Gates</td>
+							<td><select class="form-control" id="sel1">
+									<option>CBCR</option>
+									<option>Other</option>
+							</select></td>
 						</tr>
 						<tr>
 							<th>From User:</th>
-							<td>555 77 854</td>
+							<td><textarea class="form-control" id="exampleTextarea"
+									rows="1" cols="10"></textarea></td>
 						</tr>
 						<tr>
 							<th>From Country:</th>
-							<td>555 77 855</td>
+							<td><textarea class="form-control" id="exampleTextarea"
+									rows="1" cols="10"></textarea></td>
 						</tr>
 						<tr>
 							<th>To user:</th>
-							<td>Bill Gates</td>
+							<td><textarea class="form-control" id="exampleTextarea"
+									rows="1" cols="10"></textarea></td>
 						</tr>
 						<tr>
 							<th>To Country:</th>
-							<td>555 77 854</td>
+							<td><textarea class="form-control" id="exampleTextarea"
+									rows="1" cols="10"></textarea></td>
 						</tr>
 						<tr>
 							<th>From Date:</th>
-							<td>555 77 855</td>
+							<td><textarea class="form-control" id="exampleTextarea"
+									rows="1" cols="10"></textarea></td>
 						</tr>
 						<tr>
 							<th>To Date:</th>
-							<td>555 77 855</td>
+							<td><textarea class="form-control" id="exampleTextarea"
+									rows="1" cols="10"></textarea></td>
 						</tr>
 					</table>
 				</div>
 				<div id="mnc">
 					<ul>
 						<li><a>a</a></li>
-						
+
 					</ul>
 				</div>
 
@@ -123,13 +134,13 @@
 					</ul>
 				</nav-->
 				<nav class="nav-settings">
-					<a>Language</a>
-					<div class="styled-select-semi-square">
-						<select ng-model="xxx" name="">
-							<option value="en">English</option>
-							<option value="sp">Spanish</option>
-						</select>
-					</div>
+					<a><label for="sel1">Language</label></a> <select
+						class="form-control" id="sel1">
+						<option>EN</option>
+						<option>SP</option>
+						<option>CN</option>
+
+					</select>
 					</nav-->
 					<div class="clr"></div>
 			</header>

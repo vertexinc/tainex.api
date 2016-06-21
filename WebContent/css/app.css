@@ -98,8 +98,15 @@ h6{
 	margin: 0 0 0 0;	
 }
 
+select{
+	height:30px;
+}
 th {
     padding-left: 20px;
+}
+
+td {
+    padding-right: 10px;
 }
 
 ul{
