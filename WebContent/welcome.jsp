@@ -120,8 +120,10 @@
 								</tr>
 								<tr>
 									<th>Country:</th>
-									<td><textarea class="form-control" id="exampleTextarea"
-											rows="1" cols="8"></textarea></td>
+									<td><select class="form-control" id="sel1">
+											<option>US</option>
+											<option>SP</option>
+									</select></td>
 								</tr>
 								<tr>
 									<th>From Year:</th>
@@ -135,21 +137,96 @@
 								</tr>
 								<tr>
 									<th>Main Business:</th>
-									<td><textarea class="form-control" id="exampleTextarea"
-											rows="1" cols="8"></textarea></td>
+									<td><select class="form-control" id="sel1">
+											<option>Finance</option>
+											<option>Education</option>
+											<option>Health Care</option>
+									</select></td>
 								</tr>
 
 
 							</table>
 							<table>
 								<tr>
+									<th>Key Metric</th>
+									
+									<td class="ex">Between</td>
+								</tr>
+								<tr>
 									<th>Revenue Rel:</th>
+									
+									<td class="ex"><textarea class="form-control" id="exampleTextarea"
+											rows="1" cols="3"></textarea></td>
 									<td><textarea class="form-control" id="exampleTextarea"
-											rows="1" cols="4"></textarea> <textarea class="form-control"
-											id="exampleTextarea" rows="1" cols="4"></textarea></td>
+											rows="1" cols="3"></textarea></td>
+								</tr>
+							
+								<tr>
+									<th>Revenue Unrel:</th>
+									
+									<td class="ex"><textarea class="form-control" id="exampleTextarea"
+											rows="1" cols="2"></textarea></td>
+									<td><textarea class="form-control" id="exampleTextarea"
+											rows="1" cols="2"></textarea></td>
+								</tr>
+								<tr>
+									<th>Total Revenue:</th>
+									
+									<td class="ex"><textarea class="form-control" id="exampleTextarea"
+											rows="1" cols="2"></textarea></td>
+									<td><textarea class="form-control" id="exampleTextarea"
+											rows="1" cols="2"></textarea></td>
+								</tr>
+								<tr>
+									<th>Tax Accrual:</th>
+									
+									<td class="ex"><textarea class="form-control" id="exampleTextarea"
+											rows="1" cols="2"></textarea></td>
+									<td><textarea class="form-control" id="exampleTextarea"
+											rows="1" cols="2"></textarea></td>
+								</tr>
+								<tr>
+									<th>Tax Paid:</th>
+									
+									<td class="ex"><textarea class="form-control" id="exampleTextarea"
+											rows="1" cols="2"></textarea></td>
+									<td><textarea class="form-control" id="exampleTextarea"
+											rows="1" cols="2"></textarea></td>
+								</tr>
+								<tr>
+									<th>Num of Emp.:</th>
+									
+									<td class="ex"><textarea class="form-control" id="exampleTextarea"
+											rows="1" cols="2"></textarea></td>
+									<td><textarea class="form-control" id="exampleTextarea"
+											rows="1" cols="2"></textarea></td>
+								</tr>
+								<tr>
+									<th>Capital:</th>
+									
+									<td class="ex"><textarea class="form-control" id="exampleTextarea"
+											rows="1" cols="2"></textarea></td>
+									<td><textarea class="form-control" id="exampleTextarea"
+											rows="1" cols="2"></textarea></td>
+								</tr><tr>
+									<th>Accu Earnings:</th>
+									
+									<td class="ex"><textarea class="form-control" id="exampleTextarea"
+											rows="1" cols="2"></textarea></td>
+									<td><textarea class="form-control" id="exampleTextarea"
+											rows="1" cols="2"></textarea></td>
+								</tr>
+								<tr>
+									<th>Assets:</th>
+									
+									<td class="ex"><textarea class="form-control" id="exampleTextarea"
+											rows="1" cols="2"></textarea></td>
+									<td><textarea class="form-control" id="exampleTextarea"
+											rows="1" cols="2"></textarea></td>
 								</tr>
 							</table>
 						</div>
+
 					</div>
 				</div>
 
