@@ -41,80 +41,117 @@
 			</h2>
 
 			<nav class="main-nav">
+				<div class="scrollbar" id="style-5">
+					<div class="force-overflow">
+						<div id="composenew">
+							<button type="button" class="btn btn-primary">Compose
+								New Tax Msg</button>
+						</div>
+						<div id="inbox">
+							<ul>
 
-				<div id="composenew">
-					<button type="button" class="btn btn-primary">Compose New
-						Tax Msg</button>
+								<li><button type="button" class="btn btn-primary btn-md">Inbox</button></li>
+
+
+								<li><button type="button" class="btn btn-primary btn-md">Sent</button></li>
+
+
+								<li><button type="button" class="btn btn-primary btn-md">Draft</button></li>
+
+							</ul>
+						</div>
+						<div id="searchby">
+
+
+							<button type="button" class="btn btn-primary btn-md">
+								Search By ... &nbsp &nbsp &nbsp &nbsp<span
+									class="glyphicon glyphicon-search"></span>
+							</button>
+
+
+							<table style="width: 100%">
+								<tr>
+									<th>Doc Type:</th>
+									<td><select class="form-control" id="sel1">
+											<option>CBCR</option>
+											<option>Other</option>
+									</select></td>
+								</tr>
+								<tr>
+									<th>From User:</th>
+									<td><textarea class="form-control" id="exampleTextarea"
+											rows="1" cols="5"></textarea></td>
+								</tr>
+								<tr>
+									<th>From Country:</th>
+									<td><textarea class="form-control" id="exampleTextarea"
+											rows="1" cols="5"></textarea></td>
+								</tr>
+								<tr>
+									<th>To user:</th>
+									<td><textarea class="form-control" id="exampleTextarea"
+											rows="1" cols="5"></textarea></td>
+								</tr>
+								<tr>
+									<th>To Country:</th>
+									<td><textarea class="form-control" id="exampleTextarea"
+											rows="1" cols="5"></textarea></td>
+								</tr>
+								<tr>
+									<th>From Date:</th>
+									<td><textarea class="form-control" id="exampleTextarea"
+											rows="1" cols="5"></textarea></td>
+								</tr>
+								<tr>
+									<th>To Date:</th>
+									<td><textarea class="form-control" id="exampleTextarea"
+											rows="1" cols="5"></textarea></td>
+								</tr>
+							</table>
+						</div>
+						<div id="mnc">
+							<p>MNC:</p>
+							<table style="width: 100%">
+
+								<tr>
+									<th>Name:</th>
+									<td><textarea class="form-control" id="exampleTextarea"
+											rows="1" cols="8"></textarea></td>
+								</tr>
+								<tr>
+									<th>Country:</th>
+									<td><textarea class="form-control" id="exampleTextarea"
+											rows="1" cols="8"></textarea></td>
+								</tr>
+								<tr>
+									<th>From Year:</th>
+									<td><textarea class="form-control" id="exampleTextarea"
+											rows="1" cols="8"></textarea></td>
+								</tr>
+								<tr>
+									<th>To Year:</th>
+									<td><textarea class="form-control" id="exampleTextarea"
+											rows="1" cols="8"></textarea></td>
+								</tr>
+								<tr>
+									<th>Main Business:</th>
+									<td><textarea class="form-control" id="exampleTextarea"
+											rows="1" cols="8"></textarea></td>
+								</tr>
+
+
+							</table>
+							<table>
+								<tr>
+									<th>Revenue Rel:</th>
+									<td><textarea class="form-control" id="exampleTextarea"
+											rows="1" cols="4"></textarea> <textarea class="form-control"
+											id="exampleTextarea" rows="1" cols="4"></textarea></td>
+								</tr>
+							</table>
+						</div>
+					</div>
 				</div>
-				<div id="inbox">
-					<ul>
-
-						<li><button type="button" class="btn btn-primary btn-md">Inbox</button></li>
-
-
-						<li><button type="button" class="btn btn-primary btn-md">Sent</button></li>
-
-
-						<li><button type="button" class="btn btn-primary btn-md">Draft</button></li>
-
-					</ul>
-				</div>
-				<div id="searchby">
-					
-						
-						<button type="button" class="btn btn-primary btn-md">
-							Search By ... &nbsp &nbsp &nbsp &nbsp<span class="glyphicon glyphicon-search"></span>
-						</button>
-				
-
-					<table style="width: 100%">
-						<tr>
-							<th>Doc Type:</th>
-							<td><select class="form-control" id="sel1">
-									<option>CBCR</option>
-									<option>Other</option>
-							</select></td>
-						</tr>
-						<tr>
-							<th>From User:</th>
-							<td><textarea class="form-control" id="exampleTextarea"
-									rows="1" cols="10"></textarea></td>
-						</tr>
-						<tr>
-							<th>From Country:</th>
-							<td><textarea class="form-control" id="exampleTextarea"
-									rows="1" cols="10"></textarea></td>
-						</tr>
-						<tr>
-							<th>To user:</th>
-							<td><textarea class="form-control" id="exampleTextarea"
-									rows="1" cols="10"></textarea></td>
-						</tr>
-						<tr>
-							<th>To Country:</th>
-							<td><textarea class="form-control" id="exampleTextarea"
-									rows="1" cols="10"></textarea></td>
-						</tr>
-						<tr>
-							<th>From Date:</th>
-							<td><textarea class="form-control" id="exampleTextarea"
-									rows="1" cols="10"></textarea></td>
-						</tr>
-						<tr>
-							<th>To Date:</th>
-							<td><textarea class="form-control" id="exampleTextarea"
-									rows="1" cols="10"></textarea></td>
-						</tr>
-					</table>
-				</div>
-				<div id="mnc">
-					<ul>
-						<li><a>a</a></li>
-
-					</ul>
-				</div>
-
-
 
 			</nav>
 		</aside>
