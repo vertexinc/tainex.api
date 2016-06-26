@@ -33,11 +33,11 @@ ul.tab li a {
 }
 /* Change background color of links on hover */
 ul.tab li a:hover {
-	background-color: #ddd;
+	background-color: #44c4e7;
 }
 /* Create an active/current tablink class */
 ul.tab li a:focus, .active {
-	background-color: #00cc99;
+	background-color: #44c4e7;
 }
 /* Style the tab content */
 .tabcontent {
@@ -67,19 +67,77 @@ ul.tab li a:focus, .active {
 	padding-top: 15px;
 	padding-right: 30%;
 }
+
+#upper {
+	height: 260px;
+}
+
+.scrollbar2 {
+	margin-left: 0px;
+	float: left;
+	height: 250px;
+	width: 100%;
+	overflow-y: scroll;
+	margin-bottom: 25px;
+}
+
+.force-overflow2 {
+	min-height: 200px;
+}
+
+.scrollbar3 {
+	margin-left: 0px;
+	float: left;
+	height: 400px;
+	width: 100%;
+	overflow-y: scroll;
+	margin-bottom: 25px;
+}
+
+.force-overflow3 {
+	min-height: 200px;
+}
+
+#style-4::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	background-color: #F5F5F5;
+}
+
+#style-4::-webkit-scrollbar {
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+#style-4::-webkit-scrollbar-thumb {
+	background-color: #0ae;
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255,
+		.2)), color-stop(.5, transparent), to(transparent));
+}
+
+#formGroup {
+	padding-left: 15px;
+	padding-right: 30px;
+}
+
+#formGroup #inputarea {
+	margin-right: 15px;
+}
 </style>
 <body>
-	<div class="upper">
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th><button class="btn btn-primary" type="submit">New</button></th>
-					<th>Cbcr</th>
+	<div id="upper">
+		<div class="scrollbar2" id="style-4">
+			<div class="force-overflow2">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>User</th>
+							<th>Subject</th>
 
-					<th>Description</th>
-				</tr>
-			</thead>
-			<!--  tbody ng-repeat="cbcr in cbcrs">
+							<th>Description</th>
+							<th>Date</th>
+						</tr>
+					</thead>
+					<!--  tbody ng-repeat="cbcr in cbcrs">
 				<tr>
 					<th scope="row">{{cbcr.id}}</th>
 					<td>{{cbcr.name}}</td>
@@ -88,165 +146,168 @@ ul.tab li a:focus, .active {
 			</tbody>
 		</table-->
 
-			<tbody>
-				<tr>
-					<th scope="row">1</th>
-					<td>cbcr1</td>
-					<td>This is cbcr1</td>
-				</tr>
+					<tbody>
+						<tr>
+							<th scope="row">John</th>
+							<td>cbcr1</td>
+							<td>This is cbcr1This is cbcr1This is cbcr1This is cbcr1This
+								is cbcr1This is cbcr1</td>
+							<td>2015-12-12</td>
+						</tr>
 
-				<tr>
-					<th scope="row">2</th>
-					<td>cbcr2</td>
-					<td>This is cbcr2</td>
-				</tr>
+						<tr>
+							<th scope="row">Adam</th>
+							<td>cbcr2</td>
+							<td>This is cbcr2</td>
+							<td>2015-12-12</td>
+						</tr>
 
-				<tr>
-					<th scope="row">3</th>
-					<td>cbcr3</td>
-					<td>This is cbcr3</td>
-				</tr>
-				<tr>
-					<th scope="row">4</th>
-					<td>cbcr4</td>
-					<td>This is cbcr4</td>
-				</tr>
-			</tbody>
-		</table>
-		</br> </br>
+						<tr>
+							<th scope="row">Lucy</th>
+							<td>cbcr3</td>
+							<td>This is cbcr3</td>
+							<td>2015-12-12</td>
+						</tr>
+						<tr>
+							<th scope="row">Kate</th>
+							<td>cbcr4</td>
+							<td>This is cbcr4</td>
+							<td>2015-12-12</td>
+						</tr>
+						<tr>
+							<th scope="row">Liu</th>
+							<td>cbcr1</td>
+							<td>This is cbcr1This is cbcr1This is cbcr1This is cbcr1This
+								is cbcr1This is cbcr1</td>
+							<td>2015-12-12</td>
+						</tr>
+						<tr>
+							<th scope="row">Taylor</th>
+							<td>cbcr1</td>
+							<td>This is cbcr1This is cbcr1This is cbcr1This is cbcr1This
+								is cbcr1This is cbcr1</td>
+							<td>2015-12-12</td>
+						</tr>
+						<tr>
+							<th scope="row">Ben</th>
+							<td>cbcr1</td>
+							<td>This is cbcr1This is cbcr1This is cbcr1This is cbcr1This
+								is cbcr1This is cbcr1</td>
+							<td>2015-12-12</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
 	<div id="lowwer">
-		<ul class="tab">
-			<li><a href="#/write" class="tablinks"
-				onclick="openCity(event, 'Message')">Message</a></li>
-			<li><a href="#/write" class="tablinks"
-				onclick="openCity(event, 'Docs')">Docs</a></li>
-			<li><a href="#/write" " class="tablinks"
-				onclick="openCity(event, 'Entity')">Entity</a></li>
-			<li><a href="#/write" " class="tablinks"
-				onclick="openCity(event, 'Table1')">Table1</a></li>
-			<li><a href="#/write" " class="tablinks"
-				onclick="openCity(event, 'Table2')">Table2</a></li>
-			<li><a href="#/write" " class="tablinks"
-				onclick="openCity(event, 'Table3')">Table3</a></li>
+		<div class="scrollbar3" id="style-4">
+			<div class="force-overflow3">
 
-		</ul>
+				<ul class="tab">
+					<li><a href="#/write" class="tablinks"
+						onclick="openCity(event, 'Message')">Message</a></li>
+					<li><a href="#/write" class="tablinks"
+						onclick="openCity(event, 'Docs')">Docs</a></li>
+					<li><a href="#/write" class="tablinks"
+						onclick="openCity(event, 'Entity')">Entity</a></li>
+					<li><a href="#/write" class="tablinks"
+						onclick="openCity(event, 'Table1')">Table1</a></li>
+					<li><a href="#/write " class="tablinks"
+						onclick="openCity(event, 'Table2')">Table2</a></li>
+					<li><a href="#/write " class="tablinks"
+						onclick="openCity(event, 'Table3')">Table3</a></li>
 
-		<div id="Message" class="tabcontent">
-			<div class="row">
-				<div class="col-md-4">
-					<h3>Generate Message</h3>
+				</ul>
 
-					<form method="POST" action='write' name="frmAddMsg">
-						<fieldset class="form-group">
-
-
-							<textarea class="form-control" id="exampleTextarea" rows="1"
-								cols="40"> Description</textarea>
-
-						</fieldset>
-						<fieldset class="form-group">
-
-
-							<textarea class="form-control" id="exampleTextarea" rows="3"
-								cols="40">Notes</textarea>
-
-						</fieldset>
-						<fieldset class="form-group">
-							<label for="exampleInputFile">Attach Tax Doc</label> <input
-								type="file" class="form-control-file" id="exampleInputFile">
-							<small class="text-muted">Attach cbcr file here!</small>
-						</fieldset>
-
-						<a href="#/success" class="btn btn-primary">Send <span
-							class="glyphicon glyphicon-user"></span></a>
-					</form>
-				</div>
-
-				<div class="col-md-4">
-
-					<p>Transmitting Country</p>
-					<select ng-model="item.meal" name="">
-						<option value="us">US</option>
-						<option value="cn">CN</option>
-						<option value="sp">SP</option>
-					</select>
-					<!--  button ng-click="menu.chooseItem(item.meal,item.name)">Select
-						Item</button-->
-					</br> </br>
-					<form role="form">
-						<p>Reveiving Countries</p>
-						<div class="checkbox">
-							<label><input type="checkbox" value="">US</label>
-						</div>
-						<div class="checkbox">
-							<label><input type="checkbox" value="">CN</label>
-						</div>
-						<div class="checkbox">
-							<label><input type="checkbox" value="">SP</label>
+				<div id="Message" class="tabcontent">
+					<div class="row">
+						<div class="col-md-4">
+							<p>From: abc@MX</p>
 						</div>
 
-					</form>
-					</br>
-					<div id="sendid">
-						<p>Sending Entity ID No.</p>
-						<textarea class="form-control" id="exampleTextarea" rows="1"
-							cols="5"> </textarea>
 
-					</div>
-				</div>
-				<div class="col-md-4">
-					<p>Warning</p>
-					<textarea class="form-control" id="exampleTextarea" rows="2"
-						cols="10"> </textarea>
-					</br>
-					<p>Reporting Period</p>
-					<div class="timecontainer">
-						<div class='col-md-5'>
-							<div class="form-group">
-								<div class='input-group date' id='datetimepicker6'>
-									<input type='text' class="form-control" /> <span
-										class="input-group-addon"> <span
-										class="glyphicon glyphicon-calendar"></span>
-									</span>
-								</div>
-							</div>
+						<div class="col-md-4">
+							<p>Date: Jan 11,2018</p>
 						</div>
-						<div class='col-md-5'>
-							<div class="form-group">
-								<div class='input-group date' id='datetimepicker7'>
-									<input type='text' class="form-control" /> <span
-										class="input-group-addon"> <span
-										class="glyphicon glyphicon-calendar"></span>
-									</span>
-								</div>
-							</div>
+
+						<div class="col-md-4">
+							<p>Status: Viewed</p>
 						</div>
 					</div>
-					
+
+					<div class="row">
+						<div id="formGroup">
+							<form>
+								<div class="form-group row">
+									<label for="To" class="col-sm-2 form-control-label">To:</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="To"
+											placeholder="xyz@DE;uvx@US">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="Subject" class="col-sm-2 form-control-label">Subject:</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="Subject"
+											placeholder="">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="Notes" class="col-sm-2 form-control-label">Notes:</label>
+									<div class="col-sm-10">
+										<textarea rows="4" cols="127"></textarea>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="Warning" class="col-sm-2 form-control-label">Warning:</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="Warning"
+											placeholder="">
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="Contact" class="col-sm-2 form-control-label">Contact:</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" id="Contact"
+											placeholder="">
+									</div>
+								</div>
+							</form>
+
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<p>asx</p>
+						</div>
+						<div class="col-md-6">
+							<p>asx</p>
+						</div>
+					</div>
+
+				</div>
+				<div id="Docs" class="tabcontent">
+					<h3>Docs</h3>
+					<p>Details of the doc.</p>
+				</div>
+				<div id="Entity" class="tabcontent">
+					<h3>Entity</h3>
+					<p>Entity Information</p>
+				</div>
+				<div id="Table1" class="tabcontent">
+					<h3>Table1</h3>
+					<p>Table1 Info</p>
+				</div>
+				<div id="Table2" class="tabcontent">
+					<h3>Table2</h3>
+					<p>Table2 Info.</p>
+				</div>
+				<div id="Table3" class="tabcontent">
+					<h3>Table3</h3>
+					<p>Table3 Info.</p>
 				</div>
 			</div>
-
-		</div>
-		<div id="Docs" class="tabcontent">
-			<h3>Docs</h3>
-			<p>Details of the doc.</p>
-		</div>
-		<div id="Entity" class="tabcontent">
-			<h3>Entity</h3>
-			<p>Entity Information</p>
-		</div>
-		<div id="Table1" class="tabcontent">
-			<h3>Table1</h3>
-			<p>Table1 Info</p>
-		</div>
-		<div id="Table2" class="tabcontent">
-			<h3>Table2</h3>
-			<p>Table2 Info.</p>
-		</div>
-		<div id="Table3" class="tabcontent">
-			<h3>Table3</h3>
-			<p>Table3 Info.</p>
 		</div>
 	</div>
 
@@ -265,21 +326,21 @@ ul.tab li a:focus, .active {
 			document.getElementById(cityName).style.display = "block";
 			evt.currentTarget.className += " active";
 		}
-		
 	</script>
 	<script type="text/javascript">
-    $(function () {
-        $('#datetimepicker6').datetimepicker();
-        $('#datetimepicker7').datetimepicker({
-            useCurrent: false //Important! See issue #1075
-        });
-        $("#datetimepicker6").on("dp.change", function (e) {
-            $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
-        });
-        $("#datetimepicker7").on("dp.change", function (e) {
-            $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
-        });
-    });
-</script>
+		$(function() {
+			$('#datetimepicker6').datetimepicker();
+			$('#datetimepicker7').datetimepicker({
+				useCurrent : false
+			//Important! See issue #1075
+			});
+			$("#datetimepicker6").on("dp.change", function(e) {
+				$('#datetimepicker7').data("DateTimePicker").minDate(e.date);
+			});
+			$("#datetimepicker7").on("dp.change", function(e) {
+				$('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+			});
+		});
+	</script>
 </body>
 </html>

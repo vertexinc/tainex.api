@@ -116,7 +116,7 @@
 								<tr>
 									<th>Name:</th>
 									<td><textarea class="form-control" id="exampleTextarea"
-											rows="1" cols="8"></textarea></td>
+											rows="1" cols="5"></textarea></td>
 								</tr>
 								<tr>
 									<th>Country:</th>
@@ -128,12 +128,12 @@
 								<tr>
 									<th>From Year:</th>
 									<td><textarea class="form-control" id="exampleTextarea"
-											rows="1" cols="8"></textarea></td>
+											rows="1" cols="5"></textarea></td>
 								</tr>
 								<tr>
 									<th>To Year:</th>
 									<td><textarea class="form-control" id="exampleTextarea"
-											rows="1" cols="8"></textarea></td>
+											rows="1" cols="5"></textarea></td>
 								</tr>
 								<tr>
 									<th>Main Business:</th>
