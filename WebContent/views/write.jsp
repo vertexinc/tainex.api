@@ -122,6 +122,8 @@ ul.tab li a:focus, .active {
 #formGroup #inputarea {
 	margin-right: 15px;
 }
+
+
 </style>
 <body>
 	<div id="upper">
@@ -279,17 +281,132 @@ ul.tab li a:focus, .active {
 					</div>
 					<div class="row">
 						<div class="col-md-6">
-							<p>asx</p>
+							<table style="width: 100%">
+								<tr>
+									<th>OECD Message Ref ID:</th>
+									<td>MX-2018-1</td>
+								</tr>
+								<tr>
+									<th>OECD Message Type:</th>
+									<td><select class="form-control" id="sel1">
+											<option>CbC</option>
+											<option>Other</option>
+									</select></td>
+								</tr>
+								<tr>
+									<th>Sending Country:</th>
+									<td>MX</td>
+								</tr>
+								<tr>
+									<th>Language:</th>
+									<td><select class="form-control" id="sel1">
+											<option>EN</option>
+											<option>SP</option>
+									</select></td>
+								</tr>
+							</table>
 						</div>
 						<div class="col-md-6">
-							<p>asx</p>
+							<table style="width: 100%">
+								<tr>
+									<th>Reporting Period:</th>
+									<td><select class="form-control" id="sel1">
+											<option>2018</option>
+											<option>2017</option>
+											<option>2016</option>
+									</select></td>
+								</tr>
+
+								<tr>
+									<th>OECD Message Type Indic:</th>
+									<td><select class="form-control" id="sel1">
+											<option>CBC401</option>
+											<option>CBC402</option>
+											<option>CBC403</option>
+									</select></td>
+								</tr>
+
+								<tr>
+									<th>Receiving Country:</th>
+									<td>DE,US</td>
+								</tr>
+							</table>
 						</div>
 					</div>
 
 				</div>
 				<div id="Docs" class="tabcontent">
-					<h3>Docs</h3>
-					<p>Details of the doc.</p>
+					<div class="row">
+						<div class="col-md-6">Tax Documents In Message:</div>
+						<div id="docbuttons" class="col-md-6">
+							<button type="button" class="btn btn-info">Attach Tax
+								Data File</button>
+							<button type="button" class="btn btn-info">Detach From
+								Msg...</button>
+						</div>
+					</div>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Code</th>
+								<th>Title</th>
+								<th>Doc Type</th>
+								<th>Reporting Entity</th>
+								<th>Currency</th>
+								<th>Resident Country</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>code123</td>
+								<td>Doc1</td>
+								<td>Excel</td>
+								<td>Reporting1212</td>
+								<td>US Dollar</td>
+								<td>USA</td>
+							</tr>
+							<tr>
+								<td>code123</td>
+								<td>Doc1</td>
+								<td>Excel</td>
+								<td>Reporting1212</td>
+								<td>US Dollar</td>
+								<td>USA</td>
+							</tr>
+							<tr>
+								<td>code123</td>
+								<td>Doc1</td>
+								<td>Excel</td>
+								<td>Reporting1212</td>
+								<td>US Dollar</td>
+								<td>USA</td>
+							</tr>
+							<tr>
+								<td>code123</td>
+								<td>Doc1</td>
+								<td>Excel</td>
+								<td>Reporting1212</td>
+								<td>US Dollar</td>
+								<td>USA</td>
+							</tr>
+							<tr>
+								<td>code123</td>
+								<td>Doc1</td>
+								<td>Excel</td>
+								<td>Reporting1212</td>
+								<td>US Dollar</td>
+								<td>USA</td>
+							</tr>
+							<tr>
+								<td>code123</td>
+								<td>Doc1</td>
+								<td>Excel</td>
+								<td>Reporting1212</td>
+								<td>US Dollar</td>
+								<td>USA</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 				<div id="Entity" class="tabcontent">
 					<h3>Entity</h3>
