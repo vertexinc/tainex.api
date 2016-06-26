@@ -72,6 +72,10 @@ ul.tab li a:focus, .active {
 	height: 260px;
 }
 
+#docrow{
+	padding-left: 10px;
+}
+
 .scrollbar2 {
 	margin-left: 0px;
 	float: left;
@@ -122,8 +126,6 @@ ul.tab li a:focus, .active {
 #formGroup #inputarea {
 	margin-right: 15px;
 }
-
-
 </style>
 <body>
 	<div id="upper">
@@ -409,55 +411,167 @@ ul.tab li a:focus, .active {
 					</table>
 				</div>
 				<div id="Entity" class="tabcontent">
-					<h3>Entity</h3>
-					<p>Entity Information</p>
-				</div>
-				<div id="Table1" class="tabcontent">
-					<h3>Table1</h3>
-					<p>Table1 Info</p>
-				</div>
-				<div id="Table2" class="tabcontent">
-					<h3>Table2</h3>
-					<p>Table2 Info.</p>
-				</div>
-				<div id="Table3" class="tabcontent">
-					<h3>Table3</h3>
-					<p>Table3 Info.</p>
+					<div class="row" id="docrow"><h3>Entities in CBCR Doc:</h3></div>
+						<div class="row">
+							<div class="col-md-6">
+								
+								<table style="width: 100%">
+									<tr>
+										<td>Reporting Entity:</td>
+										<td>Sample Corp</td>
+									</tr>
+									<tr>
+										<td>Resident Country:</td>
+										<td>MX</td>
+									</tr>
+								</table>
+							</div>
+							<div class="col-md-3">Currency:</div>
+							<div class="col-md-3">MXP</div>
+						</div>
+						
+						</br>
+						<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>TIN</th>
+								<th>Name</th>
+								<th>Doc Type</th>
+								<th>Incorporation Country</th>
+								<th>Resident Country</th>
+								<th>Is PE?</th>
+								<th>Address</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>TIN1</td>
+								<td>Sample</td>
+								<td>Excel</td>
+								<td>USA</td>
+								<td>USA</td>
+								<td>YES</td>
+								<td>342 South AVE</td>
+							</tr>
+							<tr>
+								<td>TIN1</td>
+								<td>Sample</td>
+								<td>Excel</td>
+								<td>USA</td>
+								<td>USA</td>
+								<td>YES</td>
+								<td>342 South AVE</td>
+							</tr>
+								<tr>
+								<td>TIN1</td>
+								<td>Sample</td>
+								<td>Excel</td>
+								<td>USA</td>
+								<td>USA</td>
+								<td>YES</td>
+								<td>342 South AVE</td>
+							</tr>
+							<tr>
+								<td>TIN1</td>
+								<td>Sample</td>
+								<td>Excel</td>
+								<td>USA</td>
+								<td>USA</td>
+								<td>YES</td>
+								<td>342 South AVE</td>
+							</tr>
+								<tr>
+								<td>TIN1</td>
+								<td>Sample</td>
+								<td>Excel</td>
+								<td>USA</td>
+								<td>USA</td>
+								<td>YES</td>
+								<td>342 South AVE</td>
+							</tr>
+							<tr>
+								<td>TIN1</td>
+								<td>Sample</td>
+								<td>Excel</td>
+								<td>USA</td>
+								<td>USA</td>
+								<td>YES</td>
+								<td>342 South AVE</td>
+							</tr>
+								<tr>
+								<td>TIN1</td>
+								<td>Sample</td>
+								<td>Excel</td>
+								<td>USA</td>
+								<td>USA</td>
+								<td>YES</td>
+								<td>342 South AVE</td>
+							</tr>
+							<tr>
+								<td>TIN1</td>
+								<td>Sample</td>
+								<td>Excel</td>
+								<td>USA</td>
+								<td>USA</td>
+								<td>YES</td>
+								<td>342 South AVE</td>
+							</tr>
+						</tbody>
+					</table>
+
+					</div>
+					<div id="Table1" class="tabcontent">
+						<h3>Table1</h3>
+						<p>Table1 Info</p>
+					</div>
+					<div id="Table2" class="tabcontent">
+						<h3>Table2</h3>
+						<p>Table2 Info.</p>
+					</div>
+					<div id="Table3" class="tabcontent">
+						<h3>Table3</h3>
+						<p>Table3 Info.</p>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<script>
-		function openCity(evt, cityName) {
-			var i, tabcontent, tablinks;
-			tabcontent = document.getElementsByClassName("tabcontent");
-			for (i = 0; i < tabcontent.length; i++) {
-				tabcontent[i].style.display = "none";
+		<script>
+			function openCity(evt, cityName) {
+				var i, tabcontent, tablinks;
+				tabcontent = document.getElementsByClassName("tabcontent");
+				for (i = 0; i < tabcontent.length; i++) {
+					tabcontent[i].style.display = "none";
+				}
+				tablinks = document.getElementsByClassName("tablinks");
+				for (i = 0; i < tablinks.length; i++) {
+					tablinks[i].className = tablinks[i].className.replace(
+							" active", "");
+				}
+				document.getElementById(cityName).style.display = "block";
+				evt.currentTarget.className += " active";
 			}
-			tablinks = document.getElementsByClassName("tablinks");
-			for (i = 0; i < tablinks.length; i++) {
-				tablinks[i].className = tablinks[i].className.replace(
-						" active", "");
-			}
-			document.getElementById(cityName).style.display = "block";
-			evt.currentTarget.className += " active";
-		}
-	</script>
-	<script type="text/javascript">
-		$(function() {
-			$('#datetimepicker6').datetimepicker();
-			$('#datetimepicker7').datetimepicker({
-				useCurrent : false
-			//Important! See issue #1075
+		</script>
+		<script type="text/javascript">
+			$(function() {
+				$('#datetimepicker6').datetimepicker();
+				$('#datetimepicker7').datetimepicker({
+					useCurrent : false
+				//Important! See issue #1075
+				});
+				$("#datetimepicker6").on(
+						"dp.change",
+						function(e) {
+							$('#datetimepicker7').data("DateTimePicker")
+									.minDate(e.date);
+						});
+				$("#datetimepicker7").on(
+						"dp.change",
+						function(e) {
+							$('#datetimepicker6').data("DateTimePicker")
+									.maxDate(e.date);
+						});
 			});
-			$("#datetimepicker6").on("dp.change", function(e) {
-				$('#datetimepicker7').data("DateTimePicker").minDate(e.date);
-			});
-			$("#datetimepicker7").on("dp.change", function(e) {
-				$('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
-			});
-		});
-	</script>
+		</script>
 </body>
 </html>
