@@ -327,48 +327,52 @@ td {
 
 .x0l65 {
 	mso-style-parent: style0;
-	border: .5pt solid windowtext;
-	white-space: normal;
-}
-
-.x0l66 {
-	mso-style-parent: style0;
 	text-align: left;
 	vertical-align: middle;
 	border: .5pt solid windowtext;
 }
 
-.x0l67 {
+.x0l66 {
 	mso-style-parent: style0;
 	border: .5pt solid windowtext;
 }
 
+.x0l67 {
+	mso-style-parent: style16;
+	color: white;
+	font-weight: 700;
+	text-align: center;
+	vertical-align: middle;
+	border: 2.0pt double #3F3F3F;
+	background: #A5A5A5;
+	mso-pattern: black none;
+	white-space: normal;
+}
+
 .x0l68 {
 	mso-style-parent: style0;
-	text-align: center;
-	border-top: .5pt solid windowtext;
-	border-right: none;
-	border-bottom: none;
-	border-left: .5pt solid windowtext;
+	border: .5pt solid windowtext;
 	white-space: normal;
 }
 
 .x0l69 {
 	mso-style-parent: style0;
 	text-align: center;
-	border-top: .5pt solid windowtext;
+	vertical-align: top;
+	border-top: none;
 	border-right: none;
-	border-bottom: none;
-	border-left: none;
+	border-bottom: .5pt solid windowtext;
+	border-left: .5pt solid windowtext;
 	white-space: normal;
 }
 
 .x0l70 {
 	mso-style-parent: style0;
 	text-align: center;
-	border-top: .5pt solid windowtext;
-	border-right: .5pt solid windowtext;
-	border-bottom: none;
+	vertical-align: top;
+	border-top: none;
+	border-right: none;
+	border-bottom: .5pt solid windowtext;
 	border-left: none;
 	white-space: normal;
 }
@@ -378,63 +382,55 @@ td {
 	text-align: center;
 	vertical-align: top;
 	border-top: none;
-	border-right: none;
-	border-bottom: .5pt solid windowtext;
-	border-left: .5pt solid windowtext;
-	white-space: normal;
-}
-
-.x0l72 {
-	mso-style-parent: style0;
-	text-align: center;
-	vertical-align: top;
-	border-top: none;
-	border-right: none;
-	border-bottom: .5pt solid windowtext;
-	border-left: none;
-	white-space: normal;
-}
-
-.x0l73 {
-	mso-style-parent: style0;
-	text-align: center;
-	vertical-align: top;
-	border-top: none;
 	border-right: .5pt solid windowtext;
 	border-bottom: .5pt solid windowtext;
 	border-left: none;
 	white-space: normal;
 }
 
-.x0l74 {
-	mso-style-parent: style33;
-	color: white;
-	font-weight: 700;
-	text-align: center;
-	vertical-align: middle;
-	border: 2.0pt double #3F3F3F;
-	background: #A5A5A5;
-	mso-pattern: black none;
-	white-space: normal;
-}
-
-.x0l75 {
-	mso-style-parent: style33;
-	color: white;
-	font-weight: 700;
-	text-align: center;
-	border: 2.0pt double #3F3F3F;
-	background: #A5A5A5;
-	mso-pattern: black none;
-	white-space: normal;
-	mso-rotate: 90;
-}
-
-.x0l76 {
+.x0l72 {
 	mso-style-parent: style0;
-	text-align: left;
-	vertical-align: middle;
+	text-align: center;
+	border-top: .5pt solid windowtext;
+	border-right: none;
+	border-bottom: none;
+	border-left: .5pt solid windowtext;
 	white-space: normal;
+}
+
+.x0l73 {
+	mso-style-parent: style0;
+	text-align: center;
+	border-top: .5pt solid windowtext;
+	border-right: none;
+	border-bottom: none;
+	border-left: none;
+	white-space: normal;
+}
+
+.x0l74 {
+	mso-style-parent: style0;
+	text-align: center;
+	border-top: .5pt solid windowtext;
+	border-right: .5pt solid windowtext;
+	border-bottom: none;
+	border-left: none;
+	white-space: normal;
+}
+
+#Table3>table {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+#Table3>tr>td {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+#table3head {
+	text-align: center;
+	font-weight: normal;
 }
 </style>
 <body>
@@ -1031,223 +1027,252 @@ td {
 							<!--[endif]-->
 						</tbody>
 					</table>
+
 				</div>
 				<div id="Table2" class="tabcontent">
-					<h3>Table2</h3>
-					<table border="0" cellpadding="0" cellspacing="0" width="1115"
-						style="border-collapse: collapse; table-layout: fixed; width: 837pt">
+					<h5>Table 2. List of all the Constituent Entities of the MNE
+						group included in each aggregation per tax jurisdiction</h5>
+					<table border="0" cellpadding="0" cellspacing="0" width="1424"
+						style="border-collapse: collapse; table-layout: fixed; width: 1069pt">
 						<colgroup>
 							<col width="84"
 								style="mso-width-source: userset; mso-width-alt: 3072; width: 63pt">
+							<col width="87"
+								style="mso-width-source: userset; mso-width-alt: 3181; width: 65pt">
+							<col width="123"
+								style="mso-width-source: userset; mso-width-alt: 4498; width: 92pt">
+							<col width="95"
+								style="mso-width-source: userset; mso-width-alt: 3474; width: 71pt">
+							<col width="90"
+								style="mso-width-source: userset; mso-width-alt: 3291; width: 68pt">
+							<col width="92"
+								style="mso-width-source: userset; mso-width-alt: 3364; width: 69pt">
+							<col width="105"
+								style="mso-width-source: userset; mso-width-alt: 3840; width: 79pt">
+							<col width="117"
+								style="mso-width-source: userset; mso-width-alt: 4278; width: 88pt">
+							<col width="106"
+								style="mso-width-source: userset; mso-width-alt: 3876; width: 80pt">
+							<col width="91"
+								style="mso-width-source: userset; mso-width-alt: 3328; width: 68pt">
+							<col width="64" style="width: 48pt">
 							<col width="81"
 								style="mso-width-source: userset; mso-width-alt: 2962; width: 61pt">
-							<col width="118"
-								style="mso-width-source: userset; mso-width-alt: 4315; width: 89pt">
-							<col width="64" span="13" style="width: 48pt">
+							<col width="74"
+								style="mso-width-source: userset; mso-width-alt: 2706; width: 56pt">
+							<col width="87"
+								style="mso-width-source: userset; mso-width-alt: 3181; width: 65pt">
+							<col width="64" span="2" style="width: 48pt">
 						</colgroup>
 						<tbody>
 							<tr height="20" style="height: 15.0pt">
-								<td colspan="16" height="20" class="x0l68" width="1115"
-									style="border-right: .5pt solid black; height: 15.0pt; width: 837pt">Name
+								<td colspan="16" height="20" class="x0l72" width="1424"
+									style="border-right: .5pt solid black; height: 15.0pt; width: 1069pt">Name
 									of the MNE group:</td>
 							</tr>
 							<tr height="21" style="height: 15.75pt">
-								<td colspan="16" height="21" class="x0l71" width="1115"
-									style="border-right: .5pt solid black; height: 15.75pt; width: 837pt">Fiscal
+								<td colspan="16" height="21" class="x0l69" width="1424"
+									style="border-right: .5pt solid black; height: 15.75pt; width: 1069pt">Fiscal
 									year concerned:</td>
 							</tr>
 							<tr height="22" style="height: 16.5pt">
-								<td rowspan="2" height="159" class="x0l74" width="84"
-									style="height: 119.25pt; width: 63pt">Tax Jurisdiction</td>
-								<td rowspan="2" class="x0l74" width="81" style="width: 61pt">Constituent
+								<td rowspan="2" height="170" class="x0l67" width="84"
+									style="height: 127.5pt; width: 63pt">Tax Jurisdiction</td>
+								<td rowspan="2" class="x0l67" width="87" style="width: 65pt">Constituent
 									Entities resident in the Tax Jurisdiction</td>
-								<td rowspan="2" class="x0l74" width="118" style="width: 89pt">Tax
+								<td rowspan="2" class="x0l67" width="123" style="width: 92pt">Tax
 									Jurisdiction of organisation of incorporation if different from
 									Tax Jurisdiction of Resident</td>
-								<td colspan="13" class="x0l74" width="832"
-									style="border-left: none; width: 624pt">Main business
+								<td colspan="13" class="x0l67" width="1130"
+									style="border-left: none; width: 849pt">Main business
 									activity(ies)</td>
 							</tr>
-							<tr height="137"
-								style="mso-height-source: userset; height: 102.75pt">
-								<td height="137" class="x0l75" width="64"
-									style="height: 102.75pt; border-top: none; border-left: none; width: 48pt"><div id = "vertical">Research
-									and Development</div></td>
-								<td class="x0l75" width="64"
-									style="border-top: none; border-left: none; width: 48pt">Holding
+							<tr height="148"
+								style="mso-height-source: userset; height: 111.0pt">
+								<td height="148" class="x0l67" width="95"
+									style="height: 111.0pt; border-top: none; border-left: none; width: 71pt">Research
+									and Development</td>
+								<td class="x0l67" width="90"
+									style="border-top: none; border-left: none; width: 68pt">Holding
 									or Managing intellectual Property</td>
-								<td class="x0l75" width="64"
-									style="border-top: none; border-left: none; width: 48pt">Purchase
+								<td class="x0l67" width="92"
+									style="border-top: none; border-left: none; width: 69pt">Purchase
 									or Procurement</td>
-								<td class="x0l75" width="64"
-									style="border-top: none; border-left: none; width: 48pt">Manufacturing
+								<td class="x0l67" width="105"
+									style="border-top: none; border-left: none; width: 79pt">Manufacturing
 									or Production</td>
-								<td class="x0l75" width="64"
-									style="border-top: none; border-left: none; width: 48pt">Sales,
+								<td class="x0l67" width="117"
+									style="border-top: none; border-left: none; width: 88pt">Sales,
 									Marketing or Distribution</td>
-								<td class="x0l75" width="64"
-									style="border-top: none; border-left: none; width: 48pt">Administrative,
+								<td class="x0l67" width="106"
+									style="border-top: none; border-left: none; width: 80pt">Administrative,
 									Management or Support Services</td>
-								<td class="x0l75" width="64"
-									style="border-top: none; border-left: none; width: 48pt">Provision
+								<td class="x0l67" width="91"
+									style="border-top: none; border-left: none; width: 68pt">Provision
 									of Services to unrelated parties</td>
-								<td class="x0l75" width="64"
+								<td class="x0l67" width="64"
 									style="border-top: none; border-left: none; width: 48pt">Internal
 									Group Finance</td>
-								<td class="x0l75" width="64"
-									style="border-top: none; border-left: none; width: 48pt">Regulated
+								<td class="x0l67" width="81"
+									style="border-top: none; border-left: none; width: 61pt">Regulated
 									Financial Services</td>
-								<td class="x0l75" width="64"
-									style="border-top: none; border-left: none; width: 48pt">Insurance</td>
-								<td class="x0l75" width="64"
-									style="border-top: none; border-left: none; width: 48pt">Holding
+								<td class="x0l67" width="74"
+									style="border-top: none; border-left: none; width: 56pt">Insurance</td>
+								<td class="x0l67" width="87"
+									style="border-top: none; border-left: none; width: 65pt">Holding
 									shares or other equity instruments</td>
-								<td class="x0l75" width="64"
+								<td class="x0l67" width="64"
 									style="border-top: none; border-left: none; width: 48pt">Dormant</td>
-								<td class="x0l75" width="64"
+								<td class="x0l67" width="64"
 									style="border-top: none; border-left: none; width: 48pt">Other2</td>
 							</tr>
 							<tr height="21" style="height: 15.75pt">
-								<td rowspan="3" height="61" class="x0l65" width="84"
+								<td rowspan="3" height="61" class="x0l68" width="84"
 									style="height: 45.75pt; width: 63pt">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">1</td>
-								<td class="x0l67" style="border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-left: none">&nbsp;</td>
+								<td class="x0l65" style="border-left: none">1</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
 							</tr>
 							<tr height="20" style="height: 15.0pt">
-								<td height="20" class="x0l66"
+								<td height="20" class="x0l65"
 									style="height: 15.0pt; border-top: none; border-left: none">2</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
 							</tr>
 							<tr height="20" style="height: 15.0pt">
-								<td height="20" class="x0l66"
+								<td height="20" class="x0l65"
 									style="height: 15.0pt; border-top: none; border-left: none">3</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
 							</tr>
 							<tr height="20" style="height: 15.0pt">
-								<td rowspan="3" height="60" class="x0l65" width="84"
+								<td rowspan="3" height="60" class="x0l68" width="84"
 									style="height: 45.0pt; border-top: none; width: 63pt">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">1</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l65" style="border-top: none; border-left: none">1</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
 							</tr>
 							<tr height="20" style="height: 15.0pt">
-								<td height="20" class="x0l66"
+								<td height="20" class="x0l65"
 									style="height: 15.0pt; border-top: none; border-left: none">2</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
 							</tr>
 							<tr height="20" style="height: 15.0pt">
-								<td height="20" class="x0l66"
+								<td height="20" class="x0l65"
 									style="height: 15.0pt; border-top: none; border-left: none">3</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l67" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
 							</tr>
-							<tr height="20" style="height: 15.0pt">
-								<td height="20" colspan="16"
-									style="height: 15.0pt; mso-ignore: colspan"></td>
-							</tr>
-
 							<!--[if supportMisalignedColumns]-->
 							<tr height="0" style="display: none">
 								<td width="84" style="width: 63pt"></td>
+								<td width="87" style="width: 65pt"></td>
+								<td width="123" style="width: 92pt"></td>
+								<td width="95" style="width: 71pt"></td>
+								<td width="90" style="width: 68pt"></td>
+								<td width="92" style="width: 69pt"></td>
+								<td width="105" style="width: 79pt"></td>
+								<td width="117" style="width: 88pt"></td>
+								<td width="106" style="width: 80pt"></td>
+								<td width="91" style="width: 68pt"></td>
+								<td width="64" style="width: 48pt"></td>
 								<td width="81" style="width: 61pt"></td>
-								<td width="118" style="width: 89pt"></td>
-								<td width="64" style="width: 48pt"></td>
-								<td width="64" style="width: 48pt"></td>
-								<td width="64" style="width: 48pt"></td>
-								<td width="64" style="width: 48pt"></td>
-								<td width="64" style="width: 48pt"></td>
-								<td width="64" style="width: 48pt"></td>
-								<td width="64" style="width: 48pt"></td>
-								<td width="64" style="width: 48pt"></td>
-								<td width="64" style="width: 48pt"></td>
-								<td width="64" style="width: 48pt"></td>
-								<td width="64" style="width: 48pt"></td>
+								<td width="74" style="width: 56pt"></td>
+								<td width="87" style="width: 65pt"></td>
 								<td width="64" style="width: 48pt"></td>
 								<td width="64" style="width: 48pt"></td>
 							</tr>
 							<!--[endif]-->
 						</tbody>
 					</table>
+					<h6>Please specify the nature if the activity of the
+						Consitituent Entity in the "Additional Information" section.</h6>
 				</div>
-				<div id="Table3" class="tabcontent">
+				<div id="Table3">
 					<h3>Table3</h3>
-
+					<table style="width: 100%">
+						<tr>
+							<th><div id="table3head">Name of the MNE group:</div>
+								<div id="table3head">Fiscal year concerned:</div></th>
+						</tr>
+						<tr>
+							<td><textarea rows="4" cols="180" id="To"
+									placeholder="Please include any further brief information or explaination you consider necessary or that would facilitate the understanding of the compulsory information provided in the country-by-country report."></textarea></td>
+						</tr>
+					</table>
 				</div>
 			</div>
 		</div>
