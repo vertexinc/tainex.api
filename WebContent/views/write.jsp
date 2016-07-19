@@ -337,6 +337,13 @@ td {
 	border: .5pt solid windowtext;
 }
 
+.x00l66 {
+	height: 100px;
+	mso-style-parent: style0;
+	border: .5pt solid windowtext;
+	 vertical-align: text-top;
+}
+
 .x0l67 {
 	mso-style-parent: style16;
 	color: white;
@@ -1261,9 +1268,9 @@ td {
 					<h6>Please specify the nature if the activity of the
 						Consitituent Entity in the "Additional Information" section.</h6>
 				</div>
-				<div id="Table3">
-					<h3>Table3</h3>
-					<table style="width: 100%">
+				<div id="Table3" class="tabcontent">
+					<h5>Table 3. Additional Information</h5>
+					<!--  table style="width: 100%">
 						<tr>
 							<th><div id="table3head">Name of the MNE group:</div>
 								<div id="table3head">Fiscal year concerned:</div></th>
@@ -1272,6 +1279,25 @@ td {
 							<td><textarea rows="4" cols="180" id="To"
 									placeholder="Please include any further brief information or explaination you consider necessary or that would facilitate the understanding of the compulsory information provided in the country-by-country report."></textarea></td>
 						</tr>
+					</table-->
+					<table style="width: 100%">
+
+						<tr>
+
+							<th><div id="table3head">Name of the MNE group:</div>
+								<div id="table3head">Fiscal year concerned:</div></th>
+						</tr>
+
+						<tr>
+
+							<td class="x00l66" rows="4" cols="180" id="To">Please
+								include any further brief information or explaination you
+								consider necessary or that would facilitate the understanding of
+								the compulsory information provided in the country-by-country
+								report.</td>
+
+						</tr>
+
 					</table>
 				</div>
 			</div>

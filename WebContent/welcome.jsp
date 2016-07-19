@@ -270,7 +270,7 @@
 						<div>
 							<li><a> Welcome!, <%=session.getAttribute("name")%> !
 							</a></li>
-							<li><a href="#">Log Out</a></li>
+							<li><a href="LogoutServlet">Log Out</a></li>
 						</div>
 					</ul>
 				</nav>
