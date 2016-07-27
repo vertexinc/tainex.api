@@ -35,8 +35,8 @@
 	<div class="container">
 		<aside class="sidebar">
 			<h2 class="logo">
-				<a href="#/write">TIE<strong>app</strong></a> <span><h6>
-						For Mexico SAT</h6></span>
+				<a href="#/write">TIE<strong>app</strong></a> <span><!--h6>
+						For Mexico SAT</h6--> <h6>For <%=session.getAttribute("tie")%></h6></span>
 			</h2>
 
 			<nav class="main-nav">

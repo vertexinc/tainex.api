@@ -2,7 +2,7 @@
  * 
  */
 /**
- * @author awang
+ *
  *
  */
 package com.tie.dao;
@@ -27,17 +27,17 @@ public class LoginDao {
         ResultSet rs = null;  
   
         String url = "jdbc:mysql://localhost:3306/";  
-        String dbName = "mxuser";  
+        String dbName = "mx";  
         String driver = "com.mysql.jdbc.Driver";  
         String userName = "root";  
-        String password = "";  
+        String password = "000";  
         try {  
             Class.forName(driver).newInstance();  
             conn = DriverManager  
                     .getConnection(url + dbName, userName, password);  
   
             pst = conn  
-                    .prepareStatement("select * from mxuser.tieuser where username=? and password=?");  
+                    .prepareStatement("select * from mx.users where name=? and password=?");  
             pst.setString(1, name);  
             pst.setString(2, pass);  
   
