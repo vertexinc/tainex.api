@@ -7,20 +7,17 @@ import com.tie.dao.TiePersister;
  */
 public class TieController extends TieControllerBase {
 
-	
 	/*
 	 * Singleton access of the controller
 	 */
 	private static TieController controller;
-	public static TieController getController()
-	{
+
+	public static TieController getController() {
 		// check to create singlton
-		
+
 		return controller;
-	}//end getController()
-			
-	
-	
+	}// end getController()
+
 	/*
 	 * Hold attributes of the controllers
 	 */
@@ -44,7 +41,7 @@ public class TieController extends TieControllerBase {
 	// Create all the controllers
 
 	public void init() {
-		 persister = new TiePersister();
+		persister = new TiePersister();
 	}
 
 }

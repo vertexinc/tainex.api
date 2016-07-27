@@ -37,7 +37,7 @@ public class LoginDao {
                     .getConnection(url + dbName, userName, password);  
   
             pst = conn  
-                    .prepareStatement("select * from mx.users where name=? and password=?");  
+                    .prepareStatement("select * from mx.tieuser where name=? and code=?");  
             pst.setString(1, name);  
             pst.setString(2, pass);  
   

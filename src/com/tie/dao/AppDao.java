@@ -35,7 +35,7 @@ public class AppDao {
 			Class.forName(driver).newInstance();
 			conn = DriverManager.getConnection(url + dbName, userName, password);
 
-			pst = conn.prepareStatement("select name from mx.app where id = 1");
+			pst = conn.prepareStatement("select name from mx.tieapp where tieAppId = 1");
 			// pst.setString(1, name);
 			// pst.setString(2, pass);
 
