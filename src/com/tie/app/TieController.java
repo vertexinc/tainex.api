@@ -12,6 +12,12 @@ public class TieController extends TieControllerBase {
 	 */
 	private static TieController controller;
 
+	public TieController() {
+		// super();
+		init();
+		// TODO Auto-generated constructor stub
+	}
+
 	public static TieController getController() {
 		// check to create singlton
 
@@ -29,12 +35,6 @@ public class TieController extends TieControllerBase {
 
 	public void setPersister(TiePersister persister) {
 		this.persister = persister;
-	}
-
-	public TieController() {
-		// super();
-		init();
-		// TODO Auto-generated constructor stub
 	}
 
 	// Initialization function
