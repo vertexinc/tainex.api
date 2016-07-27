@@ -36,7 +36,7 @@
 		<aside class="sidebar">
 			<h2 class="logo">
 				<a href="#/write">TIE<strong>app</strong></a> <span><!--h6>
-						For Mexico SAT</h6--> <h6>For <%=session.getAttribute("tie")%></h6></span>
+						For Mexico SAT</h6--> <h6>For <%=session.getAttribute("name")%></h6></span>
 			</h2>
 
 			<nav class="main-nav">
@@ -268,7 +268,7 @@
 							</select></li>
 						</div>
 						<div>
-							<li><a> Welcome!, <%=session.getAttribute("name")%> !
+							<li><a> Welcome!, <%=session.getAttribute("tie")%> !
 							</a></li>
 							<li><a href="LogoutServlet">Log Out</a></li>
 						</div>
