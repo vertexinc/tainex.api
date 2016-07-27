@@ -1,30 +1,75 @@
 package com.tie.model;
 
 public class TieMsg {
-	private int msgid;
+	private int tieMsgId;
+	private String subject;
 	private String code;
 	private String description;
 	private String notes;
+	private int senderId;
 	private int ownerid;
+	private int tieMsgStateId;
+	private String sendingEntityIdNum;
+	private String transmittingCountry;
+	private String receivingCountries;
+	private String messageType;
+	private String lauguage;
+	private String warning;
+	private String contact;
+	private String messageRefId;
+	private String messageTypeIndic;
+	private String corrMessageRefIds;
+	private String reportingPeriod;
+	private String timestamp;
+	private String rawMsg;
+	
+	public TieMsg() {
+		
+	}
 
-	public TieMsg(String code, String description, String notes, int ownerid) {
-		super();
+	public TieMsg(int tieMsgId, String subject, String code, String description, String notes, int senderId,
+			int ownerid, int tieMsgStateId, String sendingEntityIdNum, String transmittingCountry,
+			String receivingCountries, String messageType, String lauguage, String warning, String contact,
+			String messageRefId, String messageTypeIndic, String corrMessageRefIds, String reportingPeriod,
+			String timestamp, String rawMsg) {
+		
+		this.tieMsgId = tieMsgId;
+		this.subject = subject;
 		this.code = code;
 		this.description = description;
 		this.notes = notes;
+		this.senderId = senderId;
 		this.ownerid = ownerid;
+		this.tieMsgStateId = tieMsgStateId;
+		this.sendingEntityIdNum = sendingEntityIdNum;
+		this.transmittingCountry = transmittingCountry;
+		this.receivingCountries = receivingCountries;
+		this.messageType = messageType;
+		this.lauguage = lauguage;
+		this.warning = warning;
+		this.contact = contact;
+		this.messageRefId = messageRefId;
+		this.messageTypeIndic = messageTypeIndic;
+		this.corrMessageRefIds = corrMessageRefIds;
+		this.reportingPeriod = reportingPeriod;
+		this.timestamp = timestamp;
+		this.rawMsg = rawMsg;
 	}
 
-	public TieMsg() {
-
+	public int getTieMsgId() {
+		return tieMsgId;
 	}
 
-	public int getMsgid() {
-		return msgid;
+	public void setTieMsgId(int tieMsgId) {
+		this.tieMsgId = tieMsgId;
 	}
 
-	public void setMsgid(int msgid) {
-		this.msgid = msgid;
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
 
 	public String getCode() {
@@ -51,6 +96,14 @@ public class TieMsg {
 		this.notes = notes;
 	}
 
+	public int getSenderId() {
+		return senderId;
+	}
+
+	public void setSenderId(int senderId) {
+		this.senderId = senderId;
+	}
+
 	public int getOwnerid() {
 		return ownerid;
 	}
@@ -59,9 +112,128 @@ public class TieMsg {
 		this.ownerid = ownerid;
 	}
 
+	public int getTieMsgStateId() {
+		return tieMsgStateId;
+	}
+
+	public void setTieMsgStateId(int tieMsgStateId) {
+		this.tieMsgStateId = tieMsgStateId;
+	}
+
+	public String getSendingEntityIdNum() {
+		return sendingEntityIdNum;
+	}
+
+	public void setSendingEntityIdNum(String sendingEntityIdNum) {
+		this.sendingEntityIdNum = sendingEntityIdNum;
+	}
+
+	public String getTransmittingCountry() {
+		return transmittingCountry;
+	}
+
+	public void setTransmittingCountry(String transmittingCountry) {
+		this.transmittingCountry = transmittingCountry;
+	}
+
+	public String getReceivingCountries() {
+		return receivingCountries;
+	}
+
+	public void setReceivingCountries(String receivingCountries) {
+		this.receivingCountries = receivingCountries;
+	}
+
+	public String getMessageType() {
+		return messageType;
+	}
+
+	public void setMessageType(String messageType) {
+		this.messageType = messageType;
+	}
+
+	public String getLauguage() {
+		return lauguage;
+	}
+
+	public void setLauguage(String lauguage) {
+		this.lauguage = lauguage;
+	}
+
+	public String getWarning() {
+		return warning;
+	}
+
+	public void setWarning(String warning) {
+		this.warning = warning;
+	}
+
+	public String getContact() {
+		return contact;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
+
+	public String getMessageRefId() {
+		return messageRefId;
+	}
+
+	public void setMessageRefId(String messageRefId) {
+		this.messageRefId = messageRefId;
+	}
+
+	public String getMessageTypeIndic() {
+		return messageTypeIndic;
+	}
+
+	public void setMessageTypeIndic(String messageTypeIndic) {
+		this.messageTypeIndic = messageTypeIndic;
+	}
+
+	public String getCorrMessageRefIds() {
+		return corrMessageRefIds;
+	}
+
+	public void setCorrMessageRefIds(String corrMessageRefIds) {
+		this.corrMessageRefIds = corrMessageRefIds;
+	}
+
+	public String getReportingPeriod() {
+		return reportingPeriod;
+	}
+
+	public void setReportingPeriod(String reportingPeriod) {
+		this.reportingPeriod = reportingPeriod;
+	}
+
+	public String getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(String timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	public String getRawMsg() {
+		return rawMsg;
+	}
+
+	public void setRawMsg(String rawMsg) {
+		this.rawMsg = rawMsg;
+	}
+
 	@Override
 	public String toString() {
-		return "TieMsg [code=" + code + ", description=" + description + ", notes=" + notes + ", ownerid=" + ownerid
-				+ "]";
+		return "TieMsg [tieMsgId=" + tieMsgId + ", subject=" + subject + ", code=" + code + ", description="
+				+ description + ", notes=" + notes + ", senderId=" + senderId + ", ownerid=" + ownerid
+				+ ", tieMsgStateId=" + tieMsgStateId + ", sendingEntityIdNum=" + sendingEntityIdNum
+				+ ", transmittingCountry=" + transmittingCountry + ", receivingCountries=" + receivingCountries
+				+ ", messageType=" + messageType + ", lauguage=" + lauguage + ", warning=" + warning + ", contact="
+				+ contact + ", messageRefId=" + messageRefId + ", messageTypeIndic=" + messageTypeIndic
+				+ ", corrMessageRefIds=" + corrMessageRefIds + ", reportingPeriod=" + reportingPeriod + ", timestamp="
+				+ timestamp + ", rawMsg=" + rawMsg + "]";
 	}
+
 }

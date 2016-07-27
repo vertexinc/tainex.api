@@ -6,11 +6,28 @@ public class TieUser {
 	private String code;
 	private String description;
 	private String email;
-	private String ctsUserId; // ??
-	private String ctsUserPwdl;
+	private String ctsUserId;
+	private String ctsUserPwd;
 	private String ctsUserCertificate;
 	private int tieAppId;
-	
+	private int isExternal;
+	public TieUser() {
+		//super();
+	}
+	public TieUser(int tieUserId, String name, String code, String description, String email, String ctsUserId,
+			String ctsUserPwd, String ctsUserCertificate, int tieAppId, int isExternal) {
+		//super();
+		this.tieUserId = tieUserId;
+		this.name = name;
+		this.code = code;
+		this.description = description;
+		this.email = email;
+		this.ctsUserId = ctsUserId;
+		this.ctsUserPwd = ctsUserPwd;
+		this.ctsUserCertificate = ctsUserCertificate;
+		this.tieAppId = tieAppId;
+		this.isExternal = isExternal;
+	}
 	public int getTieUserId() {
 		return tieUserId;
 	}
@@ -47,11 +64,11 @@ public class TieUser {
 	public void setCtsUserId(String ctsUserId) {
 		this.ctsUserId = ctsUserId;
 	}
-	public String getCtsUserPwdl() {
-		return ctsUserPwdl;
+	public String getCtsUserPwd() {
+		return ctsUserPwd;
 	}
-	public void setCtsUserPwdl(String ctsUserPwdl) {
-		this.ctsUserPwdl = ctsUserPwdl;
+	public void setCtsUserPwd(String ctsUserPwd) {
+		this.ctsUserPwd = ctsUserPwd;
 	}
 	public String getCtsUserCertificate() {
 		return ctsUserCertificate;
@@ -65,4 +82,19 @@ public class TieUser {
 	public void setTieAppId(int tieAppId) {
 		this.tieAppId = tieAppId;
 	}
+	public int getIsExternal() {
+		return isExternal;
+	}
+	public void setIsExternal(int isExternal) {
+		this.isExternal = isExternal;
+	}
+	
+	@Override
+	public String toString() {
+		return "TieUser [tieUserId=" + tieUserId + ", name=" + name + ", code=" + code + ", description=" + description
+				+ ", email=" + email + ", ctsUserId=" + ctsUserId + ", ctsUserPwd=" + ctsUserPwd
+				+ ", ctsUserCertificate=" + ctsUserCertificate + ", tieAppId=" + tieAppId + ", isExternal=" + isExternal
+				+ "]";
+	}
+	
 }
