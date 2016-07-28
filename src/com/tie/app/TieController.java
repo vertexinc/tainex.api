@@ -12,8 +12,12 @@ public class TieController extends TieControllerBase {
 	 */
 	private static TieController controller;
 
+	/*
+	 * Hold attributes of the controllers
+	 */
+	private TiePersister persister;
+
 	public TieController() {
-		// super();
 		init();
 		// TODO Auto-generated constructor stub
 	}
@@ -23,11 +27,6 @@ public class TieController extends TieControllerBase {
 
 		return controller;
 	}// end getController()
-
-	/*
-	 * Hold attributes of the controllers
-	 */
-	private TiePersister persister;
 
 	public TiePersister getPersister() {
 		return persister;

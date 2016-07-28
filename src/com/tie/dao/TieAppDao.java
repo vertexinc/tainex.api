@@ -19,8 +19,17 @@ import java.util.List;
 import com.tie.util.DbUtil;
 import com.tie.model.TieUser;
 
-public class AppDao {
-	public  String appname() {
+public class TieAppDao extends BaseDao {
+	public TieAppDao(TiePersister tiePersister) {
+		super(tiePersister);
+		// TODO Auto-generated constructor stub
+	}
+	
+	public TieAppDao(){
+		super(null);
+	}
+
+	public String appname() {
 		String status = "test";
 		Connection conn = null;
 		PreparedStatement pst = null;
@@ -41,7 +50,7 @@ public class AppDao {
 
 			rs = pst.executeQuery();
 			while (rs.next()) {
-			 status = rs.getString(1);
+				status = rs.getString(1);
 			}
 
 		} catch (Exception e) {

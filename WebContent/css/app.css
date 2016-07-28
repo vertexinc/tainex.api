@@ -244,6 +244,14 @@ li {
 	color: #999;
 }
 
+.scrollbar3 >ul>li.active{
+	/*background: #44c4e7;*/
+}
+
+.scrollbar3 >ul>li a:hover{
+	background: #44c4e7;
+}
+
 .main {
 	-webkit-flex: 1;
 	height: 760px;
@@ -593,4 +601,395 @@ textarea {
   	right: 0;
   	bottom: 0;
   	left: 0;*/
+}
+
+#upper {
+	height: 260px;
+}
+
+#Message {
+	width: 100%;
+}
+
+
+#middleside {
+	float: right;
+	padding-top: 15px;
+	padding-right: 50%;
+}
+
+#rightside {
+	float: right;
+	padding-top: 15px;
+	padding-right: 30%;
+}
+
+
+#docrow {
+	padding-left: 10px;
+}
+
+.scrollbar2 {
+	margin-left: 0px;
+	float: left;
+	height: 250px;
+	width: 100%;
+	overflow-y: scroll;
+	margin-bottom: 25px;
+}
+
+#rotate {
+	/* Rotate div */
+	-ms-transform: rotate(270deg); /* IE 9 */
+	-webkit-transform: rotate(270deg); /* Chrome, Safari, Opera */
+	transform: rotate(270deg);
+}
+
+.force-overflow2 {
+	min-height: 200px;
+}
+
+.scrollbar3 {
+	margin-left: 0px;
+	float: left;
+	height: 400px;
+	width: 100%;
+	overflow-y: scroll;
+	margin-bottom: 25px;
+}
+
+.force-overflow3 {
+	min-height: 200px;
+}
+
+h5 {
+	text-align: center;
+}
+
+#Table1 {
+	text-align: center;
+}
+
+#style-4::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	background-color: #F5F5F5;
+}
+
+#style-4::-webkit-scrollbar {
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+#style-4::-webkit-scrollbar-thumb {
+	background-color: #0ae;
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, color-stop(.5, rgba(255, 255, 255,
+		.2)), color-stop(.5, transparent), to(transparent));
+}
+
+#formGroup {
+	padding-left: 15px;
+	padding-right: 30px;
+}
+
+#formGroup #inputarea {
+	margin-right: 15px;
+}
+
+tr {
+	mso-height-source: auto;
+}
+
+col {
+	mso-width-source: auto;
+}
+
+br {
+	mso-data-placement: same-cell;
+}
+
+.style33 {
+	background: #A5A5A5;
+	mso-pattern: black none;
+	color: white;
+	font-size: 11.0pt;
+	font-weight: 700;
+	font-style: normal;
+	text-decoration: none;
+	font-family: Calibri, sans-serif;
+	mso-font-charset: 0;
+	border: 2.0pt double #3F3F3F;
+	mso-style-name: "Check Cell";
+	mso-style-id: 23;
+}
+
+.style0 {
+	mso-number-format: General;
+	text-align: general;
+	vertical-align: bottom;
+	white-space: nowrap;
+	mso-rotate: 0;
+	mso-background-source: auto;
+	mso-pattern: auto;
+	color: black;
+	font-size: 11.0pt;
+	font-weight: 400;
+	font-style: normal;
+	text-decoration: none;
+	font-family: Calibri, sans-serif;
+	mso-font-charset: 0;
+	border: none;
+	mso-protection: locked visible;
+	mso-style-name: Normal;
+	mso-style-id: 0;
+}
+
+td {
+	mso-style-parent: style0;
+	padding-top: 1px;
+	padding-right: 1px;
+	padding-left: 1px;
+	mso-ignore: padding;
+	color: black;
+	font-size: 11.0pt;
+	font-weight: 400;
+	font-style: normal;
+	text-decoration: none;
+	font-family: Calibri, sans-serif;
+	mso-font-charset: 0;
+	mso-number-format: General;
+	text-align: general;
+	vertical-align: bottom;
+	border: none;
+	mso-background-source: auto;
+	mso-pattern: auto;
+	mso-protection: locked visible;
+	white-space: nowrap;
+	mso-rotate: 0;
+}
+
+
+.xl65 {
+	mso-style-parent: style0;
+	border: .5pt solid windowtext;
+}
+
+.xl66 {
+	mso-style-parent: style0;
+	text-align: center;
+	vertical-align: middle;
+	border: .5pt solid windowtext;
+	white-space: normal;
+}
+
+.xl67 {
+	mso-style-parent: style0;
+	border: .5pt solid windowtext;
+	white-space: normal;
+}
+
+.xl68 {
+	mso-style-parent: style0;
+	text-align: center;
+	border-top: .5pt solid windowtext;
+	border-right: none;
+	border-bottom: none;
+	border-left: none;
+	white-space: normal;
+}
+
+.xl69 {
+	mso-style-parent: style0;
+	text-align: center;
+	border-top: .5pt solid windowtext;
+	border-right: none;
+	border-bottom: none;
+	border-left: .5pt solid windowtext;
+	white-space: normal;
+}
+
+.xl70 {
+	mso-style-parent: style0;
+	text-align: center;
+	border-top: .5pt solid windowtext;
+	border-right: .5pt solid windowtext;
+	border-bottom: none;
+	border-left: none;
+	white-space: normal;
+}
+
+.xl71 {
+	mso-style-parent: style0;
+	text-align: center;
+	vertical-align: top;
+	border-top: none;
+	border-right: none;
+	border-bottom: .5pt solid windowtext;
+	border-left: .5pt solid windowtext;
+	white-space: normal;
+}
+
+.xl72 {
+	mso-style-parent: style0;
+	text-align: center;
+	vertical-align: top;
+	border-top: none;
+	border-right: none;
+	border-bottom: .5pt solid windowtext;
+	border-left: none;
+	white-space: normal;
+}
+
+.xl73 {
+	mso-style-parent: style0;
+	text-align: center;
+	vertical-align: top;
+	border-top: none;
+	border-right: .5pt solid windowtext;
+	border-bottom: .5pt solid windowtext;
+	border-left: none;
+	white-space: normal;
+}
+
+.xl74 {
+	mso-style-parent: style0;
+	border-top: none;
+	border-right: .5pt solid windowtext;
+	border-bottom: .5pt solid windowtext;
+	border-left: .5pt solid windowtext;
+	white-space: normal;
+}
+
+.xl75 {
+	mso-style-parent: style0;
+	border-top: none;
+	border-right: .5pt solid windowtext;
+	border-bottom: .5pt solid windowtext;
+	border-left: .5pt solid windowtext;
+}
+
+.xl76 {
+	mso-style-parent: style33;
+	color: white;
+	font-weight: 700;
+	text-align: center;
+	vertical-align: middle;
+	border: .5pt solid windowtext;
+	background: #A5A5A5;
+	mso-pattern: black none;
+	white-space: normal;
+}
+
+.x0l65 {
+	mso-style-parent: style0;
+	text-align: left;
+	vertical-align: middle;
+	border: .5pt solid windowtext;
+}
+
+.x0l66 {
+	mso-style-parent: style0;
+	border: .5pt solid windowtext;
+}
+
+.x00l66 {
+	height: 100px;
+	mso-style-parent: style0;
+	border: .5pt solid windowtext;
+	vertical-align: text-top;
+}
+
+.x0l67 {
+	mso-style-parent: style16;
+	color: white;
+	font-weight: 700;
+	text-align: center;
+	vertical-align: middle;
+	border: 2.0pt double #3F3F3F;
+	background: #A5A5A5;
+	mso-pattern: black none;
+	white-space: normal;
+}
+
+.x0l68 {
+	mso-style-parent: style0;
+	border: .5pt solid windowtext;
+	white-space: normal;
+}
+
+.x0l69 {
+	mso-style-parent: style0;
+	text-align: center;
+	vertical-align: top;
+	border-top: none;
+	border-right: none;
+	border-bottom: .5pt solid windowtext;
+	border-left: .5pt solid windowtext;
+	white-space: normal;
+}
+
+.x0l70 {
+	mso-style-parent: style0;
+	text-align: center;
+	vertical-align: top;
+	border-top: none;
+	border-right: none;
+	border-bottom: .5pt solid windowtext;
+	border-left: none;
+	white-space: normal;
+}
+
+.x0l71 {
+	mso-style-parent: style0;
+	text-align: center;
+	vertical-align: top;
+	border-top: none;
+	border-right: .5pt solid windowtext;
+	border-bottom: .5pt solid windowtext;
+	border-left: none;
+	white-space: normal;
+}
+
+.x0l72 {
+	mso-style-parent: style0;
+	text-align: center;
+	border-top: .5pt solid windowtext;
+	border-right: none;
+	border-bottom: none;
+	border-left: .5pt solid windowtext;
+	white-space: normal;
+}
+
+.x0l73 {
+	mso-style-parent: style0;
+	text-align: center;
+	border-top: .5pt solid windowtext;
+	border-right: none;
+	border-bottom: none;
+	border-left: none;
+	white-space: normal;
+}
+
+.x0l74 {
+	mso-style-parent: style0;
+	text-align: center;
+	border-top: .5pt solid windowtext;
+	border-right: .5pt solid windowtext;
+	border-bottom: none;
+	border-left: none;
+	white-space: normal;
+}
+
+#Table3>table {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+#Table3>tr>td {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+#table3head {
+	text-align: center;
+	font-weight: normal;
 }

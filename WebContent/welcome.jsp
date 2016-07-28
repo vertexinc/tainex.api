@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page import="com.tie.app.TieSessionController"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -22,13 +23,12 @@
 <script src="javascript/controllers/main.js"></script>
 <script src="javascript/controllers/cbcrController.js"></script>
 <script src="javascript/service/cbcrs.js"></script>
-
+<script src="javascript/collapse.js"></script>
 
 <!--script src="javascript/angular-ui-router.min.js"></script-->
 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/app.css" />
-
 </head>
 
 <body ng-app="tieappApp">
@@ -36,11 +36,12 @@
 	<div class="container">
 		<aside class="sidebar">
 			<h2 class="logo">
-				<a href="#/write">TIE<strong>app</strong></a> <span> <!--h6>
-						For Mexico SAT</h6-->
+				<a href="#/write">TIE<strong>app</strong></a> <span>
 					<h6>
 						For
-						<%=session.getAttribute("name")%></h6>
+						<%=session.getAttribute("name")%>
+
+					</h6>
 				</span>
 			</h2>
 
@@ -69,9 +70,12 @@
 								Search By ... &nbsp &nbsp &nbsp &nbsp<span
 									class="glyphicon glyphicon-search"></span>
 							</button>
-							&nbsp &nbsp &nbsp <span class="glyphicon glyphicon-chevron-down"
-								data-toggle="collapse" data-target="#demo"></span>
-							<div id="demo" class="collapse">
+							 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a data-toggle="collapse"
+								data-parent="#collapser" href="#collapseQuote"> <span
+									class="toggle-icon glyphicon glyphicon-chevron-down"></span>
+							</a>
+							
+							<div id="collapseQuote" class="collapse">
 								<div id="searchby">
 
 

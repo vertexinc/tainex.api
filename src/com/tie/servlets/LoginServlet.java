@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.tie.app.TieController;
-import com.tie.dao.AppDao;
+import com.tie.dao.TieAppDao;
 import com.tie.dao.LoginDao;
 
 @WebServlet("/login")
@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
 														// JSP
 		String p = request.getParameter("userpass"); // they are variables in
 														// JSP
-		AppDao appdao = new AppDao();
+		TieAppDao appdao = new TieAppDao();
 		String x = appdao.appname();
 
 		HttpSession session = request.getSession(false);
@@ -44,9 +44,9 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("tie", n);
 			session.setAttribute("name", x);
 		}
-
-		//get the HttpSession session = ...
 		
+		//get the HttpSession session = ...
+	
 		// get TieSessionController from the http session
 		// TieSessionController sessionController = (TieSessionController) session.get property by user name( userName )
 		
