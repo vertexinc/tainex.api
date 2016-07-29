@@ -9,13 +9,21 @@ import com.tie.ui.TieMainPage;
 public class TieSessionController extends TieControllerBase {
 
 	private String userCode;
+	// point to ui class
+	
+	TieMainPage mainPage;
+	
+	// The key to access session controller
+	public static String sesssionControllerName = "theSessionController";
+	
+	public void init() {
+		mainPage = new TieMainPage();
+	}
+	
 
 	public TieSessionController() {
 		init();
 	}
-
-	// The key to access session controller
-	public static String sesssionControllerName = "theSessionController";
 
 	public String getUserCode() {
 		return userCode;
@@ -25,9 +33,6 @@ public class TieSessionController extends TieControllerBase {
 		this.userCode = userCode;
 	}
 
-	// point to ui class
-	TieMainPage mainPage;
-
 	public TieMainPage getMainPage() {
 		return mainPage;
 	}
@@ -36,9 +41,6 @@ public class TieSessionController extends TieControllerBase {
 		this.mainPage = mainPage;
 	}
 
-	public void init() {
-		mainPage = new TieMainPage();
-	}
 
 	//populate the mainPage's username and appname
 	public void handleLogin() {

@@ -38,42 +38,42 @@ public class LoginServlet extends HttpServlet {
 														// JSP
 		TieAppDao appdao = new TieAppDao();
 		String x = appdao.appname();
+		
 
 		HttpSession session = request.getSession(false);
 		if (session != null) {
-			session.setAttribute("tie", n);
-			session.setAttribute("name", x);
+			session.setAttribute("user", n);
+			session.setAttribute("appname", x);
 		}
-		
-		//get the HttpSession session = ...
-	
+
+		/* Session value */
+		// String s =
+		// ((com.tie.app.TieSessionController)session.getAttribute("name")).getMainPage().getUsername();
+		// get the HttpSession session = ...
+
 		// get TieSessionController from the http session
-		// TieSessionController sessionController = (TieSessionController) session.get property by user name( userName )
-		
-		// if sessionController != null // it means user has already logged in, do nothing, return the same page
+		// TieSessionController sessionController = (TieSessionController)
+		// session.get property by user name( userName )
+
+		// if sessionController != null // it means user has already logged in,
+		// do nothing, return the same page
 		// else, //the user is touch the page for the first time
-		//{
-			//TieSecurityManager securityManager = TieController.getController().getSecurityManager();
-			//put validate logic to security manager class
-		
-			//If user is authentiocated
-				//Create a new session controller and put int session
-		 		// sessionController = new TieSessionController();
-				// sessionController.setUserCode( userName );
-		  		// httpSession.put( userName, sessionController );
-			//else  // user is not authenticated
-				// redisplay login page
-		
-		//}
-		
-		
-		if (LoginDao.validate(n, p)) {
-			
-			
-			
-			
-			
-			
+		// {
+		// TieSecurityManager securityManager =
+		// TieController.getController().getSecurityManager();
+		// put validate logic to security manager class
+
+		// If user is authentiocated
+		// Create a new session controller and put int session
+		// sessionController = new TieSessionController();
+		// sessionController.setUserCode( userName );
+		// httpSession.put( userName, sessionController );
+		// else // user is not authenticated
+		// redisplay login page
+
+		// }
+		LoginDao loginDao = new LoginDao();
+		if (loginDao.validate(n, p)) {
 			RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
 
 			rd.forward(request, response);

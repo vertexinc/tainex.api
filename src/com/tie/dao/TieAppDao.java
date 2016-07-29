@@ -1,10 +1,3 @@
-/**
- * 
- */
-/**
- *
- *
- */
 package com.tie.dao;
 
 import java.sql.Connection;
@@ -18,31 +11,15 @@ import java.util.List;
 
 import com.tie.util.DbUtil;
 import com.tie.model.TieUser;
+import com.tie.ui.TieMainPage;
 
 public class TieAppDao extends BaseDao {
-	public TieAppDao(TiePersister tiePersister) {
-		super(tiePersister);
-		// TODO Auto-generated constructor stub
-	}
-	
-	public TieAppDao(){
-		super(null);
-	}
 
 	public String appname() {
-		String status = "test";
-		Connection conn = null;
-		PreparedStatement pst = null;
-		ResultSet rs = null;
-
-		String url = "jdbc:mysql://localhost:3306/";
-		String dbName = "mx";
-		String driver = "com.mysql.jdbc.Driver";
-		String userName = "root";
-		String password = "000";
+		// get connection from super class
+		getConnection();
+		String appname = "test";
 		try {
-			Class.forName(driver).newInstance();
-			conn = DriverManager.getConnection(url + dbName, userName, password);
 
 			pst = conn.prepareStatement("select name from mx.tieapp where tieAppId = 1");
 			// pst.setString(1, name);
@@ -50,7 +27,7 @@ public class TieAppDao extends BaseDao {
 
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				status = rs.getString(1);
+				appname = rs.getString(1);
 			}
 
 		} catch (Exception e) {
@@ -78,6 +55,9 @@ public class TieAppDao extends BaseDao {
 				}
 			}
 		}
-		return status;
+		//Set the Appname in  com.tie.ui.TieMainPage.java
+		TieMainPage tieMainPage = new TieMainPage();
+		tieMainPage.setAppName(appname);
+		return appname;
 	}
 }

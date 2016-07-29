@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Welcome <%=session.getAttribute("name")%></title>
+<title>Welcome <%=session.getAttribute("user")%></title>
 
 
 
@@ -39,8 +39,8 @@
 				<a href="#/write">TIE<strong>app</strong></a> <span>
 					<h6>
 						For
-						<%=session.getAttribute("name")%>
-
+						<%=session.getAttribute("appname")%>
+						<!--%=((com.tie.app.TieSessionController)session.getAttribute("appname")).getMainPage().getAppName()%-->
 					</h6>
 				</span>
 			</h2>
@@ -283,7 +283,7 @@
 							</select></li>
 						</div>
 						<div>
-							<li><a> Welcome, <%=session.getAttribute("tie")%> !
+							<li><a> Welcome, <%=session.getAttribute("user")%> !
 							</a></li>
 							<li><a href="LogoutServlet">Log Out</a></li>
 						</div>
