@@ -15,9 +15,9 @@ import java.sql.SQLException;
  *         helpers one for each table COnnections prop
  */
 public class TiePersister {
-	TieAppDao tieAppDao;
-	LoginDao loginDao;
-
+	//TieAppDao tieAppDao;
+	//LoginDao loginDao;
+	/*
 	public TiePersister() {
 		// super();
 		// this.tieAppDao = tieAppDao;
@@ -28,5 +28,12 @@ public class TiePersister {
 		tieAppDao = new TieAppDao();
 		loginDao = new LoginDao();
 	}
+	*/
+	public static TieAppDao getTieAppDao(){
+		return new TieAppDao();
+	}
 	
+	public static LoginDao getLoginDao(){
+		return new LoginDao();
+	}
 }
