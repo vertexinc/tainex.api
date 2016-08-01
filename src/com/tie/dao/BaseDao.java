@@ -24,7 +24,7 @@ public class BaseDao {
 	 * 
 	 * public void setTiePersister(TiePersister tiePersister) {
 	 * this.tiePersister = tiePersister; }
-	
+	*/
 
 	public  Connection conn = null;
 	public  PreparedStatement pst = null;
@@ -35,7 +35,7 @@ public class BaseDao {
 			String dbName = "mx";
 			String driver = "com.mysql.jdbc.Driver";
 			String userName = "root";
-			String password = "0000";
+			String password = "000";
 			if(conn != null){
 				return conn;
 			}else{
@@ -48,7 +48,8 @@ public class BaseDao {
 			}
 			return conn;
 			
-		} */
+		} 
+	/*
 		private static BaseDao instance = new BaseDao();
 		private Connection conn;
 		private BaseDao(){
@@ -67,7 +68,7 @@ public class BaseDao {
 			String dbName = "mx";
 			String driver = "com.mysql.jdbc.Driver";
 			String userName = "root";
-			String password = "0000";
+			String password = "000";
 			if(conn != null){
 				return;
 			}else{
@@ -92,5 +93,5 @@ public class BaseDao {
 			
 			conn = null;
 		}
-		
+	*/
 }

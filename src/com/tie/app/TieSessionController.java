@@ -42,7 +42,9 @@ public class TieSessionController extends TieControllerBase {
 	}
 
 
-	//populate the mainPage's username and appname
+	//populate the mainPage's every object
+	//get the persister first
+	//from the persister get the Dao and invoke method insides it to populate over to mainPage
 	public void handleLogin() {
 		
 	}

@@ -9,6 +9,7 @@ package com.tie.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpSession;
 
 import com.tie.app.TieController;
 import com.tie.dao.TieAppDao;
+import com.tie.dao.TiePersister;
 import com.tie.dao.LoginDao;
 
 @WebServlet("/login")
@@ -37,9 +39,14 @@ public class LoginServlet extends HttpServlet {
 		String p = request.getParameter("userpass"); // they are variables in
 														// JSP
 		TieAppDao appdao = new TieAppDao();
-		String x = appdao.appname();
-		
+		// String x = appdao.appname();
+		String x = null;
 
+		// TieController tieController = new TieController();
+		// tieController.getPersister();
+		x = TieController.getController().getPersister().getTieAppDao().findTieAppById(1).getName();
+
+		// watch the session here, put it to session controllerj
 		HttpSession session = request.getSession(false);
 		if (session != null) {
 			session.setAttribute("user", n);
@@ -73,6 +80,7 @@ public class LoginServlet extends HttpServlet {
 
 		// }
 		LoginDao loginDao = new LoginDao();
+
 		if (loginDao.validate(n, p)) {
 			RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
 

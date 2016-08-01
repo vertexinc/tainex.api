@@ -15,6 +15,7 @@ public class TieApp {
 		// super();
 	}
 
+	
 	public TieApp(int tieAppId, String name, String code, String description, String ctsId, String ctsPwd,
 			String taxAuthorityCode, String countryCode, int isRunning) {
 		super();
@@ -28,7 +29,11 @@ public class TieApp {
 		this.countryCode = countryCode;
 		this.isRunning = isRunning;
 	}
-
+	/*
+	public TieApp(String name,String description){
+		this.name = name;
+		this.description = description;
+	}*/
 	public int getTieAppId() {
 		return tieAppId;
 	}

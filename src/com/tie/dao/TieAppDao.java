@@ -14,41 +14,71 @@ import com.tie.model.TieApp;
 import com.tie.model.TieUser;
 import com.tie.ui.TieMainPage;
 
-public class TieAppDao {
-	public TieApp getTieAppById(int id) throws SQLException{
-		Connection conn = BaseDao.getInstance().getConnection();
-		String sql = "select name from mx.tieapp where tieAppId = ?";
-		
-		PreparedStatement selectStatement = conn.prepareStatement(sql);
-		selectStatement.setInt(1, id);
-		ResultSet results = selectStatement.executeQuery();
-		TieApp tieApp = null;
-		if(results.next()){
-			String name = results.getString("name");
-			String code = results.getString("code");
-			String description = results.getString("description");
-			String ctsId = results.getString("ctsId");
-			String ctsPwd = results.getString("ctsPwd");
-			String taxAuthorityCode = results.getString("taxAuthorityCode");
-			String countryCode = results.getString("countryCode");
-			int isRunning = results.getInt("isRunning");
-			
-			tieApp = new TieApp(id,name,code,description,ctsId,ctsPwd,taxAuthorityCode,countryCode,isRunning);
+public class TieAppDao extends BaseDao {
+	// findTIeAPpById
+	public TieApp findTieAppById(int id) {
+		getConnection();
+		String appname = "test";
+		TieApp tieapp = null;
+		try {
+			String sql = "select * from mx.tieapp where tieAppId = ?";
+
+			PreparedStatement selectStatement = conn.prepareStatement(sql);
+			selectStatement.setInt(1, id);
+			rs = selectStatement.executeQuery();
+
+			while (rs.next()) {
+				String name = rs.getString("name");
+				String code = rs.getString("code");
+				String description = rs.getString("description");
+				String ctsId = rs.getString("ctsId");
+				String ctsPwd = rs.getString("ctsPwd");
+				String taxAuthorityCode = rs.getString("taxAuthorityCode");
+				String countryCode = rs.getString("countryCode");
+				int isRunning = rs.getInt("isRunning");
+
+				tieapp = new TieApp(id, name, code, description, ctsId,
+				 ctsPwd, taxAuthorityCode, countryCode,
+				 isRunning);
+				//tieapp = new TieApp(name,description);
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (pst != null) {
+				try {
+					pst.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+
 		}
-		
-		results.close();
-		selectStatement.close();
-		
-		return tieApp;
+
+		return tieapp;
 	}
 
 	/*
 	 * public String appname() { // get connection from super class
 	 * getConnection(); String appname = "test"; try {
 	 * 
-	 * pst =
-	 * conn.prepareStatement("select name from mx.tieapp where tieAppId = 1");
-	 * // pst.setString(1, name); // pst.setString(2, pass);
+	 * pst = conn.prepareStatement(
+	 * "select name from mx.tieapp where tieAppId = 1"); // pst.setString(1,
+	 * name); // pst.setString(2, pass);
 	 * 
 	 * rs = pst.executeQuery(); while (rs.next()) { appname = rs.getString(1); }
 	 * 
