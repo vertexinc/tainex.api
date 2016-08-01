@@ -12,45 +12,21 @@ import java.util.List;
 import com.tie.util.DbUtil;
 import com.tie.model.TieUser;
 
-public class LoginDao extends BaseDao {
-
-	public boolean validate(String name, String pass) {
-		getConnection();
+public class LoginDao {
+	// Not extend basedao, instead, make one db conn via basedao and access to
+	// the db by conn from basedao
+	public boolean validate(String name, String pass) throws SQLException {
+		Connection conn = BaseDao.getInstance().getConnection();
 		boolean status = false;
-		try {
+		ResultSet rs = null;
+		PreparedStatement pst = null;
+		pst = conn.prepareStatement("select * from mx.tieuser where name=? and code=?");
+		pst.setString(1, name);
+		pst.setString(2, pass);
 
-			pst = conn.prepareStatement("select * from mx.tieuser where name=? and code=?");
-			pst.setString(1, name);
-			pst.setString(2, pass);
+		rs = pst.executeQuery();
+		status = rs.next();
 
-			rs = pst.executeQuery();
-			status = rs.next();
-
-		} catch (Exception e) {
-			System.out.println(e);
-		} finally {
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (pst != null) {
-				try {
-					pst.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
 		return status;
 	}
 }

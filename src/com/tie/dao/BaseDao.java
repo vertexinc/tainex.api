@@ -24,7 +24,7 @@ public class BaseDao {
 	 * 
 	 * public void setTiePersister(TiePersister tiePersister) {
 	 * this.tiePersister = tiePersister; }
-	 */
+	
 
 	public  Connection conn = null;
 	public  PreparedStatement pst = null;
@@ -35,7 +35,7 @@ public class BaseDao {
 			String dbName = "mx";
 			String driver = "com.mysql.jdbc.Driver";
 			String userName = "root";
-			String password = "000";
+			String password = "0000";
 			if(conn != null){
 				return conn;
 			}else{
@@ -48,5 +48,49 @@ public class BaseDao {
 			}
 			return conn;
 			
+		} */
+		private static BaseDao instance = new BaseDao();
+		private Connection conn;
+		private BaseDao(){
+			
 		}
+		public static BaseDao getInstance(){
+			return instance;
+		}
+		
+		public Connection getConnection(){
+			return conn;
+		}
+		
+		public void connect() throws Exception{
+			String url = "jdbc:mysql://localhost:3306/";
+			String dbName = "mx";
+			String driver = "com.mysql.jdbc.Driver";
+			String userName = "root";
+			String password = "0000";
+			if(conn != null){
+				return;
+			}else{
+				try{
+					Class.forName(driver).newInstance();
+					conn = DriverManager.getConnection(url + dbName, userName, password);
+				} catch (Exception e) {
+					System.out.println(e);
+				} 
+			}
+			return;
+		}
+		
+		public void disconnect() {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					System.out.println("Can't close connection");
+				}
+			}
+			
+			conn = null;
+		}
+		
 }
