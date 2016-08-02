@@ -15,6 +15,15 @@ import com.tie.model.TieUser;
 public class LoginDao extends BaseDao {
 
 	// the db by conn from basedao
+	String username;
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
 	public boolean validate(String name, String pass) {
 		getConnection();
@@ -30,6 +39,7 @@ public class LoginDao extends BaseDao {
 
 			rs = pst.executeQuery();
 			status = rs.next();
+			setUsername(name);
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
@@ -57,4 +67,5 @@ public class LoginDao extends BaseDao {
 		}
 		return status;
 	}
+
 }

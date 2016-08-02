@@ -1,6 +1,15 @@
 
 package com.tie.app;
 
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.tie.dao.TiePersister;
 import com.tie.ui.TieMainPage;
 
 /**
@@ -10,16 +19,17 @@ public class TieSessionController extends TieControllerBase {
 
 	private String userCode;
 	// point to ui class
-	
+
 	TieMainPage mainPage;
-	
+	TiePersister persister = null;
+
 	// The key to access session controller
 	public static String sesssionControllerName = "theSessionController";
-	
+
 	public void init() {
 		mainPage = new TieMainPage();
+		persister = TieController.getController().getPersister();
 	}
-	
 
 	public TieSessionController() {
 		init();
@@ -41,11 +51,15 @@ public class TieSessionController extends TieControllerBase {
 		this.mainPage = mainPage;
 	}
 
-
-	//populate the mainPage's every object
-	//get the persister first
-	//from the persister get the Dao and invoke method insides it to populate over to mainPage
+	// populate the mainPage's every object
+	// get the persister first
+	// from the persister get the Dao and invoke method insides it to populate
+	/* over to mainPage */
 	public void handleLogin() {
-		
+		String appName = persister.getTieAppDao().findTieAppById(1).getName();
+		String userName = persister.getLoginDao().getUsername();
+		mainPage.setAppName(appName);
+		mainPage.setUsername(userName);
+		setMainPage(mainPage);
 	}
 }

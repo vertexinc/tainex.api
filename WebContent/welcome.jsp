@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+<%@page import="com.tie.app.TieController"%>
 <%@page import="com.tie.app.TieSessionController"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Welcome <%=session.getAttribute("user")%></title>
+<title>Welcome <%=session.getAttribute("username")%></title>
 
 
 
@@ -27,21 +28,23 @@
 
 <!--script src="javascript/angular-ui-router.min.js"></script-->
 
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/app.css" />
+<link rel="stylesheet" href="css/app.css" />
 </head>
 
 <body ng-app="tieappApp">
 
+	<%!String appName = "x";%>
+	<%!String userName = "y";%>
 	<div class="container">
 		<aside class="sidebar">
 			<h2 class="logo">
 				<a href="#/write">TIE<strong>app</strong></a> <span>
 					<h6>
 						For
-						<%=session.getAttribute("appname")%>
+						<%=appName%>
+						<!--  %=session.getAttribute("tieapp")%-->
 						<!--%=((com.tie.app.TieSessionController)session.getAttribute("appname")).getMainPage().getAppName()%-->
-						
+
 					</h6>
 				</span>
 			</h2>
@@ -71,11 +74,12 @@
 								Search By ... &nbsp &nbsp &nbsp &nbsp<span
 									class="glyphicon glyphicon-search"></span>
 							</button>
-							 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a data-toggle="collapse"
-								data-parent="#collapser" href="#collapseQuote"> <span
-									class="toggle-icon glyphicon glyphicon-chevron-down"></span>
+							&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a
+								data-toggle="collapse" data-parent="#collapser"
+								href="#collapseQuote"> <span
+								class="toggle-icon glyphicon glyphicon-chevron-down"></span>
 							</a>
-							
+
 							<div id="collapseQuote" class="collapse">
 								<div id="searchby">
 
@@ -284,7 +288,7 @@
 							</select></li>
 						</div>
 						<div>
-							<li><a> Welcome, <%=session.getAttribute("user")%> !
+							<li><a> Welcome, <%=session.getAttribute("username")%> !
 							</a></li>
 							<li><a href="LogoutServlet">Log Out</a></li>
 						</div>
