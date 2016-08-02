@@ -12,7 +12,7 @@ public class TieMainPage {
 	private String username;
 	private String language;
 	private SelectionCriteria selectionCriteria;
-
+	private static TieMainPage tieMainPage;
 	
 	public TieMainPage() {
 		init();
@@ -21,6 +21,10 @@ public class TieMainPage {
 	public void init() {
 		language = "EN";
 		selectionCriteria = new SelectionCriteria();
+	}
+	
+	public static TieMainPage getTieMainPage(){
+		return tieMainPage;
 	}
 
 	public String getAppName() {

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <%@page import="com.tie.app.TieController"%>
 <%@page import="com.tie.app.TieSessionController"%>
+<%@page import="com.tie.ui.TieMainPage"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Welcome <%=session.getAttribute("username")%></title>
+<title>Welcome <%=userName%></title>
 
 
 
@@ -33,8 +34,8 @@
 
 <body ng-app="tieappApp">
 
-	<%!String appName = "x";%>
-	<%!String userName = "y";%>
+	<%!String appName = TieMainPage.getTieMainPage().getAppName();%>
+	<%!String userName = TieMainPage.getTieMainPage().getUsername();%>
 	<div class="container">
 		<aside class="sidebar">
 			<h2 class="logo">
@@ -254,28 +255,6 @@
 		</aside>
 		<div class="main">
 			<header class="header">
-				<!--  form action="">
-					<input type="search" name="s" placeholder="Global Search" />
-				</form>
-			<a href="#/read"
-					class="btn btn-primary">All Cbcr <span
-					class="glyphicon glyphicon-envelope"></span></a>
-
-				<nav class="nav-settings">
-					<ul>
-						<li><a href="#">Hi! <%=session.getAttribute("name")%></a></li>
-						<li><a href="#" class="icon icon-gear"></a></li>
-					</ul>
-				</nav-->
-				<nav class="nav-settings">
-
-					<!--  a><label for="sel1">Language</label></a> <select
-						class="form-control" id="sel1">
-						<option>EN</option>
-						<option>SP</option>
-						<option>CN</option>
-
-					</select-->
 					<ul>
 						<div>
 							<li><a><label for="sel1">Language</label></a></li>
@@ -288,7 +267,8 @@
 							</select></li>
 						</div>
 						<div>
-							<li><a> Welcome, <%=session.getAttribute("username")%> !
+						<!--%=session.getAttribute("username")%--> 
+							<li><a> Welcome, <%=userName%> !
 							</a></li>
 							<li><a href="LogoutServlet">Log Out</a></li>
 						</div>
