@@ -115,12 +115,13 @@ public class LoginServlet extends HttpServlet {
 			if (securityManager.authentiate(username, password)) {
 				sessionController = new TieSessionController();
 				sessionController.setUserCode(username);
+				//TieController.getController().getPersister().getLoginDao().setUsername(username);
 				/*
 				 * Handle the login event for the user for the first time All
 				 * data on the main page is populated in the mainPage object of
 				 * the session controller.
 				 */
-				sessionController.handleLogin();
+				sessionController.handleLogin(username);
 				RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
 				rd.include(request, response);
 			} else {

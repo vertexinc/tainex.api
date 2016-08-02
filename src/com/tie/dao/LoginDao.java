@@ -27,6 +27,7 @@ public class LoginDao extends BaseDao {
 
 	public boolean validate(String name, String pass) {
 		getConnection();
+		setUsername(name);
 		boolean status = false;
 		// Connection conn = BaseDao.getInstance().getConnection();
 		// boolean status = false;
@@ -39,7 +40,6 @@ public class LoginDao extends BaseDao {
 
 			rs = pst.executeQuery();
 			status = rs.next();
-			setUsername(name);
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {

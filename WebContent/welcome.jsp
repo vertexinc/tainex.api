@@ -255,6 +255,28 @@
 		</aside>
 		<div class="main">
 			<header class="header">
+				<!--  form action="">
+					<input type="search" name="s" placeholder="Global Search" />
+				</form>
+			<a href="#/read"
+					class="btn btn-primary">All Cbcr <span
+					class="glyphicon glyphicon-envelope"></span></a>
+
+				<nav class="nav-settings">
+					<ul>
+						<li><a href="#">Hi! <%=session.getAttribute("name")%></a></li>
+						<li><a href="#" class="icon icon-gear"></a></li>
+					</ul>
+				</nav-->
+				<nav class="nav-settings">
+
+					<!--  a><label for="sel1">Language</label></a> <select
+						class="form-control" id="sel1">
+						<option>EN</option>
+						<option>SP</option>
+						<option>CN</option>
+
+					</select-->
 					<ul>
 						<div>
 							<li><a><label for="sel1">Language</label></a></li>
@@ -267,7 +289,6 @@
 							</select></li>
 						</div>
 						<div>
-						<!--%=session.getAttribute("username")%--> 
 							<li><a> Welcome, <%=userName%> !
 							</a></li>
 							<li><a href="LogoutServlet">Log Out</a></li>

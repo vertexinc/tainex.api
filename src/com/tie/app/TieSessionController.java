@@ -52,10 +52,17 @@ public class TieSessionController extends TieControllerBase {
 	// get the persister first
 	// from the persister get the Dao and invoke method insides it to populate
 	/* over to mainPage */
-	public void handleLogin() {
+	public void handleLogin(String username) {
 		String appName = TieController.getController().getPersister().getTieAppDao().findTieAppById(1).getName();
+		/*
+		 * this always returns null
 		String userName = TieController.getController().getPersister().getLoginDao().getUsername();
+		if(userName == null){
+			System.out.println("username is null");
+		}else{
+			System.out.println("username is not null");
+		}*/
 		TieMainPage.getTieMainPage().setAppName(appName);
-		TieMainPage.getTieMainPage().setUsername(userName);
+		TieMainPage.getTieMainPage().setUsername(username);
 	}
 }
