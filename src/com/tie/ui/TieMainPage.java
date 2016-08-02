@@ -12,7 +12,7 @@ public class TieMainPage {
 	private String username;
 	private String language;
 	private SelectionCriteria selectionCriteria;
-	private static TieMainPage tieMainPage;
+	private static TieMainPage tieMainPage = new TieMainPage();
 	
 	public TieMainPage() {
 		init();
