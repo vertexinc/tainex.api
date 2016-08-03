@@ -52,6 +52,7 @@ public class TieSessionController extends TieControllerBase {
 	// get the persister first
 	// from the persister get the Dao and invoke method insides it to populate
 	/* over to mainPage */
+	//everything in one time
 	public void handleLogin(String username) {
 		String appName = TieController.getController().getPersister().getTieAppDao().findTieAppById(1).getName();
 		/*

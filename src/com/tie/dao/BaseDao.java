@@ -35,7 +35,7 @@ public class BaseDao {
 			String dbName = "mx";
 			String driver = "com.mysql.jdbc.Driver";
 			String userName = "root";
-			String password = "0000";
+			String password = "000";
 			if(conn != null){
 				return conn;
 			}else{

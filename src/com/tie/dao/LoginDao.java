@@ -16,6 +16,7 @@ public class LoginDao extends BaseDao {
 
 	// the db by conn from basedao
 	String username;
+	public static String code;
 
 	public String getUsername() {
 		return username;
@@ -24,6 +25,8 @@ public class LoginDao extends BaseDao {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	
+
 
 	public boolean validate(String name, String pass) {
 		getConnection();

@@ -36,13 +36,14 @@
 
 	<%!String appName = TieMainPage.getTieMainPage().getAppName();%>
 	<%!String userName = TieMainPage.getTieMainPage().getUsername();%>
+	<%!TieMainPage tieMainPage = TieMainPage.getTieMainPage();%>
 	<div class="container">
 		<aside class="sidebar">
 			<h2 class="logo">
 				<a href="#/write">TIE<strong>app</strong></a> <span>
 					<h6>
 						For
-						<%=appName%>
+						<%=tieMainPage.getAppName()%>
 						<!--  %=session.getAttribute("tieapp")%-->
 						<!--%=((com.tie.app.TieSessionController)session.getAttribute("appname")).getMainPage().getAppName()%-->
 

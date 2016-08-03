@@ -114,6 +114,7 @@ public class LoginServlet extends HttpServlet {
 			TieSecurityManager securityManager = TieController.getController().getSecurityManager();
 			if (securityManager.authentiate(username, password)) {
 				sessionController = new TieSessionController();
+				
 				sessionController.setUserCode(username);
 				//TieController.getController().getPersister().getLoginDao().setUsername(username);
 				/*

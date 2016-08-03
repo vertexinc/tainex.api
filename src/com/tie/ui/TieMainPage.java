@@ -3,6 +3,11 @@
  */
 package com.tie.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.tie.model.TieMsg;
+
 /**
  * @author awang
  *
@@ -13,6 +18,9 @@ public class TieMainPage {
 	private String language;
 	private SelectionCriteria selectionCriteria;
 	private static TieMainPage tieMainPage = new TieMainPage();
+	//list of all the msg
+	List<TieMsg> msgList = new ArrayList<TieMsg>();
+	//current tieMsg
 	
 	public TieMainPage() {
 		init();

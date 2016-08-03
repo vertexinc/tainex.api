@@ -215,6 +215,7 @@
 									<th>Reporting Entity</th>
 									<th>Currency</th>
 									<th>Resident Country</th>
+									<th>Accounting Standard </th>
 								</tr>
 							</thead>
 							<tbody>
