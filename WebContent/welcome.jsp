@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Welcome <%=userName%></title>
+<title>Welcome <%=tieMainPage.getUsername()%></title>
 
 
 
@@ -100,32 +100,32 @@
 										<tr>
 											<th>From User:</th>
 											<td><textarea class="form-control" id="exampleTextarea"
-													rows="1" cols="5"></textarea></td>
+													rows="1" cols="5"><%=tieMainPage.getSelectionCriteria().getFromUser()%></textarea></td>
 										</tr>
 										<tr>
 											<th>From Country:</th>
 											<td><textarea class="form-control" id="exampleTextarea"
-													rows="1" cols="5"></textarea></td>
+													rows="1" cols="5"><%=tieMainPage.getSelectionCriteria().getFromCountry()%></textarea></td>
 										</tr>
 										<tr>
 											<th>To user:</th>
 											<td><textarea class="form-control" id="exampleTextarea"
-													rows="1" cols="5"></textarea></td>
+													rows="1" cols="5"><%=tieMainPage.getSelectionCriteria().getToUser()%></textarea></td>
 										</tr>
 										<tr>
 											<th>To Country:</th>
 											<td><textarea class="form-control" id="exampleTextarea"
-													rows="1" cols="5"></textarea></td>
+													rows="1" cols="5"><%=tieMainPage.getSelectionCriteria().getToCountry()%></textarea></td>
 										</tr>
 										<tr>
 											<th>From Date:</th>
 											<td><textarea class="form-control" id="exampleTextarea"
-													rows="1" cols="5"></textarea></td>
+													rows="1" cols="5"><%=tieMainPage.getSelectionCriteria().getFromDate()%></textarea></td>
 										</tr>
 										<tr>
 											<th>To Date:</th>
 											<td><textarea class="form-control" id="exampleTextarea"
-													rows="1" cols="5"></textarea></td>
+													rows="1" cols="5"><%=tieMainPage.getSelectionCriteria().getToDate()%></textarea></td>
 										</tr>
 									</table>
 								</div>
@@ -136,29 +136,29 @@
 										<tr>
 											<th>Name:</th>
 											<td><textarea class="form-control" id="exampleTextarea"
-													rows="1" cols="5"></textarea></td>
+													rows="1" cols="5"><%=tieMainPage.getSelectionCriteria().getName()%></textarea></td>
 										</tr>
 										<tr>
 											<th>Country:</th>
 											<td><select class="form-control" id="sel1">
-													<option>US</option>
-													<option>SP</option>
+													<option><%=tieMainPage.getSelectionCriteria().getCountry()%></option>
+													<option>MX</option>
 											</select></td>
 										</tr>
 										<tr>
 											<th>From Year:</th>
 											<td><textarea class="form-control" id="exampleTextarea"
-													rows="1" cols="5"></textarea></td>
+													rows="1" cols="5"><%=tieMainPage.getSelectionCriteria().getFromYear()%></textarea></td>
 										</tr>
 										<tr>
 											<th>To Year:</th>
 											<td><textarea class="form-control" id="exampleTextarea"
-													rows="1" cols="5"></textarea></td>
+													rows="1" cols="5"><%=tieMainPage.getSelectionCriteria().getToYear()%></textarea></td>
 										</tr>
 										<tr>
 											<th>Main Business:</th>
 											<td><select class="form-control" id="sel1">
-													<option>Finance</option>
+													<option><%=tieMainPage.getSelectionCriteria().getMainBusiness()%></option>
 													<option>Education</option>
 													<option>Health Care</option>
 											</select></td>
@@ -255,31 +255,19 @@
 			</nav>
 		</aside>
 		<div class="main">
+
 			<header class="header">
-				<!--  form action="">
-					<input type="search" name="s" placeholder="Global Search" />
-				</form>
-			<a href="#/read"
-					class="btn btn-primary">All Cbcr <span
-					class="glyphicon glyphicon-envelope"></span></a>
 
-				<nav class="nav-settings">
-					<ul>
-						<li><a href="#">Hi! <%=session.getAttribute("name")%></a></li>
-						<li><a href="#" class="icon icon-gear"></a></li>
-					</ul>
-				</nav-->
-				<nav class="nav-settings">
+				<!-- div class="headercenter">
+					<a href="https://www.vertexinc.com/training"
+						class="btn btn-primary" role="button">Training</a>
+				</div>
+				<div class="nav-right">
 
-					<!--  a><label for="sel1">Language</label></a> <select
-						class="form-control" id="sel1">
-						<option>EN</option>
-						<option>SP</option>
-						<option>CN</option>
 
-					</select-->
 					<ul>
 						<div>
+
 							<li><a><label for="sel1">Language</label></a></li>
 
 							<li><select class="form-control" id="sel1">
@@ -290,13 +278,39 @@
 							</select></li>
 						</div>
 						<div>
-							<li><a> Welcome, <%=userName%> !
-							</a></li>
-							<li><a href="LogoutServlet">Log Out</a></li>
+							<li><a> Welcome, <%=tieMainPage.getUsername()%> !
+							</a>&nbsp;&nbsp;&nbsp;<a href="LogoutServlet">Log Out</a></li>
+
 						</div>
 					</ul>
-				</nav>
-				<div class="clr"></div>
+				</div-->
+				<div class="col-sm-4"></div>
+				<div class="col-sm-4">
+
+					<div id = "training"><a href="https://www.vertexinc.com/training"
+						class="btn btn-primary" role="button">Training</a></div>
+
+				</div>
+				<div class="col-sm-4">
+					<ul>
+						<div>
+
+							<li><a><label for="sel1">Language</label></a></li>
+
+							<li><select class="form-control" id="sel1">
+									<option>EN</option>
+									<option>SP</option>
+									<option>CN</option>
+
+							</select></li>
+						</div>
+						<div>
+							<li><a> Welcome, <%=tieMainPage.getUsername()%> !
+							</a>&nbsp;&nbsp;&nbsp;<a href="LogoutServlet">Log Out</a></li>
+
+						</div>
+					</ul>
+				</div>
 			</header>
 
 			<!--  div  class="container"-->

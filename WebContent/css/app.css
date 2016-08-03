@@ -244,11 +244,12 @@ li {
 	color: #999;
 }
 
-.scrollbar3 >ul>li.active{
+.scrollbar3>ul>li.active {
 	/*background: #44c4e7;*/
+	
 }
 
-.scrollbar3 >ul>li a:hover{
+.scrollbar3>ul>li a:hover {
 	background: #44c4e7;
 }
 
@@ -318,9 +319,15 @@ li {
 	padding: 0;
 }
 
-.main .header .nav-settings {
+.main .header .nav-right {
 	float: right;
-	padding: 10px 25px;
+	padding-top: 10px;
+	padding-right: 30px;
+}
+
+#training {
+	padding-top: 20px;
+	
 }
 
 .main .header .nav-settings a {
@@ -611,7 +618,6 @@ textarea {
 	width: 100%;
 }
 
-
 #middleside {
 	float: right;
 	padding-top: 15px;
@@ -623,7 +629,6 @@ textarea {
 	padding-top: 15px;
 	padding-right: 30%;
 }
-
 
 #docrow {
 	padding-left: 10px;
@@ -766,7 +771,6 @@ td {
 	white-space: nowrap;
 	mso-rotate: 0;
 }
-
 
 .xl65 {
 	mso-style-parent: style0;

@@ -1,5 +1,8 @@
-
+<%@page import="com.tie.app.TieController"%>
+<%@page import="com.tie.app.TieSessionController"%>
+<%@page import="com.tie.ui.TieMainPage"%>
 <body>
+<%!TieMainPage tieMainPage = TieMainPage.getTieMainPage();%>
 	<div id="upper">
 		<div class="scrollbar2" id="style-4">
 			<div class="force-overflow2">
