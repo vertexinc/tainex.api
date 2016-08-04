@@ -19,9 +19,17 @@ public class TieMainPage {
 	private SelectionCriteria selectionCriteria;
 	private static TieMainPage tieMainPage = new TieMainPage();
 	//list of all the msg
-	List<TieMsg> msgList = new ArrayList<TieMsg>();
+	public List<TieMsg> msgList = new ArrayList<TieMsg>();
 	//current tieMsg
 	
+	public List<TieMsg> getMsgList() {
+		return msgList;
+	}
+
+	public void setMsgList(List<TieMsg> msgList) {
+		this.msgList = msgList;
+	}
+
 	public TieMainPage() {
 		init();
 	}

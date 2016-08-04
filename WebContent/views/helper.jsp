@@ -20,24 +20,35 @@
 <body>
 	<div class="container">
 		<div class="login-card">
-			<h1>Log-in</h1>
-			<br>
-			<form action="login" method="post">
-				<input type="text" name="username" required="required"
-					placeholder="Username"> <input type="password"
-					name="userpass" required="required" placeholder="Password">
-				<button type="submit" value="Login" class="btn btn-primary">
-					login <span class="glyphicon glyphicon-user
-"></span>
-				</button>
-			</form>
-			<div class="login-help">
-				<a href="views/helper.jsp">login Helper <span
-					class="glyphicon glyphicon-lock"></span></a>
-			</div>
+			<table class="table">
+				<thead>
+					<tr>
+					
+						<th>User Name</th>
+						<th>Password</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						
+						<td>Adam</td>
+						<td>001</td>
+					</tr>
+					<tr>
+					
+						<td>John</td>
+						<td>002</td>
+					</tr>
+					<tr>
+						
+						<td>Mary</td>
+						<td>003</td>
+					</tr>
+				</tbody>
+			</table>
 
 		</div>
-		
+
 	</div>
 
 </body>

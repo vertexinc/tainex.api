@@ -51,8 +51,8 @@
 			<h2 class="logo">
 				<a href="#/write">TIE<strong>app</strong></a> <span>
 					<h6>
-						For
 						<fmt:message key="label.For" />
+						<%=tieMainPage.getAppName()%>
 						<!--  %=session.getAttribute("tieapp")%-->
 						<!--%=((com.tie.app.TieSessionController)session.getAttribute("appname")).getMainPage().getAppName()%-->
 
@@ -87,8 +87,9 @@
 							</ul>
 						</div>
 						<div id="collapser">
-								<button type="button" class="btn btn-primary btn-md">
-								<fmt:message key="label.SearchBy" /> ... &nbsp; &nbsp; &nbsp; <span
+							<button type="button" class="btn btn-primary btn-md">
+								<fmt:message key="label.SearchBy" />
+								... &nbsp; &nbsp; &nbsp; <span
 									class="glyphicon glyphicon-search"></span>
 							</button>
 							&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a
@@ -304,7 +305,8 @@
 
 					<div id="training">
 						<a href="https://www.vertexinc.com/training"
-							class="btn btn-primary" role="button">Training</a>
+							class="btn btn-primary" role="button"><fmt:message
+								key="label.Training" /></a>
 					</div>
 
 				</div>

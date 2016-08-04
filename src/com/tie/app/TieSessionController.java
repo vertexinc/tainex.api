@@ -2,6 +2,9 @@
 package com.tie.app;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.tie.dao.TiePersister;
+import com.tie.model.TieMsg;
 import com.tie.ui.TieMainPage;
 
 /**
@@ -53,8 +57,10 @@ public class TieSessionController extends TieControllerBase {
 	// from the persister get the Dao and invoke method insides it to populate
 	/* over to mainPage */
 	//everything in one time
-	public void handleLogin(String username) {
+	public void handleLogin(String username,String code) {
 		String appName = TieController.getController().getPersister().getTieAppDao().findTieAppById(1).getName();
+		List<TieMsg> msgList = new ArrayList<TieMsg>();
+		msgList = TieController.getController().getPersister().getTieMsgDao().findTieMsgByCode(code);
 		/*
 		 * this always returns null
 		String userName = TieController.getController().getPersister().getLoginDao().getUsername();
@@ -65,5 +71,7 @@ public class TieSessionController extends TieControllerBase {
 		}*/
 		TieMainPage.getTieMainPage().setAppName(appName);
 		TieMainPage.getTieMainPage().setUsername(username);
+		TieMainPage.getTieMainPage().setMsgList(msgList);
+		System.out.println("msgList" + Arrays.toString(TieMainPage.getTieMainPage().getMsgList().toArray()));
 	}
 }
