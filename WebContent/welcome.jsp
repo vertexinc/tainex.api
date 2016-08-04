@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<%@ page  contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="com.tie.app.TieController"%>
 <%@page import="com.tie.app.TieSessionController"%>
 <%@page import="com.tie.ui.TieMainPage"%>
@@ -65,25 +64,31 @@
 				<div class="scrollbar" id="style-5">
 					<div class="force-overflow">
 						<div id="composenew">
-							<button type="button" class="btn btn-primary">Compose
-								New Tax Msg</button>
+							<button type="button" class="btn btn-primary">
+								<fmt:message key="label.ComposeNewTaxMsg" />
 						</div>
 						<div id="inbox">
 							<ul>
 
-								<li><button type="button" class="btn btn-primary btn-md">Inbox</button></li>
+								<li><button type="button" class="btn btn-primary btn-md">
+										<fmt:message key="label.Inbox" />
+									</button></li>
 
 
-								<li><button type="button" class="btn btn-primary btn-md">Sent</button></li>
+								<li><button type="button" class="btn btn-primary btn-md">
+										<fmt:message key="label.Sent" />
+									</button></li>
 
 
-								<li><button type="button" class="btn btn-primary btn-md">Draft</button></li>
+								<li><button type="button" class="btn btn-primary btn-md">
+										<fmt:message key="label.Draft" />
+									</button></li>
 
 							</ul>
 						</div>
 						<div id="collapser">
-							<button type="button" class="btn btn-primary btn-md">
-								Search By ... &nbsp &nbsp &nbsp &nbsp<span
+								<button type="button" class="btn btn-primary btn-md">
+								<fmt:message key="label.SearchBy" /> ... &nbsp; &nbsp; &nbsp; <span
 									class="glyphicon glyphicon-search"></span>
 							</button>
 							&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a
