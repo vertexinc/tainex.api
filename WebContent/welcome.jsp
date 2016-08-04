@@ -1,11 +1,21 @@
 <!DOCTYPE html>
+<%@ page  contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@page import="com.tie.app.TieController"%>
 <%@page import="com.tie.app.TieSessionController"%>
 <%@page import="com.tie.ui.TieMainPage"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<c:set var="theLocale"
+	value="${not empty param.theLocale ? param.theLocale : pageContext.request.locale}"
+	scope="session" />
+<fmt:setLocale value="${theLocale}" />
+<fmt:setBundle basename="com.tie.i18n.resources.mylabels" />
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Welcome <%=tieMainPage.getUsername()%></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title><fmt:message key="label.Welcome" />, <%=tieMainPage.getUsername()%>
+	!</title>
 
 
 
@@ -43,7 +53,7 @@
 				<a href="#/write">TIE<strong>app</strong></a> <span>
 					<h6>
 						For
-						<%=tieMainPage.getAppName()%>
+						<fmt:message key="label.For" />
 						<!--  %=session.getAttribute("tieapp")%-->
 						<!--%=((com.tie.app.TieSessionController)session.getAttribute("appname")).getMainPage().getAppName()%-->
 
@@ -287,26 +297,33 @@
 				<div class="col-sm-4"></div>
 				<div class="col-sm-4">
 
-					<div id = "training"><a href="https://www.vertexinc.com/training"
-						class="btn btn-primary" role="button">Training</a></div>
+					<div id="training">
+						<a href="https://www.vertexinc.com/training"
+							class="btn btn-primary" role="button">Training</a>
+					</div>
 
 				</div>
 				<div class="col-sm-4">
 					<ul>
 						<div>
 
-							<li><a><label for="sel1">Language</label></a></li>
+							<li><a href="welcome.jsp?theLocale=en_US"><fmt:message
+										key="label.Language" /></label></a></li>
 
-							<li><select class="form-control" id="sel1">
-									<option>EN</option>
-									<option>SP</option>
-									<option>CN</option>
+							<li><select class="form-control" id="sel1"
+								onchange="location = this.value;">
+									<option value="welcome.jsp?theLocale=en_US">EN</option>
+									<option value="">SP</option>
+									<option value="welcome.jsp?theLocale=zh_CN">CN</option>
 
 							</select></li>
+
 						</div>
 						<div>
-							<li><a> Welcome, <%=tieMainPage.getUsername()%> !
-							</a>&nbsp;&nbsp;&nbsp;<a href="LogoutServlet">Log Out</a></li>
+							<li><a> <fmt:message key="label.Welcome" />, <%=tieMainPage.getUsername()%>
+									!
+							</a>&nbsp;&nbsp;&nbsp;<a href="LogoutServlet"><fmt:message
+										key="label.LogOut" /></a></li>
 
 						</div>
 					</ul>
