@@ -6,7 +6,7 @@
 <%@page import="com.tie.model.TieMsg"%>
 <body>
 	<%!TieMainPage tieMainPage = TieMainPage.getTieMainPage();%>
-	<%!List<TieMsg> msgList = tieMainPage.getMsgList();%>
+	<!--%!List<TieMsg> msgList = tieMainPage.getMsgList();%-->
 
 	<div id="upper">
 		<div class="scrollbar2" id="style-4">
@@ -23,12 +23,8 @@
 
 
 					<tbody>
-						<c:forEach var="msg" items="${msgList}">
-							<tr>
-								<td>1</td>
-							</tr>
-						</c:forEach>
-						<!--tr>
+					
+						<tr>
 							<th scope="row">John</th>
 							<td>cbcr1</td>
 							<td>This is cbcr1This is cbcr1This is cbcr1This is cbcr1This
@@ -75,7 +71,7 @@
 							<td>This is cbcr1This is cbcr1This is cbcr1This is cbcr1This
 								is cbcr1This is cbcr1</td>
 							<td>2015-12-12</td>
-						</tr-->
+						</tr>
 					</tbody>
 				</table>
 			</div>
