@@ -53,7 +53,7 @@
 					<h6>
 						<fmt:message key="label.For" />
 						<%=tieMainPage.getAppName()%>
-						<!--  %=session.getAttribute("tieapp")%-->
+						<!--  %=session.getAttribute("tieapp")% -->
 						<!--%=((com.tie.app.TieSessionController)session.getAttribute("appname")).getMainPage().getAppName()%-->
 
 					</h6>
@@ -300,7 +300,7 @@
 						</div>
 					</ul>
 				</div-->
-				<div class="col-sm-4"></div>
+				<div class="col-sm-4"> </div>
 				<div class="col-sm-4">
 
 					<div id="training">
@@ -351,7 +351,7 @@
 	</div>
 	<div class="footer">
 		<div class="container">
-			<p>Copy Right @ Adam Wang</p>
+			<p>Copy Right @ </p>
 		</div>
 	</div>
 

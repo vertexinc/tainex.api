@@ -15,13 +15,25 @@ import com.tie.model.TieMsg;
 public class TieMainPage {
 	private String appName;
 	private String username;
+	//supported language list each is a String 
 	private String language;
 	private SelectionCriteria selectionCriteria;
+	//Dont make it static, the 2nd user login will see the override values
 	private static TieMainPage tieMainPage = new TieMainPage();
 	//list of all the msg
 	public List<TieMsg> msgList = new ArrayList<TieMsg>();
 	//current tieMsg
 	
+	private TieMsg currentMsg;
+	
+	public TieMsg getCurrentMsg() {
+		return currentMsg;
+	}
+
+	public void setCurrentMsg(TieMsg currentMsg) {
+		this.currentMsg = currentMsg;
+	}
+
 	public List<TieMsg> getMsgList() {
 		return msgList;
 	}

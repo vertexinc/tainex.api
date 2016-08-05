@@ -37,7 +37,7 @@ public class LoginDao extends BaseDao {
 		// ResultSet rs = null;
 		// PreparedStatement pst = null;
 		try {
-			pst = conn.prepareStatement("select * from mx.tieuser where name=? and code=?");
+			pst = conn.prepareStatement("select * from mx.tieuser where code=? and password=?");
 			pst.setString(1, name);
 			pst.setString(2, pass);
 

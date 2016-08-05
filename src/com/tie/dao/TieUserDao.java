@@ -7,21 +7,24 @@ import com.tie.model.TieApp;
 import com.tie.model.TieUser;
 
 public class TieUserDao extends BaseDao {
-	public TieUser findTieUserByName(String name) {
+	
+	//find out the user record by the given usercode 
+	
+	public TieUser findTieUserByCode(String code) {
 		getConnection();
 
 		TieUser tieUser = null;
 		try {
-			String sql = "select * from mx.tieapp where name = ?";
+			String sql = "select * from mx.tieapp where code = ?";
 
 			PreparedStatement selectStatement = conn.prepareStatement(sql);
-			selectStatement.setString(1, name);
+			selectStatement.setString(1, code);
 			rs = selectStatement.executeQuery();
 
 			while (rs.next()) {
 				int tieUserId = rs.getInt("tieUserId");
 				String uname = rs.getString("name");
-				String code = rs.getString("code");
+				//String code = rs.getString("code");
 				String description = rs.getString("description");
 				String email = rs.getString("email");
 				String ctsUserId = rs.getString("ctsUserId");
@@ -29,9 +32,9 @@ public class TieUserDao extends BaseDao {
 				String ctsUserCertificate = rs.getString("ctsUserCertificate");
 				int tieAppId = rs.getInt("tieAppId");
 				int isExternal = rs.getInt("isExternal");
-
+				String password = rs.getString("password");
 				tieUser = new TieUser(tieUserId, uname, code, description, email, ctsUserId, ctsUserPwd,
-						ctsUserCertificate, tieAppId, isExternal);
+						ctsUserCertificate, tieAppId, isExternal,password);
 				// tieapp = new TieApp(name,description);
 			}
 		} catch (Exception e) {

@@ -1,12 +1,15 @@
 
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="java.util.*"%>
 <%@page import="com.tie.app.TieController"%>
 <%@page import="com.tie.app.TieSessionController"%>
 <%@page import="com.tie.ui.TieMainPage"%>
 <%@page import="com.tie.model.TieMsg"%>
+
 <body>
+
 	<%!TieMainPage tieMainPage = TieMainPage.getTieMainPage();%>
-	<!--%!List<TieMsg> msgList = tieMainPage.getMsgList();%-->
+	<%!List<TieMsg> msgList = tieMainPage.getMsgList();%>
 
 	<div id="upper">
 		<div class="scrollbar2" id="style-4">
@@ -23,16 +26,19 @@
 
 
 					<tbody>
-					
+						<%
+							for (TieMsg tieMsg : msgList) {
+						%>
 						<tr>
-							<th scope="row">John</th>
-							<td>cbcr1</td>
-							<td>This is cbcr1This is cbcr1This is cbcr1This is cbcr1This
-								is cbcr1This is cbcr1</td>
-							<td>2015-12-12</td>
+							<th scope="row"><%=tieMainPage.getUsername()%></th>
+							<td><%=tieMsg.getSubject()%></td>
+							<td><%=tieMsg.getDescription()%></td>
+							<td><%=tieMsg.getTimestamp()%></td>
 						</tr>
-
-						<tr>
+						<%
+							}
+						%>
+						<!--tr>
 							<th scope="row">Adam</th>
 							<td>cbcr2</td>
 							<td>This is cbcr2</td>
@@ -71,7 +77,7 @@
 							<td>This is cbcr1This is cbcr1This is cbcr1This is cbcr1This
 								is cbcr1This is cbcr1</td>
 							<td>2015-12-12</td>
-						</tr>
+						</tr-->
 					</tbody>
 				</table>
 			</div>

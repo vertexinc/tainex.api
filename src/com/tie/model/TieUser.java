@@ -11,11 +11,12 @@ public class TieUser {
 	private String ctsUserCertificate;
 	private int tieAppId;
 	private int isExternal;
+	private String password;
 	public TieUser() {
 		//super();
 	}
 	public TieUser(int tieUserId, String name, String code, String description, String email, String ctsUserId,
-			String ctsUserPwd, String ctsUserCertificate, int tieAppId, int isExternal) {
+			String ctsUserPwd, String ctsUserCertificate, int tieAppId, int isExternal,String password) {
 		//super();
 		this.tieUserId = tieUserId;
 		this.name = name;
@@ -27,6 +28,7 @@ public class TieUser {
 		this.ctsUserCertificate = ctsUserCertificate;
 		this.tieAppId = tieAppId;
 		this.isExternal = isExternal;
+		this.password = password;
 	}
 	public int getTieUserId() {
 		return tieUserId;

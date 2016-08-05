@@ -15,22 +15,22 @@ import java.util.List;
 import com.tie.model.TieMsg;
 
 public class TieMsgDao extends BaseDao {
-	public List<TieMsg> findTieMsgByCode(String code) {
+	public List<TieMsg> findTieMsgByOwnerId(int id) {
 		getConnection();
 	
 		List<TieMsg> msgList = new ArrayList<TieMsg>();
 		try {
 			TieMsg tieMsg = new TieMsg();;
-			String sql = "select * from mx.tiemsg where code = ?";
+			String sql = "select * from mx.tiemsg where ownerid = ?";
 
 			PreparedStatement selectStatement = conn.prepareStatement(sql);
-			selectStatement.setString(1, code);
+			selectStatement.setInt(1, id);
 			rs = selectStatement.executeQuery();
 
 			while (rs.next()) {
 				int tieMsgId = rs.getInt("tieMsgId");
 				String subject = rs.getString("subject");
-				// String code = rs.getString("code");
+				String code = rs.getString("code");
 				String description = rs.getString("description");
 				String notes = rs.getString("notes");
 				int senderId = rs.getInt("senderId");
