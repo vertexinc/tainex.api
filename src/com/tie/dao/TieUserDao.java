@@ -15,7 +15,7 @@ public class TieUserDao extends BaseDao {
 
 		TieUser tieUser = null;
 		try {
-			String sql = "select * from mx.tieapp where code = ?";
+			String sql = "select * from mx.tieuser where code = ?";
 
 			PreparedStatement selectStatement = conn.prepareStatement(sql);
 			selectStatement.setString(1, code);

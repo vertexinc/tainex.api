@@ -60,14 +60,16 @@ public class TieSessionController extends TieControllerBase {
 	//everything in one time
 	public void handleLogin(String username) {
 		TiePersister persister = TieController.getController().getPersister();
+		
 		//TODO handle login
 		
 		//-------- populate for header pane --------------
 		String appName = persister.getTieAppDao().findTieAppById(1).getName();
-		
+		 
 		//Warn:see the sequence of invoking persister, it might not be initiated yet
+		//TODO find the id of the user who's login () 
 		TieUser user = persister.getTieUserDao().findTieUserByCode(username);
-		
+		System.out.println("User:" + user.toString());
 		String userNameOnBoard = user.getName();
 		
 		
@@ -83,9 +85,9 @@ public class TieSessionController extends TieControllerBase {
 		List<TieMsg> msgList = new ArrayList<TieMsg>();
 		
 		//Warn:see the sequence of invoking persister, it might not be initiated yet
-		msgList = persister.getTieMsgDao().findTieMsgByOwnerId(user.getTieUserId());
+		msgList = persister.getTieMsgDao().findTieMsgByOwnerId(user.getTieUserId());//(user.getTieUserId());
 		TieMainPage.getTieMainPage().setMsgList(msgList);
-		//TODO find the id of the user who's login (theOwnerId)
+		   System.out.println("msgList" + Arrays.toString(TieMainPage.getTieMainPage().getMsgList().toArray()));
 		//find only by the username who owns the msg
 		//THis is the owner id of all the msgs to be selected
 		

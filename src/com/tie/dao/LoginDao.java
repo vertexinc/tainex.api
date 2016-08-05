@@ -15,22 +15,22 @@ import com.tie.model.TieUser;
 public class LoginDao extends BaseDao {
 
 	// the db by conn from basedao
-	String username;
-	public static String code;
+	String code;
+	
 
-	public String getUsername() {
-		return username;
+	public String getCode() {
+		return code;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setCode(String code) {
+		this.code = code;
 	}
 	
 
 
-	public boolean validate(String name, String pass) {
+	public boolean validate(String code, String pass) {
 		getConnection();
-		setUsername(name);
+		setCode(code);
 		boolean status = false;
 		// Connection conn = BaseDao.getInstance().getConnection();
 		// boolean status = false;
@@ -38,7 +38,7 @@ public class LoginDao extends BaseDao {
 		// PreparedStatement pst = null;
 		try {
 			pst = conn.prepareStatement("select * from mx.tieuser where code=? and password=?");
-			pst.setString(1, name);
+			pst.setString(1, code);
 			pst.setString(2, pass);
 
 			rs = pst.executeQuery();

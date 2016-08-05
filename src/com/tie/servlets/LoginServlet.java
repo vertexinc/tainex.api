@@ -125,7 +125,7 @@ public class LoginServlet extends HttpServlet {
 				 * data on the main page is populated in the mainPage object of
 				 * the session controller.
 				 */
-				sessionController.handleLogin("Adam16");
+				sessionController.handleLogin(username);
 				RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
 				rd.include(request, response);
 			} else {
