@@ -32,7 +32,7 @@
 				</button>
 			</form>
 			<div class="login-help">
-				<a href="views/helper.jsp">login Helper <span
+				<a href="views/helper.jsp">Demo Only:login Helper <span
 					class="glyphicon glyphicon-lock"></span></a>
 			</div>
 

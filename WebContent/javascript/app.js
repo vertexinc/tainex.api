@@ -32,6 +32,10 @@ app.config(function ($routeProvider) {
       controller: 'main',
       templateUrl: 'views/success.jsp'
     })
+    .when('/training', {
+      controller: 'main',
+      templateUrl: 'views/training.jsp'
+    })
     .otherwise({
       redirectTo: '/write'
     });

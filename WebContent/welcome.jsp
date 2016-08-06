@@ -304,7 +304,7 @@
 				<div class="col-sm-4">
 
 					<div id="training">
-						<a href="https://www.vertexinc.com/training"
+						<a href="#/training"
 							class="btn btn-primary" role="button"><fmt:message
 								key="label.Training" /></a>
 					</div>
@@ -320,7 +320,7 @@
 							<li><select class="form-control" id="sel1"
 								onchange="location = this.value;">
 									<option value="welcome.jsp?theLocale=en_US">EN</option>
-									<option value="">SP</option>
+									<option value="">ES</option>
 									<option value="welcome.jsp?theLocale=zh_CN">CN</option>
 
 							</select></li>

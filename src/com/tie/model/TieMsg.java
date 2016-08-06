@@ -23,6 +23,8 @@ public class TieMsg {
 	private String timestamp;
 	private String rawMsg;
 	
+	//List of docs in the msg to be sent out
+	
 	public TieMsg() {
 		
 	}

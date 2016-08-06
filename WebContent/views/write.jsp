@@ -14,7 +14,7 @@
 	<div id="upper">
 		<div class="scrollbar2" id="style-4">
 			<div class="force-overflow2">
-				<table class="table table-striped">
+				<table class="table table-hover">
 					<thead>
 						<tr>
 							<th>User</th>
@@ -38,46 +38,7 @@
 						<%
 							}
 						%>
-						<!--tr>
-							<th scope="row">Adam</th>
-							<td>cbcr2</td>
-							<td>This is cbcr2</td>
-							<td>2015-12-12</td>
-						</tr>
 
-						<tr>
-							<th scope="row">Lucy</th>
-							<td>cbcr3</td>
-							<td>This is cbcr3</td>
-							<td>2015-12-12</td>
-						</tr>
-						<tr>
-							<th scope="row">Kate</th>
-							<td>cbcr4</td>
-							<td>This is cbcr4</td>
-							<td>2015-12-12</td>
-						</tr>
-						<tr>
-							<th scope="row">Liu</th>
-							<td>cbcr1</td>
-							<td>This is cbcr1This is cbcr1This is cbcr1This is cbcr1This
-								is cbcr1This is cbcr1</td>
-							<td>2015-12-12</td>
-						</tr>
-						<tr>
-							<th scope="row">Taylor</th>
-							<td>cbcr1</td>
-							<td>This is cbcr1This is cbcr1This is cbcr1This is cbcr1This
-								is cbcr1This is cbcr1</td>
-							<td>2015-12-12</td>
-						</tr>
-						<tr>
-							<th scope="row">Ben</th>
-							<td>cbcr1</td>
-							<td>This is cbcr1This is cbcr1This is cbcr1This is cbcr1This
-								is cbcr1This is cbcr1</td>
-							<td>2015-12-12</td>
-						</tr-->
 					</tbody>
 				</table>
 			</div>
@@ -176,7 +137,7 @@
 									<th>Language:</th>
 									<td><select class="form-control" id="sel1">
 											<option>EN</option>
-											<option>SP</option>
+											<option>ES</option>
 									</select></td>
 								</tr>
 							</table>
@@ -220,7 +181,7 @@
 								Msg...</button>
 						</div>
 					</div>
-					<table class="table table-striped">
+					<table class="table table-hover">
 						<thead>
 							<tr>
 								<th>Code</th>
@@ -234,6 +195,15 @@
 						</thead>
 						<tbody>
 							<tr>
+								<td>CBCR_IndustryCo</td>
+								<td>To Share CBCR Report of Industry Co</td>
+								<td>Excel</td>
+								<td>IndustryCo</td>
+								<td>MXNr</td>
+								<td>MX</td>
+								<td>MX GAAP</td>
+							</tr>
+							<!--tr>
 								<td>code123</td>
 								<td>Doc1</td>
 								<td>Excel</td>
@@ -272,15 +242,7 @@
 								<td>Reporting1212</td>
 								<td>US Dollar</td>
 								<td>USA</td>
-							</tr>
-							<tr>
-								<td>code123</td>
-								<td>Doc1</td>
-								<td>Excel</td>
-								<td>Reporting1212</td>
-								<td>US Dollar</td>
-								<td>USA</td>
-							</tr>
+							</tr-->
 						</tbody>
 					</table>
 				</div>
@@ -307,7 +269,7 @@
 					</div>
 
 					</br>
-					<table class="table table-striped">
+					<table class="table table-hover">
 						<thead>
 							<tr>
 								<th>TIN</th>
@@ -321,77 +283,159 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td>TIN1</td>
-								<td>Sample</td>
+								<td>10001</td>
+								<td>GLOBAL SALESCO</td>
 								<td>Excel</td>
-								<td>USA</td>
-								<td>USA</td>
-								<td>YES</td>
-								<td>342 South AVE</td>
+								<td>CA</td>
+								<td>CA</td>
+								<td>NO</td>
+								<td></td>
 							</tr>
 							<tr>
-								<td>TIN1</td>
-								<td>Sample</td>
+								<td>10002</td>
+								<td>CHINA MANUFACTURING CO</td>
 								<td>Excel</td>
-								<td>USA</td>
-								<td>USA</td>
-								<td>YES</td>
-								<td>342 South AVE</td>
+								<td>CN</td>
+								<td>CN</td>
+								<td>NO</td>
+								<td></td>
 							</tr>
 							<tr>
-								<td>TIN1</td>
-								<td>Sample</td>
+								<td>10003</td>
+								<td>German HoldCo GmbH</td>
 								<td>Excel</td>
-								<td>USA</td>
-								<td>USA</td>
-								<td>YES</td>
-								<td>342 South AVE</td>
+								<td>DE</td>
+								<td>DE</td>
+								<td>NO</td>
+								<td></td>
 							</tr>
 							<tr>
-								<td>TIN1</td>
-								<td>Sample</td>
+								<td>10004</td>
+								<td>Germany SubAssembly GmbH</td>
 								<td>Excel</td>
-								<td>USA</td>
-								<td>USA</td>
-								<td>YES</td>
-								<td>342 South AVE</td>
+								<td>DE</td>
+								<td>DE</td>
+								<td>NO</td>
+								<td></td>
 							</tr>
 							<tr>
-								<td>TIN1</td>
-								<td>Sample</td>
+								<td>10005</td>
+								<td>FINANCECO, LTD.</td>
 								<td>Excel</td>
-								<td>USA</td>
-								<td>USA</td>
-								<td>YES</td>
-								<td>342 South AVE</td>
+								<td>GB</td>
+								<td>GB</td>
+								<td>NO</td>
+								<td></td>
 							</tr>
 							<tr>
-								<td>TIN1</td>
-								<td>Sample</td>
+								<td>10006</td>
+								<td>APAC SALES CORPORATION</td>
 								<td>Excel</td>
-								<td>USA</td>
-								<td>USA</td>
-								<td>YES</td>
-								<td>342 South AVE</td>
+								<td>HK</td>
+								<td>HK</td>
+								<td>NO</td>
+								<td></td>
 							</tr>
 							<tr>
-								<td>TIN1</td>
-								<td>Sample</td>
+								<td>10007</td>
+								<td>Irish IPCo, Ltd</td>
 								<td>Excel</td>
-								<td>USA</td>
-								<td>USA</td>
-								<td>YES</td>
-								<td>342 South AVE</td>
+								<td>IE</td>
+								<td>IE</td>
+								<td>NO</td>
+								<td></td>
 							</tr>
 							<tr>
-								<td>TIN1</td>
-								<td>Sample</td>
+								<td>10008</td>
+								<td>India IT Ltd 1</td>
 								<td>Excel</td>
-								<td>USA</td>
-								<td>USA</td>
-								<td>YES</td>
-								<td>342 South AVE</td>
+								<td>IN</td>
+								<td>IN</td>
+								<td>NO</td>
+								<td></td>
 							</tr>
+							<tr>
+								<td>10009</td>
+								<td>India IT Ltd 2</td>
+								<td>Excel</td>
+								<td>IN</td>
+								<td>IN</td>
+								<td>NO</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>10010</td>
+								<td>SHARED SERVICES OPERATIONS LTD</td>
+								<td>Excel</td>
+								<td>PH</td>
+								<td>PH</td>
+								<td>NO</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>10011</td>
+								<td>AMERICAS SALES LLC</td>
+								<td>Excel</td>
+								<td>US</td>
+								<td>US</td>
+								<td>NO</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>10012</td>
+								<td>GLOBAL SALESCO</td>
+								<td>Excel</td>
+								<td>US</td>
+								<td>US</td>
+								<td>NO</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>10013</td>
+								<td>INDUSTRYCO CORPORATION INC</td>
+								<td>Excel</td>
+								<td>US</td>
+								<td>US</td>
+								<td>NO</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>10014</td>
+								<td>ICI ELIM</td>
+								<td>Excel</td>
+								<td>US</td>
+								<td>US</td>
+								<td>NO</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>10015</td>
+								<td>LEASECO LLC</td>
+								<td>Excel</td>
+								<td>US</td>
+								<td>US</td>
+								<td>NO</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>10016</td>
+								<td>MANUFACTURING CORPORATION INC</td>
+								<td>Excel</td>
+								<td>US</td>
+								<td>US</td>
+								<td>NO</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>10017</td>
+								<td>US DISTRIBUTION OPERATIONS</td>
+								<td>Excel</td>
+								<td>US</td>
+								<td>US</td>
+								<td>NO</td>
+								<td></td>
+							</tr>
+
 						</tbody>
 					</table>
 
