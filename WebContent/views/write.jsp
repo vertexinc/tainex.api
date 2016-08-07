@@ -443,8 +443,8 @@
 				<div id="Table1" class="tab-pane fade">
 					<h5>Table 1. Overview of allocation of income, taxes and
 						business activities by tax jurisdiction</h5>
-					<table border="0" cellpadding="0" cellspacing="0" width="928"
-						style="border-collapse: collapse; table-layout: fixed; width: 698pt">
+					<table border="0" cellpadding="0" cellspacing="0" width="1000"
+						style="border-collapse: collapse; table-layout: fixed; width: 900pt">
 						<colgroup>
 							<col width="106"
 								style="mso-width-source: userset; mso-width-alt: 3876; width: 80pt">
@@ -490,9 +490,9 @@
 								style="mso-height-source: userset; height: 25.5pt">
 								<td rowspan="2" height="121" class="xl76" width="106"
 									style="height: 90.75pt; border-top: none; width: 80pt">Tax
-									Jurisdiction</td>
-								<td colspan="3" class="xl76" width="271"
-									style="border-left: none; width: 203pt">Revenues</td>
+									Jurisdiction</td><!-- 271 -->
+								<td colspan="3" class="xl76" width="300"
+									style="border-left: none; width: 242pt">Revenues</td>
 								<td rowspan="2" class="xl76" width="82"
 									style="border-top: none; width: 62pt">
 									<meta charset="utf-8"> <span
@@ -518,110 +518,234 @@
 							<tr height="87"
 								style="mso-height-source: userset; height: 65.25pt">
 								<td height="87" class="xl76" width="100"
-									style="height: 65.25pt; border-top: none; border-left: none; width: 75pt">Unrelated
+									style="height: 65.25pt; border-top: none; border-left: none; width: 80pt">Unrelated
 									Party</td>
 								<td class="xl76" width="88"
-									style="border-top: none; border-left: none; width: 66pt">Related
+									style="border-top: none; border-left: none; width: 82pt">Related
 									Party</td>
 								<td class="xl76" width="83"
-									style="border-top: none; border-left: none; width: 62pt">Total</td>
+									style="border-top: none; border-left: none; width: 80pt">Total</td>
+							</tr>
+							<!-- Table 1 table content here -->
+							
+							<tr height="30"
+								style="mso-height-source: userset; height: 22.5pt">
+								<td height="30" class="xl74" width="106"
+									style="height: 22.5pt; width: 80pt">CA</td>
+								<td class="xl74" width="100"
+									style="border-left: none; width: 75pt">15,867,463,982</td>
+								<td class="xl74" width="88"
+									style="border-left: none; width: 66pt">-13,132,307,714</td>
+								<td class="xl74" width="83"
+									style="border-left: none; width: 62pt">2,735,156,268</td>
+								<td class="xl74" width="82"
+									style="border-left: none; width: 62pt">1,195,464,032</td>
+								<td class="xl74" width="86"
+									style="border-left: none; width: 65pt">247,461,055</td>
+								<td class="xl74" width="74"
+									style="border-left: none; width: 56pt">215,183,526</td>
+								<td class="xl74" width="64"
+									style="border-left: none; width: 48pt">26,317,705</td>
+								<td class="xl74" width="84"
+									style="border-left: none; width: 63pt">1,255,227,943</td>
+								<td class="xl74" width="86"
+									style="border-left: none; width: 65pt">51</td>
+								<td class="xl75" style="border-left: none">1,691,169</td>
+							</tr>
+							
+							<tr height="30"
+								style="mso-height-source: userset; height: 22.5pt">
+								<td height="30" class="xl74" width="106"
+									style="height: 22.5pt; width: 80pt">CN</td>
+								<td class="xl74" width="100"
+									style="border-left: none; width: 75pt">-338,019,516</td>
+								<td class="xl74" width="88"
+									style="border-left: none; width: 66pt">524,772,210</td>
+								<td class="xl74" width="83"
+									style="border-left: none; width: 62pt">186,752,694</td>
+								<td class="xl74" width="82"
+									style="border-left: none; width: 62pt">65,472,636</td>
+								<td class="xl74" width="86"
+									style="border-left: none; width: 65pt">18,695,711</td>
+								<td class="xl74" width="74"
+									style="border-left: none; width: 56pt">16,257,140</td>
+								<td class="xl74" width="64"
+									style="border-left: none; width: 48pt">4,386,284</td>
+								<td class="xl74" width="84"
+									style="border-left: none; width: 63pt">76,761,958</td>
+								<td class="xl74" width="86"
+									style="border-left: none; width: 65pt">160</td>
+								<td class="xl75" style="border-left: none">6,800,642</td>
 							</tr>
 							<tr height="30"
 								style="mso-height-source: userset; height: 22.5pt">
 								<td height="30" class="xl74" width="106"
-									style="height: 22.5pt; width: 80pt">&nbsp;</td>
+									style="height: 22.5pt; width: 80pt">DE</td>
 								<td class="xl74" width="100"
-									style="border-left: none; width: 75pt">&nbsp;</td>
+									style="border-left: none; width: 75pt">30,829,468</td>
 								<td class="xl74" width="88"
-									style="border-left: none; width: 66pt">&nbsp;</td>
+									style="border-left: none; width: 66pt">0</td>
 								<td class="xl74" width="83"
-									style="border-left: none; width: 62pt">&nbsp;</td>
+									style="border-left: none; width: 62pt">30,829,468</td>
 								<td class="xl74" width="82"
-									style="border-left: none; width: 62pt">&nbsp;</td>
+									style="border-left: none; width: 62pt">25,501,050</td>
 								<td class="xl74" width="86"
-									style="border-left: none; width: 65pt">&nbsp;</td>
+									style="border-left: none; width: 65pt">8,665,895</td>
 								<td class="xl74" width="74"
-									style="border-left: none; width: 56pt">&nbsp;</td>
+									style="border-left: none; width: 56pt">7,535,560</td>
 								<td class="xl74" width="64"
-									style="border-left: none; width: 48pt">&nbsp;</td>
+									style="border-left: none; width: 48pt">50,000</td>
 								<td class="xl74" width="84"
-									style="border-left: none; width: 63pt">&nbsp;</td>
+									style="border-left: none; width: 63pt">60,980,690</td>
 								<td class="xl74" width="86"
-									style="border-left: none; width: 65pt">&nbsp;</td>
-								<td class="xl75" style="border-left: none">&nbsp;</td>
+									style="border-left: none; width: 65pt">29</td>
+								<td class="xl75" style="border-left: none">970,603</td>
 							</tr>
-							<tr height="31"
-								style="mso-height-source: userset; height: 23.25pt">
-								<td height="31" class="xl67" width="106"
-									style="height: 23.25pt; border-top: none; width: 80pt">&nbsp;</td>
-								<td class="xl67" width="100"
-									style="border-top: none; border-left: none; width: 75pt">&nbsp;</td>
-								<td class="xl67" width="88"
-									style="border-top: none; border-left: none; width: 66pt">&nbsp;</td>
-								<td class="xl67" width="83"
-									style="border-top: none; border-left: none; width: 62pt">&nbsp;</td>
-								<td class="xl67" width="82"
-									style="border-top: none; border-left: none; width: 62pt">&nbsp;</td>
-								<td class="xl67" width="86"
-									style="border-top: none; border-left: none; width: 65pt">&nbsp;</td>
-								<td class="xl67" width="74"
-									style="border-top: none; border-left: none; width: 56pt">&nbsp;</td>
-								<td class="xl67" width="64"
-									style="border-top: none; border-left: none; width: 48pt">&nbsp;</td>
-								<td class="xl67" width="84"
-									style="border-top: none; border-left: none; width: 63pt">&nbsp;</td>
-								<td class="xl67" width="86"
-									style="border-top: none; border-left: none; width: 65pt">&nbsp;</td>
-								<td class="xl65" style="border-top: none; border-left: none">&nbsp;</td>
+							<tr height="30"
+								style="mso-height-source: userset; height: 22.5pt">
+								<td height="30" class="xl74" width="106"
+									style="height: 22.5pt; width: 80pt">GB</td>
+								<td class="xl74" width="100"
+									style="border-left: none; width: 75pt">0</td>
+								<td class="xl74" width="88"
+									style="border-left: none; width: 66pt">0</td>
+								<td class="xl74" width="83"
+									style="border-left: none; width: 62pt">0</td>
+								<td class="xl74" width="82"
+									style="border-left: none; width: 62pt">1,199,997</td>
+								<td class="xl74" width="86"
+									style="border-left: none; width: 65pt">227,700</td>
+								<td class="xl74" width="74"
+									style="border-left: none; width: 56pt">198,000</td>
+								<td class="xl74" width="64"
+									style="border-left: none; width: 48pt">0</td>
+								<td class="xl74" width="84"
+									style="border-left: none; width: 63pt">1,199,997</td>
+								<td class="xl74" width="86"
+									style="border-left: none; width: 65pt">19</td>
+								<td class="xl75" style="border-left: none">74,141</td>
 							</tr>
-							<tr height="32"
-								style="mso-height-source: userset; height: 24.0pt">
-								<td height="32" class="xl67" width="106"
-									style="height: 24.0pt; border-top: none; width: 80pt">&nbsp;</td>
-								<td class="xl67" width="100"
-									style="border-top: none; border-left: none; width: 75pt">&nbsp;</td>
-								<td class="xl67" width="88"
-									style="border-top: none; border-left: none; width: 66pt">&nbsp;</td>
-								<td class="xl67" width="83"
-									style="border-top: none; border-left: none; width: 62pt">&nbsp;</td>
-								<td class="xl67" width="82"
-									style="border-top: none; border-left: none; width: 62pt">&nbsp;</td>
-								<td class="xl67" width="86"
-									style="border-top: none; border-left: none; width: 65pt">&nbsp;</td>
-								<td class="xl67" width="74"
-									style="border-top: none; border-left: none; width: 56pt">&nbsp;</td>
-								<td class="xl67" width="64"
-									style="border-top: none; border-left: none; width: 48pt">&nbsp;</td>
-								<td class="xl67" width="84"
-									style="border-top: none; border-left: none; width: 63pt">&nbsp;</td>
-								<td class="xl67" width="86"
-									style="border-top: none; border-left: none; width: 65pt">&nbsp;</td>
-								<td class="xl65" style="border-top: none; border-left: none">&nbsp;</td>
+							<tr height="30"
+								style="mso-height-source: userset; height: 22.5pt">
+								<td height="30" class="xl74" width="106"
+									style="height: 22.5pt; width: 80pt">HK</td>
+								<td class="xl74" width="100"
+									style="border-left: none; width: 75pt">0</td>
+								<td class="xl74" width="88"
+									style="border-left: none; width: 66pt">3,260,826,946</td>
+								<td class="xl74" width="83"
+									style="border-left: none; width: 62pt">3,260,826,946</td>
+								<td class="xl74" width="82"
+									style="border-left: none; width: 62pt">3,616,571</td>
+								<td class="xl74" width="86"
+									style="border-left: none; width: 65pt">1,413,664</td>
+								<td class="xl74" width="74"
+									style="border-left: none; width: 56pt">1,229,272</td>
+								<td class="xl74" width="64"
+									style="border-left: none; width: 48pt">74,500</td>
+								<td class="xl74" width="84"
+									style="border-left: none; width: 63pt">4,770,738</td>
+								<td class="xl74" width="86"
+									style="border-left: none; width: 65pt">19</td>
+								<td class="xl75" style="border-left: none">245,053</td>
 							</tr>
-							<tr height="32"
-								style="mso-height-source: userset; height: 24.0pt">
-								<td height="32" class="xl67" width="106"
-									style="height: 24.0pt; border-top: none; width: 80pt">&nbsp;</td>
-								<td class="xl67" width="100"
-									style="border-top: none; border-left: none; width: 75pt">&nbsp;</td>
-								<td class="xl67" width="88"
-									style="border-top: none; border-left: none; width: 66pt">&nbsp;</td>
-								<td class="xl67" width="83"
-									style="border-top: none; border-left: none; width: 62pt">&nbsp;</td>
-								<td class="xl67" width="82"
-									style="border-top: none; border-left: none; width: 62pt">&nbsp;</td>
-								<td class="xl67" width="86"
-									style="border-top: none; border-left: none; width: 65pt">&nbsp;</td>
-								<td class="xl67" width="74"
-									style="border-top: none; border-left: none; width: 56pt">&nbsp;</td>
-								<td class="xl67" width="64"
-									style="border-top: none; border-left: none; width: 48pt">&nbsp;</td>
-								<td class="xl67" width="84"
-									style="border-top: none; border-left: none; width: 63pt">&nbsp;</td>
-								<td class="xl67" width="86"
-									style="border-top: none; border-left: none; width: 65pt">&nbsp;</td>
-								<td class="xl65" style="border-top: none; border-left: none">&nbsp;</td>
+							<tr height="30"
+								style="mso-height-source: userset; height: 22.5pt">
+								<td height="30" class="xl74" width="106"
+									style="height: 22.5pt; width: 80pt">IE</td>
+								<td class="xl74" width="100"
+									style="border-left: none; width: 75pt">0</td>
+								<td class="xl74" width="88"
+									style="border-left: none; width: 66pt">1,851,334,928</td>
+								<td class="xl74" width="83"
+									style="border-left: none; width: 62pt">1,851,334,928</td>
+								<td class="xl74" width="82"
+									style="border-left: none; width: 62pt">1,840,169,029</td>
+								<td class="xl74" width="86"
+									style="border-left: none; width: 65pt">264,524,298</td>
+								<td class="xl74" width="74"
+									style="border-left: none; width: 56pt">230,021,129</td>
+								<td class="xl74" width="64"
+									style="border-left: none; width: 48pt">78,000</td>
+								<td class="xl74" width="84"
+									style="border-left: none; width: 63pt">2,175,257,925</td>
+								<td class="xl74" width="86"
+									style="border-left: none; width: 65pt">5</td>
+								<td class="xl75" style="border-left: none">1,852,842</td>
 							</tr>
+							<tr height="30"
+								style="mso-height-source: userset; height: 22.5pt">
+								<td height="30" class="xl74" width="106"
+									style="height: 22.5pt; width: 80pt">IN</td>
+								<td class="xl74" width="100"
+									style="border-left: none; width: 75pt">0</td>
+								<td class="xl74" width="88"
+									style="border-left: none; width: 66pt">11,414,668</td>
+								<td class="xl74" width="83"
+									style="border-left: none; width: 62pt">11,414,668</td>
+								<td class="xl74" width="82"
+									style="border-left: none; width: 62pt">808,857</td>
+								<td class="xl74" width="86"
+									style="border-left: none; width: 65pt">279,056</td>
+								<td class="xl74" width="74"
+									style="border-left: none; width: 56pt">242,657</td>
+								<td class="xl74" width="64"
+									style="border-left: none; width: 48pt">135,000</td>
+								<td class="xl74" width="84"
+									style="border-left: none; width: 63pt">3,363,607</td>
+								<td class="xl74" width="86"
+									style="border-left: none; width: 65pt">42</td>
+								<td class="xl75" style="border-left: none">277,926</td>
+							</tr>
+							<tr height="30"
+								style="mso-height-source: userset; height: 22.5pt">
+								<td height="30" class="xl74" width="106"
+									style="height: 22.5pt; width: 80pt">PH</td>
+								<td class="xl74" width="100"
+									style="border-left: none; width: 75pt">155,139,268</td>
+								<td class="xl74" width="88"
+									style="border-left: none; width: 66pt">-53,153,539</td>
+								<td class="xl74" width="83"
+									style="border-left: none; width: 62pt">101,985,729</td>
+								<td class="xl74" width="82"
+									style="border-left: none; width: 62pt">-65,405</td>
+								<td class="xl74" width="86"
+									style="border-left: none; width: 65pt">280,698</td>
+								<td class="xl74" width="74"
+									style="border-left: none; width: 56pt">244,086</td>
+								<td class="xl74" width="64"
+									style="border-left: none; width: 48pt">10,965,711</td>
+								<td class="xl74" width="84"
+									style="border-left: none; width: 63pt">23,986,587</td>
+								<td class="xl74" width="86"
+									style="border-left: none; width: 65pt">24</td>
+								<td class="xl75" style="border-left: none">1,901,688</td>
+							</tr>
+							<tr height="30"
+								style="mso-height-source: userset; height: 22.5pt">
+								<td height="30" class="xl74" width="106"
+									style="height: 22.5pt; width: 80pt">US</td>
+								<td class="xl74" width="100"
+									style="border-left: none; width: 75pt">-4,950,867,513</td>
+								<td class="xl74" width="88"
+									style="border-left: none; width: 66pt">12,512,601,336</td>
+								<td class="xl74" width="83"
+									style="border-left: none; width: 62pt">7,561,733,823</td>
+								<td class="xl74" width="82"
+									style="border-left: none; width: 62pt">3,049,029,992</td>
+								<td class="xl74" width="86"
+									style="border-left: none; width: 65pt">1,747,074,909</td>
+								<td class="xl74" width="74"
+									style="border-left: none; width: 56pt">1,519,195,572</td>
+								<td class="xl74" width="64"
+									style="border-left: none; width: 48pt">476,634,632</td>
+								<td class="xl74" width="84"
+									style="border-left: none; width: 63pt">2,943,421,169</td>
+								<td class="xl74" width="86"
+									style="border-left: none; width: 65pt">584</td>
+								<td class="xl75" style="border-left: none">160,435,377</td>
+							</tr>
+							
 							<!--[if supportMisalignedColumns]-->
 							<tr height="0" style="display: none">
 								<td width="106" style="width: 80pt"></td>
@@ -636,6 +760,7 @@
 								<td width="86" style="width: 65pt"></td>
 								<td width="75" style="width: 56pt"></td>
 							</tr>
+							
 							<!--[endif]-->
 						</tbody>
 					</table>
@@ -645,12 +770,12 @@
 					<h5>Table 2. List of all the Constituent Entities of the MNE
 						group included in each aggregation per tax jurisdiction</h5>
 					<table border="0" cellpadding="0" cellspacing="0" width="1424"
-						style="border-collapse: collapse; table-layout: fixed; width: 1069pt">
+						style="border-collapse: collapse; table-layout: fixed; width: 1500pt">
 						<colgroup>
 							<col width="84"
 								style="mso-width-source: userset; mso-width-alt: 3072; width: 63pt">
 							<col width="87"
-								style="mso-width-source: userset; mso-width-alt: 3181; width: 65pt">
+								style="mso-width-source: userset; mso-width-alt: 3181; width: 165pt">
 							<col width="123"
 								style="mso-width-source: userset; mso-width-alt: 4498; width: 92pt">
 							<col width="95"
@@ -738,13 +863,124 @@
 								<td class="x0l67" width="64"
 									style="border-top: none; border-left: none; width: 48pt">Other2</td>
 							</tr>
+							<!-- Table 2 number content from 2nd column here -->
 							<tr height="21" style="height: 15.75pt">
-								<td rowspan="3" height="61" class="x0l68" width="84"
-									style="height: 45.75pt; width: 63pt">&nbsp;</td>
-								<td class="x0l65" style="border-left: none">1</td>
+								<td class="x0l65" style="border-left: none">CA</td>
+								<td class="x0l65" style="border-left: none">GLOBAL SALESCO</td>
+								<td class="x0l66" style="border-left: none">CA</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">1</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">1</td>
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">x</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+							</tr>
+							
+							<tr height="21" style="height: 15.75pt">
+								<td class="x0l65" style="border-left: none">CN</td>
+								<td class="x0l65" style="border-left: none">CHINA MANUFACTURING CO</td>
+								<td class="x0l66" style="border-left: none">CN</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">1</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">x</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+							</tr>
+							<tr height="21" style="height: 15.75pt">
+								<td class="x0l65" style="border-left: none">DE</td>
+								<td class="x0l65" style="border-left: none">German HoldCo GmbH</td>
+								<td class="x0l66" style="border-left: none">DE</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">x</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+							</tr>
+							<tr height="21" style="height: 15.75pt">
+								<td class="x0l65" style="border-left: none">DE</td>
+								<td class="x0l65" style="border-left: none">Germany SubAssembly GmbH</td>
+								<td class="x0l66" style="border-left: none">DE</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">1</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">x</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+							</tr>
+								<tr height="21" style="height: 15.75pt">
+								<td class="x0l65" style="border-left: none">GB</td>
+								<td class="x0l65" style="border-left: none">FINANCECO, LTD.</td>
+								<td class="x0l66" style="border-left: none">GB</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">1</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">x</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+							</tr>
+							<tr>
+								<tr height="21" style="height: 15.75pt">
+								<td class="x0l65" style="border-left: none">HK</td>
+								<td class="x0l65" style="border-left: none">APAC SALES CORPORATION</td>
+								<td class="x0l66" style="border-left: none">HK</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">1</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+							</tr>
+							<tr>
+								<tr height="21" style="height: 15.75pt">
+								<td class="x0l65" style="border-left: none">IE</td>
+								<td class="x0l65" style="border-left: none">Irish IPCo, Ltd</td>
+								<td class="x0l66" style="border-left: none">IE</td>
+								<td class="x0l66" style="border-left: none">1</td>
+								<td class="x0l66" style="border-left: none">1</td>
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
@@ -757,96 +993,195 @@
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
 							</tr>
-							<tr height="20" style="height: 15.0pt">
-								<td height="20" class="x0l65"
-									style="height: 15.0pt; border-top: none; border-left: none">2</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+							<tr>
+								<tr height="21" style="height: 15.75pt">
+								<td class="x0l65" style="border-left: none">IN</td>
+								<td class="x0l65" style="border-left: none">India IT Ltd 1</td>
+								<td class="x0l66" style="border-left: none">IN</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">1</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
 							</tr>
-							<tr height="20" style="height: 15.0pt">
-								<td height="20" class="x0l65"
-									style="height: 15.0pt; border-top: none; border-left: none">3</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+							<tr>
+								<tr height="21" style="height: 15.75pt">
+								<td class="x0l65" style="border-left: none">IN</td>
+								<td class="x0l65" style="border-left: none">India IT Ltd 2</td>
+								<td class="x0l66" style="border-left: none">IN</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">1</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
 							</tr>
-							<tr height="20" style="height: 15.0pt">
-								<td rowspan="3" height="60" class="x0l68" width="84"
-									style="height: 45.0pt; border-top: none; width: 63pt">&nbsp;</td>
-								<td class="x0l65" style="border-top: none; border-left: none">1</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+							<tr>
+								<tr height="21" style="height: 15.75pt">
+								<td class="x0l65" style="border-left: none">PH</td>
+								<td class="x0l65" style="border-left: none">SHARED SERVICES OPERATIONS LTD</td>
+								<td class="x0l66" style="border-left: none">PH</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">1</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">x</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
 							</tr>
-							<tr height="20" style="height: 15.0pt">
-								<td height="20" class="x0l65"
-									style="height: 15.0pt; border-top: none; border-left: none">2</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+							<tr>
+								<tr height="21" style="height: 15.75pt">
+								<td class="x0l65" style="border-left: none">US</td>
+								<td class="x0l65" style="border-left: none">AMERICAS SALES LLC</td>
+								<td class="x0l66" style="border-left: none">US</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">1</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
 							</tr>
-							<tr height="20" style="height: 15.0pt">
-								<td height="20" class="x0l65"
-									style="height: 15.0pt; border-top: none; border-left: none">3</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-top: none; border-left: none">&nbsp;</td>
+							<tr>
+								<tr height="21" style="height: 15.75pt">
+								<td class="x0l65" style="border-left: none">US</td>
+								<td class="x0l65" style="border-left: none">GLOBAL SALESCO</td>
+								<td class="x0l66" style="border-left: none">US</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">1</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">1</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">x</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+							</tr>
+							<tr>
+								<tr height="21" style="height: 15.75pt">
+								<td class="x0l65" style="border-left: none">US</td>
+								<td class="x0l65" style="border-left: none">IndustryCo</td>
+								<td class="x0l66" style="border-left: none">US</td>
+								<td class="x0l66" style="border-left: none">1</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">1</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+							</tr>
+							<tr>
+								<tr height="21" style="height: 15.75pt">
+								<td class="x0l65" style="border-left: none">US</td>
+								<td class="x0l65" style="border-left: none">ICI ELIM</td>
+								<td class="x0l66" style="border-left: none">US</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">x</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+							</tr>
+							<tr>
+								<tr height="21" style="height: 15.75pt">
+								<td class="x0l65" style="border-left: none">US</td>
+								<td class="x0l65" style="border-left: none">LEASECO LLC</td>
+								<td class="x0l66" style="border-left: none">US</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">x</td>
+							</tr>
+							<tr>
+								<tr height="21" style="height: 15.75pt">
+								<td class="x0l65" style="border-left: none">uS</td>
+								<td class="x0l65" style="border-left: none">MANUFACTURING CORPORATION INC</td>
+								<td class="x0l66" style="border-left: none">US</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">1</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">x</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+							</tr>
+							<tr>
+								<tr height="21" style="height: 15.75pt">
+								<td class="x0l65" style="border-left: none">US</td>
+								<td class="x0l65" style="border-left: none">US DISTRIBUTION OPERATIONS</td>
+								<td class="x0l66" style="border-left: none">US</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">1</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
+								<td class="x0l66" style="border-left: none">&nbsp;</td>
 							</tr>
 							<!--[if supportMisalignedColumns]-->
 							<tr height="0" style="display: none">
@@ -876,7 +1211,7 @@
 				<div id="Table3" class="tab-pane fade">
 					<h5>Table 3. Additional Information</h5>
 
-					<table style="width: 100%">
+					<table style="width: 45%">
 
 						<tr>
 

@@ -141,6 +141,7 @@ th {
 
 td {
 	padding-right: 20px;
+	 
 }
 
 td.ex {
@@ -885,7 +886,7 @@ td {
 
 .x0l65 {
 	mso-style-parent: style0;
-	text-align: left;
+	text-align: center;
 	vertical-align: middle;
 	border: .5pt solid windowtext;
 }
@@ -893,12 +894,14 @@ td {
 .x0l66 {
 	mso-style-parent: style0;
 	border: .5pt solid windowtext;
+	text-align: center;
 }
 
 .x00l66 {
 	height: 100px;
 	mso-style-parent: style0;
 	border: .5pt solid windowtext;
+	text-align: center;
 	vertical-align: text-top;
 }
 
@@ -918,6 +921,7 @@ td {
 	mso-style-parent: style0;
 	border: .5pt solid windowtext;
 	white-space: normal;
+	text-align: center;
 }
 
 .x0l69 {
@@ -981,6 +985,9 @@ td {
 	border-bottom: none;
 	border-left: none;
 	white-space: normal;
+}
+#Table2>table {
+	text-align: center;
 }
 
 #Table3>table {
