@@ -10,12 +10,18 @@
 <!-- Load the css file properly : add this -> ${pageContext.request.contextPath}-->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/main.css" />
-<link rel="stylesheet"
+<!--link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script
-	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script-->
+
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<link rel="stylesheet"
+	href="bower_components/bootstrap/dist/css/bootstrap.css">
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+
 </head>
 <body>
 	<div class="container">
@@ -37,7 +43,7 @@
 			</div>
 
 		</div>
-		
+
 	</div>
 
 </body>

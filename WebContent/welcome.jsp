@@ -17,18 +17,16 @@
 	!</title>
 
 
-
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.js"></script>
-
+<script src="bower_components/jquery/dist/jquery.js"></script>
 <link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	href="bower_components/bootstrap/dist/css/bootstrap.css">
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	src="javascript/angular.min.js"></script>
 <script
-	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	src="javascript/angular-route.js"></script>
+
+
 <script src="javascript/app.js"></script>
 
 <script src="javascript/controllers/main.js"></script>
@@ -300,12 +298,11 @@
 						</div>
 					</ul>
 				</div-->
-				<div class="col-sm-4"> </div>
+				<div class="col-sm-4"></div>
 				<div class="col-sm-4">
 
 					<div id="training">
-						<a href="#/training"
-							class="btn btn-primary" role="button"><fmt:message
+						<a href="#/training" class="btn btn-primary" role="button"><fmt:message
 								key="label.Training" /></a>
 					</div>
 
@@ -351,7 +348,7 @@
 	</div>
 	<div class="footer">
 		<div class="container">
-			<p>Copy Right @ </p>
+			<p>Copy Right @</p>
 		</div>
 	</div>
 
