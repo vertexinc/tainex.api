@@ -61,16 +61,20 @@
 			<div class="tab-content">
 				<div id="Message" class="tab-pane fade in active">
 					<div class="row">
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<p>From: marisol@gmail.com</p>
 						</div>
 
 
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<p>Date: 2016-08-04T13:23:21</p>
 						</div>
+						
+						<div class="col-md-3">
+							<p>Reporting Period: 2014-12-31</p>
+						</div>
 
-						<div class="col-md-4">
+						<div class="col-md-3">
 							<p>Status: Viewed</p>
 						</div>
 					</div>
