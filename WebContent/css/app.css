@@ -24,6 +24,7 @@ a {
 	height: 100%;
 	padding-left: 2px;
 	padding-right: 2px;
+	border-top: 1px solid #000;
 }
 
 .sidebar {
@@ -141,7 +142,6 @@ th {
 
 td {
 	padding-right: 20px;
-	 
 }
 
 td.ex {
@@ -328,7 +328,6 @@ li {
 
 #training {
 	margin-top: 20px;
-	
 }
 
 .main .header .nav-settings a {
@@ -613,6 +612,7 @@ textarea {
 
 #upper {
 	height: 260px;
+	border-bottom: 1px solid #000;
 }
 
 #Message {
@@ -986,6 +986,7 @@ td {
 	border-left: none;
 	white-space: normal;
 }
+
 #Table2>table {
 	text-align: center;
 }

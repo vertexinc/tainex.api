@@ -44,6 +44,7 @@
 			</div>
 		</div>
 	</div>
+	<div style="border: 1px solid #000"></div>
 	<div class="container">
 		<div class="scrollbar3" id="style-4">
 			<!--  div class="force-overflow3"-->
@@ -490,7 +491,8 @@
 								style="mso-height-source: userset; height: 25.5pt">
 								<td rowspan="2" height="121" class="xl76" width="106"
 									style="height: 90.75pt; border-top: none; width: 80pt">Tax
-									Jurisdiction</td><!-- 271 -->
+									Jurisdiction</td>
+								<!-- 271 -->
 								<td colspan="3" class="xl76" width="300"
 									style="border-left: none; width: 242pt">Revenues</td>
 								<td rowspan="2" class="xl76" width="82"
@@ -527,7 +529,7 @@
 									style="border-top: none; border-left: none; width: 80pt">Total</td>
 							</tr>
 							<!-- Table 1 table content here -->
-							
+
 							<tr height="30"
 								style="mso-height-source: userset; height: 22.5pt">
 								<td height="30" class="xl74" width="106"
@@ -552,7 +554,7 @@
 									style="border-left: none; width: 65pt">51</td>
 								<td class="xl75" style="border-left: none">1,691,169</td>
 							</tr>
-							
+
 							<tr height="30"
 								style="mso-height-source: userset; height: 22.5pt">
 								<td height="30" class="xl74" width="106"
@@ -745,7 +747,7 @@
 									style="border-left: none; width: 65pt">584</td>
 								<td class="xl75" style="border-left: none">160,435,377</td>
 							</tr>
-							
+
 							<!--[if supportMisalignedColumns]-->
 							<tr height="0" style="display: none">
 								<td width="106" style="width: 80pt"></td>
@@ -760,7 +762,7 @@
 								<td width="86" style="width: 65pt"></td>
 								<td width="75" style="width: 56pt"></td>
 							</tr>
-							
+
 							<!--[endif]-->
 						</tbody>
 					</table>
@@ -882,10 +884,11 @@
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
 							</tr>
-							
+
 							<tr height="21" style="height: 15.75pt">
 								<td class="x0l65" style="border-left: none">CN</td>
-								<td class="x0l65" style="border-left: none">CHINA MANUFACTURING CO</td>
+								<td class="x0l65" style="border-left: none">CHINA
+									MANUFACTURING CO</td>
 								<td class="x0l66" style="border-left: none">CN</td>
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
@@ -903,7 +906,8 @@
 							</tr>
 							<tr height="21" style="height: 15.75pt">
 								<td class="x0l65" style="border-left: none">DE</td>
-								<td class="x0l65" style="border-left: none">German HoldCo GmbH</td>
+								<td class="x0l65" style="border-left: none">German HoldCo
+									GmbH</td>
 								<td class="x0l66" style="border-left: none">DE</td>
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
@@ -921,7 +925,8 @@
 							</tr>
 							<tr height="21" style="height: 15.75pt">
 								<td class="x0l65" style="border-left: none">DE</td>
-								<td class="x0l65" style="border-left: none">Germany SubAssembly GmbH</td>
+								<td class="x0l65" style="border-left: none">Germany
+									SubAssembly GmbH</td>
 								<td class="x0l66" style="border-left: none">DE</td>
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
@@ -937,7 +942,7 @@
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
 							</tr>
-								<tr height="21" style="height: 15.75pt">
+							<tr height="21" style="height: 15.75pt">
 								<td class="x0l65" style="border-left: none">GB</td>
 								<td class="x0l65" style="border-left: none">FINANCECO, LTD.</td>
 								<td class="x0l66" style="border-left: none">GB</td>
@@ -956,9 +961,10 @@
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
 							</tr>
 							<tr>
-								<tr height="21" style="height: 15.75pt">
+							<tr height="21" style="height: 15.75pt">
 								<td class="x0l65" style="border-left: none">HK</td>
-								<td class="x0l65" style="border-left: none">APAC SALES CORPORATION</td>
+								<td class="x0l65" style="border-left: none">APAC SALES
+									CORPORATION</td>
 								<td class="x0l66" style="border-left: none">HK</td>
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
@@ -975,7 +981,7 @@
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
 							</tr>
 							<tr>
-								<tr height="21" style="height: 15.75pt">
+							<tr height="21" style="height: 15.75pt">
 								<td class="x0l65" style="border-left: none">IE</td>
 								<td class="x0l65" style="border-left: none">Irish IPCo, Ltd</td>
 								<td class="x0l66" style="border-left: none">IE</td>
@@ -994,7 +1000,7 @@
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
 							</tr>
 							<tr>
-								<tr height="21" style="height: 15.75pt">
+							<tr height="21" style="height: 15.75pt">
 								<td class="x0l65" style="border-left: none">IN</td>
 								<td class="x0l65" style="border-left: none">India IT Ltd 1</td>
 								<td class="x0l66" style="border-left: none">IN</td>
@@ -1013,7 +1019,7 @@
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
 							</tr>
 							<tr>
-								<tr height="21" style="height: 15.75pt">
+							<tr height="21" style="height: 15.75pt">
 								<td class="x0l65" style="border-left: none">IN</td>
 								<td class="x0l65" style="border-left: none">India IT Ltd 2</td>
 								<td class="x0l66" style="border-left: none">IN</td>
@@ -1032,9 +1038,10 @@
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
 							</tr>
 							<tr>
-								<tr height="21" style="height: 15.75pt">
+							<tr height="21" style="height: 15.75pt">
 								<td class="x0l65" style="border-left: none">PH</td>
-								<td class="x0l65" style="border-left: none">SHARED SERVICES OPERATIONS LTD</td>
+								<td class="x0l65" style="border-left: none">SHARED SERVICES
+									OPERATIONS LTD</td>
 								<td class="x0l66" style="border-left: none">PH</td>
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
@@ -1051,9 +1058,10 @@
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
 							</tr>
 							<tr>
-								<tr height="21" style="height: 15.75pt">
+							<tr height="21" style="height: 15.75pt">
 								<td class="x0l65" style="border-left: none">US</td>
-								<td class="x0l65" style="border-left: none">AMERICAS SALES LLC</td>
+								<td class="x0l65" style="border-left: none">AMERICAS SALES
+									LLC</td>
 								<td class="x0l66" style="border-left: none">US</td>
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
@@ -1070,7 +1078,7 @@
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
 							</tr>
 							<tr>
-								<tr height="21" style="height: 15.75pt">
+							<tr height="21" style="height: 15.75pt">
 								<td class="x0l65" style="border-left: none">US</td>
 								<td class="x0l65" style="border-left: none">GLOBAL SALESCO</td>
 								<td class="x0l66" style="border-left: none">US</td>
@@ -1089,7 +1097,7 @@
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
 							</tr>
 							<tr>
-								<tr height="21" style="height: 15.75pt">
+							<tr height="21" style="height: 15.75pt">
 								<td class="x0l65" style="border-left: none">US</td>
 								<td class="x0l65" style="border-left: none">IndustryCo</td>
 								<td class="x0l66" style="border-left: none">US</td>
@@ -1108,7 +1116,7 @@
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
 							</tr>
 							<tr>
-								<tr height="21" style="height: 15.75pt">
+							<tr height="21" style="height: 15.75pt">
 								<td class="x0l65" style="border-left: none">US</td>
 								<td class="x0l65" style="border-left: none">ICI ELIM</td>
 								<td class="x0l66" style="border-left: none">US</td>
@@ -1127,7 +1135,7 @@
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
 							</tr>
 							<tr>
-								<tr height="21" style="height: 15.75pt">
+							<tr height="21" style="height: 15.75pt">
 								<td class="x0l65" style="border-left: none">US</td>
 								<td class="x0l65" style="border-left: none">LEASECO LLC</td>
 								<td class="x0l66" style="border-left: none">US</td>
@@ -1146,9 +1154,10 @@
 								<td class="x0l66" style="border-left: none">x</td>
 							</tr>
 							<tr>
-								<tr height="21" style="height: 15.75pt">
+							<tr height="21" style="height: 15.75pt">
 								<td class="x0l65" style="border-left: none">uS</td>
-								<td class="x0l65" style="border-left: none">MANUFACTURING CORPORATION INC</td>
+								<td class="x0l65" style="border-left: none">MANUFACTURING
+									CORPORATION INC</td>
 								<td class="x0l66" style="border-left: none">US</td>
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
@@ -1165,9 +1174,10 @@
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
 							</tr>
 							<tr>
-								<tr height="21" style="height: 15.75pt">
+							<tr height="21" style="height: 15.75pt">
 								<td class="x0l65" style="border-left: none">US</td>
-								<td class="x0l65" style="border-left: none">US DISTRIBUTION OPERATIONS</td>
+								<td class="x0l65" style="border-left: none">US DISTRIBUTION
+									OPERATIONS</td>
 								<td class="x0l66" style="border-left: none">US</td>
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
 								<td class="x0l66" style="border-left: none">&nbsp;</td>
