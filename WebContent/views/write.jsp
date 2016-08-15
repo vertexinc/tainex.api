@@ -62,12 +62,12 @@
 				<div id="Message" class="tab-pane fade in active">
 					<div class="row">
 						<div class="col-md-4">
-							<p>From: abc@MX</p>
+							<p>From: marisol@gmail.com</p>
 						</div>
 
 
 						<div class="col-md-4">
-							<p>Date: Jan 11,2018</p>
+							<p>Date: 2016-08-04T13:23:21</p>
 						</div>
 
 						<div class="col-md-4">
@@ -192,6 +192,7 @@
 								<th>Currency</th>
 								<th>Resident Country</th>
 								<th>Accounting Standard</th>
+								<th>Reporting Period</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -203,6 +204,7 @@
 								<td>MXNr</td>
 								<td>MX</td>
 								<td>MX GAAP</td>
+								<td>2014-12-31</td>
 							</tr>
 							<!--tr>
 								<td>code123</td>
@@ -274,7 +276,7 @@
 						<thead>
 							<tr>
 								<th>TIN</th>
-								<th>Name</th>
+								<th>Entity Code</th>
 								<th>Doc Type</th>
 								<th>Incorporation Country</th>
 								<th>Resident Country</th>
@@ -393,7 +395,7 @@
 							</tr>
 							<tr>
 								<td>10013</td>
-								<td>INDUSTRYCO CORPORATION INC</td>
+								<td>IndustryCo</td>
 								<td>Excel</td>
 								<td>US</td>
 								<td>US</td>
@@ -477,14 +479,14 @@
 									style="mso-spacerun: yes">&nbsp; </span>of<span
 									style="mso-spacerun: yes">&nbsp; </span>the<span
 									style="mso-spacerun: yes">&nbsp; </span>MNE<span
-									style="mso-spacerun: yes">&nbsp; </span>group:<span
+									style="mso-spacerun: yes">&nbsp; </span>group: IndustryCo<span
 									style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
 							</tr>
 							<tr height="30"
 								style="mso-height-source: userset; height: 22.5pt">
 								<td colspan="11" height="30" class="xl71" width="928"
 									style="border-right: .5pt solid black; height: 22.5pt; width: 698pt">Fiscal
-									Year Concerned:<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+									Year Concerned: 2014-12-31<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 								</td>
 							</tr>
 							<tr height="34"
@@ -807,12 +809,12 @@
 							<tr height="20" style="height: 15.0pt">
 								<td colspan="16" height="20" class="x0l72" width="1424"
 									style="border-right: .5pt solid black; height: 15.0pt; width: 1069pt">Name
-									of the MNE group:</td>
+									of the MNE group: IndustryCo</td>
 							</tr>
 							<tr height="21" style="height: 15.75pt">
 								<td colspan="16" height="21" class="x0l69" width="1424"
 									style="border-right: .5pt solid black; height: 15.75pt; width: 1069pt">Fiscal
-									year concerned:</td>
+									year concerned:  2014-12-31</td>
 							</tr>
 							<tr height="22" style="height: 16.5pt">
 								<td rowspan="2" height="170" class="x0l67" width="84"
@@ -1225,8 +1227,8 @@
 
 						<tr>
 
-							<th><div id="table3head">Name of the MNE group:</div>
-								<div id="table3head">Fiscal year concerned:</div></th>
+							<th><div id="table3head">Name of the MNE group: IndustryCo</div>
+								<div id="table3head">Fiscal year concerned:  2014-12-31</div></th>
 						</tr>
 
 						<tr>
