@@ -49,18 +49,18 @@
 		<div class="scrollbar3" id="style-4">
 			<!--  div class="force-overflow3"-->
 
-			<ul class="nav nav-tabs">
-				<li><a data-toggle="tab" href="#Message">Message</a></li>
-				<li><a data-toggle="tab" href="#Docs">Docs</a></li>
-				<li><a data-toggle="tab" href="#Entity">Entity</a></li>
-				<li><a data-toggle="tab" href="#Table1">Table1</a></li>
-				<li><a data-toggle="tab" href="#Table2">Table2</a></li>
-				<li><a data-toggle="tab" href="#Table3">Table3</a></li>
+			<ul class="tab">
+				<li><a  class="tablinks" onclick="openCity(event, 'Message')">Message</a></li>
+				<li><a  class="tablinks" onclick="openCity(event, 'Docs')">Docs</a></li>
+				<li><a  class="tablinks" onclick="openCity(event, 'Entity')">Entity</a></li>
+				<li><a  class="tablinks" onclick="openCity(event, 'Table1')">Table1</a></li>
+				<li><a  class="tablinks" onclick="openCity(event, 'Table2')">Table2</a></li>
+				<li><a  class="tablinks" onclick="openCity(event, 'Table3')">Table3</a></li>
 
 			</ul>
 
-			<div class="tab-content">
-				<div id="Message" class="tab-pane fade in active">
+			
+				<div id="Message" class="tabcontent">
 					<div class="row">
 						<div class="col-md-3">
 							<p>From: marisol@gmail.com</p>
@@ -177,7 +177,7 @@
 					</div>
 
 				</div>
-				<div id="Docs" class="tab-pane fade">
+				<div id="Docs" class="tabcontent">
 					<div class="row">
 						<div class="col-md-6">Tax Documents In Message:</div>
 						<div id="docbuttons" class="col-md-6">
@@ -254,7 +254,7 @@
 						</tbody>
 					</table>
 				</div>
-				<div id="Entity" class="tab-pane fade">
+				<div id="Entity" class="tabcontent">
 					<div class="row" id="docrow">
 						<h3>&nbsp;&nbsp; Entities in CBCR Doc:</h3>
 					</div>
@@ -466,7 +466,7 @@
 					</table>
 
 				</div>
-				<div id="Table1" class="tab-pane fade">
+				<div id="Table1" class="tabcontent">
 					<h5>Table 1. Overview of allocation of income, taxes and
 						business activities by tax jurisdiction</h5>
 					<table border="0" cellpadding="0" cellspacing="0" width="1000"
@@ -793,7 +793,7 @@
 					</table>
 
 				</div>
-				<div id="Table2" class="tab-pane fade">
+				<div id="Table2" class="tabcontent">
 					<h5>Table 2. List of all the Constituent Entities of the MNE
 						group included in each aggregation per tax jurisdiction</h5>
 					<table border="0" cellpadding="0" cellspacing="0" width="1424"
@@ -1243,7 +1243,7 @@
 					<h6>Please specify the nature if the activity of the
 						Consitituent Entity in the "Additional Information" section.</h6>
 				</div>
-				<div id="Table3" class="tab-pane fade">
+				<div id="Table3" class="tabcontent">
 					<h5>Table 3. Additional Information</h5>
 
 					<table style="width: 100%">
@@ -1263,8 +1263,24 @@
 
 					</table>
 				</div>
-			</div>
+			
 			<!--  /div-->
 		</div>
 	</div>
+	<script>
+		function openCity(evt, cityName) {
+			var i, tabcontent, tablinks;
+			tabcontent = document.getElementsByClassName("tabcontent");
+			for (i = 0; i < tabcontent.length; i++) {
+				tabcontent[i].style.display = "none";
+			}
+			tablinks = document.getElementsByClassName("tablinks");
+			for (i = 0; i < tablinks.length; i++) {
+				tablinks[i].className = tablinks[i].className.replace(
+						" active", "");
+			}
+			document.getElementById(cityName).style.display = "block";
+			evt.currentTarget.className += " active";
+		}
+	</script>
 </body>
