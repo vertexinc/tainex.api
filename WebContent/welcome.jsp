@@ -317,7 +317,7 @@
 							<li><select class="form-control" id="sel1"
 								onchange="location = this.value;">
 									<option value="welcome.jsp?theLocale=en_US">EN</option>
-									<option value="">ES</option>
+									<option value="welcome.jsp?theLocale=es_ES">ES</option>
 									<option value="welcome.jsp?theLocale=zh_CN">CN</option>
 
 							</select></li>

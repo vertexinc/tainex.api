@@ -280,6 +280,7 @@
 						<thead>
 							<tr>
 								<th>TIN</th>
+								<th>Name</th>
 								<th>Entity Code</th>
 								<th>Doc Type</th>
 								<th>Incorporation Country</th>
@@ -292,6 +293,7 @@
 							<tr>
 								<td>10001</td>
 								<td>GLOBAL SALESCO</td>
+								<td>GLOBAL SALESCO</td>
 								<td>Excel</td>
 								<td>CA</td>
 								<td>CA</td>
@@ -300,6 +302,7 @@
 							</tr>
 							<tr>
 								<td>10002</td>
+								<td>CHINA MANUFACTURING CO</td>
 								<td>CHINA MANUFACTURING CO</td>
 								<td>Excel</td>
 								<td>CN</td>
@@ -310,6 +313,7 @@
 							<tr>
 								<td>10003</td>
 								<td>German HoldCo GmbH</td>
+								<td>German HoldCo GmbH</td>
 								<td>Excel</td>
 								<td>DE</td>
 								<td>DE</td>
@@ -318,6 +322,7 @@
 							</tr>
 							<tr>
 								<td>10004</td>
+								<td>Germany SubAssembly GmbH</td>
 								<td>Germany SubAssembly GmbH</td>
 								<td>Excel</td>
 								<td>DE</td>
@@ -328,6 +333,7 @@
 							<tr>
 								<td>10005</td>
 								<td>FINANCECO, LTD.</td>
+								<td>FINANCECO, LTD.</td>
 								<td>Excel</td>
 								<td>GB</td>
 								<td>GB</td>
@@ -336,6 +342,7 @@
 							</tr>
 							<tr>
 								<td>10006</td>
+								<td>APAC SALES CORPORATION</td>
 								<td>APAC SALES CORPORATION</td>
 								<td>Excel</td>
 								<td>HK</td>
@@ -346,6 +353,7 @@
 							<tr>
 								<td>10007</td>
 								<td>Irish IPCo, Ltd</td>
+								<td>Irish IPCo, Ltd</td>
 								<td>Excel</td>
 								<td>IE</td>
 								<td>IE</td>
@@ -354,6 +362,7 @@
 							</tr>
 							<tr>
 								<td>10008</td>
+								<td>India IT Ltd 1</td>
 								<td>India IT Ltd 1</td>
 								<td>Excel</td>
 								<td>IN</td>
@@ -364,6 +373,7 @@
 							<tr>
 								<td>10009</td>
 								<td>India IT Ltd 2</td>
+								<td>India IT Ltd 2</td>
 								<td>Excel</td>
 								<td>IN</td>
 								<td>IN</td>
@@ -372,6 +382,7 @@
 							</tr>
 							<tr>
 								<td>10010</td>
+								<td>SHARED SERVICES OPERATIONS LTD</td>
 								<td>SHARED SERVICES OPERATIONS LTD</td>
 								<td>Excel</td>
 								<td>PH</td>
@@ -382,6 +393,7 @@
 							<tr>
 								<td>10011</td>
 								<td>AMERICAS SALES LLC</td>
+								<td>AMERICAS SALES LLC</td>
 								<td>Excel</td>
 								<td>US</td>
 								<td>US</td>
@@ -391,6 +403,7 @@
 							<tr>
 								<td>10012</td>
 								<td>GLOBAL SALESCO</td>
+								<td>GLOBAL SALESCO</td>
 								<td>Excel</td>
 								<td>US</td>
 								<td>US</td>
@@ -399,6 +412,7 @@
 							</tr>
 							<tr>
 								<td>10013</td>
+								<td>INDUSTRYCO CORPORATION INC</td>
 								<td>IndustryCo</td>
 								<td>Excel</td>
 								<td>US</td>
@@ -409,6 +423,7 @@
 							<tr>
 								<td>10014</td>
 								<td>ICI ELIM</td>
+								<td>ICI ELIM</td>
 								<td>Excel</td>
 								<td>US</td>
 								<td>US</td>
@@ -417,6 +432,7 @@
 							</tr>
 							<tr>
 								<td>10015</td>
+								<td>LEASECO LLC</td>
 								<td>LEASECO LLC</td>
 								<td>Excel</td>
 								<td>US</td>
@@ -427,6 +443,7 @@
 							<tr>
 								<td>10016</td>
 								<td>MANUFACTURING CORPORATION INC</td>
+								<td>MANUFACTURING CORPORATION INC</td>
 								<td>Excel</td>
 								<td>US</td>
 								<td>US</td>
@@ -435,6 +452,7 @@
 							</tr>
 							<tr>
 								<td>10017</td>
+								<td>US DISTRIBUTION OPERATIONS</td>
 								<td>US DISTRIBUTION OPERATIONS</td>
 								<td>Excel</td>
 								<td>US</td>
