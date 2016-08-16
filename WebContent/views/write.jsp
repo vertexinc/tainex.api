@@ -29,7 +29,7 @@
 						<%
 							for (TieMsg tieMsg : msgList) {
 						%>
-						<tr>
+						<tr bgcolor="#44c4e7">
 							<th scope="row"><%=tieMainPage.getUsername()%></th>
 							<td><%=tieMsg.getSubject()%></td>
 							<td><%=tieMsg.getDescription()%></td>
@@ -58,6 +58,7 @@
 				<li><a data-toggle="tab" href="#Table3">Table3</a></li>
 
 			</ul>
+
 			<div class="tab-content">
 				<div id="Message" class="tab-pane fade in active">
 					<div class="row">
@@ -69,7 +70,7 @@
 						<div class="col-md-3">
 							<p>Date: 2016-08-04T13:23:21</p>
 						</div>
-						
+
 						<div class="col-md-3">
 							<p>Reporting Period: 2014-12-31</p>
 						</div>
@@ -200,7 +201,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
+							<tr bgcolor="#44c4e7">
 								<td>CBCR_IndustryCo</td>
 								<td>To Share CBCR Report of Industry Co</td>
 								<td>CBCR</td>
@@ -410,7 +411,7 @@
 								<td>NO</td>
 								<td></td>
 							</tr>
-							<tr>
+							<tr bgcolor="#FF7F50">
 								<td>10013</td>
 								<td>INDUSTRYCO CORPORATION INC</td>
 								<td>IndustryCo</td>
@@ -501,8 +502,8 @@
 									style="mso-spacerun: yes">&nbsp; </span>of<span
 									style="mso-spacerun: yes">&nbsp; </span>the<span
 									style="mso-spacerun: yes">&nbsp; </span>MNE<span
-									style="mso-spacerun: yes">&nbsp; </span>group: INDUSTRYCO CORPORATION INC<span
-									style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+									style="mso-spacerun: yes">&nbsp; </span>group: INDUSTRYCO
+									CORPORATION INC<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
 							</tr>
 							<tr height="30"
 								style="mso-height-source: userset; height: 22.5pt">
@@ -836,7 +837,7 @@
 							<tr height="21" style="height: 15.75pt">
 								<td colspan="16" height="21" class="x0l69" width="1424"
 									style="border-right: .5pt solid black; height: 15.75pt; width: 1069pt">Fiscal
-									year concerned:  2014-12-31</td>
+									year concerned: 2014-12-31</td>
 							</tr>
 							<tr height="22" style="height: 16.5pt">
 								<td rowspan="2" height="170" class="x0l67" width="84"
@@ -1245,21 +1246,18 @@
 				<div id="Table3" class="tab-pane fade">
 					<h5>Table 3. Additional Information</h5>
 
-					<table style="width: 45%">
+					<table style="width: 100%">
 
 						<tr>
 
-							<th><div id="table3head">Name of the MNE group: INDUSTRYCO CORPORATION INC</div>
-								<div id="table3head">Fiscal year concerned:  2014-12-31</div></th>
+							<th><div id="table3head">Name of the MNE group:
+									INDUSTRYCO CORPORATION INC</div>
+								<div id="table3head">Fiscal year concerned: 2014-12-31</div></th>
 						</tr>
 
 						<tr>
 
-							<td class="x00l66" rows="4" cols="180" id="To"><!-->Please
-								include any further brief information or explaination you
-								consider necessary or that would facilitate the understanding of
-								the compulsory information provided in the country-by-country
-								report.<--></td>
+							<td class="x00l66" rows="4" cols="280" id="To"></td>
 
 						</tr>
 
