@@ -14,7 +14,7 @@
 	<div id="upper">
 		<div class="scrollbar2" id="style-4">
 			<div class="force-overflow2">
-				<table class="table table-hover">
+				<table class="table">
 					<thead>
 						<tr>
 							<th>User</th>
@@ -29,7 +29,7 @@
 						<%
 							for (TieMsg tieMsg : msgList) {
 						%>
-						<tr bgcolor="#44c4e7">
+						<tr bgcolor="#ff4d4d">
 							<th scope="row"><%=tieMainPage.getUsername()%></th>
 							<td><%=tieMsg.getSubject()%></td>
 							<td><%=tieMsg.getDescription()%></td>
@@ -94,13 +94,13 @@
 									<label for="Subject" class="col-sm-2 form-control-label">Subject:</label>
 									<div class="col-sm-10">
 										<input type="text" class="form-control" id="Subject"
-											placeholder="">
+											placeholder="CBCR">
 									</div>
 								</div>
 								<div class="form-group row">
 									<label for="Notes" class="col-sm-2 form-control-label">Notes:</label>
 									<div class="col-sm-10">
-										<textarea rows="4" cols="127"></textarea>
+										<textarea rows="4" cols="127">Sending the CBCR doc of Industry Co to Germany tax authority.</textarea>
 									</div>
 								</div>
 								<div class="form-group row">
@@ -187,7 +187,7 @@
 								Msg...</button>
 						</div>
 					</div>
-					<table class="table table-hover">
+					<table class="table">
 						<thead>
 							<tr>
 								<th>Code</th>
@@ -201,7 +201,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr bgcolor="#44c4e7">
+							<tr bgcolor="#ff4d4d">
 								<td>CBCR_IndustryCo</td>
 								<td>To Share CBCR Report of Industry Co</td>
 								<td>CBCR</td>
@@ -277,7 +277,7 @@
 					</div>
 
 					</br>
-					<table class="table table-hover">
+					<table class="table">
 						<thead>
 							<tr>
 								<th>TIN</th>
