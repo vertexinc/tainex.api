@@ -203,9 +203,9 @@
 							<tr>
 								<td>CBCR_IndustryCo</td>
 								<td>To Share CBCR Report of Industry Co</td>
-								<td>Excel</td>
+								<td>CBCR</td>
 								<td>IndustryCo</td>
-								<td>MXNr</td>
+								<td>MXN</td>
 								<td>MX</td>
 								<td>MX GAAP</td>
 								<td>2014-12-31</td>
@@ -213,7 +213,7 @@
 							<!--tr>
 								<td>code123</td>
 								<td>Doc1</td>
-								<td>Excel</td>
+								<td>CBCR</td>
 								<td>Reporting1212</td>
 								<td>US Dollar</td>
 								<td>USA</td>
@@ -221,7 +221,7 @@
 							<tr>
 								<td>code123</td>
 								<td>Doc1</td>
-								<td>Excel</td>
+								<td>CBCR</td>
 								<td>Reporting1212</td>
 								<td>US Dollar</td>
 								<td>USA</td>
@@ -229,7 +229,7 @@
 							<tr>
 								<td>code123</td>
 								<td>Doc1</td>
-								<td>Excel</td>
+								<td>CBCR</td>
 								<td>Reporting1212</td>
 								<td>US Dollar</td>
 								<td>USA</td>
@@ -237,7 +237,7 @@
 							<tr>
 								<td>code123</td>
 								<td>Doc1</td>
-								<td>Excel</td>
+								<td>CBCR</td>
 								<td>Reporting1212</td>
 								<td>US Dollar</td>
 								<td>USA</td>
@@ -245,7 +245,7 @@
 							<tr>
 								<td>code123</td>
 								<td>Doc1</td>
-								<td>Excel</td>
+								<td>CBCR</td>
 								<td>Reporting1212</td>
 								<td>US Dollar</td>
 								<td>USA</td>
@@ -263,7 +263,7 @@
 							<table style="width: 100%">
 								<tr>
 									<td>Reporting Entity:</td>
-									<td>Sample Corp</td>
+									<td>INDUSTRYCO CORPORATION INC</td>
 								</tr>
 								<tr>
 									<td>Resident Country:</td>
@@ -272,7 +272,7 @@
 							</table>
 						</div>
 						<div class="col-md-3">Currency:</div>
-						<div class="col-md-3">MXP</div>
+						<div class="col-md-3">MXN</div>
 					</div>
 
 					</br>
@@ -294,7 +294,7 @@
 								<td>10001</td>
 								<td>GLOBAL SALESCO</td>
 								<td>GLOBAL SALESCO</td>
-								<td>Excel</td>
+								<td>CBCR</td>
 								<td>CA</td>
 								<td>CA</td>
 								<td>NO</td>
@@ -304,7 +304,7 @@
 								<td>10002</td>
 								<td>CHINA MANUFACTURING CO</td>
 								<td>CHINA MANUFACTURING CO</td>
-								<td>Excel</td>
+								<td>CBCR</td>
 								<td>CN</td>
 								<td>CN</td>
 								<td>NO</td>
@@ -314,7 +314,7 @@
 								<td>10003</td>
 								<td>German HoldCo GmbH</td>
 								<td>German HoldCo GmbH</td>
-								<td>Excel</td>
+								<td>CBCR</td>
 								<td>DE</td>
 								<td>DE</td>
 								<td>NO</td>
@@ -324,7 +324,7 @@
 								<td>10004</td>
 								<td>Germany SubAssembly GmbH</td>
 								<td>Germany SubAssembly GmbH</td>
-								<td>Excel</td>
+								<td>CBCR</td>
 								<td>DE</td>
 								<td>DE</td>
 								<td>NO</td>
@@ -334,7 +334,7 @@
 								<td>10005</td>
 								<td>FINANCECO, LTD.</td>
 								<td>FINANCECO, LTD.</td>
-								<td>Excel</td>
+								<td>CBCR</td>
 								<td>GB</td>
 								<td>GB</td>
 								<td>NO</td>
@@ -344,7 +344,7 @@
 								<td>10006</td>
 								<td>APAC SALES CORPORATION</td>
 								<td>APAC SALES CORPORATION</td>
-								<td>Excel</td>
+								<td>CBCR</td>
 								<td>HK</td>
 								<td>HK</td>
 								<td>NO</td>
@@ -354,7 +354,7 @@
 								<td>10007</td>
 								<td>Irish IPCo, Ltd</td>
 								<td>Irish IPCo, Ltd</td>
-								<td>Excel</td>
+								<td>CBCR</td>
 								<td>IE</td>
 								<td>IE</td>
 								<td>NO</td>
@@ -364,7 +364,7 @@
 								<td>10008</td>
 								<td>India IT Ltd 1</td>
 								<td>India IT Ltd 1</td>
-								<td>Excel</td>
+								<td>CBCR</td>
 								<td>IN</td>
 								<td>IN</td>
 								<td>NO</td>
@@ -374,7 +374,7 @@
 								<td>10009</td>
 								<td>India IT Ltd 2</td>
 								<td>India IT Ltd 2</td>
-								<td>Excel</td>
+								<td>CBCR</td>
 								<td>IN</td>
 								<td>IN</td>
 								<td>NO</td>
@@ -384,7 +384,7 @@
 								<td>10010</td>
 								<td>SHARED SERVICES OPERATIONS LTD</td>
 								<td>SHARED SERVICES OPERATIONS LTD</td>
-								<td>Excel</td>
+								<td>CBCR</td>
 								<td>PH</td>
 								<td>PH</td>
 								<td>NO</td>
@@ -394,7 +394,7 @@
 								<td>10011</td>
 								<td>AMERICAS SALES LLC</td>
 								<td>AMERICAS SALES LLC</td>
-								<td>Excel</td>
+								<td>CBCR</td>
 								<td>US</td>
 								<td>US</td>
 								<td>NO</td>
@@ -404,7 +404,7 @@
 								<td>10012</td>
 								<td>GLOBAL SALESCO</td>
 								<td>GLOBAL SALESCO</td>
-								<td>Excel</td>
+								<td>CBCR</td>
 								<td>US</td>
 								<td>US</td>
 								<td>NO</td>
@@ -414,7 +414,7 @@
 								<td>10013</td>
 								<td>INDUSTRYCO CORPORATION INC</td>
 								<td>IndustryCo</td>
-								<td>Excel</td>
+								<td>CBCR</td>
 								<td>US</td>
 								<td>US</td>
 								<td>NO</td>
@@ -424,7 +424,7 @@
 								<td>10014</td>
 								<td>ICI ELIM</td>
 								<td>ICI ELIM</td>
-								<td>Excel</td>
+								<td>CBCR</td>
 								<td>US</td>
 								<td>US</td>
 								<td>NO</td>
@@ -434,7 +434,7 @@
 								<td>10015</td>
 								<td>LEASECO LLC</td>
 								<td>LEASECO LLC</td>
-								<td>Excel</td>
+								<td>CBCR</td>
 								<td>US</td>
 								<td>US</td>
 								<td>NO</td>
@@ -444,7 +444,7 @@
 								<td>10016</td>
 								<td>MANUFACTURING CORPORATION INC</td>
 								<td>MANUFACTURING CORPORATION INC</td>
-								<td>Excel</td>
+								<td>CBCR</td>
 								<td>US</td>
 								<td>US</td>
 								<td>NO</td>
@@ -454,7 +454,7 @@
 								<td>10017</td>
 								<td>US DISTRIBUTION OPERATIONS</td>
 								<td>US DISTRIBUTION OPERATIONS</td>
-								<td>Excel</td>
+								<td>CBCR</td>
 								<td>US</td>
 								<td>US</td>
 								<td>NO</td>
@@ -501,7 +501,7 @@
 									style="mso-spacerun: yes">&nbsp; </span>of<span
 									style="mso-spacerun: yes">&nbsp; </span>the<span
 									style="mso-spacerun: yes">&nbsp; </span>MNE<span
-									style="mso-spacerun: yes">&nbsp; </span>group: IndustryCo<span
+									style="mso-spacerun: yes">&nbsp; </span>group: INDUSTRYCO CORPORATION INC<span
 									style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
 							</tr>
 							<tr height="30"
@@ -831,7 +831,7 @@
 							<tr height="20" style="height: 15.0pt">
 								<td colspan="16" height="20" class="x0l72" width="1424"
 									style="border-right: .5pt solid black; height: 15.0pt; width: 1069pt">Name
-									of the MNE group: IndustryCo</td>
+									of the MNE group: INDUSTRYCO CORPORATION INC</td>
 							</tr>
 							<tr height="21" style="height: 15.75pt">
 								<td colspan="16" height="21" class="x0l69" width="1424"
@@ -1249,17 +1249,17 @@
 
 						<tr>
 
-							<th><div id="table3head">Name of the MNE group: IndustryCo</div>
+							<th><div id="table3head">Name of the MNE group: INDUSTRYCO CORPORATION INC</div>
 								<div id="table3head">Fiscal year concerned:  2014-12-31</div></th>
 						</tr>
 
 						<tr>
 
-							<td class="x00l66" rows="4" cols="180" id="To">Please
+							<td class="x00l66" rows="4" cols="180" id="To"><!-->Please
 								include any further brief information or explaination you
 								consider necessary or that would facilitate the understanding of
 								the compulsory information provided in the country-by-country
-								report.</td>
+								report.<--></td>
 
 						</tr>
 

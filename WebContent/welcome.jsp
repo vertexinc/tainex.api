@@ -326,8 +326,8 @@
 						<div>
 							<li><a> <fmt:message key="label.Welcome" />, <%=tieMainPage.getUsername()%>
 									!
-							</a>&nbsp;&nbsp;&nbsp;<a href="LogoutServlet"><fmt:message
-										key="label.LogOut" /></a></li>
+							</a>&nbsp;&nbsp;&nbsp;<a href="LogoutServlet"><u><fmt:message
+										key="label.LogOut" /></u></a></li>
 
 						</div>
 					</ul>
