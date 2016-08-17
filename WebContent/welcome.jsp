@@ -21,10 +21,8 @@
 <link rel="stylesheet"
 	href="bower_components/bootstrap/dist/css/bootstrap.css">
 <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-<script
-	src="javascript/angular.min.js"></script>
-<script
-	src="javascript/angular-route.js"></script>
+<script src="javascript/angular.min.js"></script>
+<script src="javascript/angular-route.js"></script>
 
 
 <script src="javascript/app.js"></script>
@@ -61,9 +59,12 @@
 			<nav class="main-nav">
 				<div class="scrollbar" id="style-5">
 					<div class="force-overflow">
-						<div id="composenew">
-							<button type="button" class="btn btn-primary">
-								<fmt:message key="label.ComposeNewTaxMsg" />
+						<div id="inbox">
+							<ul>
+								<li><button type="button" class="btn btn-primary btn-md">
+										<fmt:message key="label.ComposeNewTaxMsg" />
+									</button></li>
+							</ul>
 						</div>
 						<div id="inbox">
 							<ul>
@@ -327,7 +328,7 @@
 							<li><a> <fmt:message key="label.Welcome" />, <%=tieMainPage.getUsername()%>
 									!
 							</a>&nbsp;&nbsp;&nbsp;<a href="LogoutServlet"><u><fmt:message
-										key="label.LogOut" /></u></a></li>
+											key="label.LogOut" /></u></a></li>
 
 						</div>
 					</ul>

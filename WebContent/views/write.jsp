@@ -21,6 +21,7 @@
 							<th>Subject</th>
 							<th>Description</th>
 							<th>Date</th>
+							<th>Status</th>
 						</tr>
 					</thead>
 
@@ -29,16 +30,30 @@
 						<%
 							for (TieMsg tieMsg : msgList) {
 						%>
-						<tr bgcolor="#ff4d4d">
+						<tr bgcolor="#b3ffb3">
 							<th scope="row"><%=tieMainPage.getUsername()%></th>
 							<td><%=tieMsg.getSubject()%></td>
 							<td><%=tieMsg.getDescription()%></td>
 							<td><%=tieMsg.getTimestamp()%></td>
+							<td>Created</td>
 						</tr>
 						<%
 							}
 						%>
-
+						<tr>
+							<th scope="row">John Doe</th>
+							<td>CBCR to US</td>
+							<td>CBCR docs to send to US IRS</td>
+							<td>2016-08-01T13:23:21</td>
+							<td>Sent</td>
+						</tr>
+						<tr>
+							<th scope="row">JaneDoe</th>
+							<td>CBCR to MX</td>
+							<td>CBCR docs to send to Mexico from Canada</td>
+							<td>2016-08-01T13:23:21</td>
+							<td>Received</td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
@@ -64,7 +79,7 @@
 			<div id="Message" class="tabcontent">
 				<div class="row">
 					<div class="col-md-3">
-						<p>From: marisol@gmail.com</p>
+						<p>From: Marisol</p>
 					</div>
 
 
@@ -202,7 +217,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr bgcolor="#ff4d4d">
+						<tr bgcolor="#b3ffb3">
 							<td>CBCR_IndustryCo</td>
 							<td>To Share CBCR Report of Industry Co</td>
 							<td>CBCR</td>
@@ -210,6 +225,16 @@
 							<td>MXN</td>
 							<td>MX</td>
 							<td>MX GAAP</td>
+							<td>2014-12-31</td>
+						</tr>
+						<tr>
+							<td>EySampleCorp</td>
+							<td>EY Sample Corp CBCR Report</td>
+							<td>CBCR</td>
+							<td>RU=03389</td>
+							<td>USD</td>
+							<td>MX</td>
+							<td>US GAAP</td>
 							<td>2014-12-31</td>
 						</tr>
 						<!--tr>
@@ -412,7 +437,7 @@
 							<td>NO</td>
 							<td></td>
 						</tr>
-						<tr bgcolor="#FF7F50">
+						<tr bgcolor="#ffa483">
 							<td>10013</td>
 							<td>INDUSTRYCO CORPORATION INC</td>
 							<td>IndustryCo</td>
