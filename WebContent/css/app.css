@@ -1047,12 +1047,12 @@ td {
 	font-weight: normal;
 }
 
-.member tr:hover{
-    background-color: #b3ffb3;
+.member tr:hover {
+	background-color: #eff5dc;
 }
 
-.selected{
-    background-color: #b3ffb3;
+.selected {
+	background-color: #b3ffb3;
 }
 /*
 .scrollbar2 .force-overflow2 .table tr:hover{
