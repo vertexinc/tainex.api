@@ -26,11 +26,11 @@
 					</thead>
 
 
-					<tbody>
+					<tbody class="member">
 						<%
 							for (TieMsg tieMsg : msgList) {
 						%>
-						<tr bgcolor="#b3ffb3">
+						<tr id = "currentMsg">
 							<th scope="row"><%=tieMainPage.getUsername()%></th>
 							<td><%=tieMsg.getSubject()%></td>
 							<td><%=tieMsg.getDescription()%></td>
@@ -217,7 +217,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr bgcolor="#b3ffb3">
+						<tr id = "currentDoc">
 							<td>CBCR_IndustryCo</td>
 							<td>To Share CBCR Report of Industry Co</td>
 							<td>CBCR</td>
@@ -1302,7 +1302,18 @@
 			setTimeout(function() {
 				$('#current').trigger('click');
 			}, 10);
+			setTimeout(function() {
+				$('#currentDoc').trigger('click');
+			}, 10);
+			setTimeout(function() {
+				$('#currentMsg').trigger('click');
+			}, 10);
 			openCity(event, "Message");
+		});
+		
+		$("tr").click(function() {
+		    $(this).parent().children().removeClass("selected");
+		    $(this).addClass("selected");
 		});
 	</script>
 </body>

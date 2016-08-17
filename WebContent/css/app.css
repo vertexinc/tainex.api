@@ -1046,3 +1046,20 @@ td {
 	text-align: center;
 	font-weight: normal;
 }
+
+.member tr:hover{
+    background-color: #b3ffb3;
+}
+
+.selected{
+    background-color: #b3ffb3;
+}
+/*
+.scrollbar2 .force-overflow2 .table tr:hover{
+	background-color: #F0F8FF;
+}
+
+.scrollbar2 .force-overflow2 .table tr:focus, .active{
+	background-color: #b3ffb3;
+}
+*/
