@@ -36,22 +36,22 @@
 							<td><%=tieMsg.getSubject()%></td>
 							<td><%=tieMsg.getDescription()%></td>
 							<td><%=tieMsg.getTimestamp()%></td>
-							<td>Created</td>
+							<td>Draft</td>
 						</tr>
 						<%
 							}
 						%>
 						<tr id="currentMsg2">
-							<th scope="row">John Doe</th>
+							<th scope="row">Marisol</th>
 							<td>CBCR to US</td>
-							<td>CBCR docs to send to US IRS</td>
+							<td>CBCR docs for US IRS</td>
 							<td>2016-08-01T13:23:21</td>
 							<td>Sent</td>
 						</tr>
 						<tr id="currentMsg3">
-							<th scope="row">Jane Doe</th>
+							<th scope="row">Marisol</th>
 							<td>CBCR to MX</td>
-							<td>CBCR docs to send to Mexico from Canada</td>
+							<td>CBCR docs received from Canada</td>
 							<td>2016-08-01T13:23:21</td>
 							<td>Received</td>
 						</tr>
@@ -105,20 +105,20 @@
 									<label for="To" class="col-sm-2 form-control-label">To:</label>
 									<div class="col-sm-10">
 										<input type="text" class="form-control" id="To"
-											placeholder="xyz@DE;uvx@US">
+											placeholder="Rainer.Waechter@bmf.bund.de">
 									</div>
 								</div>
 								<div class="form-group row">
 									<label for="Subject" class="col-sm-2 form-control-label">Subject:</label>
 									<div class="col-sm-10">
 										<input type="text" class="form-control" id="Subject"
-											placeholder="CBCR">
+											placeholder="CBCR to DE">
 									</div>
 								</div>
 								<div class="form-group row">
 									<label for="Notes" class="col-sm-2 form-control-label">Notes:</label>
 									<div class="col-sm-10">
-										<textarea rows="4" cols="127">Sending the CBCR doc of Industry Co to Germany tax authority.</textarea>
+										<textarea rows="4" cols="127">Sending the CBCR docs of Industry Co and EYSampleCo to Germany tax authority.</textarea>
 									</div>
 								</div>
 								<div class="form-group row">
@@ -162,6 +162,7 @@
 									<td><select class="form-control" id="sel1">
 											<option>EN</option>
 											<option>ES</option>
+											<option>CN</option>
 									</select></td>
 								</tr>
 							</table>
@@ -188,7 +189,7 @@
 
 								<tr>
 									<th>Receiving Country:</th>
-									<td>DE,US</td>
+									<td>DE</td>
 								</tr>
 							</table>
 						</div>
