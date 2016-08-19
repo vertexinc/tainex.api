@@ -44,7 +44,7 @@
 						<tr id="currentMsg2">
 							<th scope="row">Marisol</th>
 							<td>CBCR to US</td>
-							<td>CBCR docs for US IRS</td>
+							<td>CBCR docs for US</td>
 							<td>2016-08-01T13:23:21</td>
 							<td>Sent</td>
 						</tr>
