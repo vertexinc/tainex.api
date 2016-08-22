@@ -5,12 +5,14 @@
 <%@page import="com.tie.app.TieSessionController"%>
 <%@page import="com.tie.ui.TieMainPage"%>
 <%@page import="com.tie.model.TieMsg"%>
+<%@page import="com.tie.model.TieDoc"%>
 
 <body>
 
 	<%!TieMainPage tieMainPage = TieMainPage.getTieMainPage();%>
 	<%!List<TieMsg> msgList = tieMainPage.getMsgList();%>
 	<%!TieMsg currentMsg = tieMainPage.getCurrentMsg();%>
+	<%!List<TieDoc> tieDocList = currentMsg.getTieDocList();%>
 
 	<div id="upper">
 		<div class="scrollbar2" id="style-4">
@@ -87,11 +89,15 @@
 
 
 						<div class="col-md-3">
-							<p>Date: <%=currentMsg.getTimestamp()%></p>
+							<p>
+								Date:
+								<%=currentMsg.getTimestamp()%></p>
 						</div>
 
 						<div class="col-md-3">
-							<p>Reporting Period: <%=currentMsg.getReportingPeriod()%></p>
+							<p>
+								Reporting Period:
+								<%=currentMsg.getReportingPeriod()%></p>
 						</div>
 
 						<div class="col-md-3">
@@ -119,21 +125,21 @@
 								<div class="form-group row">
 									<label for="Notes" class="col-sm-2 form-control-label">Notes:</label>
 									<div class="col-sm-10">
-										<textarea rows="4" cols="127"><%=currentMsg.getNotes() %></textarea>
+										<textarea rows="4" cols="127"><%=currentMsg.getNotes()%></textarea>
 									</div>
 								</div>
 								<div class="form-group row">
 									<label for="Warning" class="col-sm-2 form-control-label">Warning:</label>
 									<div class="col-sm-10">
 										<input type="text" class="form-control" id="Warning"
-											placeholder="<%=currentMsg.getWarning() %>">
+											placeholder="<%=currentMsg.getWarning()%>">
 									</div>
 								</div>
 								<div class="form-group row">
 									<label for="Contact" class="col-sm-2 form-control-label">Contact:</label>
 									<div class="col-sm-10">
 										<input type="text" class="form-control" id="Contact"
-											placeholder="<%=currentMsg.getContact() %>">
+											placeholder="<%=currentMsg.getContact()%>">
 									</div>
 								</div>
 							</form>
@@ -156,7 +162,7 @@
 								</tr>
 								<tr>
 									<th>Sending Country:</th>
-									<td><%=currentMsg.getTransmittingCountry() %></td>
+									<td><%=currentMsg.getTransmittingCountry()%></td>
 								</tr>
 								<tr>
 									<th>Language:</th>
@@ -190,7 +196,7 @@
 
 								<tr>
 									<th>Receiving Country:</th>
-									<td><%=currentMsg.getReceivingCountries() %></td>
+									<td><%=currentMsg.getReceivingCountries()%></td>
 								</tr>
 							</table>
 						</div>
@@ -222,7 +228,23 @@
 						</tr>
 					</thead>
 					<tbody id="currentDocBody">
+						<%
+							for (TieDoc tieDoc : tieDocList) {
+						%>
 						<tr id="currentDoc1">
+							<td><%=tieDoc.getCode()%></th>
+							<td><%=tieDoc.getName()%></td>
+							<td>CBCR</td>
+							<td><%=tieDoc.getReportingEntityCode()%></td>
+							<td><%=tieDoc.getCurrencyCode()%></td>
+							<td><%=tieDoc.getResCountryCode()%></td>
+							<td><%=tieDoc.getAccountingStandard()%></td>
+							<td>reportingPeriod</td>
+						</tr>
+						<%
+							}
+						%>
+						<!--tr id="currentDoc1">
 							<td>CBCR_IndustryCo</td>
 							<td>To Share CBCR Report of Industry Co</td>
 							<td>CBCR</td>
@@ -241,7 +263,7 @@
 							<td>MX</td>
 							<td>US GAAP</td>
 							<td>2014-12-31</td>
-						</tr>
+						</tr-->
 						<!--tr>
 								<td>code123</td>
 								<td>Doc1</td>

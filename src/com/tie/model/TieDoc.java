@@ -12,7 +12,7 @@ public class TieDoc {
 	private String resCountryCode;
 	private String sourceDoc;
 	private String accountingStandard;
-
+	private String reportingPeriod;
 	public TieDoc() {
 		// super();
 	}

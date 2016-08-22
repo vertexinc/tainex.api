@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.tie.dao.TiePersister;
+import com.tie.model.TieDoc;
 import com.tie.model.TieMsg;
 import com.tie.model.TieUser;
 import com.tie.ui.TieMainPage;
@@ -92,10 +93,16 @@ public class TieSessionController extends TieControllerBase {
 		// currentMsg = 
 		// all current msg attributes are now available to jsp
 		TieMsg currentmsg = msgList.get(0);
-		TieMainPage.getTieMainPage().setCurrentMsg(currentmsg);
+		//TieMainPage.getTieMainPage().setCurrentMsg(currentmsg);
+		
 		
 		// ------ populate current msg pane, doc tab, docs of the currentMsg -------
-		 
+		int currentTieMsgId = currentmsg.getTieMsgId();
+		List<TieDoc> tieDocList = new ArrayList<TieDoc>();
+		tieDocList = persister.getTieDocDao().findTieMsgByTieMsgId(currentTieMsgId);
+		currentmsg.setTieDocList(tieDocList);
+		
+		TieMainPage.getTieMainPage().setCurrentMsg(currentmsg);
 		// ------ populate current msg pane, entity tab -------
 		// ------ populate current msg pane, table1 tab -------
 		// ------ populate current msg pane, table2 tab -------

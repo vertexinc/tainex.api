@@ -1,5 +1,8 @@
 package com.tie.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TieMsg {
 	private int tieMsgId;
 	private String subject;
@@ -22,9 +25,18 @@ public class TieMsg {
 	private String reportingPeriod;
 	private String timestamp;
 	private String rawMsg;
+	private List<TieDoc> tieDocList = new ArrayList<TieDoc>();
 	
 	//List of docs in the msg to be sent out
 	
+	public List<TieDoc> getTieDocList() {
+		return tieDocList;
+	}
+
+	public void setTieDocList(List<TieDoc> tieDocList) {
+		this.tieDocList = tieDocList;
+	}
+
 	public TieMsg() {
 		
 	}
@@ -237,5 +249,7 @@ public class TieMsg {
 				+ ", corrMessageRefIds=" + corrMessageRefIds + ", reportingPeriod=" + reportingPeriod + ", timestamp="
 				+ timestamp + ", rawMsg=" + rawMsg + "]";
 	}
+
+	
 
 }
