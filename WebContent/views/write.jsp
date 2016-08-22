@@ -10,6 +10,7 @@
 
 	<%!TieMainPage tieMainPage = TieMainPage.getTieMainPage();%>
 	<%!List<TieMsg> msgList = tieMainPage.getMsgList();%>
+	<%!TieMsg currentMsg = tieMainPage.getCurrentMsg();%>
 
 	<div id="upper">
 		<div class="scrollbar2" id="style-4">
@@ -41,7 +42,7 @@
 						<%
 							}
 						%>
-						<tr id="currentMsg2">
+						<!--tr id="currentMsg2">
 							<th scope="row">Marisol</th>
 							<td>CBCR to US</td>
 							<td>CBCR docs for US</td>
@@ -54,7 +55,7 @@
 							<td>CBCR docs received from Canada</td>
 							<td>2016-08-01T13:23:21</td>
 							<td>Received</td>
-						</tr>
+						</tr-->
 					</tbody>
 				</table>
 			</div>
@@ -81,16 +82,16 @@
 				<div id="currentMsgBody">
 					<div class="row">
 						<div class="col-md-3">
-							<p>From: Marisol</p>
+							<p>From: ???</p>
 						</div>
 
 
 						<div class="col-md-3">
-							<p>Date: 2016-08-04T13:23:21</p>
+							<p>Date: <%=currentMsg.getTimestamp()%></p>
 						</div>
 
 						<div class="col-md-3">
-							<p>Reporting Period: 2014-12-31</p>
+							<p>Reporting Period: <%=currentMsg.getReportingPeriod()%></p>
 						</div>
 
 						<div class="col-md-3">
@@ -112,27 +113,27 @@
 									<label for="Subject" class="col-sm-2 form-control-label">Subject:</label>
 									<div class="col-sm-10">
 										<input type="text" class="form-control" id="Subject"
-											placeholder="CBCR to DE">
+											placeholder="<%=currentMsg.getDescription()%>">
 									</div>
 								</div>
 								<div class="form-group row">
 									<label for="Notes" class="col-sm-2 form-control-label">Notes:</label>
 									<div class="col-sm-10">
-										<textarea rows="4" cols="127">Sending the CBCR docs of Industry Co and EYSampleCo to Germany tax authority.</textarea>
+										<textarea rows="4" cols="127"><%=currentMsg.getNotes() %></textarea>
 									</div>
 								</div>
 								<div class="form-group row">
 									<label for="Warning" class="col-sm-2 form-control-label">Warning:</label>
 									<div class="col-sm-10">
 										<input type="text" class="form-control" id="Warning"
-											placeholder="">
+											placeholder="<%=currentMsg.getWarning() %>">
 									</div>
 								</div>
 								<div class="form-group row">
 									<label for="Contact" class="col-sm-2 form-control-label">Contact:</label>
 									<div class="col-sm-10">
 										<input type="text" class="form-control" id="Contact"
-											placeholder="">
+											placeholder="<%=currentMsg.getContact() %>">
 									</div>
 								</div>
 							</form>
@@ -155,7 +156,7 @@
 								</tr>
 								<tr>
 									<th>Sending Country:</th>
-									<td>MX</td>
+									<td><%=currentMsg.getTransmittingCountry() %></td>
 								</tr>
 								<tr>
 									<th>Language:</th>
@@ -189,7 +190,7 @@
 
 								<tr>
 									<th>Receiving Country:</th>
-									<td>DE</td>
+									<td><%=currentMsg.getReceivingCountries() %></td>
 								</tr>
 							</table>
 						</div>

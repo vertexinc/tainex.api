@@ -66,7 +66,7 @@ public class TieSessionController extends TieControllerBase {
 
 		// find the id of the user who's login ()
 		TieUser user = persister.getTieUserDao().findTieUserByCode(username);
-		System.out.println("User:" + user.toString());
+		//System.out.println("User:" + user.toString());
 		String userNameOnBoard = user.getName();
 
 		getMainPage().setAppName(appName);
@@ -91,10 +91,11 @@ public class TieSessionController extends TieControllerBase {
 		// pick the first msg from msgList as the current msg
 		// currentMsg = 
 		// all current msg attributes are now available to jsp
-		
+		TieMsg currentmsg = msgList.get(0);
+		TieMainPage.getTieMainPage().setCurrentMsg(currentmsg);
 		
 		// ------ populate current msg pane, doc tab, docs of the currentMsg -------
-		
+		 
 		// ------ populate current msg pane, entity tab -------
 		// ------ populate current msg pane, table1 tab -------
 		// ------ populate current msg pane, table2 tab -------

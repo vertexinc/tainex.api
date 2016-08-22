@@ -4,7 +4,7 @@ public class TieMsgReceiver {
 	private int tieMsgId;
 	private String senderCode;
 	private String receiverCode;
-	private String tieMsgTrackingStatusId;
+	private int tieMsgTrackingStatusId;
 	private String trackingNote;
 	private String receivingCountry;
 
@@ -12,7 +12,7 @@ public class TieMsgReceiver {
 		// super();
 	}
 
-	public TieMsgReceiver(int tieMsgId, String senderCode, String receiverCode, String tieMsgTrackingStatusId,
+	public TieMsgReceiver(int tieMsgId, String senderCode, String receiverCode, int tieMsgTrackingStatusId,
 			String trackingNote, String receivingCountry) {
 		super();
 		this.tieMsgId = tieMsgId;
@@ -47,11 +47,11 @@ public class TieMsgReceiver {
 		this.receiverCode = receiverCode;
 	}
 
-	public String getTieMsgTrackingStatusId() {
+	public int getTieMsgTrackingStatusId() {
 		return tieMsgTrackingStatusId;
 	}
 
-	public void setTieMsgTrackingStatusId(String tieMsgTrackingStatusId) {
+	public void setTieMsgTrackingStatusId(int tieMsgTrackingStatusId) {
 		this.tieMsgTrackingStatusId = tieMsgTrackingStatusId;
 	}
 
