@@ -84,7 +84,7 @@
 				<div id="currentMsgBody">
 					<div class="row">
 						<div class="col-md-3">
-							<p>From: ???</p>
+							<p>From: <%=currentMsg.getSender().getName() %></p>
 						</div>
 
 
@@ -239,7 +239,7 @@
 							<td><%=tieDoc.getCurrencyCode()%></td>
 							<td><%=tieDoc.getResCountryCode()%></td>
 							<td><%=tieDoc.getAccountingStandard()%></td>
-							<td>reportingPeriod</td>
+							<td><%=tieDoc.getReportingPeriod()%></td>
 						</tr>
 						<%
 							}

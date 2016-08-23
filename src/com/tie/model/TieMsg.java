@@ -10,8 +10,14 @@ public class TieMsg {
 	private String description;
 	private String notes;
 	private int senderId;
+	//TODO: new object here
+	private TieUser sender;
+	
 	private int ownerid;
 	private int tieMsgStateId;
+	//TODO: an object for tieMsgStateId
+	private TieMsgState tieMsgState;
+	
 	private String sendingEntityIdNum;
 	private String transmittingCountry;
 	private String receivingCountries;
@@ -22,10 +28,28 @@ public class TieMsg {
 	private String messageRefId;
 	private String messageTypeIndic;
 	private String corrMessageRefIds;
+	
 	private String reportingPeriod;
 	private String timestamp;
 	private String rawMsg;
 	private List<TieDoc> tieDocList = new ArrayList<TieDoc>();
+	
+	public TieUser getSender() {
+		return sender;
+	}
+
+	public void setSender(TieUser sender) {
+		this.sender = sender;
+	}
+
+	public TieMsgState getTieMsgState() {
+		return tieMsgState;
+	}
+
+	public void setTieMsgState(TieMsgState tieMsgState) {
+		this.tieMsgState = tieMsgState;
+	}
+
 	
 	//List of docs in the msg to be sent out
 	
@@ -76,8 +100,10 @@ public class TieMsg {
 
 	public void setTieMsgId(int tieMsgId) {
 		this.tieMsgId = tieMsgId;
+		
 	}
 
+	
 	public String getSubject() {
 		return subject;
 	}
@@ -132,6 +158,7 @@ public class TieMsg {
 
 	public void setTieMsgStateId(int tieMsgStateId) {
 		this.tieMsgStateId = tieMsgStateId;
+		//TODO set the object of tieMsgState
 	}
 
 	public String getSendingEntityIdNum() {

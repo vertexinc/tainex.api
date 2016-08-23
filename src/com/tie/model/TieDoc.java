@@ -19,7 +19,7 @@ public class TieDoc {
 
 	public TieDoc(int tieDocId, String name, String code, String description, int tieDocTypeId, int tieMsgId,
 			String reportingEntityCode, String currencyCode, String resCountryCode, String sourceDoc,
-			String accountingStandard) {
+			String accountingStandard,String reportingPeriod) {
 		super();
 		this.tieDocId = tieDocId;
 		this.name = name;
@@ -32,6 +32,15 @@ public class TieDoc {
 		this.resCountryCode = resCountryCode;
 		this.sourceDoc = sourceDoc;
 		this.accountingStandard = accountingStandard;
+		this.reportingPeriod = reportingPeriod;
+	}
+
+	public String getReportingPeriod() {
+		return reportingPeriod;
+	}
+
+	public void setReportingPeriod(String reportingPeriod) {
+		this.reportingPeriod = reportingPeriod;
 	}
 
 	public int getTieDocId() {

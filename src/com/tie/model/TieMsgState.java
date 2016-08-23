@@ -6,7 +6,28 @@ public class TieMsgState {
 	private String code;
 	private String description;
 	private String countryCodeA2;
+	
+	//ToDo static all know state for a message
+	public static TieMsgState CREATED = new TieMsgState( 1,"Created", "Created", "The message is created in the system", "");
 
+	/**
+	 * 
+	 * @param tieMsgStateId
+	 * @return
+	 */
+	public static TieMsgState findById( int tieMsgStateId )
+	{
+		TieMsgState retval = null;
+		
+		//switch based on the given id
+		//if tieMsgStateId == CREATED.getTieMsgStateId(); then retval = CREATED;
+		
+		return retval;
+	}//end findById(.)
+	
+	
+	
+	
 	public TieMsgState() {
 		//super();
 	}

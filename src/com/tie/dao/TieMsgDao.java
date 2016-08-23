@@ -59,13 +59,14 @@ public class TieMsgDao extends BaseDao {
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
+			/*
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-			}
+			}*/
 			if (pst != null) {
 				try {
 					pst.close();

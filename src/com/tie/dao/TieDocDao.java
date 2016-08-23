@@ -10,7 +10,7 @@ import com.tie.model.TieMsg;
 
 public class TieDocDao extends BaseDao {
 
-	public List<TieDoc> findTieMsgByTieMsgId(int id) {
+	public List<TieDoc> findTieDocByTieMsgId(int id) {
 		getConnection();
 
 		List<TieDoc> tieDocList = new ArrayList<TieDoc>();
@@ -40,20 +40,21 @@ public class TieDocDao extends BaseDao {
 				String reportingPeriod = rs.getString("reportingPeriod");
 				
 				tieDoc = new TieDoc(tieDocId, name, code, description, tieDocTypeId,tieMsgId,reportingEntityCode,currencyCode,
-						sourceDoc,accountingStandard,reportingPeriod);
+						resCountryCode,sourceDoc,accountingStandard,reportingPeriod);
 				// tieapp = new TieApp(name,description);
 				tieDocList.add(tieDoc);
 			}
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
+			/*
 			if (conn != null) {
 				try {
 					conn.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-			}
+			}*/
 			if (pst != null) {
 				try {
 					pst.close();

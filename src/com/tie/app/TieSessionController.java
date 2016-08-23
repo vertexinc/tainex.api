@@ -94,15 +94,22 @@ public class TieSessionController extends TieControllerBase {
 		// all current msg attributes are now available to jsp
 		TieMsg currentmsg = msgList.get(0);
 		//TieMainPage.getTieMainPage().setCurrentMsg(currentmsg);
+		TieMainPage.getTieMainPage().setCurrentMsg(currentmsg);
+		// Populate sender of the current msg
 		
+		// Populate receivers of the current msg
+		int senderId = currentmsg.getSenderId();
+		
+		TieUser sender = persister.getTieUserDao().findTieUserById(senderId);
+		currentmsg.setSender(sender);
 		
 		// ------ populate current msg pane, doc tab, docs of the currentMsg -------
 		int currentTieMsgId = currentmsg.getTieMsgId();
 		List<TieDoc> tieDocList = new ArrayList<TieDoc>();
-		tieDocList = persister.getTieDocDao().findTieMsgByTieMsgId(currentTieMsgId);
+		tieDocList = persister.getTieDocDao().findTieDocByTieMsgId(currentTieMsgId);
 		currentmsg.setTieDocList(tieDocList);
 		
-		TieMainPage.getTieMainPage().setCurrentMsg(currentmsg);
+		
 		// ------ populate current msg pane, entity tab -------
 		// ------ populate current msg pane, table1 tab -------
 		// ------ populate current msg pane, table2 tab -------
