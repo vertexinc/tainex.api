@@ -9,6 +9,7 @@ import java.util.List;
 import com.tie.model.TieMsg;
 import com.tie.model.TieMsgReceiver;
 import com.tie.model.TieMsgState;
+import com.tie.model.taxEntity;
 
 /**
  * @author awang
@@ -26,8 +27,18 @@ public class TieMainPage {
 	public List<TieMsg> msgList = new ArrayList<TieMsg>();
 	public List<TieMsgReceiver> tiemsgReceiverList = new ArrayList<TieMsgReceiver>();
 	public TieMsgState tieMsgState = new TieMsgState();
+	public List<taxEntity> taxEntitylist = new ArrayList<taxEntity>();
 	//current tieMsg
 	
+	
+	public List<taxEntity> getTaxEntitylist() {
+		return taxEntitylist;
+	}
+
+	public void setTaxEntitylist(List<taxEntity> taxEntitylist) {
+		this.taxEntitylist = taxEntitylist;
+	}
+
 	public TieMsgState getTieMsgState() {
 		return tieMsgState;
 	}

@@ -1,5 +1,8 @@
 package com.tie.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TieDoc {
 	private int tieDocId;
 	private String name;
@@ -13,6 +16,8 @@ public class TieDoc {
 	private String sourceDoc;
 	private String accountingStandard;
 	private String reportingPeriod;
+	
+	private List<taxEntity> taxEntityList = new ArrayList<taxEntity>();
 	public TieDoc() {
 		// super();
 	}
@@ -33,6 +38,14 @@ public class TieDoc {
 		this.sourceDoc = sourceDoc;
 		this.accountingStandard = accountingStandard;
 		this.reportingPeriod = reportingPeriod;
+	}
+
+	public List<taxEntity> getTaxEntityList() {
+		return taxEntityList;
+	}
+
+	public void setTaxEntityList(List<taxEntity> taxEntityList) {
+		this.taxEntityList = taxEntityList;
 	}
 
 	public String getReportingPeriod() {

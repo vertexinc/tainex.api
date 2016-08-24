@@ -18,6 +18,7 @@ import com.tie.model.TieMsg;
 import com.tie.model.TieMsgReceiver;
 import com.tie.model.TieMsgState;
 import com.tie.model.TieUser;
+import com.tie.model.taxEntity;
 import com.tie.ui.TieMainPage;
 
 /**
@@ -117,6 +118,11 @@ public class TieSessionController extends TieControllerBase {
 		currentmsg.setTieDocList(tieDocList);
 
 		// ------ populate current msg pane, entity tab -------
+		int currentDocId = tieDocList.get(0).getTieDocId();
+		List<taxEntity> taxEntitylist = new ArrayList<taxEntity>();
+		taxEntitylist = persister.getTieEntityDao().findTieMsgByTieDocId(currentDocId);
+		TieMainPage.getTieMainPage().setTaxEntitylist(taxEntitylist);
+				
 		// ------ populate current msg pane, table1 tab -------
 		// ------ populate current msg pane, table2 tab -------
 		// ------ populate current msg pane, table3 tab -------

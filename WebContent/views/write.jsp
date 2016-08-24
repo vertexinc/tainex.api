@@ -8,6 +8,7 @@
 <%@page import="com.tie.model.TieDoc"%>
 <%@page import="com.tie.model.TieMsgReceiver"%>
 <%@page import="com.tie.model.TieMsgState"%>
+<%@page import="com.tie.model.taxEntity"%>
 
 <body>
 
@@ -17,6 +18,7 @@
 	<%!TieMsg currentMsg = tieMainPage.getCurrentMsg();%>
 	<%!List<TieDoc> tieDocList = currentMsg.getTieDocList();%>
 	<%!TieMsgState tieMsgState = tieMainPage.getTieMsgState();%>
+	<%!List<taxEntity> taxEntitylist = tieMainPage.getTaxEntitylist();%>
 	<div id="upper">
 		<div class="scrollbar2" id="style-4">
 			<div class="force-overflow2">
@@ -362,7 +364,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
+							<!--tr>
 								<td>10001</td>
 								<td>GLOBAL SALESCO</td>
 								<td>GLOBAL SALESCO</td>
@@ -531,8 +533,23 @@
 								<td>US</td>
 								<td>NO</td>
 								<td></td>
-							</tr>
+							</tr-->
+							<%
+								for (taxEntity taxentity : taxEntitylist) {
+							%>
+							<tr id="currentMsg1">
 
+								<td><%=taxentity.getTaxIdNum()%></td>
+								<td><%=taxentity.getName()%></td>
+								<td><%=taxentity.getEntityCode()%></td>
+								<td>CBCR</td>
+								<td><%=taxentity.getIncorpCountryCode()%></td>
+								<td><%=taxentity.getResCountryCode()%></td>
+								<td><%=taxentity.getIsPermExtabliment()%></td>
+							</tr>
+							<%
+								}
+							%>
 						</tbody>
 					</table>
 				</div>

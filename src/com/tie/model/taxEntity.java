@@ -16,15 +16,18 @@ public class taxEntity {
 	private String addrFreeText;
 	private String addrStreet;
 	private String addrBuildingIdentifier;
+	private String addrSuiteIdentifier;
+	private String addrFloorIdentifier;
+	private String addrPOB;
 
 	public taxEntity() {
 		// super();
 	}
 
 	public taxEntity(int tieDocId, String entityCode, String name, String description, String taxIdNum,
-			String incorpCountryCode, String otherEntityInfo, String idNum, String resCountryCode,
+			String incorpCountryCode, String otherEntityInfo, String resCountryCode, String idNum,
 			int isPermExtabliment, String addrLegalType, String addrCountryCode, String addrFreeText, String addrStreet,
-			String addrBuildingIdentifier) {
+			String addrBuildingIdentifier, String addrSuiteIdentifier, String addrFloorIdentifier, String addrPOB) {
 		super();
 		this.tieDocId = tieDocId;
 		this.entityCode = entityCode;
@@ -161,6 +164,30 @@ public class taxEntity {
 
 	public void setAddrBuildingIdentifier(String addrBuildingIdentifier) {
 		this.addrBuildingIdentifier = addrBuildingIdentifier;
+	}
+
+	public String getAddrSuiteIdentifier() {
+		return addrSuiteIdentifier;
+	}
+
+	public void setAddrSuiteIdentifier(String addrSuiteIdentifier) {
+		this.addrSuiteIdentifier = addrSuiteIdentifier;
+	}
+
+	public String getAddrFloorIdentifier() {
+		return addrFloorIdentifier;
+	}
+
+	public void setAddrFloorIdentifier(String addrFloorIdentifier) {
+		this.addrFloorIdentifier = addrFloorIdentifier;
+	}
+
+	public String getAddrPOB() {
+		return addrPOB;
+	}
+
+	public void setAddrPOB(String addrPOB) {
+		this.addrPOB = addrPOB;
 	}
 
 	@Override
