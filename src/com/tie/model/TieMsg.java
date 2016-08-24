@@ -34,6 +34,9 @@ public class TieMsg {
 	private String rawMsg;
 	private List<TieDoc> tieDocList = new ArrayList<TieDoc>();
 	
+	//OECD Message Type indicator
+	public static String[] messageTypeIndi = {"CBC401", "CBC402", "CBC403"};
+	
 	public TieUser getSender() {
 		return sender;
 	}

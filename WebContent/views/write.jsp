@@ -106,7 +106,9 @@
 						</div>
 
 						<div class="col-md-3">
-							<p>Status: <%=tieMsgState.getName()%></p>
+							<p>
+								Status:
+								<%=tieMsgState.getName()%></p>
 						</div>
 					</div>
 
@@ -115,11 +117,17 @@
 							<form>
 								<div class="form-group row">
 									<label for="To" class="col-sm-2 form-control-label">To:</label>
-									<div class="col-sm-10"  >
-									<textarea rows="4" cols="95"><%for (TieMsgReceiver tieMsgReceiver : tieMsgReceiverList){%>
+									<div class="col-sm-10">
+										<textarea rows="4" cols="95">
+											<%
+												for (TieMsgReceiver tieMsgReceiver : tieMsgReceiverList) {
+											%>
 						<%=tieMsgReceiver.getSenderCode()%>@<%=tieMsgReceiver.getReceivingCountry()%>;
-						<%}%></textarea>
-										
+						<%
+							}
+						%>
+										</textarea>
+
 									</div>
 								</div>
 								<div class="form-group row">
@@ -158,7 +166,7 @@
 							<table style="width: 100%">
 								<tr>
 									<th>OECD Message Ref ID:</th>
-									<td>MX-2018-1</td>
+									<td><%=currentMsg.getMessageRefId()%></td>
 								</tr>
 								<tr>
 									<th>OECD Message Type:</th>
@@ -191,11 +199,16 @@
 								<tr>
 									<th>OECD Message Type Indic:</th>
 									<td><select class="form-control" id="sel1">
-											<option>CBC401</option>
-											<option>CBC402</option>
-											<option>CBC403</option>
+											<%
+												for (String OECDIndi : currentMsg.messageTypeIndi) {
+											%>
+											<option><%=OECDIndi%></option>
+											<%
+												}
+											%>
 									</select></td>
 								</tr>
+
 
 								<tr>
 									<th>Receiving Country:</th>
