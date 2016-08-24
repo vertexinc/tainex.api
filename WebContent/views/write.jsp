@@ -6,11 +6,13 @@
 <%@page import="com.tie.ui.TieMainPage"%>
 <%@page import="com.tie.model.TieMsg"%>
 <%@page import="com.tie.model.TieDoc"%>
+<%@page import="com.tie.model.TieMsgReceiver"%>
 
 <body>
 
 	<%!TieMainPage tieMainPage = TieMainPage.getTieMainPage();%>
 	<%!List<TieMsg> msgList = tieMainPage.getMsgList();%>
+	<%!List<TieMsgReceiver> tieMsgReceiverList = tieMainPage.getTiemsgReceiverList();%>
 	<%!TieMsg currentMsg = tieMainPage.getCurrentMsg();%>
 	<%!List<TieDoc> tieDocList = currentMsg.getTieDocList();%>
 
@@ -84,7 +86,9 @@
 				<div id="currentMsgBody">
 					<div class="row">
 						<div class="col-md-3">
-							<p>From: <%=currentMsg.getSender().getName() %></p>
+							<p>
+								From:
+								<%=currentMsg.getSender().getName()%></p>
 						</div>
 
 
@@ -110,9 +114,11 @@
 							<form>
 								<div class="form-group row">
 									<label for="To" class="col-sm-2 form-control-label">To:</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" id="To"
-											placeholder="Rainer.Waechter@bmf.bund.de">
+									<div class="col-sm-10"  >
+									<textarea rows="4" cols="95"><%for (TieMsgReceiver tieMsgReceiver : tieMsgReceiverList){%>
+						<%=tieMsgReceiver.getSenderCode()%>@<%=tieMsgReceiver.getReceivingCountry()%>;
+						<%}%></textarea>
+										
 									</div>
 								</div>
 								<div class="form-group row">
@@ -125,7 +131,7 @@
 								<div class="form-group row">
 									<label for="Notes" class="col-sm-2 form-control-label">Notes:</label>
 									<div class="col-sm-10">
-										<textarea rows="4" cols="127"><%=currentMsg.getNotes()%></textarea>
+										<textarea rows="4" cols="95"><%=currentMsg.getNotes()%></textarea>
 									</div>
 								</div>
 								<div class="form-group row">
@@ -232,7 +238,8 @@
 							for (TieDoc tieDoc : tieDocList) {
 						%>
 						<tr id="currentDoc1">
-							<td><%=tieDoc.getCode()%></th>
+							<td><%=tieDoc.getCode()%>
+							</th>
 							<td><%=tieDoc.getName()%></td>
 							<td>CBCR</td>
 							<td><%=tieDoc.getReportingEntityCode()%></td>

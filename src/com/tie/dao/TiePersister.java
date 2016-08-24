@@ -21,7 +21,16 @@ public class TiePersister {
 	TieMsgDao tieMsgDao;
 	TieUserDao tieUserDao;
 	TieDocDao tieDocDao;
+	TieMsgReceiverDao tieMsgReceiverDao;
 	
+	public TieMsgReceiverDao getTieMsgReceiverDao() {
+		return tieMsgReceiverDao;
+	}
+
+	public void setTieMsgReceiverDao(TieMsgReceiverDao tieMsgReceiverDao) {
+		this.tieMsgReceiverDao = tieMsgReceiverDao;
+	}
+
 	public TieDocDao getTieDocDao() {
 		return tieDocDao;
 	}
@@ -59,6 +68,7 @@ public class TiePersister {
 		tieMsgDao = new TieMsgDao();
 		tieUserDao = new TieUserDao();
 		tieDocDao = new TieDocDao();
+		tieMsgReceiverDao = new TieMsgReceiverDao();
 	}
 
 	public TieAppDao getTieAppDao() {

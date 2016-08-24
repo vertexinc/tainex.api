@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import com.tie.dao.TiePersister;
 import com.tie.model.TieDoc;
 import com.tie.model.TieMsg;
+import com.tie.model.TieMsgReceiver;
 import com.tie.model.TieUser;
 import com.tie.ui.TieMainPage;
 
@@ -67,7 +68,7 @@ public class TieSessionController extends TieControllerBase {
 
 		// find the id of the user who's login ()
 		TieUser user = persister.getTieUserDao().findTieUserByCode(username);
-		//System.out.println("User:" + user.toString());
+		// System.out.println("User:" + user.toString());
 		String userNameOnBoard = user.getName();
 
 		getMainPage().setAppName(appName);
@@ -75,7 +76,6 @@ public class TieSessionController extends TieControllerBase {
 		TieMainPage.getTieMainPage().setUsername(userNameOnBoard);
 
 		// TODO language and language list
-
 
 		// ToDo List<TieMsg> TieMsgDao.findMessageBsyOwner( long ownerId )
 		// ToDo add findTieMsgById in tieMsgDao
@@ -86,47 +86,48 @@ public class TieSessionController extends TieControllerBase {
 		List<TieMsg> msgList = new ArrayList<TieMsg>();
 		msgList = persister.getTieMsgDao().findTieMsgByOwnerId(user.getTieUserId());// (user.getTieUserId());
 		TieMainPage.getTieMainPage().setMsgList(msgList);
-		
-		//TODO
+
+		// TODO
 		// ------ populate current msg pane, msg tab -------
 		// pick the first msg from msgList as the current msg
-		// currentMsg = 
+		// currentMsg =
 		// all current msg attributes are now available to jsp
 		TieMsg currentmsg = msgList.get(0);
-		//TieMainPage.getTieMainPage().setCurrentMsg(currentmsg);
+		// TieMainPage.getTieMainPage().setCurrentMsg(currentmsg);
 		TieMainPage.getTieMainPage().setCurrentMsg(currentmsg);
 		// Populate sender of the current msg
-		
-		// Populate receivers of the current msg
 		int senderId = currentmsg.getSenderId();
-		
+
 		TieUser sender = persister.getTieUserDao().findTieUserById(senderId);
 		currentmsg.setSender(sender);
-		
-		// ------ populate current msg pane, doc tab, docs of the currentMsg -------
+		// Populate receivers of the current msg
 		int currentTieMsgId = currentmsg.getTieMsgId();
+		List<TieMsgReceiver> tiemsgReceiverList = new ArrayList<TieMsgReceiver>();
+		tiemsgReceiverList = persister.getTieMsgReceiverDao().findTieMsgReceiverById(currentTieMsgId);
+		TieMainPage.getTieMainPage().setTiemsgReceiverList(tiemsgReceiverList);
+		
+		// ------ populate current msg pane, doc tab, docs of the currentMsg
 		List<TieDoc> tieDocList = new ArrayList<TieDoc>();
 		tieDocList = persister.getTieDocDao().findTieDocByTieMsgId(currentTieMsgId);
 		currentmsg.setTieDocList(tieDocList);
-		
-		
+
 		// ------ populate current msg pane, entity tab -------
 		// ------ populate current msg pane, table1 tab -------
 		// ------ populate current msg pane, table2 tab -------
 		// ------ populate current msg pane, table3 tab -------
 
 	}
-	
+
 	/**
 	 * 
 	 * @return The main page for the user session.
 	 */
-	public TieMainPage getMainPage(){
+	public TieMainPage getMainPage() {
 		TieMainPage retval = null;
-	
+
 		retval = TieMainPage.getTieMainPage();
-		
+
 		return retval;
-	}//end getMainPage()
-	
-}//end class TieSessionContrller
+	}// end getMainPage()
+
+}// end class TieSessionContrller

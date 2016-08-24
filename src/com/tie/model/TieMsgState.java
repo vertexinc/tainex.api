@@ -9,7 +9,11 @@ public class TieMsgState {
 	
 	//ToDo static all know state for a message
 	public static TieMsgState CREATED = new TieMsgState( 1,"Created", "Created", "The message is created in the system", "");
-
+	public static TieMsgState SENT = new TieMsgState( 2,"Sent", "Sent", "The message is sent in the system", "");
+	public static TieMsgState DELIVEREDTOALL = new TieMsgState( 3,"DeliveredToAll", "DeliveredToAll", "The message is delivered to all in the system", "");
+	public static TieMsgState DELETED = new TieMsgState( 4,"Deleted", "Deleted", "The message is deleted in the system", "");
+	public static TieMsgState ARCHIVED = new TieMsgState( 5,"Archived", "Archived", "The message is archived in the system", "");
+	public static TieMsgState ERROR = new TieMsgState( 6,"Error", "Error", "The message is an error in the system", "");
 	/**
 	 * 
 	 * @param tieMsgStateId
