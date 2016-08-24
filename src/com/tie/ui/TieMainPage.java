@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.tie.model.TieMsg;
 import com.tie.model.TieMsgReceiver;
+import com.tie.model.TieMsgState;
 
 /**
  * @author awang
@@ -24,8 +25,17 @@ public class TieMainPage {
 	//list of all the msg
 	public List<TieMsg> msgList = new ArrayList<TieMsg>();
 	public List<TieMsgReceiver> tiemsgReceiverList = new ArrayList<TieMsgReceiver>();
+	public TieMsgState tieMsgState = new TieMsgState();
 	//current tieMsg
 	
+	public TieMsgState getTieMsgState() {
+		return tieMsgState;
+	}
+
+	public void setTieMsgState(TieMsgState tieMsgState) {
+		this.tieMsgState = tieMsgState;
+	}
+
 	public List<TieMsgReceiver> getTiemsgReceiverList() {
 		return tiemsgReceiverList;
 	}

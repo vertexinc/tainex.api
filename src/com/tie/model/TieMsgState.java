@@ -25,7 +25,20 @@ public class TieMsgState {
 		
 		//switch based on the given id
 		//if tieMsgStateId == CREATED.getTieMsgStateId(); then retval = CREATED;
-		
+		 switch (tieMsgStateId) {
+         case 1:  retval = CREATED;
+                  break;
+         case 2:  retval = SENT;
+                  break;
+         case 3:  retval = DELIVEREDTOALL;
+                  break;
+         case 4:  retval = DELETED;
+                  break;
+         case 5:  retval = ARCHIVED;
+                  break;
+         case 6:  retval = ERROR;
+                  break;
+     }
 		return retval;
 	}//end findById(.)
 	

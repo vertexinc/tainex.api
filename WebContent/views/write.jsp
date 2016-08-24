@@ -7,6 +7,7 @@
 <%@page import="com.tie.model.TieMsg"%>
 <%@page import="com.tie.model.TieDoc"%>
 <%@page import="com.tie.model.TieMsgReceiver"%>
+<%@page import="com.tie.model.TieMsgState"%>
 
 <body>
 
@@ -15,7 +16,7 @@
 	<%!List<TieMsgReceiver> tieMsgReceiverList = tieMainPage.getTiemsgReceiverList();%>
 	<%!TieMsg currentMsg = tieMainPage.getCurrentMsg();%>
 	<%!List<TieDoc> tieDocList = currentMsg.getTieDocList();%>
-
+	<%!TieMsgState tieMsgState = tieMainPage.getTieMsgState();%>
 	<div id="upper">
 		<div class="scrollbar2" id="style-4">
 			<div class="force-overflow2">
@@ -105,7 +106,7 @@
 						</div>
 
 						<div class="col-md-3">
-							<p>Status: Viewed</p>
+							<p>Status: <%=tieMsgState.getName()%></p>
 						</div>
 					</div>
 
@@ -184,11 +185,7 @@
 							<table style="width: 100%">
 								<tr>
 									<th>Reporting Period:</th>
-									<td><select class="form-control" id="sel1">
-											<option>2018</option>
-											<option>2017</option>
-											<option>2016</option>
-									</select></td>
+									<td><%=currentMsg.getReportingPeriod()%></td>
 								</tr>
 
 								<tr>

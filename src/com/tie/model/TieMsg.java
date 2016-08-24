@@ -159,6 +159,7 @@ public class TieMsg {
 	public void setTieMsgStateId(int tieMsgStateId) {
 		this.tieMsgStateId = tieMsgStateId;
 		//TODO set the object of tieMsgState
+		TieMsgState.findById(tieMsgStateId);
 	}
 
 	public String getSendingEntityIdNum() {

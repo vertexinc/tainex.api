@@ -16,6 +16,7 @@ import com.tie.dao.TiePersister;
 import com.tie.model.TieDoc;
 import com.tie.model.TieMsg;
 import com.tie.model.TieMsgReceiver;
+import com.tie.model.TieMsgState;
 import com.tie.model.TieUser;
 import com.tie.ui.TieMainPage;
 
@@ -105,6 +106,10 @@ public class TieSessionController extends TieControllerBase {
 		List<TieMsgReceiver> tiemsgReceiverList = new ArrayList<TieMsgReceiver>();
 		tiemsgReceiverList = persister.getTieMsgReceiverDao().findTieMsgReceiverById(currentTieMsgId);
 		TieMainPage.getTieMainPage().setTiemsgReceiverList(tiemsgReceiverList);
+		
+		//Populate the state of current msg
+		TieMsgState tieMsgState = TieMsgState.findById(currentmsg.getTieMsgStateId());
+		TieMainPage.getTieMainPage().setTieMsgState(tieMsgState);
 		
 		// ------ populate current msg pane, doc tab, docs of the currentMsg
 		List<TieDoc> tieDocList = new ArrayList<TieDoc>();
