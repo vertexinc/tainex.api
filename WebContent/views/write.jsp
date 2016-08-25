@@ -8,7 +8,8 @@
 <%@page import="com.tie.model.TieDoc"%>
 <%@page import="com.tie.model.TieMsgReceiver"%>
 <%@page import="com.tie.model.TieMsgState"%>
-<%@page import="com.tie.model.taxEntity"%>
+<%@page import="com.tie.model.TieTaxEntity"%>
+<%@page import="com.tie.model.CbcrTable1"%>
 
 <body>
 
@@ -18,7 +19,8 @@
 	<%!TieMsg currentMsg = tieMainPage.getCurrentMsg();%>
 	<%!List<TieDoc> tieDocList = currentMsg.getTieDocList();%>
 	<%!TieMsgState tieMsgState = tieMainPage.getTieMsgState();%>
-	<%!List<taxEntity> taxEntitylist = tieMainPage.getTaxEntitylist();%>
+	<%!TieDoc currentTieDoc = tieMainPage.getCurrentTieDoc();%>
+	<%!List<TieTaxEntity> taxEntitylist = tieMainPage.getTaxEntitylist();%>
 	<div id="upper">
 		<div class="scrollbar2" id="style-4">
 			<div class="force-overflow2">
@@ -37,32 +39,19 @@
 					<tbody class="member">
 						<!-- Generate auto increment td id later -->
 						<%
-							for (TieMsg tieMsg : msgList) {
+							for (TieMsg tieMsg : tieMainPage.getMsgList()) {
 						%>
 						<tr id="currentMsg1">
 							<th scope="row"><%=tieMainPage.getUsername()%></th>
 							<td><%=tieMsg.getSubject()%></td>
 							<td><%=tieMsg.getDescription()%></td>
 							<td><%=tieMsg.getTimestamp()%></td>
-							<td>Draft</td>
+							<td><%=tieMainPage.getTieMsgState().findById(tieMsg.getTieMsgId())%></td>
 						</tr>
 						<%
 							}
 						%>
-						<!--tr id="currentMsg2">
-							<th scope="row">Marisol</th>
-							<td>CBCR to US</td>
-							<td>CBCR docs for US</td>
-							<td>2016-08-01T13:23:21</td>
-							<td>Sent</td>
-						</tr>
-						<tr id="currentMsg3">
-							<th scope="row">Marisol</th>
-							<td>CBCR to MX</td>
-							<td>CBCR docs received from Canada</td>
-							<td>2016-08-01T13:23:21</td>
-							<td>Received</td>
-						</tr-->
+					
 					</tbody>
 				</table>
 			</div>
@@ -91,20 +80,20 @@
 						<div class="col-md-3">
 							<p>
 								From:
-								<%=currentMsg.getSender().getName()%></p>
+								<%= tieMainPage.getCurrentMsg().getSender().getName()%></p>
 						</div>
 
 
 						<div class="col-md-3">
 							<p>
 								Date:
-								<%=currentMsg.getTimestamp()%></p>
+								<%= tieMainPage.getCurrentMsg().getTimestamp()%></p>
 						</div>
 
 						<div class="col-md-3">
 							<p>
 								Reporting Period:
-								<%=currentMsg.getReportingPeriod()%></p>
+								<%= tieMainPage.getCurrentMsg().getReportingPeriod()%></p>
 						</div>
 
 						<div class="col-md-3">
@@ -122,7 +111,7 @@
 									<div class="col-sm-10">
 										<textarea rows="4" cols="95">
 											<%
-												for (TieMsgReceiver tieMsgReceiver : tieMsgReceiverList) {
+												for (TieMsgReceiver tieMsgReceiver : tieMainPage.getTiemsgReceiverList()) {
 											%>
 						<%=tieMsgReceiver.getSenderCode()%>@<%=tieMsgReceiver.getReceivingCountry()%>;
 						<%
@@ -136,27 +125,27 @@
 									<label for="Subject" class="col-sm-2 form-control-label">Subject:</label>
 									<div class="col-sm-10">
 										<input type="text" class="form-control" id="Subject"
-											placeholder="<%=currentMsg.getDescription()%>">
+											placeholder="<%=tieMainPage.getCurrentMsg().getDescription()%>">
 									</div>
 								</div>
 								<div class="form-group row">
 									<label for="Notes" class="col-sm-2 form-control-label">Notes:</label>
 									<div class="col-sm-10">
-										<textarea rows="4" cols="95"><%=currentMsg.getNotes()%></textarea>
+										<textarea rows="4" cols="95"><%=tieMainPage.getCurrentMsg().getNotes()%></textarea>
 									</div>
 								</div>
 								<div class="form-group row">
 									<label for="Warning" class="col-sm-2 form-control-label">Warning:</label>
 									<div class="col-sm-10">
 										<input type="text" class="form-control" id="Warning"
-											placeholder="<%=currentMsg.getWarning()%>">
+											placeholder="<%=tieMainPage.getCurrentMsg().getWarning()%>">
 									</div>
 								</div>
 								<div class="form-group row">
 									<label for="Contact" class="col-sm-2 form-control-label">Contact:</label>
 									<div class="col-sm-10">
 										<input type="text" class="form-control" id="Contact"
-											placeholder="<%=currentMsg.getContact()%>">
+											placeholder="<%=tieMainPage.getCurrentMsg().getContact()%>">
 									</div>
 								</div>
 							</form>
@@ -168,7 +157,7 @@
 							<table style="width: 100%">
 								<tr>
 									<th>OECD Message Ref ID:</th>
-									<td><%=currentMsg.getMessageRefId()%></td>
+									<td><%=tieMainPage.getCurrentMsg().getMessageRefId()%></td>
 								</tr>
 								<tr>
 									<th>OECD Message Type:</th>
@@ -179,7 +168,7 @@
 								</tr>
 								<tr>
 									<th>Sending Country:</th>
-									<td><%=currentMsg.getTransmittingCountry()%></td>
+									<td><%=tieMainPage.getCurrentMsg().getTransmittingCountry()%></td>
 								</tr>
 								<tr>
 									<th>Language:</th>
@@ -195,14 +184,14 @@
 							<table style="width: 100%">
 								<tr>
 									<th>Reporting Period:</th>
-									<td><%=currentMsg.getReportingPeriod()%></td>
+									<td><%=tieMainPage.getCurrentMsg().getReportingPeriod()%></td>
 								</tr>
 
 								<tr>
 									<th>OECD Message Type Indic:</th>
 									<td><select class="form-control" id="sel1">
 											<%
-												for (String OECDIndi : currentMsg.messageTypeIndi) {
+												for (String OECDIndi : tieMainPage.getCurrentMsg().messageTypeIndi) {
 											%>
 											<option><%=OECDIndi%></option>
 											<%
@@ -214,7 +203,7 @@
 
 								<tr>
 									<th>Receiving Country:</th>
-									<td><%=currentMsg.getReceivingCountries()%></td>
+									<td><%=tieMainPage.getCurrentMsg().getReceivingCountries()%></td>
 								</tr>
 							</table>
 						</div>
@@ -247,7 +236,7 @@
 					</thead>
 					<tbody id="currentDocBody">
 						<%
-							for (TieDoc tieDoc : tieDocList) {
+							for (TieDoc tieDoc : tieMainPage.getCurrentMsg().getTieDocList()) {
 						%>
 						<tr id="currentDoc1">
 							<td><%=tieDoc.getCode()%>
@@ -263,66 +252,7 @@
 						<%
 							}
 						%>
-						<!--tr id="currentDoc1">
-							<td>CBCR_IndustryCo</td>
-							<td>To Share CBCR Report of Industry Co</td>
-							<td>CBCR</td>
-							<td>IndustryCo</td>
-							<td>MXN</td>
-							<td>MX</td>
-							<td>MX GAAP</td>
-							<td>2014-12-31</td>
-						</tr>
-						<tr id="currentDoc2">
-							<td>EySampleCorp</td>
-							<td>EY Sample Corp CBCR Report</td>
-							<td>CBCR</td>
-							<td>RU=03389</td>
-							<td>USD</td>
-							<td>MX</td>
-							<td>US GAAP</td>
-							<td>2014-12-31</td>
-						</tr-->
-						<!--tr>
-								<td>code123</td>
-								<td>Doc1</td>
-								<td>CBCR</td>
-								<td>Reporting1212</td>
-								<td>US Dollar</td>
-								<td>USA</td>
-							</tr>
-							<tr>
-								<td>code123</td>
-								<td>Doc1</td>
-								<td>CBCR</td>
-								<td>Reporting1212</td>
-								<td>US Dollar</td>
-								<td>USA</td>
-							</tr>
-							<tr>
-								<td>code123</td>
-								<td>Doc1</td>
-								<td>CBCR</td>
-								<td>Reporting1212</td>
-								<td>US Dollar</td>
-								<td>USA</td>
-							</tr>
-							<tr>
-								<td>code123</td>
-								<td>Doc1</td>
-								<td>CBCR</td>
-								<td>Reporting1212</td>
-								<td>US Dollar</td>
-								<td>USA</td>
-							</tr>
-							<tr>
-								<td>code123</td>
-								<td>Doc1</td>
-								<td>CBCR</td>
-								<td>Reporting1212</td>
-								<td>US Dollar</td>
-								<td>USA</td>
-							</tr-->
+						
 					</tbody>
 				</table>
 			</div>
@@ -337,16 +267,16 @@
 							<table style="width: 100%">
 								<tr>
 									<td>Reporting Entity:</td>
-									<td>INDUSTRYCO CORPORATION INC</td>
+									<td><%=tieMainPage.getCurrentTieDoc().getReportingEntityCode()%></td>
 								</tr>
 								<tr>
 									<td>Resident Country:</td>
-									<td>MX</td>
+									<td><%=tieMainPage.getCurrentTieDoc().getResCountryCode()%></td>
 								</tr>
 							</table>
 						</div>
 						<div class="col-md-3">Currency:</div>
-						<div class="col-md-3">MXN</div>
+						<div class="col-md-3"><%=tieMainPage.getCurrentTieDoc().getCurrencyCode()%></div>
 					</div>
 
 					</br>
@@ -364,178 +294,8 @@
 							</tr>
 						</thead>
 						<tbody>
-							<!--tr>
-								<td>10001</td>
-								<td>GLOBAL SALESCO</td>
-								<td>GLOBAL SALESCO</td>
-								<td>CBCR</td>
-								<td>CA</td>
-								<td>CA</td>
-								<td>NO</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>10002</td>
-								<td>CHINA MANUFACTURING CO</td>
-								<td>CHINA MANUFACTURING CO</td>
-								<td>CBCR</td>
-								<td>CN</td>
-								<td>CN</td>
-								<td>NO</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>10003</td>
-								<td>German HoldCo GmbH</td>
-								<td>German HoldCo GmbH</td>
-								<td>CBCR</td>
-								<td>DE</td>
-								<td>DE</td>
-								<td>NO</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>10004</td>
-								<td>Germany SubAssembly GmbH</td>
-								<td>Germany SubAssembly GmbH</td>
-								<td>CBCR</td>
-								<td>DE</td>
-								<td>DE</td>
-								<td>NO</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>10005</td>
-								<td>FINANCECO, LTD.</td>
-								<td>FINANCECO, LTD.</td>
-								<td>CBCR</td>
-								<td>GB</td>
-								<td>GB</td>
-								<td>NO</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>10006</td>
-								<td>APAC SALES CORPORATION</td>
-								<td>APAC SALES CORPORATION</td>
-								<td>CBCR</td>
-								<td>HK</td>
-								<td>HK</td>
-								<td>NO</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>10007</td>
-								<td>Irish IPCo, Ltd</td>
-								<td>Irish IPCo, Ltd</td>
-								<td>CBCR</td>
-								<td>IE</td>
-								<td>IE</td>
-								<td>NO</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>10008</td>
-								<td>India IT Ltd 1</td>
-								<td>India IT Ltd 1</td>
-								<td>CBCR</td>
-								<td>IN</td>
-								<td>IN</td>
-								<td>NO</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>10009</td>
-								<td>India IT Ltd 2</td>
-								<td>India IT Ltd 2</td>
-								<td>CBCR</td>
-								<td>IN</td>
-								<td>IN</td>
-								<td>NO</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>10010</td>
-								<td>SHARED SERVICES OPERATIONS LTD</td>
-								<td>SHARED SERVICES OPERATIONS LTD</td>
-								<td>CBCR</td>
-								<td>PH</td>
-								<td>PH</td>
-								<td>NO</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>10011</td>
-								<td>AMERICAS SALES LLC</td>
-								<td>AMERICAS SALES LLC</td>
-								<td>CBCR</td>
-								<td>US</td>
-								<td>US</td>
-								<td>NO</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>10012</td>
-								<td>GLOBAL SALESCO</td>
-								<td>GLOBAL SALESCO</td>
-								<td>CBCR</td>
-								<td>US</td>
-								<td>US</td>
-								<td>NO</td>
-								<td></td>
-							</tr>
-							<tr bgcolor="#ffa483">
-								<td>10013</td>
-								<td>INDUSTRYCO CORPORATION INC</td>
-								<td>IndustryCo</td>
-								<td>CBCR</td>
-								<td>US</td>
-								<td>US</td>
-								<td>NO</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>10014</td>
-								<td>ICI ELIM</td>
-								<td>ICI ELIM</td>
-								<td>CBCR</td>
-								<td>US</td>
-								<td>US</td>
-								<td>NO</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>10015</td>
-								<td>LEASECO LLC</td>
-								<td>LEASECO LLC</td>
-								<td>CBCR</td>
-								<td>US</td>
-								<td>US</td>
-								<td>NO</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>10016</td>
-								<td>MANUFACTURING CORPORATION INC</td>
-								<td>MANUFACTURING CORPORATION INC</td>
-								<td>CBCR</td>
-								<td>US</td>
-								<td>US</td>
-								<td>NO</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>10017</td>
-								<td>US DISTRIBUTION OPERATIONS</td>
-								<td>US DISTRIBUTION OPERATIONS</td>
-								<td>CBCR</td>
-								<td>US</td>
-								<td>US</td>
-								<td>NO</td>
-								<td></td>
-							</tr-->
 							<%
-								for (taxEntity taxentity : taxEntitylist) {
+								for (TieTaxEntity taxentity : tieMainPage.getTaxEntitylist()) {
 							%>
 							<tr id="currentMsg1">
 
@@ -601,6 +361,7 @@
 									Year Concerned: 2014-12-31<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 								</td>
 							</tr>
+
 							<tr height="34"
 								style="mso-height-source: userset; height: 25.5pt">
 								<td rowspan="2" height="121" class="xl76" width="106"
@@ -643,224 +404,37 @@
 									style="border-top: none; border-left: none; width: 80pt">Total</td>
 							</tr>
 							<!-- Table 1 table content here -->
+							<%
+								for (CbcrTable1 cbcrTable1 : tieMainPage.getCurrentTieDoc().getCbcrTable1List()) {
+							%>
+							<tr height="30"
+								style="mso-height-source: userset; height: 22.5pt">
+								<td height="30" class="xl74" width="106"
+									style="height: 22.5pt; width: 80pt"><%=cbcrTable1.getTaxJurisdiction()%></td>
+								<td class="xl74" width="100"
+									style="border-left: none; width: 75pt"><%=cbcrTable1.getRevenueUnrelatedParty()%></td>
+								<td class="xl74" width="88"
+									style="border-left: none; width: 66pt">-<%=cbcrTable1.getRevenueRelatedParty()%></td>
+								<td class="xl74" width="83"
+									style="border-left: none; width: 62pt"><%=cbcrTable1.getRevenueTotal()%></td>
+								<td class="xl74" width="82"
+									style="border-left: none; width: 62pt"><%=cbcrTable1.getPlBeforeIncomeTax()%></td>
+								<td class="xl74" width="86"
+									style="border-left: none; width: 65pt"><%=cbcrTable1.getIncomeTaxPaid()%></td>
+								<td class="xl74" width="74"
+									style="border-left: none; width: 56pt"><%=cbcrTable1.getIncomeTaxAccrued()%></td>
+								<td class="xl74" width="64"
+									style="border-left: none; width: 53pt"><%=cbcrTable1.getStatedCapital()%></td>
+								<td class="xl74" width="84"
+									style="border-left: none; width: 63pt"><%=cbcrTable1.getAccumulatedEarnings()%></td>
+								<td class="xl74" width="86"
+									style="border-left: none; width: 65pt"><%=cbcrTable1.getNumberOfEmployees()%></td>
+								<td class="xl75" style="border-left: none"><%=cbcrTable1.getTangibleAssetsNonCash()%></td>
+							</tr>
+							<%
+								}
+							%>
 
-							<tr height="30"
-								style="mso-height-source: userset; height: 22.5pt">
-								<td height="30" class="xl74" width="106"
-									style="height: 22.5pt; width: 80pt">CA</td>
-								<td class="xl74" width="100"
-									style="border-left: none; width: 75pt">15,867,463,982</td>
-								<td class="xl74" width="88"
-									style="border-left: none; width: 66pt">-13,132,307,714</td>
-								<td class="xl74" width="83"
-									style="border-left: none; width: 62pt">2,735,156,268</td>
-								<td class="xl74" width="82"
-									style="border-left: none; width: 62pt">1,195,464,032</td>
-								<td class="xl74" width="86"
-									style="border-left: none; width: 65pt">247,461,055</td>
-								<td class="xl74" width="74"
-									style="border-left: none; width: 56pt">215,183,526</td>
-								<td class="xl74" width="64"
-									style="border-left: none; width: 48pt">26,317,705</td>
-								<td class="xl74" width="84"
-									style="border-left: none; width: 63pt">1,255,227,943</td>
-								<td class="xl74" width="86"
-									style="border-left: none; width: 65pt">51</td>
-								<td class="xl75" style="border-left: none">1,691,169</td>
-							</tr>
-
-							<tr height="30"
-								style="mso-height-source: userset; height: 22.5pt">
-								<td height="30" class="xl74" width="106"
-									style="height: 22.5pt; width: 80pt">CN</td>
-								<td class="xl74" width="100"
-									style="border-left: none; width: 75pt">-338,019,516</td>
-								<td class="xl74" width="88"
-									style="border-left: none; width: 66pt">524,772,210</td>
-								<td class="xl74" width="83"
-									style="border-left: none; width: 62pt">186,752,694</td>
-								<td class="xl74" width="82"
-									style="border-left: none; width: 62pt">65,472,636</td>
-								<td class="xl74" width="86"
-									style="border-left: none; width: 65pt">18,695,711</td>
-								<td class="xl74" width="74"
-									style="border-left: none; width: 56pt">16,257,140</td>
-								<td class="xl74" width="64"
-									style="border-left: none; width: 48pt">4,386,284</td>
-								<td class="xl74" width="84"
-									style="border-left: none; width: 63pt">76,761,958</td>
-								<td class="xl74" width="86"
-									style="border-left: none; width: 65pt">160</td>
-								<td class="xl75" style="border-left: none">6,800,642</td>
-							</tr>
-							<tr height="30"
-								style="mso-height-source: userset; height: 22.5pt">
-								<td height="30" class="xl74" width="106"
-									style="height: 22.5pt; width: 80pt">DE</td>
-								<td class="xl74" width="100"
-									style="border-left: none; width: 75pt">30,829,468</td>
-								<td class="xl74" width="88"
-									style="border-left: none; width: 66pt">0</td>
-								<td class="xl74" width="83"
-									style="border-left: none; width: 62pt">30,829,468</td>
-								<td class="xl74" width="82"
-									style="border-left: none; width: 62pt">25,501,050</td>
-								<td class="xl74" width="86"
-									style="border-left: none; width: 65pt">8,665,895</td>
-								<td class="xl74" width="74"
-									style="border-left: none; width: 56pt">7,535,560</td>
-								<td class="xl74" width="64"
-									style="border-left: none; width: 48pt">50,000</td>
-								<td class="xl74" width="84"
-									style="border-left: none; width: 63pt">60,980,690</td>
-								<td class="xl74" width="86"
-									style="border-left: none; width: 65pt">29</td>
-								<td class="xl75" style="border-left: none">970,603</td>
-							</tr>
-							<tr height="30"
-								style="mso-height-source: userset; height: 22.5pt">
-								<td height="30" class="xl74" width="106"
-									style="height: 22.5pt; width: 80pt">GB</td>
-								<td class="xl74" width="100"
-									style="border-left: none; width: 75pt">0</td>
-								<td class="xl74" width="88"
-									style="border-left: none; width: 66pt">0</td>
-								<td class="xl74" width="83"
-									style="border-left: none; width: 62pt">0</td>
-								<td class="xl74" width="82"
-									style="border-left: none; width: 62pt">1,199,997</td>
-								<td class="xl74" width="86"
-									style="border-left: none; width: 65pt">227,700</td>
-								<td class="xl74" width="74"
-									style="border-left: none; width: 56pt">198,000</td>
-								<td class="xl74" width="64"
-									style="border-left: none; width: 48pt">0</td>
-								<td class="xl74" width="84"
-									style="border-left: none; width: 63pt">1,199,997</td>
-								<td class="xl74" width="86"
-									style="border-left: none; width: 65pt">19</td>
-								<td class="xl75" style="border-left: none">74,141</td>
-							</tr>
-							<tr height="30"
-								style="mso-height-source: userset; height: 22.5pt">
-								<td height="30" class="xl74" width="106"
-									style="height: 22.5pt; width: 80pt">HK</td>
-								<td class="xl74" width="100"
-									style="border-left: none; width: 75pt">0</td>
-								<td class="xl74" width="88"
-									style="border-left: none; width: 66pt">3,260,826,946</td>
-								<td class="xl74" width="83"
-									style="border-left: none; width: 62pt">3,260,826,946</td>
-								<td class="xl74" width="82"
-									style="border-left: none; width: 62pt">3,616,571</td>
-								<td class="xl74" width="86"
-									style="border-left: none; width: 65pt">1,413,664</td>
-								<td class="xl74" width="74"
-									style="border-left: none; width: 56pt">1,229,272</td>
-								<td class="xl74" width="64"
-									style="border-left: none; width: 48pt">74,500</td>
-								<td class="xl74" width="84"
-									style="border-left: none; width: 63pt">4,770,738</td>
-								<td class="xl74" width="86"
-									style="border-left: none; width: 65pt">19</td>
-								<td class="xl75" style="border-left: none">245,053</td>
-							</tr>
-							<tr height="30"
-								style="mso-height-source: userset; height: 22.5pt">
-								<td height="30" class="xl74" width="106"
-									style="height: 22.5pt; width: 80pt">IE</td>
-								<td class="xl74" width="100"
-									style="border-left: none; width: 75pt">0</td>
-								<td class="xl74" width="88"
-									style="border-left: none; width: 66pt">1,851,334,928</td>
-								<td class="xl74" width="83"
-									style="border-left: none; width: 62pt">1,851,334,928</td>
-								<td class="xl74" width="82"
-									style="border-left: none; width: 62pt">1,840,169,029</td>
-								<td class="xl74" width="86"
-									style="border-left: none; width: 65pt">264,524,298</td>
-								<td class="xl74" width="74"
-									style="border-left: none; width: 56pt">230,021,129</td>
-								<td class="xl74" width="64"
-									style="border-left: none; width: 48pt">78,000</td>
-								<td class="xl74" width="84"
-									style="border-left: none; width: 63pt">2,175,257,925</td>
-								<td class="xl74" width="86"
-									style="border-left: none; width: 65pt">5</td>
-								<td class="xl75" style="border-left: none">1,852,842</td>
-							</tr>
-							<tr height="30"
-								style="mso-height-source: userset; height: 22.5pt">
-								<td height="30" class="xl74" width="106"
-									style="height: 22.5pt; width: 80pt">IN</td>
-								<td class="xl74" width="100"
-									style="border-left: none; width: 75pt">0</td>
-								<td class="xl74" width="88"
-									style="border-left: none; width: 66pt">11,414,668</td>
-								<td class="xl74" width="83"
-									style="border-left: none; width: 62pt">11,414,668</td>
-								<td class="xl74" width="82"
-									style="border-left: none; width: 62pt">808,857</td>
-								<td class="xl74" width="86"
-									style="border-left: none; width: 65pt">279,056</td>
-								<td class="xl74" width="74"
-									style="border-left: none; width: 56pt">242,657</td>
-								<td class="xl74" width="64"
-									style="border-left: none; width: 48pt">135,000</td>
-								<td class="xl74" width="84"
-									style="border-left: none; width: 63pt">3,363,607</td>
-								<td class="xl74" width="86"
-									style="border-left: none; width: 65pt">42</td>
-								<td class="xl75" style="border-left: none">277,926</td>
-							</tr>
-							<tr height="30"
-								style="mso-height-source: userset; height: 22.5pt">
-								<td height="30" class="xl74" width="106"
-									style="height: 22.5pt; width: 80pt">PH</td>
-								<td class="xl74" width="100"
-									style="border-left: none; width: 75pt">155,139,268</td>
-								<td class="xl74" width="88"
-									style="border-left: none; width: 66pt">-53,153,539</td>
-								<td class="xl74" width="83"
-									style="border-left: none; width: 62pt">101,985,729</td>
-								<td class="xl74" width="82"
-									style="border-left: none; width: 62pt">-65,405</td>
-								<td class="xl74" width="86"
-									style="border-left: none; width: 65pt">280,698</td>
-								<td class="xl74" width="74"
-									style="border-left: none; width: 56pt">244,086</td>
-								<td class="xl74" width="64"
-									style="border-left: none; width: 48pt">10,965,711</td>
-								<td class="xl74" width="84"
-									style="border-left: none; width: 63pt">23,986,587</td>
-								<td class="xl74" width="86"
-									style="border-left: none; width: 65pt">24</td>
-								<td class="xl75" style="border-left: none">1,901,688</td>
-							</tr>
-							<tr height="30"
-								style="mso-height-source: userset; height: 22.5pt">
-								<td height="30" class="xl74" width="106"
-									style="height: 22.5pt; width: 80pt">US</td>
-								<td class="xl74" width="100"
-									style="border-left: none; width: 75pt">-4,950,867,513</td>
-								<td class="xl74" width="88"
-									style="border-left: none; width: 66pt">12,512,601,336</td>
-								<td class="xl74" width="83"
-									style="border-left: none; width: 62pt">7,561,733,823</td>
-								<td class="xl74" width="82"
-									style="border-left: none; width: 62pt">3,049,029,992</td>
-								<td class="xl74" width="86"
-									style="border-left: none; width: 65pt">1,747,074,909</td>
-								<td class="xl74" width="74"
-									style="border-left: none; width: 56pt">1,519,195,572</td>
-								<td class="xl74" width="64"
-									style="border-left: none; width: 48pt">476,634,632</td>
-								<td class="xl74" width="84"
-									style="border-left: none; width: 63pt">2,943,421,169</td>
-								<td class="xl74" width="86"
-									style="border-left: none; width: 65pt">584</td>
-								<td class="xl75" style="border-left: none">160,435,377</td>
-							</tr>
 
 							<!--[if supportMisalignedColumns]-->
 							<tr height="0" style="display: none">

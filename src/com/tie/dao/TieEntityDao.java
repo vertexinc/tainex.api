@@ -6,15 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.tie.model.TieMsg;
-import com.tie.model.taxEntity;
+import com.tie.model.TieTaxEntity;
 
 public class TieEntityDao extends BaseDao {
-	public List<taxEntity> findTieMsgByTieDocId(int id) {
+	public List<TieTaxEntity> findTieMsgByTieDocId(int id) {
 		getConnection();
 
-		List<taxEntity> taxEntityList = new ArrayList<taxEntity>();
+		List<TieTaxEntity> taxEntityList = new ArrayList<TieTaxEntity>();
 		try {
-			taxEntity taxentity = new taxEntity();
+			TieTaxEntity taxentity = new TieTaxEntity();
 			
 			String sql = "select * from mx.taxentity where tieDocId = ? order by taxIdNum";
 
@@ -43,7 +43,7 @@ public class TieEntityDao extends BaseDao {
 				String addrFloorIdentifier = rs.getString("addrFloorIdentifier");
 				String addrPOB = rs.getString("addrPOB");
 
-				taxentity = new taxEntity(tieDocId, entityCode, name, description, taxIdNum, incorpCountryCode, otherEntityInfo, resCountryCode,
+				taxentity = new TieTaxEntity(tieDocId, entityCode, name, description, taxIdNum, incorpCountryCode, otherEntityInfo, resCountryCode,
 						idNum, isPermExtabliment, addrLegalType, addrCountryCode, addrFreeText, addrStreet,
 						addrBuildingIdentifier, addrSuiteIdentifier, addrFloorIdentifier, addrPOB);
 				// tieapp = new TieApp(name,description);

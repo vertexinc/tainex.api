@@ -23,7 +23,16 @@ public class TiePersister {
 	TieDocDao tieDocDao;
 	TieMsgReceiverDao tieMsgReceiverDao;
 	TieEntityDao tieEntityDao;
+	CbcrTable1Dao cbcrTable1Dao;
 	
+	public CbcrTable1Dao getCbcrTable1Dao() {
+		return cbcrTable1Dao;
+	}
+
+	public void setCbcrTable1Dao(CbcrTable1Dao cbcrTable1Dao) {
+		this.cbcrTable1Dao = cbcrTable1Dao;
+	}
+
 	public TieMsgReceiverDao getTieMsgReceiverDao() {
 		return tieMsgReceiverDao;
 	}
@@ -71,6 +80,7 @@ public class TiePersister {
 		tieDocDao = new TieDocDao();
 		tieMsgReceiverDao = new TieMsgReceiverDao();
 		tieEntityDao = new TieEntityDao();
+		cbcrTable1Dao = new CbcrTable1Dao();
 	}
 
 	public void setTieAppDao(TieAppDao tieAppDao) {

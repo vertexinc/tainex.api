@@ -1,6 +1,6 @@
 package com.tie.model;
 
-public class taxEntity {
+public class TieTaxEntity {
 	private int tieDocId;
 	private String entityCode;
 	private String name;
@@ -20,11 +20,11 @@ public class taxEntity {
 	private String addrFloorIdentifier;
 	private String addrPOB;
 
-	public taxEntity() {
+	public TieTaxEntity() {
 		// super();
 	}
 
-	public taxEntity(int tieDocId, String entityCode, String name, String description, String taxIdNum,
+	public TieTaxEntity(int tieDocId, String entityCode, String name, String description, String taxIdNum,
 			String incorpCountryCode, String otherEntityInfo, String resCountryCode, String idNum,
 			int isPermExtabliment, String addrLegalType, String addrCountryCode, String addrFreeText, String addrStreet,
 			String addrBuildingIdentifier, String addrSuiteIdentifier, String addrFloorIdentifier, String addrPOB) {

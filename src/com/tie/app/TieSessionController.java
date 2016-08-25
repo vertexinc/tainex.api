@@ -13,12 +13,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.tie.dao.TiePersister;
+import com.tie.model.CbcrTable1;
 import com.tie.model.TieDoc;
 import com.tie.model.TieMsg;
 import com.tie.model.TieMsgReceiver;
 import com.tie.model.TieMsgState;
 import com.tie.model.TieUser;
-import com.tie.model.taxEntity;
+import com.tie.model.TieTaxEntity;
 import com.tie.ui.TieMainPage;
 
 /**
@@ -116,14 +117,21 @@ public class TieSessionController extends TieControllerBase {
 		List<TieDoc> tieDocList = new ArrayList<TieDoc>();
 		tieDocList = persister.getTieDocDao().findTieDocByTieMsgId(currentTieMsgId);
 		currentmsg.setTieDocList(tieDocList);
+		
+		// populate current doc
+		// TODO: Handle current doc situation
+		TieDoc currentDoc = tieDocList.get(0);
+		TieMainPage.getTieMainPage().setCurrentTieDoc(currentDoc);
 
 		// ------ populate current msg pane, entity tab -------
-		int currentDocId = tieDocList.get(0).getTieDocId();
-		List<taxEntity> taxEntitylist = new ArrayList<taxEntity>();
+		int currentDocId = currentDoc.getTieDocId();
+		List<TieTaxEntity> taxEntitylist = new ArrayList<TieTaxEntity>();
 		taxEntitylist = persister.getTieEntityDao().findTieMsgByTieDocId(currentDocId);
 		TieMainPage.getTieMainPage().setTaxEntitylist(taxEntitylist);
 				
 		// ------ populate current msg pane, table1 tab -------
+		List<CbcrTable1> cbcrTable1List = persister.getCbcrTable1Dao().findCbcrTable1ByTieDocId(currentDocId);
+		currentDoc.setCbcrTable1List(cbcrTable1List);
 		// ------ populate current msg pane, table2 tab -------
 		// ------ populate current msg pane, table3 tab -------
 

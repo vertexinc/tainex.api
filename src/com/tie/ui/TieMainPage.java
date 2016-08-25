@@ -6,10 +6,12 @@ package com.tie.ui;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.tie.model.CbcrTable1;
+import com.tie.model.TieDoc;
 import com.tie.model.TieMsg;
 import com.tie.model.TieMsgReceiver;
 import com.tie.model.TieMsgState;
-import com.tie.model.taxEntity;
+import com.tie.model.TieTaxEntity;
 
 /**
  * @author awang
@@ -27,15 +29,30 @@ public class TieMainPage {
 	public List<TieMsg> msgList = new ArrayList<TieMsg>();
 	public List<TieMsgReceiver> tiemsgReceiverList = new ArrayList<TieMsgReceiver>();
 	public TieMsgState tieMsgState = new TieMsgState();
-	public List<taxEntity> taxEntitylist = new ArrayList<taxEntity>();
+	public List<TieTaxEntity> taxEntitylist = new ArrayList<TieTaxEntity>();
+	
 	//current tieMsg
+	private TieMsg currentMsg;
 	
+	//current Doc
+	private TieDoc currentTieDoc;
 	
-	public List<taxEntity> getTaxEntitylist() {
+	//store list of table1 records
+	public List<CbcrTable1> cbcrTable1RecordList = new ArrayList<CbcrTable1>();
+	
+	public TieDoc getCurrentTieDoc() {
+		return currentTieDoc;
+	}
+
+	public void setCurrentTieDoc(TieDoc currentTieDoc) {
+		this.currentTieDoc = currentTieDoc;
+	}
+
+	public List<TieTaxEntity> getTaxEntitylist() {
 		return taxEntitylist;
 	}
 
-	public void setTaxEntitylist(List<taxEntity> taxEntitylist) {
+	public void setTaxEntitylist(List<TieTaxEntity> taxEntitylist) {
 		this.taxEntitylist = taxEntitylist;
 	}
 
@@ -55,7 +72,7 @@ public class TieMainPage {
 		this.tiemsgReceiverList = tiemsgReceiverList;
 	}
 
-	private TieMsg currentMsg;
+	
 	
 	public TieMsg getCurrentMsg() {
 		return currentMsg;
