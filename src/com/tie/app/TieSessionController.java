@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.tie.dao.TiePersister;
 import com.tie.model.CbcrTable1;
+import com.tie.model.CbcrTable2;
 import com.tie.model.TieDoc;
 import com.tie.model.TieMsg;
 import com.tie.model.TieMsgReceiver;
@@ -132,7 +133,10 @@ public class TieSessionController extends TieControllerBase {
 		// ------ populate current msg pane, table1 tab -------
 		List<CbcrTable1> cbcrTable1List = persister.getCbcrTable1Dao().findCbcrTable1ByTieDocId(currentDocId);
 		currentDoc.setCbcrTable1List(cbcrTable1List);
-		// ------ populate current msg pane, table2 tab -------
+		
+		// ------ populate current msg pane, table2 tab -------		
+		List<CbcrTable2> cbcrTable2List = persister.getCbcrTable2Dao().findCbcrTable2ByTieDocId(currentDocId);
+		currentDoc.setCbcrTable2List(cbcrTable2List);
 		// ------ populate current msg pane, table3 tab -------
 
 	}

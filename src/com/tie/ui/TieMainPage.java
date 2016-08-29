@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.tie.model.CbcrTable1;
+import com.tie.model.CbcrTable2;
 import com.tie.model.TieDoc;
 import com.tie.model.TieMsg;
 import com.tie.model.TieMsgReceiver;
@@ -39,6 +40,8 @@ public class TieMainPage {
 	
 	//store list of table1 records
 	public List<CbcrTable1> cbcrTable1RecordList = new ArrayList<CbcrTable1>();
+	
+	public List<CbcrTable2> cbcrTable2RecordList = new ArrayList<CbcrTable2>();
 	
 	public TieDoc getCurrentTieDoc() {
 		return currentTieDoc;
@@ -134,4 +137,19 @@ public class TieMainPage {
 	public void setSelectionCriteria(SelectionCriteria selectionCriteria) {
 		this.selectionCriteria = selectionCriteria;
 	}
-}
+	
+	
+	/**
+	 * composeReceiverNames()
+	 */
+	public String composeReceiverNameList()
+	{
+		String retval = "";
+		
+		//TODO compose from the receiver list
+		
+		return retval;
+	}//end composeReceiverNames()
+	
+	
+}//end class TieMainPage

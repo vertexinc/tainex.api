@@ -10,6 +10,7 @@
 <%@page import="com.tie.model.TieMsgState"%>
 <%@page import="com.tie.model.TieTaxEntity"%>
 <%@page import="com.tie.model.CbcrTable1"%>
+<%@page import="com.tie.model.CbcrTable2"%>
 
 <body>
 
@@ -51,7 +52,7 @@
 						<%
 							}
 						%>
-					
+
 					</tbody>
 				</table>
 			</div>
@@ -80,20 +81,20 @@
 						<div class="col-md-3">
 							<p>
 								From:
-								<%= tieMainPage.getCurrentMsg().getSender().getName()%></p>
+								<%=tieMainPage.getCurrentMsg().getSender().getName()%></p>
 						</div>
 
 
 						<div class="col-md-3">
 							<p>
 								Date:
-								<%= tieMainPage.getCurrentMsg().getTimestamp()%></p>
+								<%=tieMainPage.getCurrentMsg().getTimestamp()%></p>
 						</div>
 
 						<div class="col-md-3">
 							<p>
 								Reporting Period:
-								<%= tieMainPage.getCurrentMsg().getReportingPeriod()%></p>
+								<%=tieMainPage.getCurrentMsg().getReportingPeriod()%></p>
 						</div>
 
 						<div class="col-md-3">
@@ -252,7 +253,7 @@
 						<%
 							}
 						%>
-						
+
 					</tbody>
 				</table>
 			</div>
@@ -555,333 +556,46 @@
 									style="border-top: none; border-left: none; width: 48pt">Other2</td>
 							</tr>
 							<!-- Table 2 number content from 2nd column here -->
-							<tr height="21" style="height: 15.75pt">
-								<td class="x0l65" style="border-left: none">CA</td>
-								<td class="x0l65" style="border-left: none">GLOBAL SALESCO</td>
-								<td class="x0l66" style="border-left: none">CA</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">1</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">1</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">x</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
+							<%
+								for (CbcrTable2 cbcrTable2 : tieMainPage.getCurrentTieDoc().getCbcrTable2List()) {
+							%>
+							<tr height="30"
+								style="mso-height-source: userset; height: 22.5pt">
+								<td height="30" class="xl74" width="106"
+									style="height: 22.5pt; width: 80pt"><%=cbcrTable2.getTaxJurisdiction()%></td>
+								<td class="xl74" width="100"
+									style="border-left: none; width: 200pt"><%=cbcrTable2.getEntityCode()%></td>
+								<td class="xl74" width="88"
+									style="border-left: none; width: 80pt"><%=cbcrTable2.getTaxJurisdiction()%></td>
+								<td class="xl74" width="83"
+									style="border-left: none; width: 80pt"><%=cbcrTable2.getMainBusRAndD()%></td>
+								<td class="xl74" width="82"
+									style="border-left: none; width: 80pt"><%=cbcrTable2.getMainBusHoldingIp()%></td>
+								<td class="xl74" width="86"
+									style="border-left: none; width: 80pt"><%=cbcrTable2.getMainBusPurchasing()%></td>
+								<td class="xl74" width="74"
+									style="border-left: none; width: 80pt"><%=cbcrTable2.getMainBusMfctOrPrdn()%></td>
+								<td class="xl74" width="64"
+									style="border-left: none; width: 80pt"><%=cbcrTable2.getMainBusSaleMktDistr()%></td>
+								<td class="xl74" width="84"
+									style="border-left: none; width: 80pt"><%=cbcrTable2.getMainBusAdminMgmtSupportSvc()%></td>
+								<td class="xl74" width="86"
+									style="border-left: none; width: 80pt"><%=cbcrTable2.getMainBusProvSvcToUnrelatedParti()%></td>
+								<td class="xl74" width="86"
+									style="border-left: none; width: 80pt"><%=cbcrTable2.getMainBusInternalGroupFinance() %></td>
+								<td class="xl74" width="86"
+									style="border-left: none; width: 80pt"><%=cbcrTable2.getMainBusRegulatedFinSvc() %></td>
+								<td class="xl74" width="86"
+									style="border-left: none; width: 80pt"><%=cbcrTable2.getMainBusInsurance() %></td>
+								<td class="xl74" width="86"
+									style="border-left: none; width: 80pt"><%=cbcrTable2.getMainBusHoldingEquityInstrument() %></td>
+								<td class="xl74" width="86"
+									style="border-left: none; width: 80pt"><%=cbcrTable2.getMainBusDormant()%></td>
+								<td class="xl75" style="border-left: none"><%=cbcrTable2.getMainBusOther()%></td>
 							</tr>
-
-							<tr height="21" style="height: 15.75pt">
-								<td class="x0l65" style="border-left: none">CN</td>
-								<td class="x0l65" style="border-left: none">CHINA
-									MANUFACTURING CO</td>
-								<td class="x0l66" style="border-left: none">CN</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">1</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">x</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-							</tr>
-							<tr height="21" style="height: 15.75pt">
-								<td class="x0l65" style="border-left: none">DE</td>
-								<td class="x0l65" style="border-left: none">German HoldCo
-									GmbH</td>
-								<td class="x0l66" style="border-left: none">DE</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">x</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-							</tr>
-							<tr height="21" style="height: 15.75pt">
-								<td class="x0l65" style="border-left: none">DE</td>
-								<td class="x0l65" style="border-left: none">Germany
-									SubAssembly GmbH</td>
-								<td class="x0l66" style="border-left: none">DE</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">1</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">x</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-							</tr>
-							<tr height="21" style="height: 15.75pt">
-								<td class="x0l65" style="border-left: none">GB</td>
-								<td class="x0l65" style="border-left: none">FINANCECO, LTD.</td>
-								<td class="x0l66" style="border-left: none">GB</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">1</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">x</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-							</tr>
-							<tr>
-							<tr height="21" style="height: 15.75pt">
-								<td class="x0l65" style="border-left: none">HK</td>
-								<td class="x0l65" style="border-left: none">APAC SALES
-									CORPORATION</td>
-								<td class="x0l66" style="border-left: none">HK</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">1</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-							</tr>
-							<tr>
-							<tr height="21" style="height: 15.75pt">
-								<td class="x0l65" style="border-left: none">IE</td>
-								<td class="x0l65" style="border-left: none">Irish IPCo, Ltd</td>
-								<td class="x0l66" style="border-left: none">IE</td>
-								<td class="x0l66" style="border-left: none">1</td>
-								<td class="x0l66" style="border-left: none">1</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-							</tr>
-							<tr>
-							<tr height="21" style="height: 15.75pt">
-								<td class="x0l65" style="border-left: none">IN</td>
-								<td class="x0l65" style="border-left: none">India IT Ltd 1</td>
-								<td class="x0l66" style="border-left: none">IN</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">1</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-							</tr>
-							<tr>
-							<tr height="21" style="height: 15.75pt">
-								<td class="x0l65" style="border-left: none">IN</td>
-								<td class="x0l65" style="border-left: none">India IT Ltd 2</td>
-								<td class="x0l66" style="border-left: none">IN</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">1</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-							</tr>
-							<tr>
-							<tr height="21" style="height: 15.75pt">
-								<td class="x0l65" style="border-left: none">PH</td>
-								<td class="x0l65" style="border-left: none">SHARED SERVICES
-									OPERATIONS LTD</td>
-								<td class="x0l66" style="border-left: none">PH</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">1</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">x</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-							</tr>
-							<tr>
-							<tr height="21" style="height: 15.75pt">
-								<td class="x0l65" style="border-left: none">US</td>
-								<td class="x0l65" style="border-left: none">AMERICAS SALES
-									LLC</td>
-								<td class="x0l66" style="border-left: none">US</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">1</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-							</tr>
-							<tr>
-							<tr height="21" style="height: 15.75pt">
-								<td class="x0l65" style="border-left: none">US</td>
-								<td class="x0l65" style="border-left: none">GLOBAL SALESCO</td>
-								<td class="x0l66" style="border-left: none">US</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">1</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">1</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">x</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-							</tr>
-							<tr>
-							<tr height="21" style="height: 15.75pt">
-								<td class="x0l65" style="border-left: none">US</td>
-								<td class="x0l65" style="border-left: none">IndustryCo</td>
-								<td class="x0l66" style="border-left: none">US</td>
-								<td class="x0l66" style="border-left: none">1</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">1</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-							</tr>
-							<tr>
-							<tr height="21" style="height: 15.75pt">
-								<td class="x0l65" style="border-left: none">US</td>
-								<td class="x0l65" style="border-left: none">ICI ELIM</td>
-								<td class="x0l66" style="border-left: none">US</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">x</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-							</tr>
-							<tr>
-							<tr height="21" style="height: 15.75pt">
-								<td class="x0l65" style="border-left: none">US</td>
-								<td class="x0l65" style="border-left: none">LEASECO LLC</td>
-								<td class="x0l66" style="border-left: none">US</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">x</td>
-							</tr>
-							<tr>
-							<tr height="21" style="height: 15.75pt">
-								<td class="x0l65" style="border-left: none">uS</td>
-								<td class="x0l65" style="border-left: none">MANUFACTURING
-									CORPORATION INC</td>
-								<td class="x0l66" style="border-left: none">US</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">1</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">x</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-							</tr>
-							<tr>
-							<tr height="21" style="height: 15.75pt">
-								<td class="x0l65" style="border-left: none">US</td>
-								<td class="x0l65" style="border-left: none">US DISTRIBUTION
-									OPERATIONS</td>
-								<td class="x0l66" style="border-left: none">US</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">1</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-								<td class="x0l66" style="border-left: none">&nbsp;</td>
-							</tr>
+							<%
+								}
+							%>
 							<!--[if supportMisalignedColumns]-->
 							<tr height="0" style="display: none">
 								<td width="84" style="width: 63pt"></td>

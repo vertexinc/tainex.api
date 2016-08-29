@@ -12,15 +12,26 @@ public class CbcrTable2 {
 	private int mainBusAdminMgmtSupportSvc;
 	private int mainBusProvSvcToUnrelatedParti;
 	private int mainBusInternalGroupFinance;
+	private int mainBusRegulatedFinSvc;
+	private int mainBusInsurance;
+	private int mainBusHoldingEquityInstrument;
+	private int mainBusDormant;
+	private int mainBusOther;
+	private int mainBusOtherNotes;
+	private int mainBusMfctOrPrdn;
 
 	public CbcrTable2() {
 		// super();
 	}
 
+	
+
 	public CbcrTable2(int tieDocId, String taxJurisdiction, String entityCode, String taxJurisOfIncorporation,
 			int mainBusRAndD, int mainBusHoldingIp, int mainBusPurchasing, int mainBusSaleMktDistr,
-			int mainBusAdminMgmtSupportSvc, int mainBusProvSvcToUnrelatedParti, int mainBusInternalGroupFinance) {
-		super();
+			int mainBusAdminMgmtSupportSvc, int mainBusProvSvcToUnrelatedParti, int mainBusInternalGroupFinance,
+			int mainBusRegulatedFinSvc, int mainBusInsurance, int mainBusHoldingEquityInstrument, int mainBusDormant,
+			int mainBusOther, int mainBusOtherNotes, int mainBusMfctOrPrdn) {
+		//super();
 		this.tieDocId = tieDocId;
 		this.taxJurisdiction = taxJurisdiction;
 		this.entityCode = entityCode;
@@ -32,7 +43,100 @@ public class CbcrTable2 {
 		this.mainBusAdminMgmtSupportSvc = mainBusAdminMgmtSupportSvc;
 		this.mainBusProvSvcToUnrelatedParti = mainBusProvSvcToUnrelatedParti;
 		this.mainBusInternalGroupFinance = mainBusInternalGroupFinance;
+		this.mainBusRegulatedFinSvc = mainBusRegulatedFinSvc;
+		this.mainBusInsurance = mainBusInsurance;
+		this.mainBusHoldingEquityInstrument = mainBusHoldingEquityInstrument;
+		this.mainBusDormant = mainBusDormant;
+		this.mainBusOther = mainBusOther;
+		this.mainBusOtherNotes = mainBusOtherNotes;
+		this.mainBusMfctOrPrdn = mainBusMfctOrPrdn;
 	}
+
+
+
+	public int getMainBusRegulatedFinSvc() {
+		return mainBusRegulatedFinSvc;
+	}
+
+
+
+	public void setMainBusRegulatedFinSvc(int mainBusRegulatedFinSvc) {
+		this.mainBusRegulatedFinSvc = mainBusRegulatedFinSvc;
+	}
+
+
+
+	public int getMainBusInsurance() {
+		return mainBusInsurance;
+	}
+
+
+
+	public void setMainBusInsurance(int mainBusInsurance) {
+		this.mainBusInsurance = mainBusInsurance;
+	}
+
+
+
+	public int getMainBusHoldingEquityInstrument() {
+		return mainBusHoldingEquityInstrument;
+	}
+
+
+
+	public void setMainBusHoldingEquityInstrument(int mainBusHoldingEquityInstrument) {
+		this.mainBusHoldingEquityInstrument = mainBusHoldingEquityInstrument;
+	}
+
+
+
+	public int getMainBusDormant() {
+		return mainBusDormant;
+	}
+
+
+
+	public void setMainBusDormant(int mainBusDormant) {
+		this.mainBusDormant = mainBusDormant;
+	}
+
+
+
+	public int getMainBusOther() {
+		return mainBusOther;
+	}
+
+
+
+	public void setMainBusOther(int mainBusOther) {
+		this.mainBusOther = mainBusOther;
+	}
+
+
+
+	public int getMainBusOtherNotes() {
+		return mainBusOtherNotes;
+	}
+
+
+
+	public void setMainBusOtherNotes(int mainBusOtherNotes) {
+		this.mainBusOtherNotes = mainBusOtherNotes;
+	}
+
+
+
+	public int getMainBusMfctOrPrdn() {
+		return mainBusMfctOrPrdn;
+	}
+
+
+
+	public void setMainBusMfctOrPrdn(int mainBusMfctOrPrdn) {
+		this.mainBusMfctOrPrdn = mainBusMfctOrPrdn;
+	}
+
+
 
 	public int getTieDocId() {
 		return tieDocId;
