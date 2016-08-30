@@ -110,6 +110,12 @@ public class TieSessionController extends TieControllerBase {
 		tiemsgReceiverList = persister.getTieMsgReceiverDao().findTieMsgReceiverById(currentTieMsgId);
 		TieMainPage.getTieMainPage().setTiemsgReceiverList(tiemsgReceiverList);
 		
+		//Populate toListString
+		StringBuilder toListString = new StringBuilder("");
+		for (TieMsgReceiver tieMsgReceiver : tiemsgReceiverList) {
+			toListString.append(tieMsgReceiver.getSenderCode()).append("@").append(tieMsgReceiver.getReceivingCountry()).append(";");			
+		}
+		TieMainPage.getTieMainPage().setToListString(toListString.toString());
 		//Populate the state of current msg
 		TieMsgState tieMsgState = TieMsgState.findById(currentmsg.getTieMsgStateId());
 		TieMainPage.getTieMainPage().setTieMsgState(tieMsgState);
@@ -123,13 +129,16 @@ public class TieSessionController extends TieControllerBase {
 		// TODO: Handle current doc situation
 		TieDoc currentDoc = tieDocList.get(0);
 		TieMainPage.getTieMainPage().setCurrentTieDoc(currentDoc);
+		
+		//TODO: Populate reporting entity object (findbyCode)
 
 		// ------ populate current msg pane, entity tab -------
 		int currentDocId = currentDoc.getTieDocId();
 		List<TieTaxEntity> taxEntitylist = new ArrayList<TieTaxEntity>();
 		taxEntitylist = persister.getTieEntityDao().findTieMsgByTieDocId(currentDocId);
 		TieMainPage.getTieMainPage().setTaxEntitylist(taxEntitylist);
-				
+		
+	
 		// ------ populate current msg pane, table1 tab -------
 		List<CbcrTable1> cbcrTable1List = persister.getCbcrTable1Dao().findCbcrTable1ByTieDocId(currentDocId);
 		currentDoc.setCbcrTable1List(cbcrTable1List);

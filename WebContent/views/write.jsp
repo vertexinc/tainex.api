@@ -47,7 +47,7 @@
 							<td><%=tieMsg.getSubject()%></td>
 							<td><%=tieMsg.getDescription()%></td>
 							<td><%=tieMsg.getTimestamp()%></td>
-							<td><%=tieMainPage.getTieMsgState().findById(tieMsg.getTieMsgId())%></td>
+							<td><%=tieMainPage.getTieMsgState().getName()%></td>
 						</tr>
 						<%
 							}
@@ -110,18 +110,14 @@
 								<div class="form-group row">
 									<label for="To" class="col-sm-2 form-control-label">To:</label>
 									<div class="col-sm-10">
-										<textarea rows="4" cols="95">
-											<%
-												for (TieMsgReceiver tieMsgReceiver : tieMainPage.getTiemsgReceiverList()) {
-											%>
-						<%=tieMsgReceiver.getSenderCode()%>@<%=tieMsgReceiver.getReceivingCountry()%>;
-						<%
-							}
-						%>
-										</textarea>
-
+										<input type="text" class="form-control" id="To"
+											placeholder="<%=tieMainPage.getToListString()%>">
 									</div>
+
 								</div>
+
+
+
 								<div class="form-group row">
 									<label for="Subject" class="col-sm-2 form-control-label">Subject:</label>
 									<div class="col-sm-10">
@@ -582,13 +578,13 @@
 								<td class="xl74" width="86"
 									style="border-left: none; width: 80pt"><%=cbcrTable2.getMainBusProvSvcToUnrelatedParti()%></td>
 								<td class="xl74" width="86"
-									style="border-left: none; width: 80pt"><%=cbcrTable2.getMainBusInternalGroupFinance() %></td>
+									style="border-left: none; width: 80pt"><%=cbcrTable2.getMainBusInternalGroupFinance()%></td>
 								<td class="xl74" width="86"
-									style="border-left: none; width: 80pt"><%=cbcrTable2.getMainBusRegulatedFinSvc() %></td>
+									style="border-left: none; width: 80pt"><%=cbcrTable2.getMainBusRegulatedFinSvc()%></td>
 								<td class="xl74" width="86"
-									style="border-left: none; width: 80pt"><%=cbcrTable2.getMainBusInsurance() %></td>
+									style="border-left: none; width: 80pt"><%=cbcrTable2.getMainBusInsurance()%></td>
 								<td class="xl74" width="86"
-									style="border-left: none; width: 80pt"><%=cbcrTable2.getMainBusHoldingEquityInstrument() %></td>
+									style="border-left: none; width: 80pt"><%=cbcrTable2.getMainBusHoldingEquityInstrument()%></td>
 								<td class="xl74" width="86"
 									style="border-left: none; width: 80pt"><%=cbcrTable2.getMainBusDormant()%></td>
 								<td class="xl75" style="border-left: none"><%=cbcrTable2.getMainBusOther()%></td>

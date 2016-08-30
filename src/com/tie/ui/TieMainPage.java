@@ -31,7 +31,17 @@ public class TieMainPage {
 	public List<TieMsgReceiver> tiemsgReceiverList = new ArrayList<TieMsgReceiver>();
 	public TieMsgState tieMsgState = new TieMsgState();
 	public List<TieTaxEntity> taxEntitylist = new ArrayList<TieTaxEntity>();
+	public String toListString;
 	
+	public String getToListString() {
+		return toListString;
+	}
+
+	public void setToListString(String toListString) {
+		this.toListString = toListString;
+	}
+
+
 	//current tieMsg
 	private TieMsg currentMsg;
 	
@@ -100,6 +110,7 @@ public class TieMainPage {
 	public void init() {
 		language = "EN";
 		selectionCriteria = new SelectionCriteria();
+		//tieMsgState.setTieMsgStateId(currentMsg.getTieMsgId());
 	}
 	
 	public static TieMainPage getTieMainPage(){

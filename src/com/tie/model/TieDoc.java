@@ -11,6 +11,9 @@ public class TieDoc {
 	private int tieDocTypeId;
 	private int tieMsgId;
 	private String reportingEntityCode;
+	//TODO: object of ENtity
+	private TieTaxEntity reportingEntity;
+	
 	private String currencyCode;
 	private String resCountryCode;
 	private String sourceDoc;
