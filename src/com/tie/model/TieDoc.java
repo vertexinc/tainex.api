@@ -14,6 +14,14 @@ public class TieDoc {
 	//TODO: object of ENtity
 	private TieTaxEntity reportingEntity;
 	
+	public TieTaxEntity getReportingEntity() {
+		return reportingEntity;
+	}
+
+	public void setReportingEntity(TieTaxEntity reportingEntity) {
+		this.reportingEntity = reportingEntity;
+	}
+
 	private String currencyCode;
 	private String resCountryCode;
 	private String sourceDoc;

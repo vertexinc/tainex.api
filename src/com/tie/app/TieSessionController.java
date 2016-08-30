@@ -131,12 +131,16 @@ public class TieSessionController extends TieControllerBase {
 		TieMainPage.getTieMainPage().setCurrentTieDoc(currentDoc);
 		
 		//TODO: Populate reporting entity object (findbyCode)
-
+		TieTaxEntity tieTaxEntity = new TieTaxEntity();
+		tieTaxEntity = persister.getTieEntityDao().findTieEntityByCode(currentDoc.getReportingEntityCode());
+		currentDoc.setReportingEntity(tieTaxEntity);
+		
 		// ------ populate current msg pane, entity tab -------
 		int currentDocId = currentDoc.getTieDocId();
 		List<TieTaxEntity> taxEntitylist = new ArrayList<TieTaxEntity>();
-		taxEntitylist = persister.getTieEntityDao().findTieMsgByTieDocId(currentDocId);
+		taxEntitylist = persister.getTieEntityDao().findTieEntityByTieDocId(currentDocId);
 		TieMainPage.getTieMainPage().setTaxEntitylist(taxEntitylist);
+		
 		
 	
 		// ------ populate current msg pane, table1 tab -------

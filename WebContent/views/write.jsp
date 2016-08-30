@@ -264,7 +264,7 @@
 							<table style="width: 100%">
 								<tr>
 									<td>Reporting Entity:</td>
-									<td><%=tieMainPage.getCurrentTieDoc().getReportingEntityCode()%></td>
+									<td><%=tieMainPage.getCurrentTieDoc().getReportingEntity().getName() %></td>
 								</tr>
 								<tr>
 									<td>Resident Country:</td>
@@ -348,14 +348,14 @@
 									style="mso-spacerun: yes">&nbsp; </span>of<span
 									style="mso-spacerun: yes">&nbsp; </span>the<span
 									style="mso-spacerun: yes">&nbsp; </span>MNE<span
-									style="mso-spacerun: yes">&nbsp; </span>group: INDUSTRYCO
-									CORPORATION INC<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+									style="mso-spacerun: yes">&nbsp; </span>group: <%=tieMainPage.getCurrentTieDoc().getReportingEntity().getName() %>
+									<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
 							</tr>
 							<tr height="30"
 								style="mso-height-source: userset; height: 22.5pt">
 								<td colspan="11" height="30" class="xl71" width="928"
 									style="border-right: .5pt solid black; height: 22.5pt; width: 698pt">Fiscal
-									Year Concerned: 2014-12-31<span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+									Year Concerned: <%=tieMainPage.getCurrentTieDoc().getReportingPeriod() %><span style="mso-spacerun: yes">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 								</td>
 							</tr>
 
@@ -493,12 +493,12 @@
 							<tr height="20" style="height: 15.0pt">
 								<td colspan="16" height="20" class="x0l72" width="1424"
 									style="border-right: .5pt solid black; height: 15.0pt; width: 1069pt">Name
-									of the MNE group: INDUSTRYCO CORPORATION INC</td>
+									of the MNE group: <%=tieMainPage.getCurrentTieDoc().getReportingEntity().getName()%></td>
 							</tr>
 							<tr height="21" style="height: 15.75pt">
 								<td colspan="16" height="21" class="x0l69" width="1424"
 									style="border-right: .5pt solid black; height: 15.75pt; width: 1069pt">Fiscal
-									year concerned: 2014-12-31</td>
+									year concerned: <%=tieMainPage.getCurrentTieDoc().getReportingPeriod() %></td>
 							</tr>
 							<tr height="22" style="height: 16.5pt">
 								<td rowspan="2" height="170" class="x0l67" width="84"
@@ -627,8 +627,8 @@
 						<tr>
 
 							<th><div id="table3head">Name of the MNE group:
-									INDUSTRYCO CORPORATION INC</div>
-								<div id="table3head">Fiscal year concerned: 2014-12-31</div></th>
+									<%=tieMainPage.getCurrentTieDoc().getReportingEntity().getName()%></div>
+								<div id="table3head">Fiscal year concerned: <%=tieMainPage.getCurrentTieDoc().getReportingPeriod() %></div></th>
 						</tr>
 
 						<tr>

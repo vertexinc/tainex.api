@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.tie.model.TieDoc;
 import com.tie.model.TieMsg;
+import com.tie.model.TieTaxEntity;
 
 public class TieDocDao extends BaseDao {
 
@@ -75,4 +76,6 @@ public class TieDocDao extends BaseDao {
 		return tieDocList;
 
 	}
+	
+	
 }
