@@ -93,13 +93,18 @@ public class LoginServlet extends HttpServlet {
 	 * 
 	 * out.close(); }
 	 */
-
+	//TODO: rewrite doPost for switch
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		HttpSession session = request.getSession(false);
 		// Get username and pwd from the session
 		String username = request.getParameter("username");
 		String password = request.getParameter("userpass");
+		
+		//---- determine action to take after user logged in ------
+		String action = request.getParameter("action");
+		if( action==null ) action ="";
+		
 		PrintWriter out = response.getWriter();
 		// Get TieSessionController from the httpsession
 		TieSessionController sessionController = (TieSessionController)session
@@ -107,8 +112,16 @@ public class LoginServlet extends HttpServlet {
 
 		// If user has already loggin in
 		if (sessionController != null) {
-			RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
-			rd.forward(request, response);
+			
+			//switch logic based on action value
+			if( action.equals("selectCurrentMsg")){
+				selectCurrentMsg( request, response );
+			}
+			else{
+				RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
+				rd.forward(request, response);
+			}//end switch on action
+			
 		} else {
 			//TieController tieController = new TieController();
 			// user touch for the first time
@@ -135,5 +148,25 @@ public class LoginServlet extends HttpServlet {
 			}
 		}
 		out.close();
-	}
-}
+	}//end doPost(..)
+	
+	
+	/**
+	 * Prepare Ajax response to the select current msg request
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	public void selectCurrentMsg( 
+			HttpServletRequest request, 
+			HttpServletResponse response) 
+	throws ServletException, IOException {
+		
+		
+	}//end
+	
+	
+	
+	
+}//end class LoginService

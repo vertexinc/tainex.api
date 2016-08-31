@@ -65,12 +65,12 @@
 
 			<ul class="tab">
 				<li><a id="currentTab" class="tablinks"
-					onclick="openCity(event, 'Message')">Message</a></li>
-				<li><a class="tablinks" onclick="openCity(event, 'Docs')">Docs</a></li>
-				<li><a class="tablinks" onclick="openCity(event, 'Entity')">Entity</a></li>
-				<li><a class="tablinks" onclick="openCity(event, 'Table1')">Table1</a></li>
-				<li><a class="tablinks" onclick="openCity(event, 'Table2')">Table2</a></li>
-				<li><a class="tablinks" onclick="openCity(event, 'Table3')">Table3</a></li>
+					onclick="openTag(event, 'Message')" title="This is message pane.">Message</a></li>
+				<li><a class="tablinks" onclick="openTag(event, 'Docs')" title="Current Message:<%=tieMainPage.getCurrentMsg().getSubject() %>">Docs</a></li>
+				<li><a class="tablinks" onclick="openTag(event, 'Entity')" title="Current Doc:<%=tieMainPage.getCurrentTieDoc().getCode() %>">Entity</a></li>
+				<li><a class="tablinks" onclick="openTag(event, 'Table1')" title="Current Doc:<%=tieMainPage.getCurrentTieDoc().getCode() %>">Table1</a></li>
+				<li><a class="tablinks" onclick="openTag(event, 'Table2')" title="Current Doc:<%=tieMainPage.getCurrentTieDoc().getCode() %>">Table2</a></li>
+				<li><a class="tablinks" onclick="openTag(event, 'Table3')" title="Current Doc:<%=tieMainPage.getCurrentTieDoc().getCode() %>">Table3</a></li>
 
 			</ul>
 
@@ -412,7 +412,7 @@
 								<td class="xl74" width="100"
 									style="border-left: none; width: 75pt"><%=cbcrTable1.getRevenueUnrelatedParty()%></td>
 								<td class="xl74" width="88"
-									style="border-left: none; width: 66pt">-<%=cbcrTable1.getRevenueRelatedParty()%></td>
+									style="border-left: none; width: 66pt"><%=cbcrTable1.getRevenueRelatedParty()%></td>
 								<td class="xl74" width="83"
 									style="border-left: none; width: 62pt"><%=cbcrTable1.getRevenueTotal()%></td>
 								<td class="xl74" width="82"
@@ -651,7 +651,7 @@
 		</div>
 	</div>
 	<script>
-		function openCity(evt, cityName) {
+		function openTag(evt, cityName) {
 			var i, tabcontent, tablinks;
 			tabcontent = document.getElementsByClassName("tabcontent");
 			for (i = 0; i < tabcontent.length; i++) {
@@ -676,7 +676,7 @@
 			setTimeout(function() {
 				$('#currentMsg1').trigger('click');
 			}, 10);
-			openCity(event, "Message");
+			openTag(event, "Message");
 		});
 
 		$("tr").click(function() {
@@ -684,47 +684,6 @@
 			$(this).addClass("selected");
 		});
 
-		$("#currentMsg2").click(function() {
-			$("#currentMsgBody").hide();
-			$("#currentDocBody").hide();
-			$("#currentEntityBody").hide();
-			$("#currentTable1Body").hide();
-			$("#currentTable2Body").hide();
-			$("#currentTable3Body").hide();
-		});
-		$("#currentMsg3").click(function() {
-			$("#currentMsgBody").hide();
-			$("#currentDocBody").hide();
-			$("#currentEntityBody").hide();
-			$("#currentTable1Body").hide();
-			$("#currentTable2Body").hide();
-			$("#currentTable3Body").hide();
-		});
-
-		$("#currentMsg1").click(function() {
-			$("#currentMsgBody").show();
-			$("#currentDocBody").show();
-			$("#currentEntityBody").show();
-			$("#currentTable1Body").show();
-			$("#currentTable2Body").show();
-			$("#currentTable3Body").show();
-
-		});
-		$("#currentDoc1").click(function() {
-			$("#currentMsgBody").show();
-			$("#currentDocBody").show();
-			$("#currentEntityBody").show();
-			$("#currentTable1Body").show();
-			$("#currentTable2Body").show();
-			$("#currentTable3Body").show();
-
-		});
-		$("#currentDoc2").click(function() {
-			$("#currentEntityBody").hide();
-			$("#currentTable1Body").hide();
-			$("#currentTable2Body").hide();
-			$("#currentTable3Body").hide();
-
-		});
+		
 	</script>
 </body>
