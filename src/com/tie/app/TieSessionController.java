@@ -152,11 +152,11 @@ public class TieSessionController extends TieControllerBase {
 		currentDoc.setCbcrTable2List(cbcrTable2List);
 		// ------ populate current msg pane, table3 tab -------
 		List<CbcrTable3> cbcrTable3List = persister.getCbcrTable3Dao().findCbcrTable3ByTieDocId(currentDocId);
-		//currentDoc.setCbcrTable3List(cbcrTable3List);
+		currentDoc.setCbcrTable3List(cbcrTable3List);
 		
 		StringBuilder table3String = new StringBuilder("");
 		for (CbcrTable3 cbcrTable3 : cbcrTable3List) {
-			table3String.append(cbcrTable3.getAdditionalInfo()).append("\n");
+			table3String.append(cbcrTable3.getAdditionalInfo()).append(";").append("\n");
 		}
 		TieMainPage.getTieMainPage().setTable3String(table3String.toString());
 	}
