@@ -633,7 +633,9 @@
 
 						<tr>
 
-							<td class="x00l66" rows="4" cols="280" id="To"></td>
+							<td class="x00l66" rows="4" cols="280" id="To">
+							<%=tieMainPage.getTable3String() %>
+							</td>
 
 						</tr>
 

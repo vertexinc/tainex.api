@@ -31,6 +31,8 @@ public class TieDoc {
 	private List<TieTaxEntity> taxEntityList = new ArrayList<TieTaxEntity>();
 	private List<CbcrTable1> cbcrTable1List = new ArrayList<CbcrTable1>();
 	private List<CbcrTable2> cbcrTable2List = new ArrayList<CbcrTable2>();
+	private List<CbcrTable3> cbcrTable3List = new ArrayList<CbcrTable3>();
+	
 	public TieDoc() {
 		// super();
 	}
@@ -51,6 +53,14 @@ public class TieDoc {
 		this.sourceDoc = sourceDoc;
 		this.accountingStandard = accountingStandard;
 		this.reportingPeriod = reportingPeriod;
+	}
+
+	public List<CbcrTable3> getCbcrTable3List() {
+		return cbcrTable3List;
+	}
+
+	public void setCbcrTable3List(List<CbcrTable3> cbcrTable3List) {
+		this.cbcrTable3List = cbcrTable3List;
 	}
 
 	public List<CbcrTable2> getCbcrTable2List() {

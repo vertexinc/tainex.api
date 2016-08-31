@@ -32,7 +32,16 @@ public class TieMainPage {
 	public TieMsgState tieMsgState = new TieMsgState();
 	public List<TieTaxEntity> taxEntitylist = new ArrayList<TieTaxEntity>();
 	public String toListString;
+	public String table3String;
 	
+	public String getTable3String() {
+		return table3String;
+	}
+
+	public void setTable3String(String table3String) {
+		this.table3String = table3String;
+	}
+
 	public String getToListString() {
 		return toListString;
 	}

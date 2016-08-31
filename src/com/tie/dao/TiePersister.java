@@ -25,7 +25,17 @@ public class TiePersister {
 	TieEntityDao tieEntityDao;
 	CbcrTable1Dao cbcrTable1Dao;
 	CbcrTable2Dao cbcrTable2Dao;
+	CbcrTable3Dao cbcrTable3Dao;
 	
+	
+	public CbcrTable3Dao getCbcrTable3Dao() {
+		return cbcrTable3Dao;
+	}
+
+	public void setCbcrTable3Dao(CbcrTable3Dao cbcrTable3Dao) {
+		this.cbcrTable3Dao = cbcrTable3Dao;
+	}
+
 	public CbcrTable2Dao getCbcrTable2Dao() {
 		return cbcrTable2Dao;
 	}
@@ -91,6 +101,7 @@ public class TiePersister {
 		tieEntityDao = new TieEntityDao();
 		cbcrTable1Dao = new CbcrTable1Dao();
 		cbcrTable2Dao = new CbcrTable2Dao();
+		cbcrTable3Dao = new CbcrTable3Dao();
 	}
 
 	public void setTieAppDao(TieAppDao tieAppDao) {
