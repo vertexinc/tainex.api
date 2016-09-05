@@ -19,11 +19,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tie.app.TieController;
 import com.tie.app.TieSecurityManager;
 import com.tie.app.TieSessionController;
 import com.tie.dao.TieAppDao;
 import com.tie.dao.TiePersister;
+import com.tie.model.TieMsg;
 import com.tie.dao.LoginDao;
 
 @WebServlet("/login")
@@ -96,14 +98,42 @@ public class LoginServlet extends HttpServlet {
 	//TODO: rewrite doPost for switch
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
+
+		
+		
+		
 		HttpSession session = request.getSession(false);
 		// Get username and pwd from the session
 		String username = request.getParameter("username");
 		String password = request.getParameter("userpass");
 		
 		//---- determine action to take after user logged in ------
-		//String action = request.getParameter("action");
-		//if( action==null ) action ="";
+		String action = request.getParameter("action");
+		if( action==null ) action ="";
+		
+		
+		//---------Handle front end msgID
+		int id=0;
+		//if( id==null ) id =0;
+		if(request.getParameter("id")==null){
+			id = 0;
+		}else{
+			id = Integer.parseInt(request.getParameter("id"));
+			
+		}
+		System.out.println(id);
+		
+		TiePersister persister = TieController.getController().getPersister();
+		TieMsg msg = persister.getTieMsgDao().findTieMsgByTieMsgId(id);
+		System.out.println("MSG pojo object:" + msg.toString());
+		
+		ObjectMapper ma = new ObjectMapper();
+		String outt = ma.writeValueAsString(msg);
+		System.out.println("MSG JSON"+ outt);
+		//request.setAttribute("idN", id);
+		
+		//TODO ----temprate function for get object, will transfer to other methods later
+		
 		
 		PrintWriter out = response.getWriter();
 		// Get TieSessionController from the httpsession
@@ -114,13 +144,13 @@ public class LoginServlet extends HttpServlet {
 		if (sessionController != null) {
 			
 			//switch logic based on action value
-			//if( action.equals("selectCurrentMsg")){
-				//selectCurrentMsg( request, response );
-			//}
-			//else{
+			if( action.equals("selectCurrentMsg")){
+				selectCurrentMsg( request, response );
+			}
+			else{
 				RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
 				rd.forward(request, response);
-			//}//end switch on action
+			}//end switch on action
 			
 		} else {
 			//TieController tieController = new TieController();

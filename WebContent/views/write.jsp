@@ -36,19 +36,19 @@
 						</tr>
 					</thead>
 
-
+					
 					<tbody class="member">
 						<!-- Generate auto increment td id later -->
 						<%
 							for (TieMsg tieMsg : tieMainPage.getMsgList()) {
 						%>
-						<tr id="currentMsg1">
+						<tr id="currentMsg1" class="clickable-row">
 							<th scope="row"><%=tieMainPage.getUsername()%></th>
 							<td><%=tieMsg.getSubject()%></td>
 							<td><%=tieMsg.getDescription()%></td>
 							<td><%=tieMsg.getTimestamp()%></td>
 							<td><%=tieMainPage.getTieMsgState().getName()%></td>
-							<td class="counterCell"></td>
+							<td class="msgID"><%=tieMsg.getTieMsgId()%></td>
 							
 						</tr>
 						<%
@@ -58,7 +58,9 @@
 					</tbody>
 				</table>
 			</div>
+					
 		</div>
+
 	</div>
 	<div style="border: 1px solid #000"></div>
 	<div class="container">
@@ -75,7 +77,7 @@
 				<li><a class="tablinks" onclick="openTag(event, 'Table3')" title="Current Doc:<%=tieMainPage.getCurrentTieDoc().getCode() %>">Table3</a></li>
 
 			</ul>
-
+			
 
 			<div id="Message" class="tabcontent">
 				<div id="currentMsgBody">
@@ -684,8 +686,20 @@
 		$("tr").click(function() {
 			$(this).parent().children().removeClass("selected");
 			$(this).addClass("selected");
+			var rowID = $(this).find(".msgID").text();
+			//alert("rowID:" + rowID);
+			var temp = "id=" + rowID;
+			
+			$.ajax({
+				type:"POST",
+				//contentType:"application/json",
+				//dataType:'json',
+				url:"http://localhost:8080/TIEapp/login",
+				data:temp,
+			});
 		});
 
+		
 		
 	</script>
 </body>
