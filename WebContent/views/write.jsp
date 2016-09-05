@@ -48,6 +48,8 @@
 							<td><%=tieMsg.getDescription()%></td>
 							<td><%=tieMsg.getTimestamp()%></td>
 							<td><%=tieMainPage.getTieMsgState().getName()%></td>
+							<td class="counterCell"></td>
+							
 						</tr>
 						<%
 							}

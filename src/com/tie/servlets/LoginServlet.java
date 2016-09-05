@@ -102,8 +102,8 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter("userpass");
 		
 		//---- determine action to take after user logged in ------
-		String action = request.getParameter("action");
-		if( action==null ) action ="";
+		//String action = request.getParameter("action");
+		//if( action==null ) action ="";
 		
 		PrintWriter out = response.getWriter();
 		// Get TieSessionController from the httpsession
@@ -114,13 +114,13 @@ public class LoginServlet extends HttpServlet {
 		if (sessionController != null) {
 			
 			//switch logic based on action value
-			if( action.equals("selectCurrentMsg")){
-				selectCurrentMsg( request, response );
-			}
-			else{
+			//if( action.equals("selectCurrentMsg")){
+				//selectCurrentMsg( request, response );
+			//}
+			//else{
 				RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
 				rd.forward(request, response);
-			}//end switch on action
+			//}//end switch on action
 			
 		} else {
 			//TieController tieController = new TieController();
