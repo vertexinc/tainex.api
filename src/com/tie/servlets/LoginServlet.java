@@ -32,115 +32,48 @@ import com.tie.dao.LoginDao;
 public class LoginServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	/*
-	 * public void doPost(HttpServletRequest request, HttpServletResponse
-	 * response) throws ServletException, IOException {
-	 * 
-	 * response.setContentType("text/html"); PrintWriter out =
-	 * response.getWriter();
-	 * 
-	 * String n = request.getParameter("username"); // they are variables in //
-	 * JSP String p = request.getParameter("userpass"); // they are variables in
-	 * // JSP TieAppDao appdao = new TieAppDao(); // String x =
-	 * appdao.appname(); String x = null;
-	 * 
-	 * // TieController tieController = new TieController(); //
-	 * tieController.getPersister(); x =
-	 * TieController.getController().getPersister().getTieAppDao().
-	 * findTieAppById(1).getName();
-	 * 
-	 * // watch the session here, put it to session controllerj HttpSession
-	 * session = request.getSession(false); if (session != null) {
-	 * session.setAttribute("user", n); session.setAttribute("appname", x); }
-	 */
-	/* Session value */
-	// String s =
-	// ((com.tie.app.TieSessionController)session.getAttribute("name")).getMainPage().getUsername();
-	// get the HttpSession session = ...
 
-	// get TieSessionController from the http session
-	// TieSessionController sessionController = (TieSessionController)
-	// session.get property by user name( userName )
-
-	// if sessionController != null // it means user has already logged in,
-	// do nothing, return the same page
-	// else, //the user is touch the page for the first time
-	// {
-	// TieSecurityManager securityManager =
-	// TieController.getController().getSecurityManager();
-	// put validate logic to security manager class
-
-	// If user is authentiocated
-	// Create a new session controller and put int session
-	// sessionController = new TieSessionController();
-	// sessionController.setUserCode( userName );
-	// httpSession.put( userName, sessionController );
-	// else // user is not authenticated
-	// redisplay login page
-
-	// }
-
-	/*
-	 * LoginDao loginDao = new LoginDao();
-	 * 
-	 * if(loginDao.validate(n,p)) { RequestDispatcher rd =
-	 * request.getRequestDispatcher("welcome.jsp");
-	 * 
-	 * rd.forward(request, response); }else { out.print(
-	 * "<p style=\"color:red; text-align: center; \">Sorry username or password error</p>"
-	 * );
-	 * 
-	 * RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-	 * rd.include(request, response); }
-	 * 
-	 * out.close(); }
-	 */
 	// TODO: rewrite doPost for switch
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 
 		HttpSession session = request.getSession(false);
+		PrintWriter out = response.getWriter();
+		// Get TieSessionController from the httpsession
+		TieSessionController sessionController = (TieSessionController) session
+				.getAttribute(TieSessionController.sesssionControllerName);
+		
 		// Get username and pwd from the session
 		String username = request.getParameter("username");
 		String password = request.getParameter("userpass");
 
 		// ---- determine action to take after user logged in ------
-		String action = request.getParameter("action");
-		if (action == null)
+		String action;
+		if (request.getParameter("action") == null) {
 			action = "";
-
-		// ---------Handle front end msgID
-		int msgid = 0;
-		// if( id==null ) id =0;
-		if (request.getParameter("msgid") == null) {
-			msgid = 0;
 		} else {
-			msgid = Integer.parseInt(request.getParameter("msgid"));
-
+			action = request.getParameter("action");
 		}
-		System.out.println(msgid);
+		System.out.println("=====action = " + action + "=====");
 
-		// -------Temp code, will clean later
-		TiePersister persister = TieController.getController().getPersister();
-		TieMsg msg = persister.getTieMsgDao().findTieMsgByTieMsgId(msgid);
-		System.out.println("MSG pojo :" + msg.toString());
-
-		ObjectMapper ma = new ObjectMapper();
-		String msgjson = ma.writeValueAsString(msg);
-		System.out.println("MSG JSON" + msgjson);
-		// request.setAttribute("idN", id);
-
-		// TODO ----temprate function for get object, will transfer to other
-		// methods later
-
-		PrintWriter out = response.getWriter();
-		// Get TieSessionController from the httpsession
-		TieSessionController sessionController = (TieSessionController) session
-				.getAttribute(TieSessionController.sesssionControllerName);
+		if (action.equals("selectCurrentMsg")) {
+			selectCurrentMsg(request, response);
+		}
 
 		// If user has already loggin in
 		if (sessionController != null) {
-
+			
+			/*
+			 * sessionController returns null here 
+			 */
+			
+			/*
+			 * if (action.equals("selectCurrentMsg")) {
+					selectCurrentMsg(request, response);
+				}
+			 */
+			
+			
 			// switch logic based on action value
 			if (action.equals("selectCurrentMsg")) {
 				selectCurrentMsg(request, response);
@@ -150,6 +83,7 @@ public class LoginServlet extends HttpServlet {
 			} // end switch on action
 
 		} else {
+			
 			// TieController tieController = new TieController();
 			// user touch for the first time
 			TieSecurityManager securityManager = TieController.getController().getSecurityManager();
@@ -188,6 +122,24 @@ public class LoginServlet extends HttpServlet {
 	 */
 	public void selectCurrentMsg(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		int msgid = 0;
+		// if( id==null ) id =0;
+		if (request.getParameter("msgid") == null) {
+			msgid = 0;
+		} else {
+			msgid = Integer.parseInt(request.getParameter("msgid"));
+
+		}
+		System.out.println(msgid);
+
+		// -------Temp code, will clean later
+		TiePersister persister = TieController.getController().getPersister();
+		TieMsg msg = persister.getTieMsgDao().findTieMsgByTieMsgId(msgid);
+		System.out.println("MSG pojo :" + msg.toString());
+
+		ObjectMapper ma = new ObjectMapper();
+		String msgjson = ma.writeValueAsString(msg);
+		System.out.println("MSG JSON" + msgjson);
 
 	}// end
 
