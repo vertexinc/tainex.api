@@ -25,6 +25,7 @@
 	<div id="upper">
 		<div class="scrollbar2" id="style-4">
 			<div class="force-overflow2">
+
 				<table class="table">
 					<thead>
 						<tr>
@@ -36,7 +37,7 @@
 						</tr>
 					</thead>
 
-					
+
 					<tbody class="member">
 						<!-- Generate auto increment td id later -->
 						<%
@@ -49,7 +50,7 @@
 							<td><%=tieMsg.getTimestamp()%></td>
 							<td><%=tieMainPage.getTieMsgState().getName()%></td>
 							<td class="msgID"><%=tieMsg.getTieMsgId()%></td>
-							
+
 						</tr>
 						<%
 							}
@@ -58,7 +59,7 @@
 					</tbody>
 				</table>
 			</div>
-					
+
 		</div>
 
 	</div>
@@ -70,14 +71,19 @@
 			<ul class="tab">
 				<li><a id="currentTab" class="tablinks"
 					onclick="openTag(event, 'Message')" title="This is message pane.">Message</a></li>
-				<li><a class="tablinks" onclick="openTag(event, 'Docs')" title="Current Message:<%=tieMainPage.getCurrentMsg().getSubject() %>">Docs</a></li>
-				<li><a class="tablinks" onclick="openTag(event, 'Entity')" title="Current Doc:<%=tieMainPage.getCurrentTieDoc().getCode() %>">Entity</a></li>
-				<li><a class="tablinks" onclick="openTag(event, 'Table1')" title="Current Doc:<%=tieMainPage.getCurrentTieDoc().getCode() %>">Table1</a></li>
-				<li><a class="tablinks" onclick="openTag(event, 'Table2')" title="Current Doc:<%=tieMainPage.getCurrentTieDoc().getCode() %>">Table2</a></li>
-				<li><a class="tablinks" onclick="openTag(event, 'Table3')" title="Current Doc:<%=tieMainPage.getCurrentTieDoc().getCode() %>">Table3</a></li>
+				<li><a class="tablinks" onclick="openTag(event, 'Docs')"
+					title="Current Message:<%=tieMainPage.getCurrentMsg().getSubject()%>">Docs</a></li>
+				<li><a class="tablinks" onclick="openTag(event, 'Entity')"
+					title="Current Doc:<%=tieMainPage.getCurrentTieDoc().getCode()%>">Entity</a></li>
+				<li><a class="tablinks" onclick="openTag(event, 'Table1')"
+					title="Current Doc:<%=tieMainPage.getCurrentTieDoc().getCode()%>">Table1</a></li>
+				<li><a class="tablinks" onclick="openTag(event, 'Table2')"
+					title="Current Doc:<%=tieMainPage.getCurrentTieDoc().getCode()%>">Table2</a></li>
+				<li><a class="tablinks" onclick="openTag(event, 'Table3')"
+					title="Current Doc:<%=tieMainPage.getCurrentTieDoc().getCode()%>">Table3</a></li>
 
 			</ul>
-			
+
 
 			<div id="Message" class="tabcontent">
 				<div id="currentMsgBody">
@@ -643,7 +649,7 @@
 
 							<td class="x00l66" rows="4" cols="280"><%=tieMainPage.getTable3String()%>
 							</td>
-							
+
 						</tr>
 
 					</table>
@@ -654,52 +660,5 @@
 
 		</div>
 	</div>
-	<script>
-		function openTag(evt, cityName) {
-			var i, tabcontent, tablinks;
-			tabcontent = document.getElementsByClassName("tabcontent");
-			for (i = 0; i < tabcontent.length; i++) {
-				tabcontent[i].style.display = "none";
-			}
-			tablinks = document.getElementsByClassName("tablinks");
-			for (i = 0; i < tablinks.length; i++) {
-				tablinks[i].className = tablinks[i].className.replace(
-						" active", "");
-			}
-			document.getElementById(cityName).style.display = "block";
-			evt.currentTarget.className += " active";
-		}
-
-		$("document").ready(function() {
-			setTimeout(function() {
-				$('#currentTab').trigger('click');
-			}, 10);
-			setTimeout(function() {
-				$('#currentDoc1').trigger('click');
-			}, 10);
-			setTimeout(function() {
-				$('#currentMsg1').trigger('click');
-			}, 10);
-			openTag(event, "Message");
-		});
-
-		$("tr").click(function() {
-			$(this).parent().children().removeClass("selected");
-			$(this).addClass("selected");
-			var rowID = $(this).find(".msgID").text();
-			//alert("rowID:" + rowID);
-			var temp = "id=" + rowID;
-			
-			$.ajax({
-				type:"POST",
-				//contentType:"application/json",
-				//dataType:'json',
-				url:"http://localhost:8080/TIEapp/login",
-				data:temp,
-			});
-		});
-
-		
-		
-	</script>
+	<script src="javascript/write.js"></script>
 </body>

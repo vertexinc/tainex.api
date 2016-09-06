@@ -1091,3 +1091,6 @@ td {
     content: counter(tableCount); 
     counter-increment: tableCount; 
 }
+.msgID{
+	/*display: none;*/
+}

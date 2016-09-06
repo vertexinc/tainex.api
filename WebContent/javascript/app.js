@@ -25,7 +25,7 @@ app.config(function ($routeProvider) {
       templateUrl: 'views/table.jsp' 
     })
     .when('/write', {
-      controller: 'cbcrController',
+      controller: 'writeController',
       templateUrl: 'views/write.jsp'
     })
     .when('/success', {

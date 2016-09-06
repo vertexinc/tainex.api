@@ -173,4 +173,16 @@ public class TieSessionController extends TieControllerBase {
 		return retval;
 	}// end getMainPage()
 
+	
+	/**
+	 * Select the msg object for the given id. 
+	 * Set it to the main page as the current msg object.
+	 * @param msgId
+	 */
+	public void handleSelectCurrentMsg( long msgId ){
+		
+	}//end handleSelectCurrentMsg(.)
+	
+	
+	
 }// end class TieSessionContrller

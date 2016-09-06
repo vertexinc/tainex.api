@@ -95,74 +95,72 @@ public class LoginServlet extends HttpServlet {
 	 * 
 	 * out.close(); }
 	 */
-	//TODO: rewrite doPost for switch
+	// TODO: rewrite doPost for switch
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 
-		
-		
-		
 		HttpSession session = request.getSession(false);
 		// Get username and pwd from the session
 		String username = request.getParameter("username");
 		String password = request.getParameter("userpass");
-		
-		//---- determine action to take after user logged in ------
+
+		// ---- determine action to take after user logged in ------
 		String action = request.getParameter("action");
-		if( action==null ) action ="";
-		
-		
-		//---------Handle front end msgID
-		int id=0;
-		//if( id==null ) id =0;
-		if(request.getParameter("id")==null){
-			id = 0;
-		}else{
-			id = Integer.parseInt(request.getParameter("id"));
-			
+		if (action == null)
+			action = "";
+
+		// ---------Handle front end msgID
+		int msgid = 0;
+		// if( id==null ) id =0;
+		if (request.getParameter("msgid") == null) {
+			msgid = 0;
+		} else {
+			msgid = Integer.parseInt(request.getParameter("msgid"));
+
 		}
-		System.out.println(id);
-		
+		System.out.println(msgid);
+
+		// -------Temp code, will clean later
 		TiePersister persister = TieController.getController().getPersister();
-		TieMsg msg = persister.getTieMsgDao().findTieMsgByTieMsgId(id);
-		System.out.println("MSG pojo object:" + msg.toString());
-		
+		TieMsg msg = persister.getTieMsgDao().findTieMsgByTieMsgId(msgid);
+		System.out.println("MSG pojo :" + msg.toString());
+
 		ObjectMapper ma = new ObjectMapper();
-		String outt = ma.writeValueAsString(msg);
-		System.out.println("MSG JSON"+ outt);
-		//request.setAttribute("idN", id);
-		
-		//TODO ----temprate function for get object, will transfer to other methods later
-		
-		
+		String msgjson = ma.writeValueAsString(msg);
+		System.out.println("MSG JSON" + msgjson);
+		// request.setAttribute("idN", id);
+
+		// TODO ----temprate function for get object, will transfer to other
+		// methods later
+
 		PrintWriter out = response.getWriter();
 		// Get TieSessionController from the httpsession
-		TieSessionController sessionController = (TieSessionController)session
+		TieSessionController sessionController = (TieSessionController) session
 				.getAttribute(TieSessionController.sesssionControllerName);
 
 		// If user has already loggin in
 		if (sessionController != null) {
-			
-			//switch logic based on action value
-			if( action.equals("selectCurrentMsg")){
-				selectCurrentMsg( request, response );
-			}
-			else{
+
+			// switch logic based on action value
+			if (action.equals("selectCurrentMsg")) {
+				selectCurrentMsg(request, response);
+			} else {
 				RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
 				rd.forward(request, response);
-			}//end switch on action
-			
+			} // end switch on action
+
 		} else {
-			//TieController tieController = new TieController();
+			// TieController tieController = new TieController();
 			// user touch for the first time
 			TieSecurityManager securityManager = TieController.getController().getSecurityManager();
 			if (securityManager.authentiate(username, password)) {
 				sessionController = new TieSessionController();
 				String code = username;
-				//String code = TieController.getController().getPersister().getTieUserDao().findTieUserByName(username).getCode();
+				// String code =
+				// TieController.getController().getPersister().getTieUserDao().findTieUserByName(username).getCode();
 				sessionController.setUserCode(code);
 				session.setAttribute(code, username);
-				//TieController.getController().getPersister().getLoginDao().setUsername(username);
+				// TieController.getController().getPersister().getLoginDao().setUsername(username);
 				/*
 				 * Handle the login event for the user for the first time All
 				 * data on the main page is populated in the mainPage object of
@@ -178,25 +176,19 @@ public class LoginServlet extends HttpServlet {
 			}
 		}
 		out.close();
-	}//end doPost(..)
-	
-	
+	}// end doPost(..)
+
 	/**
 	 * Prepare Ajax response to the select current msg request
+	 * 
 	 * @param request
 	 * @param response
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	public void selectCurrentMsg( 
-			HttpServletRequest request, 
-			HttpServletResponse response) 
-	throws ServletException, IOException {
-		
-		
-	}//end
-	
-	
-	
-	
-}//end class LoginService
+	public void selectCurrentMsg(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+	}// end
+
+}// end class LoginService

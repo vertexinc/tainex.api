@@ -1,6 +1,6 @@
 /**
  * 
  */
-app.controller('writeController', function(){
-	
+app.controller('writeController', function() {
+
 });
