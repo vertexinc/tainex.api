@@ -1092,5 +1092,5 @@ td {
     counter-increment: tableCount; 
 }
 .msgID{
-	/*display: none;*/
+	display: none;
 }

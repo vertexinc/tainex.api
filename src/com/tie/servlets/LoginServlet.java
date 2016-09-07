@@ -42,6 +42,7 @@ public class LoginServlet extends HttpServlet {
 		// Get TieSessionController from the httpsession
 		TieSessionController sessionController = (TieSessionController) session
 				.getAttribute(TieSessionController.sesssionControllerName);
+		//System.out.println(sessionController);
 		
 		// Get username and pwd from the session
 		String username = request.getParameter("username");
@@ -55,28 +56,13 @@ public class LoginServlet extends HttpServlet {
 			action = request.getParameter("action");
 		}
 		System.out.println("=====action = " + action + "=====");
-
-		if (action.equals("selectCurrentMsg")) {
-			selectCurrentMsg(request, response);
-		}
-
+		
+		
 		// If user has already loggin in
-		if (sessionController != null) {
-			
-			/*
-			 * sessionController returns null here 
-			 */
-			
-			/*
-			 * if (action.equals("selectCurrentMsg")) {
-					selectCurrentMsg(request, response);
-				}
-			 */
-			
-			
+		if (sessionController != null) {		
 			// switch logic based on action value
 			if (action.equals("selectCurrentMsg")) {
-				selectCurrentMsg(request, response);
+				selectCurrentMsg(request, response,sessionController);
 			} else {
 				RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
 				rd.forward(request, response);
@@ -95,20 +81,29 @@ public class LoginServlet extends HttpServlet {
 				sessionController.setUserCode(code);
 				session.setAttribute(code, username);
 				// TieController.getController().getPersister().getLoginDao().setUsername(username);
+				
+				// Save the session controller, since the user is authenticated
+				session.setAttribute(TieSessionController.sesssionControllerName, sessionController);
+				
 				/*
 				 * Handle the login event for the user for the first time All
 				 * data on the main page is populated in the mainPage object of
 				 * the session controller.
 				 */
 				sessionController.handleLogin(username);
+				/*
+				 * Put logic here?
+				 */
 				RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
 				rd.include(request, response);
 			} else {
 				out.print("<p style=\"color:red; text-align: center; \">Sorry username or password error</p>");
 				RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 				rd.include(request, response);
-			}
-		}
+			}//end if securityMgr.authenticate() else 
+		}//end if sessionController !=null  else
+		
+		out.flush();
 		out.close();
 	}// end doPost(..)
 
@@ -120,7 +115,7 @@ public class LoginServlet extends HttpServlet {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	public void selectCurrentMsg(HttpServletRequest request, HttpServletResponse response)
+	public void selectCurrentMsg(HttpServletRequest request, HttpServletResponse response,TieSessionController sessionController)
 			throws ServletException, IOException {
 		int msgid = 0;
 		// if( id==null ) id =0;
@@ -135,11 +130,19 @@ public class LoginServlet extends HttpServlet {
 		// -------Temp code, will clean later
 		TiePersister persister = TieController.getController().getPersister();
 		TieMsg msg = persister.getTieMsgDao().findTieMsgByTieMsgId(msgid);
+				//sessionController.handleSelectCurrentMsg(msgid);
+				//persister.getTieMsgDao().findTieMsgByTieMsgId(msgid);
 		System.out.println("MSG pojo :" + msg.toString());
 
 		ObjectMapper ma = new ObjectMapper();
 		String msgjson = ma.writeValueAsString(msg);
 		System.out.println("MSG JSON" + msgjson);
+		
+		
+		response.setContentType("text/json");
+	    response.setCharacterEncoding("UTF-8");
+	    response.getWriter().write(msgjson);
+	    System.out.println(msgjson);
 
 	}// end
 
