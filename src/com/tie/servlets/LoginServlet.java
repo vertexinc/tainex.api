@@ -125,7 +125,7 @@ public class LoginServlet extends HttpServlet {
 			msgid = Integer.parseInt(request.getParameter("msgid"));
 
 		}
-		System.out.println(msgid);
+		
 
 		// -------Temp code, will clean later
 		//TiePersister persister = TieController.getController().getPersister();

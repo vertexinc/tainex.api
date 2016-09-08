@@ -69,17 +69,17 @@
 			<!--  div class="force-overflow3"-->
 
 			<ul class="tab">
-				<li><a id="currentTab" class="tablinks"
+				<li><a id="currentMsgTab" class="tablinks"
 					onclick="openTag(event, 'Message')" title="This is message pane.">Message</a></li>
-				<li><a class="tablinks" onclick="openTag(event, 'Docs')"
+				<li><a id="currentDocTab" class="tablinks" onclick="openTag(event, 'Docs')"
 					title="Current Message:<%=tieMainPage.getCurrentMsg().getSubject()%>">Docs</a></li>
-				<li><a class="tablinks" onclick="openTag(event, 'Entity')"
+				<li><a id="currentEntityTab" class="tablinks" onclick="openTag(event, 'Entity')"
 					title="Current Doc:<%=tieMainPage.getCurrentTieDoc().getCode()%>">Entity</a></li>
-				<li><a class="tablinks" onclick="openTag(event, 'Table1')"
+				<li><a id="currentTable1Tab" class="tablinks" onclick="openTag(event, 'Table1')"
 					title="Current Doc:<%=tieMainPage.getCurrentTieDoc().getCode()%>">Table1</a></li>
-				<li><a class="tablinks" onclick="openTag(event, 'Table2')"
+				<li><a id="currentTable2Tab" class="tablinks" onclick="openTag(event, 'Table2')"
 					title="Current Doc:<%=tieMainPage.getCurrentTieDoc().getCode()%>">Table2</a></li>
-				<li><a class="tablinks" onclick="openTag(event, 'Table3')"
+				<li><a id="currentTable3Tab" class="tablinks" onclick="openTag(event, 'Table3')"
 					title="Current Doc:<%=tieMainPage.getCurrentTieDoc().getCode()%>">Table3</a></li>
 
 			</ul>
@@ -89,28 +89,30 @@
 				<div id="currentMsgBody">
 					<div class="row">
 						<div class="col-md-3">
-							<p>
-								From:
-								<%=tieMainPage.getCurrentMsg().getSender().getName()%></p>
+							<p>From:<span id="from">
+								
+								<%=tieMainPage.getCurrentMsg().getSender().getName()%></span></p>
 						</div>
 
 
 						<div class="col-md-3">
 							<p>
 								Date:
-								<%=tieMainPage.getCurrentMsg().getTimestamp()%></p>
+								<span id="date"><%=tieMainPage.getCurrentMsg().getTimestamp()%></span></p>
 						</div>
 
 						<div class="col-md-3">
 							<p>
 								Reporting Period:
-								<%=tieMainPage.getCurrentMsg().getReportingPeriod()%></p>
+								<span id="reportingPeriod">
+								<%=tieMainPage.getCurrentMsg().getReportingPeriod()%></span></p>
 						</div>
 
 						<div class="col-md-3">
 							<p>
 								Status:
-								<%=tieMsgState.getName()%></p>
+								<span id=tieMsgState>
+								<%=tieMsgState.getName()%></span></p>
 						</div>
 					</div>
 
@@ -138,7 +140,7 @@
 								<div class="form-group row">
 									<label for="Notes" class="col-sm-2 form-control-label">Notes:</label>
 									<div class="col-sm-10">
-										<textarea rows="4" cols="95"><%=tieMainPage.getCurrentMsg().getNotes()%></textarea>
+										<textarea rows="4" cols="95" id="notes"><%=tieMainPage.getCurrentMsg().getNotes()%></textarea>
 									</div>
 								</div>
 								<div class="form-group row">
@@ -164,7 +166,7 @@
 							<table style="width: 100%">
 								<tr>
 									<th>OECD Message Ref ID:</th>
-									<td><%=tieMainPage.getCurrentMsg().getMessageRefId()%></td>
+									<td id="MessageRefId"><%=tieMainPage.getCurrentMsg().getMessageRefId()%></td>
 								</tr>
 								<tr>
 									<th>OECD Message Type:</th>
@@ -175,7 +177,7 @@
 								</tr>
 								<tr>
 									<th>Sending Country:</th>
-									<td><%=tieMainPage.getCurrentMsg().getTransmittingCountry()%></td>
+									<td id="TransmittingCountry"><%=tieMainPage.getCurrentMsg().getTransmittingCountry()%></td>
 								</tr>
 								<tr>
 									<th>Language:</th>
@@ -191,11 +193,12 @@
 							<table style="width: 100%">
 								<tr>
 									<th>Reporting Period:</th>
-									<td><%=tieMainPage.getCurrentMsg().getReportingPeriod()%></td>
+									<td id="getReportingPeriod"><%=tieMainPage.getCurrentMsg().getReportingPeriod()%></td>
 								</tr>
 
 								<tr>
 									<th>OECD Message Type Indic:</th>
+									
 									<td><select class="form-control" id="sel1">
 											<%
 												for (String OECDIndi : tieMainPage.getCurrentMsg().messageTypeIndi) {
@@ -210,7 +213,7 @@
 
 								<tr>
 									<th>Receiving Country:</th>
-									<td><%=tieMainPage.getCurrentMsg().getReceivingCountries()%></td>
+									<td id="ReceivingCountry"><%=tieMainPage.getCurrentMsg().getReceivingCountries()%></td>
 								</tr>
 							</table>
 						</div>

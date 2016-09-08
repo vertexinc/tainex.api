@@ -18,7 +18,7 @@ function openTag(evt, cityName) {
 
 $("document").ready(function() {
 	setTimeout(function() {
-		$('#currentTab').trigger('click');
+		$('#currentMsgTab').trigger('click');
 	}, 10);
 	setTimeout(function() {
 		$('#currentDoc1').trigger('click');
@@ -35,10 +35,6 @@ $("tr").click(function() {
 	$(this).addClass("selected");
 });
 
-$("#msgText").click(function() {
-
-	alert("hi");
-});
 
 $(".member tr").click(function() {
 	var rowID = $(this).find(".msgID").text();
@@ -53,10 +49,36 @@ $(".member tr").click(function() {
 		success : function(data) {
 			// alert('success'),
 			// $("#msgText").text(data);
-			alert(data.tieMsgId);
+			//alert(data.sender.name);
+			UpdateTab(data);
+			UpdateMsgPane(data);
 		},
 		error : function(err) {
 			alert(err.responseText)
 		}
 	});
 });
+
+var UpdateTab = function(data){
+	$("#currentDocTab").attr("title",data.subject);
+	$("#currentEntityTab").attr("title",data.tieDocList[0].reportingEntityCode);
+	$("#currentTable1Tab").attr("title",data.tieDocList[0].reportingEntityCode);
+	$("#currentTable2Tab").attr("title",data.tieDocList[0].reportingEntityCode);
+	$("#currentTable3Tab").attr("title",data.tieDocList[0].reportingEntityCode);
+}
+
+var UpdateMsgPane = function(data){
+	$("#from").text(data.sender.name);
+	$("#date").text(data.timestamp);
+	$("#reportingPeriod").text(data.reportingPeriod);
+	$("#tieMsgState").text(data.tieMsgState.code);
+	$("#To").attr("placeholder",data.msgReceiverList);
+	$("#Subject").attr("placeholder",data.subject);
+	$("#notes").text(data.notes);
+	$("#Warning").attr("placeholder",data.warning);
+	$("#Contact").attr("placeholder",data.contact);
+	$("#MessageRefId").text(data.messageRefId);
+	$("#TransmittingCountry").text(data.transmittingCountry);
+	$("#getReportingPeriod").text(data.reportingPeriod);
+	$("#ReceivingCountry").text(data.receivingCountries);
+}
