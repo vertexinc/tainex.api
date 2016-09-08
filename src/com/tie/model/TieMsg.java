@@ -32,8 +32,19 @@ public class TieMsg {
 	private String reportingPeriod;
 	private String timestamp;
 	private String rawMsg;
+	private String msgReceiverList;
+	
 	private List<TieDoc> tieDocList = new ArrayList<TieDoc>();
 	
+	
+	public String getMsgReceiverList() {
+		return msgReceiverList;
+	}
+
+	public void setMsgReceiverList(String msgReceiverList) {
+		this.msgReceiverList = msgReceiverList;
+	}
+
 	//OECD Message Type indicator
 	public static String[] messageTypeIndi = {"CBC401", "CBC402", "CBC403"};
 	

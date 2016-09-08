@@ -55,7 +55,7 @@ public class LoginServlet extends HttpServlet {
 		} else {
 			action = request.getParameter("action");
 		}
-		System.out.println("=====action = " + action + "=====");
+		
 		
 		
 		// If user has already loggin in
@@ -128,21 +128,21 @@ public class LoginServlet extends HttpServlet {
 		System.out.println(msgid);
 
 		// -------Temp code, will clean later
-		TiePersister persister = TieController.getController().getPersister();
-		TieMsg msg = persister.getTieMsgDao().findTieMsgByTieMsgId(msgid);
+		//TiePersister persister = TieController.getController().getPersister();
+		TieMsg msg = sessionController.handleSelectCurrentMsg(msgid);
 				//sessionController.handleSelectCurrentMsg(msgid);
 				//persister.getTieMsgDao().findTieMsgByTieMsgId(msgid);
-		System.out.println("MSG pojo :" + msg.toString());
+		//System.out.println("MSG pojo :" + msg.toString());
 
 		ObjectMapper ma = new ObjectMapper();
 		String msgjson = ma.writeValueAsString(msg);
-		System.out.println("MSG JSON" + msgjson);
+		System.out.println(msgjson);
 		
 		
 		response.setContentType("text/json");
 	    response.setCharacterEncoding("UTF-8");
 	    response.getWriter().write(msgjson);
-	    System.out.println(msgjson);
+	    //System.out.println(msgjson);
 
 	}// end
 

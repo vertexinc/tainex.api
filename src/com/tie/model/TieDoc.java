@@ -11,35 +11,28 @@ public class TieDoc {
 	private int tieDocTypeId;
 	private int tieMsgId;
 	private String reportingEntityCode;
-	//TODO: object of ENtity
+	// TODO: object of ENtity
 	private TieTaxEntity reportingEntity;
-	
-	public TieTaxEntity getReportingEntity() {
-		return reportingEntity;
-	}
-
-	public void setReportingEntity(TieTaxEntity reportingEntity) {
-		this.reportingEntity = reportingEntity;
-	}
 
 	private String currencyCode;
 	private String resCountryCode;
 	private String sourceDoc;
 	private String accountingStandard;
 	private String reportingPeriod;
-	
+
 	private List<TieTaxEntity> taxEntityList = new ArrayList<TieTaxEntity>();
 	private List<CbcrTable1> cbcrTable1List = new ArrayList<CbcrTable1>();
 	private List<CbcrTable2> cbcrTable2List = new ArrayList<CbcrTable2>();
 	private List<CbcrTable3> cbcrTable3List = new ArrayList<CbcrTable3>();
-	
+	private String table3String;
+
 	public TieDoc() {
 		// super();
 	}
 
 	public TieDoc(int tieDocId, String name, String code, String description, int tieDocTypeId, int tieMsgId,
 			String reportingEntityCode, String currencyCode, String resCountryCode, String sourceDoc,
-			String accountingStandard,String reportingPeriod) {
+			String accountingStandard, String reportingPeriod) {
 		super();
 		this.tieDocId = tieDocId;
 		this.name = name;
@@ -53,6 +46,22 @@ public class TieDoc {
 		this.sourceDoc = sourceDoc;
 		this.accountingStandard = accountingStandard;
 		this.reportingPeriod = reportingPeriod;
+	}
+
+	public String getTable3String() {
+		return table3String;
+	}
+
+	public void setTable3String(String table3String) {
+		this.table3String = table3String;
+	}
+
+	public TieTaxEntity getReportingEntity() {
+		return reportingEntity;
+	}
+
+	public void setReportingEntity(TieTaxEntity reportingEntity) {
+		this.reportingEntity = reportingEntity;
 	}
 
 	public List<CbcrTable3> getCbcrTable3List() {
@@ -70,7 +79,7 @@ public class TieDoc {
 	public void setCbcrTable2List(List<CbcrTable2> cbcrTable2List) {
 		this.cbcrTable2List = cbcrTable2List;
 	}
-	
+
 	public List<CbcrTable1> getCbcrTable1List() {
 		return cbcrTable1List;
 	}
