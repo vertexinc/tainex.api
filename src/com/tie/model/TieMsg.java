@@ -10,14 +10,14 @@ public class TieMsg {
 	private String description;
 	private String notes;
 	private int senderId;
-	//TODO: new object here
+	// TODO: new object here
 	private TieUser sender;
-	
+
 	private int ownerid;
 	private int tieMsgStateId;
-	//TODO: an object for tieMsgStateId
+	// TODO: an object for tieMsgStateId
 	private TieMsgState tieMsgState;
-	
+
 	private String sendingEntityIdNum;
 	private String transmittingCountry;
 	private String receivingCountries;
@@ -28,26 +28,32 @@ public class TieMsg {
 	private String messageRefId;
 	private String messageTypeIndic;
 	private String corrMessageRefIds;
-	
+
 	private String reportingPeriod;
 	private String timestamp;
 	private String rawMsg;
 	private String msgReceiverList;
-	
+
 	private List<TieDoc> tieDocList = new ArrayList<TieDoc>();
-	
-	
+	// OECD Message Type indicator
+	public static String[] messageTypeIndi = { "CBC401", "CBC402", "CBC403" };
+
 	public String getMsgReceiverList() {
 		return msgReceiverList;
+	}
+
+	public static String[] getMessageTypeIndi() {
+		return messageTypeIndi;
+	}
+
+	public static void setMessageTypeIndi(String[] messageTypeIndi) {
+		TieMsg.messageTypeIndi = messageTypeIndi;
 	}
 
 	public void setMsgReceiverList(String msgReceiverList) {
 		this.msgReceiverList = msgReceiverList;
 	}
 
-	//OECD Message Type indicator
-	public static String[] messageTypeIndi = {"CBC401", "CBC402", "CBC403"};
-	
 	public TieUser getSender() {
 		return sender;
 	}
@@ -64,9 +70,8 @@ public class TieMsg {
 		this.tieMsgState = tieMsgState;
 	}
 
-	
-	//List of docs in the msg to be sent out
-	
+	// List of docs in the msg to be sent out
+
 	public List<TieDoc> getTieDocList() {
 		return tieDocList;
 	}
@@ -76,7 +81,7 @@ public class TieMsg {
 	}
 
 	public TieMsg() {
-		
+
 	}
 
 	public TieMsg(int tieMsgId, String subject, String code, String description, String notes, int senderId,
@@ -84,7 +89,7 @@ public class TieMsg {
 			String receivingCountries, String messageType, String lauguage, String warning, String contact,
 			String messageRefId, String messageTypeIndic, String corrMessageRefIds, String reportingPeriod,
 			String timestamp, String rawMsg) {
-		
+
 		this.tieMsgId = tieMsgId;
 		this.subject = subject;
 		this.code = code;
@@ -114,10 +119,9 @@ public class TieMsg {
 
 	public void setTieMsgId(int tieMsgId) {
 		this.tieMsgId = tieMsgId;
-		
+
 	}
 
-	
 	public String getSubject() {
 		return subject;
 	}
@@ -172,7 +176,7 @@ public class TieMsg {
 
 	public void setTieMsgStateId(int tieMsgStateId) {
 		this.tieMsgStateId = tieMsgStateId;
-		//TODO set the object of tieMsgState
+		// TODO set the object of tieMsgState
 		TieMsgState.findById(tieMsgStateId);
 	}
 
@@ -291,7 +295,5 @@ public class TieMsg {
 				+ ", corrMessageRefIds=" + corrMessageRefIds + ", reportingPeriod=" + reportingPeriod + ", timestamp="
 				+ timestamp + ", rawMsg=" + rawMsg + "]";
 	}
-
-	
 
 }

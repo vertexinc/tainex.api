@@ -12,7 +12,7 @@
 <%@page import="com.tie.model.CbcrTable1"%>
 <%@page import="com.tie.model.CbcrTable2"%>
 <%@page import="com.tie.model.CbcrTable3"%>
-<body>
+<body ng-app="gridapp">
 
 	<%!TieMainPage tieMainPage = TieMainPage.getTieMainPage();%>
 	<%!List<TieMsg> msgList = tieMainPage.getMsgList();%>
@@ -25,7 +25,7 @@
 	<div id="upper">
 		<div class="scrollbar2" id="style-4">
 			<div class="force-overflow2">
-				
+
 				<table class="table">
 					<thead>
 						<tr>
@@ -71,15 +71,20 @@
 			<ul class="tab">
 				<li><a id="currentMsgTab" class="tablinks"
 					onclick="openTag(event, 'Message')" title="This is message pane.">Message</a></li>
-				<li><a id="currentDocTab" class="tablinks" onclick="openTag(event, 'Docs')"
+				<li><a id="currentDocTab" class="tablinks"
+					onclick="openTag(event, 'Docs')"
 					title="Current Message:<%=tieMainPage.getCurrentMsg().getSubject()%>">Docs</a></li>
-				<li><a id="currentEntityTab" class="tablinks" onclick="openTag(event, 'Entity')"
+				<li><a id="currentEntityTab" class="tablinks"
+					onclick="openTag(event, 'Entity')"
 					title="Current Doc:<%=tieMainPage.getCurrentTieDoc().getCode()%>">Entity</a></li>
-				<li><a id="currentTable1Tab" class="tablinks" onclick="openTag(event, 'Table1')"
+				<li><a id="currentTable1Tab" class="tablinks"
+					onclick="openTag(event, 'Table1')"
 					title="Current Doc:<%=tieMainPage.getCurrentTieDoc().getCode()%>">Table1</a></li>
-				<li><a id="currentTable2Tab" class="tablinks" onclick="openTag(event, 'Table2')"
+				<li><a id="currentTable2Tab" class="tablinks"
+					onclick="openTag(event, 'Table2')"
 					title="Current Doc:<%=tieMainPage.getCurrentTieDoc().getCode()%>">Table2</a></li>
-				<li><a id="currentTable3Tab" class="tablinks" onclick="openTag(event, 'Table3')"
+				<li><a id="currentTable3Tab" class="tablinks"
+					onclick="openTag(event, 'Table3')"
 					title="Current Doc:<%=tieMainPage.getCurrentTieDoc().getCode()%>">Table3</a></li>
 
 			</ul>
@@ -89,30 +94,28 @@
 				<div id="currentMsgBody">
 					<div class="row">
 						<div class="col-md-3">
-							<p>From:<span id="from">
-								
-								<%=tieMainPage.getCurrentMsg().getSender().getName()%></span></p>
+							<p>
+								From:<span id="from"> <%=tieMainPage.getCurrentMsg().getSender().getName()%></span>
+							</p>
 						</div>
 
 
 						<div class="col-md-3">
 							<p>
-								Date:
-								<span id="date"><%=tieMainPage.getCurrentMsg().getTimestamp()%></span></p>
+								Date: <span id="date"><%=tieMainPage.getCurrentMsg().getTimestamp()%></span>
+							</p>
 						</div>
 
 						<div class="col-md-3">
 							<p>
-								Reporting Period:
-								<span id="reportingPeriod">
-								<%=tieMainPage.getCurrentMsg().getReportingPeriod()%></span></p>
+								Reporting Period: <span id="reportingPeriod"> <%=tieMainPage.getCurrentMsg().getReportingPeriod()%></span>
+							</p>
 						</div>
 
 						<div class="col-md-3">
 							<p>
-								Status:
-								<span id=tieMsgState>
-								<%=tieMsgState.getName()%></span></p>
+								Status: <span id=tieMsgState> <%=tieMsgState.getName()%></span>
+							</p>
 						</div>
 					</div>
 
@@ -198,7 +201,7 @@
 
 								<tr>
 									<th>OECD Message Type Indic:</th>
-									
+
 									<td><select class="form-control" id="sel1">
 											<%
 												for (String OECDIndi : tieMainPage.getCurrentMsg().messageTypeIndi) {
@@ -465,6 +468,10 @@
 							<!--[endif]-->
 						</tbody>
 					</table>
+					
+					<div ng-controller="t1Ctrl">
+						<div id="grid1" ui-grid="{ data: myData }" class="grid"></div>
+					</div>
 				</div>
 			</div>
 			<div id="Table2" class="tabcontent">
