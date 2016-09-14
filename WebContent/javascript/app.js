@@ -5,7 +5,7 @@
 
 
 var app = angular
-  .module('tieappApp', ['ngRoute']);
+  .module('tieappApp', ['ngRoute','ngTouch', 'ui.grid']);
 app.config(function ($routeProvider) {
   $routeProvider
     .when('/main', {

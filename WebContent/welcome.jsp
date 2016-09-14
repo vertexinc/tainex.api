@@ -23,13 +23,16 @@
 <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 <script src="javascript/angular.min.js"></script>
 <script src="javascript/angular-route.js"></script>
+<script src="bower_components/angular-animate/angular-animate.min.js"></script>
+<script src="bower_components/angular-touch/angular-touch.min.js"></script>
 <script src="bower_components/angular-ui-grid/ui-grid.min.js"></script>
 <link rel="stylesheet"
 	href="bower_components/angular-ui-grid/ui-grid.min.css">
 <script src="javascript/app.js"></script>
 
+
 <script src="javascript/controllers/main.js"></script>
-<script src="javascript/controllers/cbcrController.js"></script>
+<script src="javascript/controllers/writeController.js"></script>
 <script src="javascript/service/cbcrs.js"></script>
 <script src="javascript/collapse.js"></script>
 

@@ -50,6 +50,7 @@ $(".member tr").click(function() {
 			table2data = data.tieDocList[0].cbcrTable2List;
 			UpdateTab(data);
 			UpdateMsgPane(data);
+			CreateDocs(data)
 		},
 		error : function(err) {
 			alert(err.responseText)
@@ -85,8 +86,37 @@ var UpdateMsgPane = function(data) {
 	$("#ReceivingCountry").text(data.receivingCountries);
 }
 
-var gridapp = angular.module('gridapp', [ 'ngTouch', 'ui.grid' ]);
-gridapp.controller('t1Ctrl', [ '$scope', function($scope) {
+var DocArray = [];
+// loop through doclist to select out table columns
+var CreateDocs = function(data) {
+	if (DocArray.length > 0) {
+		DocArray = []
+	}
+	for (var i = 0; i < data.tieDocList.length; i++) {
+		var DocObj = {
+			"Code" : data.tieDocList[i].code,
+			"title" : data.tieDocList[i].name
+		};
+		DocArray.push(DocObj);
+		console.log("current Array: " + DocArray);
+		console.log("current Array Obj: " + DocObj.Code + DocObj.title);
+	}
 
-	$scope.myData = table2data;
-} ]);
+}
+
+var fakedata = [ {
+	"firstName" : "ax",
+	"lastName" : "Carney",
+	"company" : "Enormo",
+	"employed" : true
+}, {
+	"firstName" : "Lorraine",
+	"lastName" : "Wise",
+	"company" : "Comveyer",
+	"employed" : false
+}, {
+	"firstName" : "Nancy",
+	"lastName" : "Waters",
+	"company" : "Fuelton",
+	"employed" : false
+} ];
