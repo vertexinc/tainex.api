@@ -72,7 +72,7 @@ var UpdateTab = function(data) {
 
 var UpdateMsgPane = function(data) {
 	$("#from").text(data.sender.name);
-	$("#date").text(data.timestamp);
+	$("#date").text(data.timestamp);	
 	$("#reportingPeriod").text(data.reportingPeriod);
 	$("#tieMsgState").text(data.tieMsgState.code);
 	$("#To").attr("placeholder", data.msgReceiverList);
@@ -99,7 +99,8 @@ var CreateDocs = function(data) {
 		};
 		DocArray.push(DocObj);
 		console.log("current Array: " + DocArray);
-		console.log("current Array Obj: " + DocObj.Code + DocObj.title);
+		console.log("current Array Obj: " + DocObj.Code + " " + DocObj.title);
+		TestCode = DocObj.Code;
 	}
 
 }

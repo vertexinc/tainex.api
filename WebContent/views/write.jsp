@@ -43,7 +43,7 @@
 						<%
 							for (TieMsg tieMsg : tieMainPage.getMsgList()) {
 						%>
-						<tr id="currentMsg1" class="clickable-row">
+						<tr id="currentMsg1" class="clickable-row" ng-click="getData()">
 							<th scope="row"><%=tieMainPage.getUsername()%></th>
 							<td><%=tieMsg.getSubject()%></td>
 							<td><%=tieMsg.getDescription()%></td>
@@ -269,6 +269,7 @@
 						</tbody>
 					</table>
 					<div ng-controller="writeController">
+					<h3>TestCode: {{TestCode}}</h3>
 						<div id="grid1" ui-grid="{ data: myData }" class="grid"></div>
 					</div>
 				</div>
