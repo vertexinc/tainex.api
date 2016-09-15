@@ -22,7 +22,7 @@
 	<%!TieMsgState tieMsgState = tieMainPage.getTieMsgState();%>
 	<%!TieDoc currentTieDoc = tieMainPage.getCurrentTieDoc();%>
 	<%!List<TieTaxEntity> taxEntitylist = tieMainPage.getTaxEntitylist();%>
-	<div id="upper">
+	<div id="upper" ng-controller="writeController">
 		<div class="scrollbar2" id="style-4">
 			<div class="force-overflow2">
 
@@ -43,7 +43,7 @@
 						<%
 							for (TieMsg tieMsg : tieMainPage.getMsgList()) {
 						%>
-						<tr id="currentMsg1" class="clickable-row" ng-click="getData()">
+						<tr id="currentMsg1" class="clickable-row" ng-click="refData()">
 							<th scope="row"><%=tieMainPage.getUsername()%></th>
 							<td><%=tieMsg.getSubject()%></td>
 							<td><%=tieMsg.getDescription()%></td>
@@ -270,7 +270,7 @@
 				</table-->
 				<div ng-controller="writeController">
 
-					<div id="grid1" ui-grid="{ data: myData }" class="grid"></div>
+					<div id="grid1" ui-grid="gridOptions" ui-grid-selection class="grid"></div>
 				</div>
 			</div>
 			<div id="Entity" class="tabcontent">

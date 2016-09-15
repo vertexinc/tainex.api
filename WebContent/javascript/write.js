@@ -94,19 +94,16 @@ var CreateDocs = function(data) {
 	}
 	for (var i = 0; i < data.tieDocList.length; i++) {
 		var DocObj = {
-			"Code" : data.tieDocList[i].code,
+			"code" : data.tieDocList[i].code,
 			"title" : data.tieDocList[i].name,
-			"Doc Type":data.tieDocList[i].tieDocTypeId,
-			"Reporting Entity":data.tieDocList[i].reportingEntityCode,
-			"Currency":data.tieDocList[i].currencyCode,
-			"Resident Country":data.tieDocList[i].resCountryCode,
-			"Accounting Standard":data.tieDocList[i].accountingStandard,
-			"Reporting Period":data.tieDocList[i].reportingPeriod
+			"docType":data.tieDocList[i].tieDocTypeId,
+			"reportingEntity":data.tieDocList[i].reportingEntityCode,
+			"currency":data.tieDocList[i].currencyCode,
+			"residentCountry":data.tieDocList[i].resCountryCode,
+			"accountingStandard":data.tieDocList[i].accountingStandard,
+			"reportingPeriod":data.tieDocList[i].reportingPeriod
 		};
 		DocArray.push(DocObj);
-		console.log("current Array: " + DocArray);
-		console.log("current Array Obj: " + DocObj.Code + " " + DocObj.title);
-		TestCode = DocObj.Code;
 	}
 	// fail test
 	/*
