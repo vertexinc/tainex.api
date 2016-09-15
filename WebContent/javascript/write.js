@@ -72,7 +72,7 @@ var UpdateTab = function(data) {
 
 var UpdateMsgPane = function(data) {
 	$("#from").text(data.sender.name);
-	$("#date").text(data.timestamp);	
+	$("#date").text(data.timestamp);
 	$("#reportingPeriod").text(data.reportingPeriod);
 	$("#tieMsgState").text(data.tieMsgState.code);
 	$("#To").attr("placeholder", data.msgReceiverList);
@@ -95,29 +95,23 @@ var CreateDocs = function(data) {
 	for (var i = 0; i < data.tieDocList.length; i++) {
 		var DocObj = {
 			"Code" : data.tieDocList[i].code,
-			"title" : data.tieDocList[i].name
+			"title" : data.tieDocList[i].name,
+			"Doc Type":data.tieDocList[i].tieDocTypeId,
+			"Reporting Entity":data.tieDocList[i].reportingEntityCode,
+			"Currency":data.tieDocList[i].currencyCode,
+			"Resident Country":data.tieDocList[i].resCountryCode,
+			"Accounting Standard":data.tieDocList[i].accountingStandard,
+			"Reporting Period":data.tieDocList[i].reportingPeriod
 		};
 		DocArray.push(DocObj);
 		console.log("current Array: " + DocArray);
 		console.log("current Array Obj: " + DocObj.Code + " " + DocObj.title);
 		TestCode = DocObj.Code;
 	}
-
+	// fail test
+	/*
+	 * & for (var i = 0; i < data.tieDocList.length; i++) {
+	 * DocArray.push(data.tieDocList[i]); }
+	 */
 }
 
-var fakedata = [ {
-	"firstName" : "ax",
-	"lastName" : "Carney",
-	"company" : "Enormo",
-	"employed" : true
-}, {
-	"firstName" : "Lorraine",
-	"lastName" : "Wise",
-	"company" : "Comveyer",
-	"employed" : false
-}, {
-	"firstName" : "Nancy",
-	"lastName" : "Waters",
-	"company" : "Fuelton",
-	"employed" : false
-} ];
