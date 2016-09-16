@@ -1,11 +1,17 @@
 /**
  * 
  */
-app.controller('writeController', [ '$scope', '$interval', 'uiGridConstants',
-		function($scope, $interval, uiGridConstants) {
-
+app.controller('writeController', [ '$scope', '$timeout','$interval', 'uiGridConstants',
+		function($scope, $timeout,$interval, uiGridConstants) {
+			var refresh = function() {
+				$scope.refresh = true;
+				$timeout(function() {
+					$scope.refresh = false;
+				}, 0);
+			};
 			$scope.refData = function() {
 				 $scope.gridOptions.data.length = 0;
+
 				/*
 				 * for(var i = 0; i < DocArray.length; i++){
 				 * //$scope.gridOptions.data[i].code = DocArray[i].code;
@@ -21,14 +27,9 @@ app.controller('writeController', [ '$scope', '$interval', 'uiGridConstants',
 				 * $scope.gridOptions.data[i].reportingPeriod =
 				 * DocArray[i].reportingPeriod; }
 				 */
-				
-				var refresh = function() {
-					$scope.refresh = true;
-					$timeout(function() {
-						$scope.refresh = false;
-					}, 0);
-				};
-				$scope.gridOptions.data = DocArray;
+
+				refresh();
+				// $scope.gridOptions.data = DocArray;
 				console.log("length: " + $scope.gridOptions.data.length);
 			};
 
