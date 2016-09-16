@@ -270,7 +270,7 @@
 				</table-->
 				<div ng-controller="writeController">
 
-					<div id="grid1" ui-grid="gridOptions" ui-grid-selection class="grid"></div>
+					<div id="grid1" ng-if="!refresh" ui-grid="gridOptions" ui-grid-selection class="grid"></div>
 				</div>
 			</div>
 			<div id="Entity" class="tabcontent">

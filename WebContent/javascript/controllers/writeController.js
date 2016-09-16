@@ -1,22 +1,35 @@
 /**
  * 
  */
-app.controller('writeController', [ '$scope', 'uiGridConstants',
-		function($scope, uiGridConstants) {
+app.controller('writeController', [ '$scope', '$interval', 'uiGridConstants',
+		function($scope, $interval, uiGridConstants) {
 
 			$scope.refData = function() {
-				$scope.gridOptions.data.length = DocArray.length;
-				for(var i = 0; i < DocArray.length; i++){
-					$scope.gridOptions.data[i].code = DocArray[i].code;
-					$scope.gridOptions.data[i].title = DocArray[i].title;
-					$scope.gridOptions.data[i].docType = DocArray[i].docType;
-					$scope.gridOptions.data[i].reportingEntity = DocArray[i].reportingEntity;
-					$scope.gridOptions.data[i].currency = DocArray[i].currency;
-					$scope.gridOptions.data[i].residentCountry = DocArray[i].residentCountry;
-					$scope.gridOptions.data[i].accountingStandard = DocArray[i].accountingStandard;
-					$scope.gridOptions.data[i].reportingPeriod = DocArray[i].reportingPeriod;
-
-				}
+				 $scope.gridOptions.data.length = 0;
+				/*
+				 * for(var i = 0; i < DocArray.length; i++){
+				 * //$scope.gridOptions.data[i].code = DocArray[i].code;
+				 * $scope.gridOptions.data[i].title = DocArray[i].title;
+				 * $scope.gridOptions.data[i].docType = DocArray[i].docType;
+				 * $scope.gridOptions.data[i].reportingEntity =
+				 * DocArray[i].reportingEntity;
+				 * $scope.gridOptions.data[i].currency = DocArray[i].currency;
+				 * $scope.gridOptions.data[i].residentCountry =
+				 * DocArray[i].residentCountry;
+				 * $scope.gridOptions.data[i].accountingStandard =
+				 * DocArray[i].accountingStandard;
+				 * $scope.gridOptions.data[i].reportingPeriod =
+				 * DocArray[i].reportingPeriod; }
+				 */
+				
+				var refresh = function() {
+					$scope.refresh = true;
+					$timeout(function() {
+						$scope.refresh = false;
+					}, 0);
+				};
+				$scope.gridOptions.data = DocArray;
+				console.log("length: " + $scope.gridOptions.data.length);
 			};
 
 			$scope.gridOptions = {
