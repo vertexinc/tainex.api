@@ -1,10 +1,15 @@
 /**
  * 
  */
-app.controller('writeController', [ '$scope', '$timeout','$interval', 'uiGridConstants',
-		function($scope, $timeout,$interval, uiGridConstants) {
+app.controller('writeController', [ '$scope', '$timeout', '$interval',
+		'uiGridConstants',
+		function($scope, $timeout, $interval, uiGridConstants) {
+			//$scope.myOtherData = DocArray;
 			$scope.refData = function() {
-				 $scope.gridOptions.data.length = 0;
+				$scope.gridOptions.data.length = 0;
+				for (var i = 0; i < DocArray.length; i++) {
+					$scope.gridOptions.data.push(DocArray[i]);
+				}
 
 				/*
 				 * for(var i = 0; i < DocArray.length; i++){
@@ -23,7 +28,6 @@ app.controller('writeController', [ '$scope', '$timeout','$interval', 'uiGridCon
 				 */
 
 				// $scope.gridOptions.data = DocArray;
-				console.log("length: " + $scope.gridOptions.data.length);
 			};
 
 			$scope.gridOptions = {
