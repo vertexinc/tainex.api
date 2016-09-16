@@ -4,12 +4,17 @@
 app.controller('writeController', [ '$scope', '$timeout', '$interval',
 		'uiGridConstants',
 		function($scope, $timeout, $interval, uiGridConstants) {
-			//$scope.myOtherData = DocArray;
+			// $scope.myOtherData = DocArray;
+
 			$scope.refData = function() {
 				$scope.gridOptions.data.length = 0;
-				for (var i = 0; i < DocArray.length; i++) {
-					$scope.gridOptions.data.push(DocArray[i]);
-				}
+
+				$timeout(function() {
+					$scope.gridOptions.data = DocArray;
+					
+					$scope.$apply();
+					console.log("refreshed!")
+				});
 
 				/*
 				 * for(var i = 0; i < DocArray.length; i++){

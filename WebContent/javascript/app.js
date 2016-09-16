@@ -3,7 +3,7 @@
  */
 'use strict';
 
-var app = angular.module('tieappApp', [ 'ngRoute', 'ngTouch', 'ui.grid',
+var app = angular.module('tieappApp', [ 'ngRoute', 'ngTouch', 'ui.grid','ui.grid.autoResize',
 		'ui.grid.selection' ]);
 app.config(function($routeProvider) {
 	$routeProvider.when('/main', {
