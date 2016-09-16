@@ -1,16 +1,23 @@
 /**
  * 
  */
-app.controller('writeController', [ '$scope', '$timeout', '$interval',
+app.controller('writeController', [
+		'$scope',
+		'$timeout',
+		'$interval',
 		'uiGridConstants',
 		function($scope, $timeout, $interval, uiGridConstants) {
 			// $scope.myOtherData = DocArray;
 
 			$scope.refData = function() {
 				$scope.gridOptions.data.length = 0;
-				for(var i = 0; i < DocArray.length;i++){
+				for (var i = 0; i < DocArray.length; i++) {
 					$scope.gridOptions.data.push(DocArray[i]);
 				}
+				var newHeight = Math.floor(Math.random() * (300 - 100 + 1)
+						+ 300);
+				angular.element(document.getElementsByClassName('grid')[0])
+						.css('height', newHeight + 'px');
 			
 
 				/*
@@ -34,7 +41,8 @@ app.controller('writeController', [ '$scope', '$timeout', '$interval',
 
 			$scope.gridOptions = {
 				enableRowSelection : true,
-				enableRowHeaderSelection : false
+				enableRowHeaderSelection : false,
+
 			};
 
 			$scope.gridOptions = {
