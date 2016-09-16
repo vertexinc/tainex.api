@@ -3,12 +3,6 @@
  */
 app.controller('writeController', [ '$scope', '$timeout','$interval', 'uiGridConstants',
 		function($scope, $timeout,$interval, uiGridConstants) {
-			var refresh = function() {
-				$scope.refresh = true;
-				$timeout(function() {
-					$scope.refresh = false;
-				}, 0);
-			};
 			$scope.refData = function() {
 				 $scope.gridOptions.data.length = 0;
 
@@ -28,7 +22,6 @@ app.controller('writeController', [ '$scope', '$timeout','$interval', 'uiGridCon
 				 * DocArray[i].reportingPeriod; }
 				 */
 
-				refresh();
 				// $scope.gridOptions.data = DocArray;
 				console.log("length: " + $scope.gridOptions.data.length);
 			};
