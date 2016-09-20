@@ -269,8 +269,9 @@
 					</tbody>
 				</table-->
 				<div ng-controller="writeController">
-
+					<div >Doc Info:{{mySelections}}</div>
 					<div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-auto-resize class="grid"></div>
+					
 				</div>
 			</div>
 			<div id="Entity" class="tabcontent">

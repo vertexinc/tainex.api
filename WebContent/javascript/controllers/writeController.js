@@ -1,81 +1,99 @@
 /**
  * 
  */
-app.controller('writeController', [
-		'$scope',
-		'$timeout',
-		'$interval',
-		'uiGridConstants',
-		function($scope, $timeout, $interval, uiGridConstants) {
-			// $scope.myOtherData = DocArray;
+app.controller('writeController',
+		[
+				'$scope',
+				'$timeout',
+				'$interval',
+				'uiGridConstants',
+				function($scope, $timeout, $interval, uiGridConstants) {
+					// $scope.myOtherData = DocArray;
 
-			$scope.refData = function() {
-				$scope.gridOptions.data.length = 0;
-				for (var i = 0; i < DocArray.length; i++) {
-					$scope.gridOptions.data.push(DocArray[i]);
-				}
-				var newHeight = Math.floor(Math.random() * (300 - 100 + 1)
-						+ 300);
-				angular.element(document.getElementsByClassName('grid')[0])
-						.css('height', newHeight + 'px');
-			
+					$scope.refData = function() {
+						$scope.gridOptions.data.length = 0;
 
-				/*
-				 * for(var i = 0; i < DocArray.length; i++){
-				 * //$scope.gridOptions.data[i].code = DocArray[i].code;
-				 * $scope.gridOptions.data[i].title = DocArray[i].title;
-				 * $scope.gridOptions.data[i].docType = DocArray[i].docType;
-				 * $scope.gridOptions.data[i].reportingEntity =
-				 * DocArray[i].reportingEntity;
-				 * $scope.gridOptions.data[i].currency = DocArray[i].currency;
-				 * $scope.gridOptions.data[i].residentCountry =
-				 * DocArray[i].residentCountry;
-				 * $scope.gridOptions.data[i].accountingStandard =
-				 * DocArray[i].accountingStandard;
-				 * $scope.gridOptions.data[i].reportingPeriod =
-				 * DocArray[i].reportingPeriod; }
-				 */
+						for (var i = 0; i < DocArray.length; i++) {
+							$scope.gridOptions.data.push(DocArray[i]);
+						}
 
-				// $scope.gridOptions.data = DocArray;
-			};
+						var newHeight = Math.floor(Math.random()
+								* (300 - 100 + 1) + 300);
 
-			$scope.gridOptions = {
-				enableRowSelection : true,
-				enableRowHeaderSelection : false,
+						angular.element(
+								document.getElementsByClassName('grid')[0])
+								.css('height', newHeight + 'px');
 
-			};
+						/*
+						 * for(var i = 0; i < DocArray.length; i++){
+						 * //$scope.gridOptions.data[i].code = DocArray[i].code;
+						 * $scope.gridOptions.data[i].title = DocArray[i].title;
+						 * $scope.gridOptions.data[i].docType =
+						 * DocArray[i].docType;
+						 * $scope.gridOptions.data[i].reportingEntity =
+						 * DocArray[i].reportingEntity;
+						 * $scope.gridOptions.data[i].currency =
+						 * DocArray[i].currency;
+						 * $scope.gridOptions.data[i].residentCountry =
+						 * DocArray[i].residentCountry;
+						 * $scope.gridOptions.data[i].accountingStandard =
+						 * DocArray[i].accountingStandard;
+						 * $scope.gridOptions.data[i].reportingPeriod =
+						 * DocArray[i].reportingPeriod; }
+						 */
 
-			$scope.gridOptions = {
-				// enableSorting: true,
-				columnDefs : [ {
-					name : 'code',
-					field : 'code'
-				}, {
-					name : 'title',
-					field : 'title'
-				}, {
-					name : 'docType',
-					field : 'docType'
-				}, {
-					name : 'reportingEntity',
-					field : 'reportingEntity',
-				}, {
-					name : 'currency',
-					field : 'currency',
-				}, {
-					name : 'residentCountry',
-					field : 'residentCountry',
-				}, {
-					name : 'accountingStandard',
-					field : 'accountingStandard',
-				}, {
-					name : 'reportingPeriod',
-					field : 'reportingPeriod',
-				} ],
-				data : DocArray
-			};
+						// $scope.gridOptions.data = DocArray;
+					};
 
-			$scope.gridOptions.multiSelect = false;
-			$scope.gridOptions.modifierKeysToMultiSelect = false;
-			$scope.gridOptions.noUnselect = true;
-		} ]);
+					$scope.gridOptions = {
+						enableRowSelection : true,
+						enableRowHeaderSelection : false,
+
+					};
+					$scope.myRow = [];
+					$scope.gridOptions = {
+						// enableSorting: true,
+						columnDefs : [ {
+							name : 'code',
+							field : 'code'
+						}, {
+							name : 'title',
+							field : 'title'
+						}, {
+							name : 'docType',
+							field : 'docType'
+						}, {
+							name : 'reportingEntity',
+							field : 'reportingEntity',
+						}, {
+							name : 'currency',
+							field : 'currency',
+						}, {
+							name : 'residentCountry',
+							field : 'residentCountry',
+						}, {
+							name : 'accountingStandard',
+							field : 'accountingStandard',
+						}, {
+							name : 'reportingPeriod',
+							field : 'reportingPeriod',
+						} ],
+						data : DocArray,
+						onRegisterApi : function(gridApi) {
+							$scope.gridApi = gridApi;
+							gridApi.selection.on.rowSelectionChanged($scope,
+									function(rows) {
+										$scope.mySelections = gridApi.selection
+												.getSelectedRows();
+									});
+						}
+					};
+					$scope.mySelections = [];
+					$scope.changeDelete = function() {
+						console.log('Selection length = '
+								+ $scope.mySelections.length);
+					}
+					$scope.gridOptions.multiSelect = false;
+					$scope.gridOptions.modifierKeysToMultiSelect = false;
+					$scope.gridOptions.noUnselect = false;
+				} ]);
