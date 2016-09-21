@@ -54,6 +54,10 @@ app.controller('writeController',
 					$scope.gridOptions = {
 						// enableSorting: true,
 						columnDefs : [ {
+							name : 'id',
+							field : 'id',
+							visible : false
+						}, {
 							name : 'code',
 							field : 'code'
 						}, {
@@ -83,8 +87,13 @@ app.controller('writeController',
 							$scope.gridApi = gridApi;
 							gridApi.selection.on.rowSelectionChanged($scope,
 									function(rows) {
+
 										$scope.mySelections = gridApi.selection
 												.getSelectedRows();
+										console.log("what is row: "
+												+ $scope.mySelections[0].id);
+										// post tieDocID via ajax
+										postDoc($scope.mySelections[0].id);
 									});
 						}
 					};

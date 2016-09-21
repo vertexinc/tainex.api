@@ -189,6 +189,16 @@ public class TieSessionController extends TieControllerBase {
 		TieMainPage.getTieMainPage().setCurrentMsg(tieMsg);
 		return tieMsg;
 	}// end handleSelectCurrentMsg(.)
+	
+	public TieDoc handleSelectCurrentDoc(int tieDocId) {
+		TiePersister persister = TieController.getController().getPersister();
+		TieDoc tieDoc = (TieDoc) persister.getTieDocDao().findTieDocByTieDocId(tieDocId);
+
+		populateDoc(tieDoc);
+
+		//TieMainPage.getTieMainPage().setCurrentMsg(tieMsg);
+		return tieDoc;
+	}// end handleSelectCurrentMsg(.)
 
 	/**
 	 * Populate all elements of the given message from the given object,
@@ -263,5 +273,45 @@ public class TieSessionController extends TieControllerBase {
 		currentDoc.setTable3String(table3String.toString());
 
 	}// end populateMsg(.)
+	private void populateDoc(TieDoc tieDoc) {
+		if (tieDoc == null)
+			return;
+
+		TieDoc currentDoc = tieDoc;
+		TiePersister persister = TieController.getController().getPersister();
+
+	
+
+		// Populate reporting entity object (findbyCode) TieTaxEntity
+		int currentDocId = currentDoc.getTieDocId();
+		TieTaxEntity tieTaxEntity = new TieTaxEntity();
+		tieTaxEntity = persister.getTieEntityDao().findTieEntityByCode(currentDoc.getReportingEntityCode());
+		currentDoc.setReportingEntity(tieTaxEntity);
+
+		// populate current msg pane, entity tab----
+		currentDocId = currentDoc.getTieDocId();
+		List<TieTaxEntity> taxEntitylist = new ArrayList<TieTaxEntity>();
+		taxEntitylist = persister.getTieEntityDao().findTieEntityByTieDocId(currentDocId);
+		currentDoc.setTaxEntityList(taxEntitylist);
+
+		// populate current msg pane, table1 tab -------
+		List<CbcrTable1> cbcrTable1List = persister.getCbcrTable1Dao().findCbcrTable1ByTieDocId(currentDocId);
+		currentDoc.setCbcrTable1List(cbcrTable1List);
+
+		// populate current msg pane, table2 tab -------
+		List<CbcrTable2> cbcrTable2List = persister.getCbcrTable2Dao().findCbcrTable2ByTieDocId(currentDocId);
+		currentDoc.setCbcrTable2List(cbcrTable2List);
+
+		// populate current msg pane, table3 tab -------
+		List<CbcrTable3> cbcrTable3List = persister.getCbcrTable3Dao().findCbcrTable3ByTieDocId(currentDocId);
+		currentDoc.setCbcrTable3List(cbcrTable3List);
+
+		StringBuilder table3String = new StringBuilder("");
+		for (CbcrTable3 cbcrTable3 : cbcrTable3List) {
+			table3String.append(cbcrTable3.getAdditionalInfo()).append(";").append("\n");
+		}
+		currentDoc.setTable3String(table3String.toString());
+
+	}// end populateDoc(.)
 
 }// end class TieSessionContrller

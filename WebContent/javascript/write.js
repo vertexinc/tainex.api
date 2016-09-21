@@ -33,6 +33,24 @@ $("tr").click(function() {
 	$(this).addClass("selected");
 });
 
+var postDoc = function(tieDocId) {
+	var temp = "action=selectCurrentDoc" + "&tieDocId=" + tieDocId;
+	$.ajax({
+		type : "POST",
+		url : "http://localhost:8080/TIEapp/login",
+		data : temp,
+		success : function(data) {
+			// alert('success'),
+			// $("#msgText").text(data);
+			 alert(data.code);
+			
+		},
+		error : function(err) {
+			alert(err.responseText)
+		}
+	});
+}
+
 $(".member tr").click(function() {
 	var rowID = $(this).find(".msgID").text();
 	// alert("rowID:" + rowID);
@@ -94,14 +112,15 @@ var CreateDocs = function(data) {
 	}
 	for (var i = 0; i < data.tieDocList.length; i++) {
 		var DocObj = {
+			"id" : data.tieDocList[i].tieDocId,
 			"code" : data.tieDocList[i].code,
 			"title" : data.tieDocList[i].name,
-			"docType":data.tieDocList[i].tieDocTypeId,
-			"reportingEntity":data.tieDocList[i].reportingEntityCode,
-			"currency":data.tieDocList[i].currencyCode,
-			"residentCountry":data.tieDocList[i].resCountryCode,
-			"accountingStandard":data.tieDocList[i].accountingStandard,
-			"reportingPeriod":data.tieDocList[i].reportingPeriod
+			"docType" : data.tieDocList[i].tieDocTypeId,
+			"reportingEntity" : data.tieDocList[i].reportingEntityCode,
+			"currency" : data.tieDocList[i].currencyCode,
+			"residentCountry" : data.tieDocList[i].resCountryCode,
+			"accountingStandard" : data.tieDocList[i].accountingStandard,
+			"reportingPeriod" : data.tieDocList[i].reportingPeriod
 		};
 		DocArray.push(DocObj);
 	}
@@ -111,4 +130,3 @@ var CreateDocs = function(data) {
 	 * DocArray.push(data.tieDocList[i]); }
 	 */
 }
-
