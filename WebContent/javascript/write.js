@@ -69,7 +69,15 @@ $(".member tr").click(function() {
 			table2data = data.tieDocList[0].cbcrTable2List;
 			UpdateTab(data);
 			UpdateMsgPane(data);
-			CreateDocs(data)
+			CreateDocs(data) //show the list of docs of the msg
+			
+			//determine the currentDoc, as the first in the doc list
+			//highlight the current doc row in the doc list table
+			
+			//TODO
+			//populate entity table of currentDoc, under entity tab
+			//populate table1/2/3 of currentDoc
+			
 		},
 		error : function(err) {
 			alert(err.responseText)
@@ -107,6 +115,7 @@ var UpdateMsgPane = function(data) {
 
 var DocArray = [];
 // loop through doclist to select out table columns
+// data: Message Object
 var CreateDocs = function(data) {
 	if (DocArray.length > 0) {
 		DocArray = []
