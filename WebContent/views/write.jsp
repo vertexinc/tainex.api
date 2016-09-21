@@ -248,9 +248,7 @@
 						</tr>
 					</thead>
 					<tbody id="currentDocBody">
-						<%
-							for (TieDoc tieDoc : tieMainPage.getCurrentMsg().getTieDocList()) {
-						%>
+						<%for (TieDoc tieDoc : tieMainPage.getCurrentMsg().getTieDocList()) {%>
 						<tr id="currentDoc1">
 							<td><%=tieDoc.getCode()%>
 							</th>
@@ -262,16 +260,15 @@
 							<td><%=tieDoc.getAccountingStandard()%></td>
 							<td><%=tieDoc.getReportingPeriod()%></td>
 						</tr>
-						<%
-							}
-						%>
+						<%}%>
 
 					</tbody>
 				</table-->
 				<div ng-controller="writeController">
-					<div >Doc Info:{{mySelections}}</div>
-					<div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-auto-resize class="grid"></div>
 					
+					<div id="grid1" ui-grid="gridOptions" ui-grid-selection
+						ui-grid-auto-resize class="grid"></div>
+
 				</div>
 			</div>
 			<div id="Entity" class="tabcontent">
@@ -298,7 +295,7 @@
 					</div>
 
 					</br>
-					<table class="table">
+					<!--table class="table">
 						<thead>
 							<tr>
 								<th>TIN</th>
@@ -329,8 +326,11 @@
 								}
 							%>
 						</tbody>
-					</table>
-
+					</table-->
+					<div ng-controller="writeController">
+						<div id="grid2" ui-grid="gridOptions2"
+							ui-grid-auto-resize class="grid2"></div>
+					</div>
 				</div>
 			</div>
 			<div id="Table1" class="tabcontent">

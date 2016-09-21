@@ -42,11 +42,12 @@ var postDoc = function(tieDocId) {
 		success : function(data) {
 			// alert('success'),
 			// $("#msgText").text(data);
-			 alert(data.code);
-			
+			//alert(data.taxEntityList[0].name);
+			CreateOtherTables(data);
 		},
 		error : function(err) {
-			alert(err.responseText)
+			alert(err.responseText);
+			
 		}
 	});
 }
@@ -124,9 +125,32 @@ var CreateDocs = function(data) {
 		};
 		DocArray.push(DocObj);
 	}
-	// fail test
-	/*
-	 * & for (var i = 0; i < data.tieDocList.length; i++) {
-	 * DocArray.push(data.tieDocList[i]); }
-	 */
 }
+/*
+ * Entity Table1 Table2 Table3
+ */
+var EntityArray = [];
+var Table1Array = [];
+var Table2Array = [];
+var Table3Array = [];
+
+var CreateOtherTables = function(data) {
+	if (DocArray.length > 0) {
+		DocArray = []
+	}
+	console.log("data.taxEntityList[i].taxIdNum : Start" );
+	for (var i = 0; i < data.taxEntityList.length; i++) {
+		var EntityObj = {
+			"TIN" : data.taxEntityList[i].taxIdNum,
+			"Name" : data.taxEntityList[i].name,
+			"EntityCode" : data.taxEntityList[i].entityCode,
+			"DocType" : "CBCR",
+			"IncorporationCountry" : data.taxEntityList[i].reportingEntityCode,
+			"ResidentCountry" : data.taxEntityList[i].incorpCountryCode,
+			"IsPE" : data.taxEntityList[i].isPermExtabliment,
+			"Address" : data.taxEntityList[i].addrStreet
+		};
+		EntityArray.push(EntityObj);
+		console.log("data.taxEntityList[i].taxIdNum : " + data.taxEntityList[i].taxIdNum);
+	}
+}	

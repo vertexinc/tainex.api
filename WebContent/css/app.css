@@ -1065,14 +1065,14 @@ td {
 }
 
 .tooltip {
-	display:none;
-	position:absolute;
-	border:1px solid #333;
-	background-color:#161616;
-	border-radius:5px;
-	padding:10px;
-	color:#fff;
-	font-size:12px Arial;
+	display: none;
+	position: absolute;
+	border: 1px solid #333;
+	background-color: #161616;
+	border-radius: 5px;
+	padding: 10px;
+	color: #fff;
+	font-size: 12px Arial;
 }
 /*
 .scrollbar2 .force-overflow2 .table tr:hover{
@@ -1083,19 +1083,25 @@ td {
 	background-color: #b3ffb3;
 }
 */
-
 .member {
-    counter-reset: tableCount;     
+	counter-reset: tableCount;
 }
-.counterCell:before {              
-    content: counter(tableCount); 
-    counter-increment: tableCount; 
+
+.counterCell:before {
+	content: counter(tableCount);
+	counter-increment: tableCount;
 }
-.msgID{
+
+.msgID {
 	display: none;
 }
 
 .grid {
-  width: 1250px;
-  height: 250px;
+	width: 1250px;
+	height: 250px;
+}
+
+.grid2 {
+	width: 100%;
+	height: 550px;
 }

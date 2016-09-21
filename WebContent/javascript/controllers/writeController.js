@@ -23,26 +23,6 @@ app.controller('writeController',
 						angular.element(
 								document.getElementsByClassName('grid')[0])
 								.css('height', newHeight + 'px');
-
-						/*
-						 * for(var i = 0; i < DocArray.length; i++){
-						 * //$scope.gridOptions.data[i].code = DocArray[i].code;
-						 * $scope.gridOptions.data[i].title = DocArray[i].title;
-						 * $scope.gridOptions.data[i].docType =
-						 * DocArray[i].docType;
-						 * $scope.gridOptions.data[i].reportingEntity =
-						 * DocArray[i].reportingEntity;
-						 * $scope.gridOptions.data[i].currency =
-						 * DocArray[i].currency;
-						 * $scope.gridOptions.data[i].residentCountry =
-						 * DocArray[i].residentCountry;
-						 * $scope.gridOptions.data[i].accountingStandard =
-						 * DocArray[i].accountingStandard;
-						 * $scope.gridOptions.data[i].reportingPeriod =
-						 * DocArray[i].reportingPeriod; }
-						 */
-
-						// $scope.gridOptions.data = DocArray;
 					};
 
 					$scope.gridOptions = {
@@ -94,15 +74,61 @@ app.controller('writeController',
 												+ $scope.mySelections[0].id);
 										// post tieDocID via ajax
 										postDoc($scope.mySelections[0].id);
+										$scope.refOtherTable();
 									});
 						}
 					};
 					$scope.mySelections = [];
-					$scope.changeDelete = function() {
+					$scope.changeDelete = function()	 {
 						console.log('Selection length = '
 								+ $scope.mySelections.length);
 					}
 					$scope.gridOptions.multiSelect = false;
 					$scope.gridOptions.modifierKeysToMultiSelect = false;
 					$scope.gridOptions.noUnselect = false;
+
+					$scope.refOtherTable = function() {
+						$scope.gridOptions2.data.length = 0;
+
+						for (var i = 0; i < EntityArray.length; i++) {
+							$scope.gridOptions2.data.push(EntityArray[i]);
+						}
+
+						var newHeight = Math.floor(Math.random()
+								* (300 - 100 + 1) + 300);
+
+						angular.element(
+								document.getElementsByClassName('grid2')[0])
+								.css('height', newHeight + 'px');
+					};
+
+					$scope.gridOptions2 = {
+						// enableSorting: true,
+						columnDefs : [ {
+							name : 'TIN',
+							field : 'TIN'
+						}, {
+							name : 'Name',
+							field : 'Name'
+						}, {
+							name : 'EntityCode',
+							field : 'EntityCode'
+						}, {
+							name : 'DocType',
+							field : 'DocType',
+						}, {
+							name : 'Incorporation Country',
+							field : 'IncorporationCountry',
+						}, {
+							name : 'ResidentCountry',
+							field : 'ResidentCountry',
+						}, {
+							name : 'IsPE',
+							field : 'IsPE',
+						}, {
+							name : 'Address',
+							field : 'Address',
+						} ],
+						data : EntityArray
+					}
 				} ]);
