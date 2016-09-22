@@ -66,12 +66,14 @@ $(".member tr").click(function() {
 			// alert('success'),
 			// $("#msgText").text(data);
 			// alert(data.sender.name);
-			table2data = data.tieDocList[0].cbcrTable2List;
-			UpdateTab(data);
-			UpdateMsgPane(data);
-			CreateDocs(data) //show the list of docs of the msg
+			//table2data = data.tieDocList[0].cbcrTable2List;
+			msgData = data;
+			updateTab(data);
+			updateMsgPane(data);
+			createDocs(data); //show the list of docs of the msg
 			
 			//determine the currentDoc, as the first in the doc list
+			setCurrentDoc(0);
 			//highlight the current doc row in the doc list table
 			
 			//TODO
@@ -85,7 +87,7 @@ $(".member tr").click(function() {
 	});
 });
 
-var UpdateTab = function(data) {
+var updateTab = function(data) {
 	$("#currentDocTab").attr("title", data.subject);
 	$("#currentEntityTab")
 			.attr("title", data.tieDocList[0].reportingEntityCode);
@@ -97,7 +99,7 @@ var UpdateTab = function(data) {
 			.attr("title", data.tieDocList[0].reportingEntityCode);
 }
 
-var UpdateMsgPane = function(data) {
+var updateMsgPane = function(data) {
 	$("#from").text(data.sender.name);
 	$("#date").text(data.timestamp);
 	$("#reportingPeriod").text(data.reportingPeriod);
@@ -116,7 +118,8 @@ var UpdateMsgPane = function(data) {
 var DocArray = [];
 // loop through doclist to select out table columns
 // data: Message Object
-var CreateDocs = function(data) {
+var createDocs = function(data) {
+	
 	if (DocArray.length > 0) {
 		DocArray = []
 	}
@@ -143,23 +146,26 @@ var Table1Array = [];
 var Table2Array = [];
 var Table3Array = [];
 
-var CreateOtherTables = function(data) {
-	if (DocArray.length > 0) {
-		DocArray = []
+var setCurrentDoc = function(docId) {
+	this.docId = docId;
+	if (EntityArray.length > 0) {
+		EntityArray = []
 	}
 	console.log("data.taxEntityList[i].taxIdNum : Start" );
-	for (var i = 0; i < data.taxEntityList.length; i++) {
+	//generate TaxEntity
+	var currentDocData = msgData.tieDocList[docId];
+	for (var i = 0; i < currentDocData.taxEntityList.length; i++) {
 		var EntityObj = {
-			"TIN" : data.taxEntityList[i].taxIdNum,
-			"Name" : data.taxEntityList[i].name,
-			"EntityCode" : data.taxEntityList[i].entityCode,
+			"TIN" : currentDocData.taxEntityList[i].taxIdNum,
+			"Name" : currentDocData.taxEntityList[i].name,
+			"EntityCode" : currentDocData.taxEntityList[i].entityCode,
 			"DocType" : "CBCR",
-			"IncorporationCountry" : data.taxEntityList[i].reportingEntityCode,
-			"ResidentCountry" : data.taxEntityList[i].incorpCountryCode,
-			"IsPE" : data.taxEntityList[i].isPermExtabliment,
-			"Address" : data.taxEntityList[i].addrStreet
+			"IncorporationCountry" : currentDocData.taxEntityList[i].reportingEntityCode,
+			"ResidentCountry" : currentDocData.taxEntityList[i].incorpCountryCode,
+			"IsPE" : currentDocData.taxEntityList[i].isPermExtabliment,
+			"Address" : currentDocData.taxEntityList[i].addrStreet
 		};
 		EntityArray.push(EntityObj);
-		console.log("data.taxEntityList[i].taxIdNum : " + data.taxEntityList[i].taxIdNum);
+		//console.log("data.taxEntityList[i].taxIdNum : " + data.taxEntityList[i].taxIdNum);
 	}
 }	

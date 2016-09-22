@@ -265,7 +265,8 @@
 					</tbody>
 				</table-->
 				<div ng-controller="writeController">
-					
+					<div>{{mySelections}}</div>
+					<div>DocID:{{rowIndex}}</div>
 					<div id="grid1" ui-grid="gridOptions" ui-grid-selection
 						ui-grid-auto-resize class="grid"></div>
 

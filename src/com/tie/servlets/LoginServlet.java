@@ -62,9 +62,9 @@ public class LoginServlet extends HttpServlet {
 			// switch logic based on action value
 			if (action.equals("selectCurrentMsg")) {
 				selectCurrentMsg(request, response, sessionController);
-			} else if (action.equals("selectCurrentDoc")) {
+			} /*else if (action.equals("selectCurrentDoc")) {
 				selectCurrentDoc(request, response, sessionController);
-			} else {
+			} */else {
 				RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
 				rd.forward(request, response);
 			} // end switch on action
@@ -146,6 +146,7 @@ public class LoginServlet extends HttpServlet {
 
 	}// end selectCurrentMsg
 
+	/*
 	public void selectCurrentDoc(HttpServletRequest request, HttpServletResponse response,
 			TieSessionController sessionController) throws ServletException, IOException {
 		int tieDocId = 0;
@@ -165,5 +166,6 @@ public class LoginServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(docjson);
 	}// end selectCurrentDoc
+	*/
 
 }// end class LoginService
