@@ -240,6 +240,8 @@ public class TieSessionController extends TieControllerBase {
 
 		// populate current doc
 		// Handle current doc situation
+		
+		// CurrentDoc Problem - > we only set the first doc as currentDoc 
 		TieDoc currentDoc = tieDocList.get(0);
 
 		// Populate reporting entity object (findbyCode) TieTaxEntity

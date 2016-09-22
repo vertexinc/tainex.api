@@ -9,9 +9,14 @@ app
 						'$timeout',
 						'$interval',
 						'uiGridConstants',
-						function($scope, $timeout, $interval, uiGridConstants) {
+						'$templateCache',
+						function($scope, $timeout, $interval, uiGridConstants,
+								$templateCache) {
 							// $scope.myOtherData = DocArray;
-
+							$templateCache
+									.put(
+											'ui-grid/selectionRowHeaderButtons',
+											"<div class=\"ui-grid-selection-row-header-buttons\" ng-class=\"{'ui-grid-row-selected': row.isSelected , 'ui-grid-icon-cancel':!grid.appScope.isSelectable(row.entity), 'ui-grid-icon-ok':grid.appScope.isSelectable(row.entity)}\" ng-click=\"selectButtonClick(row, $event)\">&nbsp;</div>");
 							$scope.refData = function() {
 								$scope.gridOptions.data.length = 0;
 
@@ -27,17 +32,28 @@ app
 												document
 														.getElementsByClassName('grid')[0])
 										.css('height', newHeight + 'px');
+
+								// $scope.gridApi.grid.modifyRows($scope.gridOptions.data);
+								// $scope.gridApi.selection.selectRow($scope.gridOptions.data[0]);
+								firstRow();
+								$scope.refOtherTable();
 							};
 
 							$scope.gridOptions = {
 								enableRowSelection : true,
-								enableRowHeaderSelection : false,
+								enableRowHeaderSelection : false
 
 							};
+
 							$scope.myRow = [];
+
 							$scope.gridOptions = {
 								// enableSorting: true,
 								columnDefs : [ {
+									name : 'docId',
+									field : 'id',
+									visible: false
+								}, {
 									name : 'code',
 									field : 'code'
 								}, {
@@ -63,8 +79,18 @@ app
 									field : 'reportingPeriod',
 								} ],
 								data : DocArray,
+
 								onRegisterApi : function(gridApi) {
 									$scope.gridApi = gridApi;
+
+									firstRow = function() {
+
+										$scope.gridApi.selection
+												.selectRow($scope.gridOptions.data[0]);
+										console.log("first row function : "
+												+ $scope.gridOptions.data[0]);
+									};
+
 									gridApi.selection.on
 											.rowSelectionChanged(
 													$scope,
@@ -72,8 +98,10 @@ app
 
 														$scope.mySelections = gridApi.selection
 																.getSelectedRows();
+
 														$scope.rowIndex = $scope.gridOptions.data
 																.indexOf(rows.entity);
+
 														// post tieDocID via
 														// ajax
 
@@ -82,7 +110,7 @@ app
 														// Doc
 														setCurrentDoc($scope.rowIndex);
 														// postDoc($scope.mySelections[0].id);
-														// $scope.refOtherTable();
+														$scope.refOtherTable();
 													});
 								}
 							};
@@ -94,7 +122,8 @@ app
 							}
 							$scope.gridOptions.multiSelect = false;
 							$scope.gridOptions.modifierKeysToMultiSelect = false;
-							$scope.gridOptions.noUnselect = false;
+
+							$scope.gridOptions.noUnselect = true;
 
 							$scope.refOtherTable = function() {
 								$scope.gridOptions2.data.length = 0;

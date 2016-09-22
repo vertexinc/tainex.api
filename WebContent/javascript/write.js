@@ -52,6 +52,9 @@ var postDoc = function(tieDocId) {
 	});
 }
 
+//data from call back
+var msgData
+
 $(".member tr").click(function() {
 	var rowID = $(this).find(".msgID").text();
 	// alert("rowID:" + rowID);
@@ -146,14 +149,16 @@ var Table1Array = [];
 var Table2Array = [];
 var Table3Array = [];
 
-var setCurrentDoc = function(docId) {
+ setCurrentDoc = function(docId) {
 	this.docId = docId;
 	if (EntityArray.length > 0) {
 		EntityArray = []
 	}
-	console.log("data.taxEntityList[i].taxIdNum : Start" );
+	
 	//generate TaxEntity
 	var currentDocData = msgData.tieDocList[docId];
+	console.log("setCurrentDoc Start, currentDocData : " + JSON.stringify(currentDocData));
+	console.log("setCurrentDoc End"	);
 	for (var i = 0; i < currentDocData.taxEntityList.length; i++) {
 		var EntityObj = {
 			"TIN" : currentDocData.taxEntityList[i].taxIdNum,
@@ -166,6 +171,6 @@ var setCurrentDoc = function(docId) {
 			"Address" : currentDocData.taxEntityList[i].addrStreet
 		};
 		EntityArray.push(EntityObj);
-		//console.log("data.taxEntityList[i].taxIdNum : " + data.taxEntityList[i].taxIdNum);
+		console.log("EntityObj Numbher is : " + EntityObj.TIN	);
 	}
 }	
