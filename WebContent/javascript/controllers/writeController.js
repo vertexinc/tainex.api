@@ -13,10 +13,7 @@ app
 						function($scope, $timeout, $interval, uiGridConstants,
 								$templateCache) {
 							// $scope.myOtherData = DocArray;
-							$templateCache
-									.put(
-											'ui-grid/selectionRowHeaderButtons',
-											"<div class=\"ui-grid-selection-row-header-buttons\" ng-class=\"{'ui-grid-row-selected': row.isSelected , 'ui-grid-icon-cancel':!grid.appScope.isSelectable(row.entity), 'ui-grid-icon-ok':grid.appScope.isSelectable(row.entity)}\" ng-click=\"selectButtonClick(row, $event)\">&nbsp;</div>");
+							
 							$scope.refData = function() {
 								$scope.gridOptions.data.length = 0;
 
