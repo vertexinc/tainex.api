@@ -16,6 +16,7 @@ function openTag(evt, cityName) {
 }
 
 $("document").ready(function() {
+	 
 	setTimeout(function() {
 		$('#currentMsgTab').trigger('click');
 	}, 10);
@@ -26,6 +27,7 @@ $("document").ready(function() {
 		$('#currentMsg1').trigger('click');
 	}, 10);
 	openTag(event, "Message");
+	
 });
 
 $("tr").click(function() {
@@ -53,7 +55,23 @@ var postDoc = function(tieDocId) {
 }
 
 //data from call back
-var msgData
+
+
+$("p").click(function(){
+	$.ajax({
+
+        url : "http://localhost:8080/TIEapp/login",
+        dataType : 'json',
+        error : function() {
+
+            alert("Error Occured");
+        },
+        success : function(data) {
+          alert(data.subject)
+
+        }
+    });
+});
 
 $(".member tr").click(function() {
 	var rowID = $(this).find(".msgID").text();
