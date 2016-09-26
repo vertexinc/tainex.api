@@ -310,9 +310,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<%
-								for (TieTaxEntity taxentity : tieMainPage.getTaxEntitylist()) {
-							%>
+							<%for (TieTaxEntity taxentity : tieMainPage.getTaxEntitylist()) {%>
 							<tr id="currentMsg1">
 
 								<td><%=taxentity.getTaxIdNum()%></td>
@@ -323,14 +321,12 @@
 								<td><%=taxentity.getResCountryCode()%></td>
 								<td><%=taxentity.getIsPermExtabliment()%></td>
 							</tr>
-							<%
-								}
-							%>
+							<%}%>
 						</tbody>
 					</table-->
 					<div ng-controller="writeController">
-						<div id="grid2" ui-grid="gridOptions2"
-							ui-grid-auto-resize class="grid2"></div>
+						<div id="grid2" ui-grid="gridOptions2" ui-grid-auto-resize
+							class="grid2"></div>
 					</div>
 				</div>
 			</div>
@@ -383,100 +379,17 @@
 								</td>
 							</tr>
 
-							<tr height="34"
-								style="mso-height-source: userset; height: 25.5pt">
-								<td rowspan="2" height="121" class="xl76" width="106"
-									style="height: 90.75pt; border-top: none; width: 80pt">Tax
-									Jurisdiction</td>
-								<!-- 271 -->
-								<td colspan="3" class="xl76" width="300"
-									style="border-left: none; width: 242pt">Revenues</td>
-								<td rowspan="2" class="xl76" width="82"
-									style="border-top: none; width: 62pt">
-									<meta charset="utf-8"> <span
-									style="white-space: pre-wrap">Profit (Loss) Before
-										Income Tax</span>
-								</td>
-								<td rowspan="2" class="xl76" width="86"
-									style="border-top: none; width: 65pt">Income Tax Paid (on
-									cash basis)</td>
-								<td rowspan="2" class="xl76" width="74"
-									style="border-top: none; width: 56pt">Income Tax Accrued -
-									Current Year</td>
-								<td rowspan="2" class="xl76" width="64"
-									style="border-top: none; width: 48pt">Stated Captial</td>
-								<td rowspan="2" class="xl76" width="84"
-									style="border-top: none; width: 63pt">Accumulated Earnings</td>
-								<td rowspan="2" class="xl76" width="86"
-									style="border-top: none; width: 65pt">Number of Employees</td>
-								<td rowspan="2" class="xl76" width="75"
-									style="border-top: none; width: 56pt">Tangible Assets
-									other than Cash and Cash Equivalents</td>
-							</tr>
-							<tr height="87"
-								style="mso-height-source: userset; height: 65.25pt">
-								<td height="87" class="xl76" width="100"
-									style="height: 65.25pt; border-top: none; border-left: none; width: 80pt">Unrelated
-									Party</td>
-								<td class="xl76" width="88"
-									style="border-top: none; border-left: none; width: 82pt">Related
-									Party</td>
-								<td class="xl76" width="83"
-									style="border-top: none; border-left: none; width: 80pt">Total</td>
-							</tr>
-							<!-- Table 1 table content here -->
-							<%
-								for (CbcrTable1 cbcrTable1 : tieMainPage.getCurrentTieDoc().getCbcrTable1List()) {
-							%>
-							<tr height="30"
-								style="mso-height-source: userset; height: 22.5pt">
-								<td height="30" class="xl74" width="106"
-									style="height: 22.5pt; width: 80pt"><%=cbcrTable1.getTaxJurisdiction()%></td>
-								<td class="xl74" width="100"
-									style="border-left: none; width: 75pt"><%=cbcrTable1.getRevenueUnrelatedParty()%></td>
-								<td class="xl74" width="88"
-									style="border-left: none; width: 66pt"><%=cbcrTable1.getRevenueRelatedParty()%></td>
-								<td class="xl74" width="83"
-									style="border-left: none; width: 62pt"><%=cbcrTable1.getRevenueTotal()%></td>
-								<td class="xl74" width="82"
-									style="border-left: none; width: 62pt"><%=cbcrTable1.getPlBeforeIncomeTax()%></td>
-								<td class="xl74" width="86"
-									style="border-left: none; width: 65pt"><%=cbcrTable1.getIncomeTaxPaid()%></td>
-								<td class="xl74" width="74"
-									style="border-left: none; width: 56pt"><%=cbcrTable1.getIncomeTaxAccrued()%></td>
-								<td class="xl74" width="64"
-									style="border-left: none; width: 53pt"><%=cbcrTable1.getStatedCapital()%></td>
-								<td class="xl74" width="84"
-									style="border-left: none; width: 63pt"><%=cbcrTable1.getAccumulatedEarnings()%></td>
-								<td class="xl74" width="86"
-									style="border-left: none; width: 65pt"><%=cbcrTable1.getNumberOfEmployees()%></td>
-								<td class="xl75" style="border-left: none"><%=cbcrTable1.getTangibleAssetsNonCash()%></td>
-							</tr>
-							<%
-								}
-							%>
-
-
-							<!--[if supportMisalignedColumns]-->
-							<tr height="0" style="display: none">
-								<td width="106" style="width: 80pt"></td>
-								<td width="100" style="width: 75pt"></td>
-								<td width="88" style="width: 66pt"></td>
-								<td width="83" style="width: 62pt"></td>
-								<td width="82" style="width: 62pt"></td>
-								<td width="86" style="width: 65pt"></td>
-								<td width="74" style="width: 56pt"></td>
-								<td width="64" style="width: 48pt"></td>
-								<td width="84" style="width: 63pt"></td>
-								<td width="86" style="width: 65pt"></td>
-								<td width="75" style="width: 56pt"></td>
-							</tr>
+							
 
 							<!--[endif]-->
 						</tbody>
 					</table>
 
 
+				</div>
+				<div ng-controller="writeController">
+					<div id="grid3" ui-grid="gridOptions3" ui-grid-auto-resize
+						class="grid3"></div>
 				</div>
 			</div>
 			<div id="Table2" class="tabcontent">

@@ -170,7 +170,23 @@ var Table3Array = [];
 			"IsPE" : currentDocData.taxEntityList[i].isPermExtabliment,
 			"Address" : currentDocData.taxEntityList[i].addrStreet
 		};
+		var Table1Obj = {
+				"TaxJurisdiction" : currentDocData.cbcrTable1List[i].taxJurisdiction,
+				"UnrelatedParty" : currentDocData.cbcrTable1List[i].revenueUnrelatedParty,
+				"RelatedParty" : currentDocData.cbcrTable1List[i].revenueRelatedParty,
+				"Total" : currentDocData.cbcrTable1List[i].revenueTotal,
+				"ProfitBeforeIncomeTax" : currentDocData.cbcrTable1List[i].plBeforeIncomeTax,
+				"IncomeTaxPaid " : currentDocData.cbcrTable1List[i].incomeTaxPaid,
+				"IncomeTaxAccrued" : currentDocData.cbcrTable1List[i].incomeTaxAccrued,
+				"StatedCaptial" : currentDocData.cbcrTable1List[i].statedCapital,
+				"AccumulatedEarnings" : currentDocData.cbcrTable1List[i].accumulatedEarnings,
+				"NumberofEmployees" : currentDocData.cbcrTable1List[i].numberOfEmployees,
+				"TangibleAssetsotherthanCashandCashEquivalents" : currentDocData.cbcrTable1List[i].tangibleAssetsNonCash
+				
+			};
 		EntityArray.push(EntityObj);
+		Table1Array.push(Table1Obj);
 		console.log("EntityObj Numbher is : " + EntityObj.TIN	);
 	}
 }	
+

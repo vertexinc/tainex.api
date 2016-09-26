@@ -13,7 +13,7 @@ app
 						function($scope, $timeout, $interval, uiGridConstants,
 								$templateCache) {
 							// $scope.myOtherData = DocArray;
-							
+
 							$scope.refData = function() {
 								$scope.gridOptions.data.length = 0;
 
@@ -49,7 +49,7 @@ app
 								columnDefs : [ {
 									name : 'docId',
 									field : 'id',
-									visible: false
+									visible : false
 								}, {
 									name : 'code',
 									field : 'code'
@@ -124,10 +124,18 @@ app
 
 							$scope.refOtherTable = function() {
 								$scope.gridOptions2.data.length = 0;
+								$scope.gridOptions3.data.length = 0;
 
 								for (var i = 0; i < EntityArray.length; i++) {
 									$scope.gridOptions2.data
 											.push(EntityArray[i]);
+
+								}
+								;
+								for (var i = 0; i < Table1Array.length; i++) {
+									$scope.gridOptions3.data
+											.push(Table1Array[i]);
+
 								}
 
 								var newHeight = Math.floor(Math.random()
@@ -138,6 +146,12 @@ app
 												document
 														.getElementsByClassName('grid2')[0])
 										.css('height', newHeight + 'px');
+								angular
+										.element(
+												document
+														.getElementsByClassName('grid3')[0])
+										.css('height', newHeight + 'px');
+
 							};
 
 							$scope.gridOptions2 = {
@@ -168,5 +182,14 @@ app
 									field : 'Address',
 								} ],
 								data : EntityArray
+							};
+							$scope.gridOptions3 = {
+								// enableSorting: true,
+
+								
+									
+
+								headerTemplate : 'views/CbcrTable1Header.html',
+								data : Table1Array
 							}
 						} ]);
