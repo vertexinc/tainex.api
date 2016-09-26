@@ -58,7 +58,7 @@
 
 					</tbody>
 				</table>
-				<p>Message</p>
+			
 			</div>
 
 		</div>

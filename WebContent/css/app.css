@@ -29,6 +29,7 @@ a {
 
 .container .scrollbar3>ul.tab {
 	list-style-type: none;
+	width: 100%;
 	margin: 0;
 	padding: 0;
 	overflow: hidden;
@@ -645,6 +646,7 @@ textarea {
 	border-top: 1px solid #e5e5e5;
 	background: #44c4e7;
 	min-height: 5px;
+	width:100%;
 	/*position: absolute;
   	right: 0;
   	bottom: 0;

@@ -16,7 +16,7 @@ function openTag(evt, cityName) {
 }
 
 $("document").ready(function() {
-	 
+
 	setTimeout(function() {
 		$('#currentMsgTab').trigger('click');
 	}, 10);
@@ -27,7 +27,7 @@ $("document").ready(function() {
 		$('#currentMsg1').trigger('click');
 	}, 10);
 	openTag(event, "Message");
-	
+
 });
 
 $("tr").click(function() {
@@ -44,33 +44,32 @@ var postDoc = function(tieDocId) {
 		success : function(data) {
 			// alert('success'),
 			// $("#msgText").text(data);
-			//alert(data.taxEntityList[0].name);
+			// alert(data.taxEntityList[0].name);
 			CreateOtherTables(data);
 		},
 		error : function(err) {
 			alert(err.responseText);
-			
+
 		}
 	});
 }
 
-//data from call back
+// data from call back
 
-
-$("p").click(function(){
+$("p").click(function() {
 	$.ajax({
 
-        url : "http://localhost:8080/TIEapp/login",
-        dataType : 'json',
-        error : function() {
+		url : "http://localhost:8080/TIEapp/login",
+		dataType : 'json',
+		error : function() {
 
-            alert("Error Occured");
-        },
-        success : function(data) {
-          alert(data.subject)
+			alert("Error Occured");
+		},
+		success : function(data) {
+			alert(data.subject)
 
-        }
-    });
+		}
+	});
 });
 
 $(".member tr").click(function() {
@@ -87,20 +86,20 @@ $(".member tr").click(function() {
 			// alert('success'),
 			// $("#msgText").text(data);
 			// alert(data.sender.name);
-			//table2data = data.tieDocList[0].cbcrTable2List;
+			// table2data = data.tieDocList[0].cbcrTable2List;
 			msgData = data;
 			updateTab(data);
 			updateMsgPane(data);
-			createDocs(data); //show the list of docs of the msg
-			
-			//determine the currentDoc, as the first in the doc list
+			createDocs(data); // show the list of docs of the msg
+
+			// determine the currentDoc, as the first in the doc list
 			setCurrentDoc(0);
-			//highlight the current doc row in the doc list table
-			
-			//TODO
-			//populate entity table of currentDoc, under entity tab
-			//populate table1/2/3 of currentDoc
-			
+			// highlight the current doc row in the doc list table
+
+			// TODO
+			// populate entity table of currentDoc, under entity tab
+			// populate table1/2/3 of currentDoc
+
 		},
 		error : function(err) {
 			alert(err.responseText)
@@ -140,7 +139,7 @@ var DocArray = [];
 // loop through doclist to select out table columns
 // data: Message Object
 var createDocs = function(data) {
-	
+
 	if (DocArray.length > 0) {
 		DocArray = []
 	}
@@ -167,16 +166,17 @@ var Table1Array = [];
 var Table2Array = [];
 var Table3Array = [];
 
- setCurrentDoc = function(docId) {
+setCurrentDoc = function(docId) {
 	this.docId = docId;
 	if (EntityArray.length > 0) {
 		EntityArray = []
 	}
-	
-	//generate TaxEntity
+
+	// generate TaxEntity
 	var currentDocData = msgData.tieDocList[docId];
-	console.log("setCurrentDoc Start, currentDocData : " + JSON.stringify(currentDocData));
-	console.log("setCurrentDoc End"	);
+	console.log("setCurrentDoc Start, currentDocData : "
+			+ JSON.stringify(currentDocData));
+	console.log("setCurrentDoc End");
 	for (var i = 0; i < currentDocData.taxEntityList.length; i++) {
 		var EntityObj = {
 			"TIN" : currentDocData.taxEntityList[i].taxIdNum,
@@ -189,22 +189,41 @@ var Table3Array = [];
 			"Address" : currentDocData.taxEntityList[i].addrStreet
 		};
 		var Table1Obj = {
-				"TaxJurisdiction" : currentDocData.cbcrTable1List[i].taxJurisdiction,
-				"UnrelatedParty" : currentDocData.cbcrTable1List[i].revenueUnrelatedParty,
-				"RelatedParty" : currentDocData.cbcrTable1List[i].revenueRelatedParty,
-				"Total" : currentDocData.cbcrTable1List[i].revenueTotal,
-				"ProfitBeforeIncomeTax" : currentDocData.cbcrTable1List[i].plBeforeIncomeTax,
-				"IncomeTaxPaid " : currentDocData.cbcrTable1List[i].incomeTaxPaid,
-				"IncomeTaxAccrued" : currentDocData.cbcrTable1List[i].incomeTaxAccrued,
-				"StatedCaptial" : currentDocData.cbcrTable1List[i].statedCapital,
-				"AccumulatedEarnings" : currentDocData.cbcrTable1List[i].accumulatedEarnings,
-				"NumberofEmployees" : currentDocData.cbcrTable1List[i].numberOfEmployees,
-				"TangibleAssetsotherthanCashandCashEquivalents" : currentDocData.cbcrTable1List[i].tangibleAssetsNonCash
-				
-			};
+			"TaxJurisdiction" : currentDocData.cbcrTable1List[i].taxJurisdiction,
+			"UnrelatedParty" : currentDocData.cbcrTable1List[i].revenueUnrelatedParty,
+			"RelatedParty" : currentDocData.cbcrTable1List[i].revenueRelatedParty,
+			"Total" : currentDocData.cbcrTable1List[i].revenueTotal,
+			"ProfitBeforeIncomeTax" : currentDocData.cbcrTable1List[i].plBeforeIncomeTax,
+			"IncomeTaxPaid " : currentDocData.cbcrTable1List[i].incomeTaxPaid,
+			"IncomeTaxAccrued" : currentDocData.cbcrTable1List[i].incomeTaxAccrued,
+			"StatedCaptial" : currentDocData.cbcrTable1List[i].statedCapital,
+			"AccumulatedEarnings" : currentDocData.cbcrTable1List[i].accumulatedEarnings,
+			"NumberofEmployees" : currentDocData.cbcrTable1List[i].numberOfEmployees,
+			"TangibleAssetsotherthanCashandCashEquivalents" : currentDocData.cbcrTable1List[i].tangibleAssetsNonCash
+
+		};
+		var Table2Obj = {
+			"taxJurisdiction" : currentDocData.cbcrTable2List[i].taxJurisdiction,
+			"entityCode" : currentDocData.cbcrTable2List[i].entityCode,
+			"taxJurisOfIncorporation" : currentDocData.cbcrTable2List[i].taxJurisOfIncorporation,
+			"mainBusRAndD" : currentDocData.cbcrTable2List[i].mainBusRAndD,
+			"mainBusHoldingIp" : currentDocData.cbcrTable2List[i].mainBusHoldingIp,
+			"mainBusPurchasing " : currentDocData.cbcrTable2List[i].mainBusPurchasing,
+			"mainBusMfctOrPrdn" : currentDocData.cbcrTable2List[i].mainBusMfctOrPrdn,
+			"mainBusSaleMktDistr" : currentDocData.cbcrTable2List[i].mainBusSaleMktDistr,
+			"mainBusAdminMgmtSupportSvc" : currentDocData.cbcrTable2List[i].mainBusAdminMgmtSupportSvc,
+			"mainBusProvSvcToUnrelatedParti" : currentDocData.cbcrTable2List[i].mainBusProvSvcToUnrelatedParti,
+			"mainBusInternalGroupFinance" : currentDocData.cbcrTable2List[i].mainBusInternalGroupFinance,
+			"mainBusRegulatedFinSvc" : currentDocData.cbcrTable2List[i].mainBusRegulatedFinSvc,
+			"mainBusInsurance" : currentDocData.cbcrTable2List[i].mainBusInsurance,
+			"mainBusHoldingEquityInstrument" : currentDocData.cbcrTable2List[i].mainBusHoldingEquityInstrument,
+			"mainBusDormant" : currentDocData.cbcrTable2List[i].mainBusDormant,
+			"mainBusOther" : currentDocData.cbcrTable2List[i].mainBusOther
+
+		};
 		EntityArray.push(EntityObj);
 		Table1Array.push(Table1Obj);
-		console.log("EntityObj Numbher is : " + EntityObj.TIN	);
+		Table2Array.push(Table2Obj);
+		console.log("EntityObj Numbher is : " + EntityObj.TIN);
 	}
-}	
-
+}
