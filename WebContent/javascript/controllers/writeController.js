@@ -130,11 +130,17 @@ app
 									$scope.gridOptions2.data
 											.push(EntityArray[i]);
 
-								}
-								;
+								};
+								
 								for (var i = 0; i < Table1Array.length; i++) {
 									$scope.gridOptions3.data
 											.push(Table1Array[i]);
+
+								};
+								
+								for (var i = 0; i < Table2Array.length; i++) {
+									$scope.gridOptions4.data
+											.push(Table2Array[i]);
 
 								}
 
@@ -151,6 +157,11 @@ app
 												document
 														.getElementsByClassName('grid3')[0])
 										.css('height', newHeight + 'px');
+								angular
+								.element(
+										document
+												.getElementsByClassName('grid4')[0])
+								.css('height', newHeight + 'px');
 
 							};
 
@@ -185,11 +196,12 @@ app
 							};
 							$scope.gridOptions3 = {
 								// enableSorting: true,
-
-								
-									
-
 								headerTemplate : 'views/CbcrTable1Header.html',
 								data : Table1Array
 							}
+							$scope.gridOptions4 = {
+									// enableSorting: true,
+									headerTemplate : 'views/CbcrTable2Header.html',
+									data : Table2Array
+								}
 						} ]);
