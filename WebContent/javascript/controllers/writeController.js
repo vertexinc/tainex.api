@@ -125,6 +125,7 @@ app
 							$scope.refOtherTable = function() {
 								$scope.gridOptions2.data.length = 0;
 								$scope.gridOptions3.data.length = 0;
+								$scope.gridOptions4.data.length = 0;
 
 								for (var i = 0; i < EntityArray.length; i++) {
 									$scope.gridOptions2.data
