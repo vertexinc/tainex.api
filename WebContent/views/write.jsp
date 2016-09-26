@@ -58,7 +58,7 @@
 
 					</tbody>
 				</table>
-			
+
 			</div>
 
 		</div>
@@ -380,7 +380,7 @@
 								</td>
 							</tr>
 
-							
+
 
 							<!--[endif]-->
 						</tbody>
@@ -440,17 +440,66 @@
 									style="border-right: .5pt solid black; height: 15.75pt; width: 1069pt">Fiscal
 									year concerned: <%=tieMainPage.getCurrentTieDoc().getReportingPeriod()%></td>
 							</tr>
-						
-							
+							<tr height="22" style="height: 16.5pt">
+								<td rowspan="2" height="170" class="x0l67" width="84"
+									style="height: 127.5pt; width: 63pt">Tax Jurisdiction</td>
+								<td rowspan="2" class="x0l67" width="87" style="width: 65pt">Constituent
+									Entities resident in the Tax Jurisdiction</td>
+								<td rowspan="2" class="x0l67" width="123" style="width: 92pt">Tax
+									Jurisdiction of organisation of incorporation if different from
+									Tax Jurisdiction of Resident</td>
+								<td colspan="13" class="x0l67" width="1130"
+									style="border-left: none; width: 849pt">Main business
+									activity(ies)</td>
+							</tr>
+							<tr height="148"
+								style="mso-height-source: userset; height: 111.0pt">
+								<td height="148" class="x0l67" width="95"
+									style="height: 111.0pt; border-top: none; border-left: none; width: 71pt">Research
+									and Development</td>
+								<td class="x0l67" width="90"
+									style="border-top: none; border-left: none; width: 68pt">Holding
+									or Managing intellectual Property</td>
+								<td class="x0l67" width="92"
+									style="border-top: none; border-left: none; width: 69pt">Purchase
+									or Procurement</td>
+								<td class="x0l67" width="105"
+									style="border-top: none; border-left: none; width: 79pt">Manufacturing
+									or Production</td>
+								<td class="x0l67" width="117"
+									style="border-top: none; border-left: none; width: 88pt">Sales,
+									Marketing or Distribution</td>
+								<td class="x0l67" width="106"
+									style="border-top: none; border-left: none; width: 80pt">Administrative,
+									Management or Support Services</td>
+								<td class="x0l67" width="91"
+									style="border-top: none; border-left: none; width: 68pt">Provision
+									of Services to unrelated parties</td>
+								<td class="x0l67" width="64"
+									style="border-top: none; border-left: none; width: 48pt">Internal
+									Group Finance</td>
+								<td class="x0l67" width="81"
+									style="border-top: none; border-left: none; width: 61pt">Regulated
+									Financial Services</td>
+								<td class="x0l67" width="74"
+									style="border-top: none; border-left: none; width: 56pt">Insurance</td>
+								<td class="x0l67" width="87"
+									style="border-top: none; border-left: none; width: 65pt">Holding
+									shares or other equity instruments</td>
+								<td class="x0l67" width="64"
+									style="border-top: none; border-left: none; width: 48pt">Dormant</td>
+								<td class="x0l67" width="64"
+									style="border-top: none; border-left: none; width: 48pt">Other2</td>
+							</tr>
 							<!-- Table 2 number content from 2nd column here -->
 							
 							<!--[endif]-->
 						</tbody>
 					</table>
-				</div>
-				<div ng-controller="writeController">
-					<div id="grid4" ui-grid="gridOptions4" ui-grid-auto-resize
-						class="grid4"></div>
+					<div ng-controller="writeController">
+						<div id="grid4" ui-grid="gridOptions4" ui-grid-auto-resize
+							class="grid4"></div>
+					</div>
 				</div>
 				<h6>Please specify the nature if the activity of the
 					Consitituent Entity in the "Additional Information" section.</h6>

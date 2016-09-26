@@ -202,7 +202,87 @@ app
 							}
 							$scope.gridOptions4 = {
 									// enableSorting: true,
-									headerTemplate : 'views/CbcrTable2Header.html',
+									showHeader: false,
+									columnDefs : [ {
+										name : 'taxJurisdiction',
+										field : 'taxJurisdiction',
+										width: 106
+									},
+									{
+										name : 'entityCode',
+										field : 'entityCode',
+										width: 286
+									},
+									{
+										name : 'taxJurisOfIncorporation',
+										field : 'taxJurisOfIncorporation',
+										width: 156
+									},
+									{
+										name : 'mainBusRAndD',
+										field : 'mainBusRAndD',
+										width: 123
+									},
+									{
+										name : 'mainBusHoldingIp',
+										field : 'mainBusHoldingIp',
+										width: 116
+									},
+									{
+										name : 'mainBusPurchasing',
+										field : 'mainBusPurchasing',
+										width: 118
+									},
+									{
+										name : 'mainBusMfctOrPrdn',
+										field : 'mainBusMfctOrPrdn',
+										width: 135
+									},
+									{
+										name : 'mainBusSaleMktDistr',
+										field : 'mainBusSaleMktDistr',
+										width: 150
+									},
+									{
+										name : 'mainBusAdminMgmtSupportSvc',
+										field : 'mainBusAdminMgmtSupportSvc',
+										width: 140
+									},
+									{
+										name : 'mainBusProvSvcToUnrelatedParti',
+										field : 'mainBusProvSvcToUnrelatedParti',
+										width: 113
+									},
+									{
+										name : 'mainBusInternalGroupFinance',
+										field : 'mainBusInternalGroupFinance',
+										width: 82
+									},
+									{
+										name : 'mainBusRegulatedFinSvc',
+										field : 'mainBusRegulatedFinSvc',
+										width: 102
+									},
+									{
+										name : 'mainBusInsurance',
+										field : 'mainBusInsurance',
+										width: 98
+									},
+									{
+										name : 'mainBusHoldingEquityInstrument',
+										field : 'mainBusHoldingEquityInstrument',
+										width: 110
+									},
+									{
+										name : 'mainBusDormant',
+										field : 'mainBusDormant',
+										width: 80
+									},
+									{
+										name : 'mainBusOther',
+										field : 'mainBusOther'
+									}
+									],
 									data : Table2Array
 								}
 						} ]);
