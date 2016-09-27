@@ -62,10 +62,9 @@ public class LoginServlet extends HttpServlet {
 			// switch logic based on action value
 			if (action.equals("selectCurrentMsg")) {
 				selectCurrentMsg(request, response, sessionController);
-			} /*
-				 * else if (action.equals("selectCurrentDoc")) {
-				 * selectCurrentDoc(request, response, sessionController); }
-				 */else {
+			} else if (action.equals("selectCurrentDoc")) {
+				selectCurrentDoc(request, response, sessionController);
+			} else {
 				RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
 				rd.forward(request, response);
 			} // end switch on action
@@ -127,7 +126,7 @@ public class LoginServlet extends HttpServlet {
 			msgid = Integer.parseInt(request.getParameter("msgid"));
 
 		}
-		 String contextPath = request.getContextPath();
+		String contextPath = request.getContextPath();
 
 		// -------Temp code, will clean later
 		// TiePersister persister =
@@ -144,25 +143,30 @@ public class LoginServlet extends HttpServlet {
 		response.setContentType("text/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(msgjson);
-		
+
 		// System.out.println(msgjson);
 
 	}// end selectCurrentMsg
 
-	/*
-	 * public void selectCurrentDoc(HttpServletRequest request,
-	 * HttpServletResponse response, TieSessionController sessionController)
-	 * throws ServletException, IOException { int tieDocId = 0; // if( id==null
-	 * ) id =0; if (request.getParameter("tieDocId") == null) { tieDocId = 0; }
-	 * else { tieDocId = Integer.parseInt(request.getParameter("tieDocId")); }
-	 * TieDoc tieDoc = sessionController.handleSelectCurrentDoc(tieDocId);
-	 * 
-	 * ObjectMapper ma = new ObjectMapper(); String docjson =
-	 * ma.writeValueAsString(tieDoc); System.out.println("DocJSON" + docjson);
-	 * 
-	 * response.setContentType("text/json");
-	 * response.setCharacterEncoding("UTF-8");
-	 * response.getWriter().write(docjson); }// end selectCurrentDoc
-	 */
+	public void selectCurrentDoc(HttpServletRequest request, HttpServletResponse response,
+			TieSessionController sessionController) throws ServletException, IOException {
+		int tieDocId = 0;
+	
+		if (request.getParameter("tieDocId") == null) {
+			tieDocId = 0;
+		} else {
+			tieDocId = Integer.parseInt(request.getParameter("tieDocId"));
+		}
+		TieDoc tieDoc = sessionController.handleSelectCurrentDoc(tieDocId);
+
+		ObjectMapper ma = new ObjectMapper();
+		String docjson = ma.writeValueAsString(tieDoc);
+		System.out.println("DocJSON" + docjson);
+
+		response.setContentType("text/json");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(docjson);
+	}// end
+		// selectCurrentDoc
 
 }// end class LoginService

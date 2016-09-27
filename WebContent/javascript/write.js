@@ -45,7 +45,8 @@ var postDoc = function(tieDocId) {
 			// alert('success'),
 			// $("#msgText").text(data);
 			// alert(data.taxEntityList[0].name);
-			CreateOtherTables(data);
+			setCurrentDoc(data);
+			updateEntityandOtherTab(data);
 		},
 		error : function(err) {
 			alert(err.responseText);
@@ -55,22 +56,6 @@ var postDoc = function(tieDocId) {
 }
 
 // data from call back
-
-$("p").click(function() {
-	$.ajax({
-
-		url : "http://localhost:8080/TIEapp/login",
-		dataType : 'json',
-		error : function() {
-
-			alert("Error Occured");
-		},
-		success : function(data) {
-			alert(data.subject)
-
-		}
-	});
-});
 
 $(".member tr").click(function() {
 	var rowID = $(this).find(".msgID").text();
@@ -109,14 +94,58 @@ $(".member tr").click(function() {
 
 var updateTab = function(data) {
 	$("#currentDocTab").attr("title", data.subject);
+	$("#docTagSub").text("(" + data.subject + ")");
+
 	$("#currentEntityTab")
 			.attr("title", data.tieDocList[0].reportingEntityCode);
+	$("#entityTagSub").text(
+			"(" + top8letter(data.tieDocList[0].reportingEntityCode) + ")");
+
 	$("#currentTable1Tab")
 			.attr("title", data.tieDocList[0].reportingEntityCode);
+	$("#t1TagSub").text(
+			"(" + top8letter(data.tieDocList[0].reportingEntityCode) + ")");
+
 	$("#currentTable2Tab")
 			.attr("title", data.tieDocList[0].reportingEntityCode);
+	$("#t2TagSub").text(
+			"(" + top8letter(data.tieDocList[0].reportingEntityCode) + ")");
+
 	$("#currentTable3Tab")
 			.attr("title", data.tieDocList[0].reportingEntityCode);
+	$("#t3TagSub").text(
+			"(" + top8letter(data.tieDocList[0].reportingEntityCode) + ")");
+}
+
+var updateEntityandOtherTab = function(data) {
+	$("#currentEntityTab")
+			.attr("title", data.reportingEntityCode);
+	$("#entityTagSub").text(
+			"(" + top8letter(data.reportingEntityCode) + ")");
+
+	$("#currentTable1Tab")
+			.attr("title", data.reportingEntityCode);
+	$("#t1TagSub").text(
+			"(" + top8letter(data.reportingEntityCode) + ")");
+
+	$("#currentTable2Tab")
+			.attr("title", data.reportingEntityCode);
+	$("#t2TagSub").text(
+			"(" + top8letter(data.reportingEntityCode) + ")");
+
+	$("#currentTable3Tab")
+			.attr("title", data.reportingEntityCode);
+	$("#t3TagSub").text(
+			"(" + top8letter(data.reportingEntityCode) + ")");
+}
+
+var top8letter = function(input) {
+	this.input = input;
+	if (input.length > 8) {
+		input = input.substring(0, 8);
+		input = input + '...';
+	}
+	return input;
 }
 
 var updateMsgPane = function(data) {
@@ -166,89 +195,80 @@ var Table1Array = [];
 var Table2Array = [];
 var Table3Array = [];
 
-setCurrentDoc = function(docId) {
-	this.docId = docId;
+setCurrentDoc = function(data) {
+	// this.docId = docId;
 	if (EntityArray.length > 0) {
 		EntityArray = []
 	}
 
 	// generate TaxEntity
-	var currentDocData = msgData.tieDocList[docId];
+	// var currentDocData = msgData.tieDocList[docId];
 	console.log("setCurrentDoc Start, currentDocData : "
-			+ JSON.stringify(currentDocData.cbcrTable3List));
+			+ JSON.stringify(data.cbcrTable3List));
 	console.log("setCurrentDoc End");
-	for (var i = 0; i < currentDocData.taxEntityList.length; i++) {
+	for (var i = 0; i < data.taxEntityList.length; i++) {
 		var EntityObj = {
-			"TIN" : currentDocData.taxEntityList[i].taxIdNum,
-			"Name" : currentDocData.taxEntityList[i].name,
-			"EntityCode" : currentDocData.taxEntityList[i].entityCode,
+			"TIN" : data.taxEntityList[i].taxIdNum,
+			"Name" : data.taxEntityList[i].name,
+			"EntityCode" : data.taxEntityList[i].entityCode,
 			"DocType" : "CBCR",
-			"IncorporationCountry" : currentDocData.taxEntityList[i].reportingEntityCode,
-			"ResidentCountry" : currentDocData.taxEntityList[i].incorpCountryCode,
-			"IsPE" : currentDocData.taxEntityList[i].isPermExtabliment,
-			"Address" : currentDocData.taxEntityList[i].addrStreet
+			"IncorporationCountry" : data.taxEntityList[i].reportingEntityCode,
+			"ResidentCountry" : data.taxEntityList[i].incorpCountryCode,
+			"IsPE" : data.taxEntityList[i].isPermExtabliment,
+			"Address" : data.taxEntityList[i].addrStreet
 		};
 
 		EntityArray.push(EntityObj);
 
 		console.log("EntityObj Numbher is : " + EntityObj.TIN);
 	}
-	
 
-	for (var i = 0; i < currentDocData.cbcrTable1List.length; i++) {
+	for (var i = 0; i < data.cbcrTable1List.length; i++) {
 		var Table1Obj = {
-			"TaxJurisdiction" : currentDocData.cbcrTable1List[i].taxJurisdiction,
-			"UnrelatedParty" : currentDocData.cbcrTable1List[i].revenueUnrelatedParty,
-			"RelatedParty" : currentDocData.cbcrTable1List[i].revenueRelatedParty,
-			"Total" : currentDocData.cbcrTable1List[i].revenueTotal,
-			"ProfitBeforeIncomeTax" : currentDocData.cbcrTable1List[i].plBeforeIncomeTax,
-			"IncomeTaxPaid " : currentDocData.cbcrTable1List[i].incomeTaxPaid,
-			"IncomeTaxAccrued" : currentDocData.cbcrTable1List[i].incomeTaxAccrued,
-			"StatedCaptial" : currentDocData.cbcrTable1List[i].statedCapital,
-			"AccumulatedEarnings" : currentDocData.cbcrTable1List[i].accumulatedEarnings,
-			"NumberofEmployees" : currentDocData.cbcrTable1List[i].numberOfEmployees,
-			"TangibleAssetsotherthanCashandCashEquivalents" : currentDocData.cbcrTable1List[i].tangibleAssetsNonCash
+			"TaxJurisdiction" : data.cbcrTable1List[i].taxJurisdiction,
+			"UnrelatedParty" : data.cbcrTable1List[i].revenueUnrelatedParty,
+			"RelatedParty" : data.cbcrTable1List[i].revenueRelatedParty,
+			"Total" : data.cbcrTable1List[i].revenueTotal,
+			"ProfitBeforeIncomeTax" : data.cbcrTable1List[i].plBeforeIncomeTax,
+			"IncomeTaxPaid " : data.cbcrTable1List[i].incomeTaxPaid,
+			"IncomeTaxAccrued" : data.cbcrTable1List[i].incomeTaxAccrued,
+			"StatedCaptial" : data.cbcrTable1List[i].statedCapital,
+			"AccumulatedEarnings" : data.cbcrTable1List[i].accumulatedEarnings,
+			"NumberofEmployees" : data.cbcrTable1List[i].numberOfEmployees,
+			"TangibleAssetsotherthanCashandCashEquivalents" : data.cbcrTable1List[i].tangibleAssetsNonCash
 
 		};
 		Table1Array.push(Table1Obj);
 	}
-	
 
-	for (var i = 0; i < currentDocData.cbcrTable2List.length; i++) {
+	for (var i = 0; i < data.cbcrTable2List.length; i++) {
 		var Table2Obj = {
-			"taxJurisdiction" : currentDocData.cbcrTable2List[i].taxJurisdiction,
-			"entityCode" : currentDocData.cbcrTable2List[i].entityCode,
-			"taxJurisOfIncorporation" : currentDocData.cbcrTable2List[i].taxJurisOfIncorporation,
-			"mainBusRAndD" : currentDocData.cbcrTable2List[i].mainBusRAndD,
-			"mainBusHoldingIp" : currentDocData.cbcrTable2List[i].mainBusHoldingIp,
-			"mainBusPurchasing " : currentDocData.cbcrTable2List[i].mainBusPurchasing,
-			"mainBusMfctOrPrdn" : currentDocData.cbcrTable2List[i].mainBusMfctOrPrdn,
-			"mainBusSaleMktDistr" : currentDocData.cbcrTable2List[i].mainBusSaleMktDistr,
-			"mainBusAdminMgmtSupportSvc" : currentDocData.cbcrTable2List[i].mainBusAdminMgmtSupportSvc,
-			"mainBusProvSvcToUnrelatedParti" : currentDocData.cbcrTable2List[i].mainBusProvSvcToUnrelatedParti,
-			"mainBusInternalGroupFinance" : currentDocData.cbcrTable2List[i].mainBusInternalGroupFinance,
-			"mainBusRegulatedFinSvc" : currentDocData.cbcrTable2List[i].mainBusRegulatedFinSvc,
-			"mainBusInsurance" : currentDocData.cbcrTable2List[i].mainBusInsurance,
-			"mainBusHoldingEquityInstrument" : currentDocData.cbcrTable2List[i].mainBusHoldingEquityInstrument,
-			"mainBusDormant" : currentDocData.cbcrTable2List[i].mainBusDormant,
-			"mainBusOther" : currentDocData.cbcrTable2List[i].mainBusOther
+			"taxJurisdiction" : data.cbcrTable2List[i].taxJurisdiction,
+			"entityCode" : data.cbcrTable2List[i].entityCode,
+			"taxJurisOfIncorporation" : data.cbcrTable2List[i].taxJurisOfIncorporation,
+			"mainBusRAndD" : data.cbcrTable2List[i].mainBusRAndD,
+			"mainBusHoldingIp" : data.cbcrTable2List[i].mainBusHoldingIp,
+			"mainBusPurchasing " : data.cbcrTable2List[i].mainBusPurchasing,
+			"mainBusMfctOrPrdn" : data.cbcrTable2List[i].mainBusMfctOrPrdn,
+			"mainBusSaleMktDistr" : data.cbcrTable2List[i].mainBusSaleMktDistr,
+			"mainBusAdminMgmtSupportSvc" : data.cbcrTable2List[i].mainBusAdminMgmtSupportSvc,
+			"mainBusProvSvcToUnrelatedParti" : data.cbcrTable2List[i].mainBusProvSvcToUnrelatedParti,
+			"mainBusInternalGroupFinance" : data.cbcrTable2List[i].mainBusInternalGroupFinance,
+			"mainBusRegulatedFinSvc" : data.cbcrTable2List[i].mainBusRegulatedFinSvc,
+			"mainBusInsurance" : data.cbcrTable2List[i].mainBusInsurance,
+			"mainBusHoldingEquityInstrument" : data.cbcrTable2List[i].mainBusHoldingEquityInstrument,
+			"mainBusDormant" : data.cbcrTable2List[i].mainBusDormant,
+			"mainBusOther" : data.cbcrTable2List[i].mainBusOther
 
 		};
 		Table2Array.push(Table2Obj);
 	}
-	
-	console.log("2 setCurrentDoc Start, currentDocData : "
-			+ JSON.stringify(currentDocData.cbcrTable3List));
-	console.log("2 setCurrentDoc End");
-	
-	for (var i = 0; i < currentDocData.cbcrTable3List.length; i++) {
+
+	for (var i = 0; i < data.cbcrTable3List.length; i++) {
 		var Table3Obj = {
-			"additionalInfo" : currentDocData.cbcrTable3List[i].additionalInfo
+			"additionalInfo" : data.cbcrTable3List[i].additionalInfo
 		};
 		Table3Array.push(Table3Obj);
 	}
-	
-	console.log("3 setCurrentDoc Start, currentDocData : "
-			+ JSON.stringify(currentDocData.table3String));
-	console.log("3 setCurrentDoc End")
+
 }

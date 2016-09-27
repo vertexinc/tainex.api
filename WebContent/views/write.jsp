@@ -74,19 +74,19 @@
 					onclick="openTag(event, 'Message')" title="This is message pane.">Message</a></li>
 				<li><a id="currentDocTab" class="tablinks"
 					onclick="openTag(event, 'Docs')"
-					title="Current Message:<%=tieMainPage.getCurrentMsg().getSubject()%>">Docs</a></li>
+					title="Current Message:<%=tieMainPage.getCurrentMsg().getSubject()%>">Docs </br><h6 id="docTagSub">(no data)</h6></a></li>
 				<li><a id="currentEntityTab" class="tablinks"
 					onclick="openTag(event, 'Entity')"
-					title="Current Doc:<%=tieMainPage.getCurrentTieDoc().getCode()%>">Entity</a></li>
+					title="Current Doc:<%=tieMainPage.getCurrentTieDoc().getCode()%>">Entity</br><h6 id="entityTagSub">(no data)</h6></a></li>
 				<li><a id="currentTable1Tab" class="tablinks"
 					onclick="openTag(event, 'Table1')"
-					title="Current Doc:<%=tieMainPage.getCurrentTieDoc().getCode()%>">Table1</a></li>
+					title="Current Doc:<%=tieMainPage.getCurrentTieDoc().getCode()%>">Table1</br><h6 id="t1TagSub">(no data)</h6></a></li>
 				<li><a id="currentTable2Tab" class="tablinks"
 					onclick="openTag(event, 'Table2')"
-					title="Current Doc:<%=tieMainPage.getCurrentTieDoc().getCode()%>">Table2</a></li>
+					title="Current Doc:<%=tieMainPage.getCurrentTieDoc().getCode()%>">Table2</br><h6 id="t2TagSub">(no data)</h6></a></li>
 				<li><a id="currentTable3Tab" class="tablinks"
 					onclick="openTag(event, 'Table3')"
-					title="Current Doc:<%=tieMainPage.getCurrentTieDoc().getCode()%>">Table3</a></li>
+					title="Current Doc:<%=tieMainPage.getCurrentTieDoc().getCode()%>">Table3</br><h6 id="t3TagSub">(no data)</h6></a></li>
 
 			</ul>
 
@@ -266,8 +266,7 @@
 					</tbody>
 				</table-->
 				<div ng-controller="writeController">
-					<div>{{mySelections}}</div>
-					<div>DocID:{{rowIndex}}</div>
+			
 					<div id="grid1" ui-grid="gridOptions" ui-grid-selection
 						ui-grid-auto-resize class="grid"></div>
 

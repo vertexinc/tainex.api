@@ -105,8 +105,8 @@ app
 														// pass in currentDocId
 														// to set the current
 														// Doc
-														setCurrentDoc($scope.rowIndex);
-														// postDoc($scope.mySelections[0].id);
+														//setCurrentDoc($scope.rowIndex);
+														 postDoc($scope.mySelections[0].id);
 														$scope.refOtherTable();
 													});
 								}
