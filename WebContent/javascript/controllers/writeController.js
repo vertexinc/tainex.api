@@ -126,23 +126,29 @@ app
 								$scope.gridOptions2.data.length = 0;
 								$scope.gridOptions3.data.length = 0;
 								$scope.gridOptions4.data.length = 0;
+								$scope.gridOptions5.data.length = 0;
 
 								for (var i = 0; i < EntityArray.length; i++) {
 									$scope.gridOptions2.data
 											.push(EntityArray[i]);
 
-								};
-								
+								}
+								;
+
 								for (var i = 0; i < Table1Array.length; i++) {
 									$scope.gridOptions3.data
 											.push(Table1Array[i]);
+								}
+								;
 
-								};
-								
 								for (var i = 0; i < Table2Array.length; i++) {
 									$scope.gridOptions4.data
 											.push(Table2Array[i]);
-
+								}
+								;
+								for (var i = 0; i < Table3Array.length; i++) {
+									$scope.gridOptions5.data
+											.push(Table3Array[i]);
 								}
 
 								var newHeight = Math.floor(Math.random()
@@ -153,16 +159,22 @@ app
 												document
 														.getElementsByClassName('grid2')[0])
 										.css('height', newHeight + 'px');
+
 								angular
 										.element(
 												document
 														.getElementsByClassName('grid3')[0])
 										.css('height', newHeight + 'px');
 								angular
-								.element(
-										document
-												.getElementsByClassName('grid4')[0])
-								.css('height', newHeight + 'px');
+										.element(
+												document
+														.getElementsByClassName('grid4')[0])
+										.css('height', newHeight + 'px');
+								angular
+										.element(
+												document
+														.getElementsByClassName('grid5')[0])
+										.css('height', newHeight + 'px');
 
 							};
 
@@ -201,88 +213,84 @@ app
 								data : Table1Array
 							}
 							$scope.gridOptions4 = {
-									// enableSorting: true,
-									showHeader: false,
-									columnDefs : [ {
-										name : 'taxJurisdiction',
-										field : 'taxJurisdiction',
-										width: 106
-									},
-									{
-										name : 'entityCode',
-										field : 'entityCode',
-										width: 286
-									},
-									{
-										name : 'taxJurisOfIncorporation',
-										field : 'taxJurisOfIncorporation',
-										width: 156
-									},
-									{
-										name : 'mainBusRAndD',
-										field : 'mainBusRAndD',
-										width: 123
-									},
-									{
-										name : 'mainBusHoldingIp',
-										field : 'mainBusHoldingIp',
-										width: 116
-									},
-									{
-										name : 'mainBusPurchasing',
-										field : 'mainBusPurchasing',
-										width: 118
-									},
-									{
-										name : 'mainBusMfctOrPrdn',
-										field : 'mainBusMfctOrPrdn',
-										width: 135
-									},
-									{
-										name : 'mainBusSaleMktDistr',
-										field : 'mainBusSaleMktDistr',
-										width: 150
-									},
-									{
-										name : 'mainBusAdminMgmtSupportSvc',
-										field : 'mainBusAdminMgmtSupportSvc',
-										width: 140
-									},
-									{
-										name : 'mainBusProvSvcToUnrelatedParti',
-										field : 'mainBusProvSvcToUnrelatedParti',
-										width: 113
-									},
-									{
-										name : 'mainBusInternalGroupFinance',
-										field : 'mainBusInternalGroupFinance',
-										width: 82
-									},
-									{
-										name : 'mainBusRegulatedFinSvc',
-										field : 'mainBusRegulatedFinSvc',
-										width: 102
-									},
-									{
-										name : 'mainBusInsurance',
-										field : 'mainBusInsurance',
-										width: 98
-									},
-									{
-										name : 'mainBusHoldingEquityInstrument',
-										field : 'mainBusHoldingEquityInstrument',
-										width: 110
-									},
-									{
-										name : 'mainBusDormant',
-										field : 'mainBusDormant',
-										width: 80
-									},
-									{
-										name : 'mainBusOther',
-										field : 'mainBusOther'
-									}
-									],
-									data : Table2Array
-								}
+								// enableSorting: true,
+								showHeader : false,
+								columnDefs : [ {
+									name : 'taxJurisdiction',
+									field : 'taxJurisdiction',
+									width : 106
+								}, {
+									name : 'entityCode',
+									field : 'entityCode',
+									width : 286
+								}, {
+									name : 'taxJurisOfIncorporation',
+									field : 'taxJurisOfIncorporation',
+									width : 156
+								}, {
+									name : 'mainBusRAndD',
+									field : 'mainBusRAndD',
+									width : 123
+								}, {
+									name : 'mainBusHoldingIp',
+									field : 'mainBusHoldingIp',
+									width : 116
+								}, {
+									name : 'mainBusPurchasing',
+									field : 'mainBusPurchasing',
+									width : 118
+								}, {
+									name : 'mainBusMfctOrPrdn',
+									field : 'mainBusMfctOrPrdn',
+									width : 135
+								}, {
+									name : 'mainBusSaleMktDistr',
+									field : 'mainBusSaleMktDistr',
+									width : 150
+								}, {
+									name : 'mainBusAdminMgmtSupportSvc',
+									field : 'mainBusAdminMgmtSupportSvc',
+									width : 140
+								}, {
+									name : 'mainBusProvSvcToUnrelatedParti',
+									field : 'mainBusProvSvcToUnrelatedParti',
+									width : 113
+								}, {
+									name : 'mainBusInternalGroupFinance',
+									field : 'mainBusInternalGroupFinance',
+									width : 82
+								}, {
+									name : 'mainBusRegulatedFinSvc',
+									field : 'mainBusRegulatedFinSvc',
+									width : 102
+								}, {
+									name : 'mainBusInsurance',
+									field : 'mainBusInsurance',
+									width : 98
+								}, {
+									name : 'mainBusHoldingEquityInstrument',
+									field : 'mainBusHoldingEquityInstrument',
+									width : 110
+								}, {
+									name : 'mainBusDormant',
+									field : 'mainBusDormant',
+									width : 80
+								}, {
+									name : 'mainBusOther',
+									field : 'mainBusOther'
+								} ],
+								data : Table2Array
+							};
+							$scope.gridOptions5 = {
+								// enableSorting: true,
+								showHeader : false,
+								columnDefs : [ {
+									name : 'additionalInfo',
+									field : 'additionalInfo',
+									//width : 106
+									height:300
+								} ],
+
+								data : Table3Array
+							};
 						} ]);

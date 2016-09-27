@@ -175,7 +175,7 @@ setCurrentDoc = function(docId) {
 	// generate TaxEntity
 	var currentDocData = msgData.tieDocList[docId];
 	console.log("setCurrentDoc Start, currentDocData : "
-			+ JSON.stringify(currentDocData));
+			+ JSON.stringify(currentDocData.cbcrTable3List));
 	console.log("setCurrentDoc End");
 	for (var i = 0; i < currentDocData.taxEntityList.length; i++) {
 		var EntityObj = {
@@ -188,6 +188,14 @@ setCurrentDoc = function(docId) {
 			"IsPE" : currentDocData.taxEntityList[i].isPermExtabliment,
 			"Address" : currentDocData.taxEntityList[i].addrStreet
 		};
+
+		EntityArray.push(EntityObj);
+
+		console.log("EntityObj Numbher is : " + EntityObj.TIN);
+	}
+	
+
+	for (var i = 0; i < currentDocData.cbcrTable1List.length; i++) {
 		var Table1Obj = {
 			"TaxJurisdiction" : currentDocData.cbcrTable1List[i].taxJurisdiction,
 			"UnrelatedParty" : currentDocData.cbcrTable1List[i].revenueUnrelatedParty,
@@ -202,6 +210,11 @@ setCurrentDoc = function(docId) {
 			"TangibleAssetsotherthanCashandCashEquivalents" : currentDocData.cbcrTable1List[i].tangibleAssetsNonCash
 
 		};
+		Table1Array.push(Table1Obj);
+	}
+	
+
+	for (var i = 0; i < currentDocData.cbcrTable2List.length; i++) {
 		var Table2Obj = {
 			"taxJurisdiction" : currentDocData.cbcrTable2List[i].taxJurisdiction,
 			"entityCode" : currentDocData.cbcrTable2List[i].entityCode,
@@ -221,9 +234,21 @@ setCurrentDoc = function(docId) {
 			"mainBusOther" : currentDocData.cbcrTable2List[i].mainBusOther
 
 		};
-		EntityArray.push(EntityObj);
-		Table1Array.push(Table1Obj);
 		Table2Array.push(Table2Obj);
-		console.log("EntityObj Numbher is : " + EntityObj.TIN);
 	}
+	
+	console.log("2 setCurrentDoc Start, currentDocData : "
+			+ JSON.stringify(currentDocData.cbcrTable3List));
+	console.log("2 setCurrentDoc End");
+	
+	for (var i = 0; i < currentDocData.cbcrTable3List.length; i++) {
+		var Table3Obj = {
+			"additionalInfo" : currentDocData.cbcrTable3List[i].additionalInfo
+		};
+		Table3Array.push(Table3Obj);
+	}
+	
+	console.log("3 setCurrentDoc Start, currentDocData : "
+			+ JSON.stringify(currentDocData.table3String));
+	console.log("3 setCurrentDoc End")
 }

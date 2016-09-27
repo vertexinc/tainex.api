@@ -520,14 +520,14 @@
 									<%=tieMainPage.getCurrentTieDoc().getReportingPeriod()%></div></th>
 						</tr>
 
-						<tr>
-
-							<td class="x00l66" rows="4" cols="280"><%=tieMainPage.getTable3String()%>
-							</td>
-
-						</tr>
-
-					</table>
+			
+			
+					</table>	
+					</br>
+					<div ng-controller="writeController">
+						<div id="grid5" ui-grid="gridOptions5" ui-grid-auto-resize
+							class="grid5"></div>
+					</div>
 				</div>
 			</div>
 
