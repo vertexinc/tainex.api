@@ -72,13 +72,15 @@ $(".member tr").click(function() {
 			// $("#msgText").text(data);
 			// alert(data.sender.name);
 			// table2data = data.tieDocList[0].cbcrTable2List;
-			msgData = data;
+			//alert("data.tieDocList[0]" + data.tieDocList[0])
+			setCurrentDoc(data.tieDocList[0]);
+			
 			updateTab(data);
 			updateMsgPane(data);
 			createDocs(data); // show the list of docs of the msg
 
 			// determine the currentDoc, as the first in the doc list
-			setCurrentDoc(0);
+			
 			// highlight the current doc row in the doc list table
 
 			// TODO
@@ -197,6 +199,7 @@ var Table3Array = [];
 
 setCurrentDoc = function(data) {
 	// this.docId = docId;
+	
 	if (EntityArray.length > 0) {
 		EntityArray = []
 	}
@@ -204,9 +207,9 @@ setCurrentDoc = function(data) {
 	// generate TaxEntity
 	// var currentDocData = msgData.tieDocList[docId];
 	console.log("setCurrentDoc Start, currentDocData : "
-			+ JSON.stringify(data.cbcrTable3List));
+			+ JSON.stringify(data));
 	console.log("setCurrentDoc End");
-	for (var i = 0; i < data.taxEntityList.length; i++) {
+	for (var i = 0; i < data.taxEntityList.length; i++) {	
 		var EntityObj = {
 			"TIN" : data.taxEntityList[i].taxIdNum,
 			"Name" : data.taxEntityList[i].name,
