@@ -496,7 +496,7 @@
 						</tbody>
 					</table>
 					<div ng-controller="writeController">
-						<div id="grid4" ui-grid="gridOptions4" ui-grid-auto-resize
+						<div id="grid4" ui-grid="gridOptions4" ui-grid-auto-resize ui-grid-pagination
 							class="grid4"></div>
 					</div>
 				</div>

@@ -105,8 +105,8 @@ app
 														// pass in currentDocId
 														// to set the current
 														// Doc
-														//setCurrentDoc($scope.rowIndex);
-														 postDoc($scope.mySelections[0].id);
+														// setCurrentDoc($scope.rowIndex);
+														postDoc($scope.mySelections[0].id);
 														$scope.refOtherTable();
 													});
 								}
@@ -214,6 +214,8 @@ app
 							}
 							$scope.gridOptions4 = {
 								// enableSorting: true,
+								paginationPageSizes : [ 25, 50, 75 ],
+								paginationPageSize : 25,
 								showHeader : false,
 								columnDefs : [ {
 									name : 'taxJurisdiction',
@@ -287,8 +289,8 @@ app
 								columnDefs : [ {
 									name : 'additionalInfo',
 									field : 'additionalInfo',
-									//width : 106
-									height:300
+									// width : 106
+									height : 300
 								} ],
 
 								data : Table3Array

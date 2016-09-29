@@ -42,9 +42,7 @@ var postDoc = function(tieDocId) {
 		url : "http://localhost:8080/TIEapp/login",
 		data : temp,
 		success : function(data) {
-			// alert('success'),
-			// $("#msgText").text(data);
-			// alert(data.taxEntityList[0].name);
+			
 			setCurrentDoc(data);
 			updateEntityandOtherTab(data);
 		},
@@ -189,6 +187,16 @@ var createDocs = function(data) {
 		DocArray.push(DocObj);
 	}
 }
+
+// validate yes or no
+var checkYes = function(num){
+	this.num = num;
+	if (num == 1){
+		return 'YES';
+	}else{
+		return ' '
+	}
+}
 /*
  * Entity Table1 Table2 Table3
  */
@@ -197,6 +205,7 @@ var Table1Array = [];
 var Table2Array = [];
 var Table3Array = [];
 
+//pass in doc data
 setCurrentDoc = function(data) {
 	// this.docId = docId;
 	
@@ -217,7 +226,7 @@ setCurrentDoc = function(data) {
 			"DocType" : "CBCR",
 			"IncorporationCountry" : data.taxEntityList[i].reportingEntityCode,
 			"ResidentCountry" : data.taxEntityList[i].incorpCountryCode,
-			"IsPE" : data.taxEntityList[i].isPermExtabliment,
+			"IsPE" : checkYes(data.taxEntityList[i].isPermExtabliment),
 			"Address" : data.taxEntityList[i].addrStreet
 		};
 
@@ -249,19 +258,19 @@ setCurrentDoc = function(data) {
 			"taxJurisdiction" : data.cbcrTable2List[i].taxJurisdiction,
 			"entityCode" : data.cbcrTable2List[i].entityCode,
 			"taxJurisOfIncorporation" : data.cbcrTable2List[i].taxJurisOfIncorporation,
-			"mainBusRAndD" : data.cbcrTable2List[i].mainBusRAndD,
-			"mainBusHoldingIp" : data.cbcrTable2List[i].mainBusHoldingIp,
-			"mainBusPurchasing " : data.cbcrTable2List[i].mainBusPurchasing,
-			"mainBusMfctOrPrdn" : data.cbcrTable2List[i].mainBusMfctOrPrdn,
-			"mainBusSaleMktDistr" : data.cbcrTable2List[i].mainBusSaleMktDistr,
-			"mainBusAdminMgmtSupportSvc" : data.cbcrTable2List[i].mainBusAdminMgmtSupportSvc,
-			"mainBusProvSvcToUnrelatedParti" : data.cbcrTable2List[i].mainBusProvSvcToUnrelatedParti,
-			"mainBusInternalGroupFinance" : data.cbcrTable2List[i].mainBusInternalGroupFinance,
-			"mainBusRegulatedFinSvc" : data.cbcrTable2List[i].mainBusRegulatedFinSvc,
-			"mainBusInsurance" : data.cbcrTable2List[i].mainBusInsurance,
-			"mainBusHoldingEquityInstrument" : data.cbcrTable2List[i].mainBusHoldingEquityInstrument,
-			"mainBusDormant" : data.cbcrTable2List[i].mainBusDormant,
-			"mainBusOther" : data.cbcrTable2List[i].mainBusOther
+			"mainBusRAndD" : checkYes(data.cbcrTable2List[i].mainBusRAndD),
+			"mainBusHoldingIp" : checkYes(data.cbcrTable2List[i].mainBusHoldingIp),
+			"mainBusPurchasing " : checkYes(data.cbcrTable2List[i].mainBusPurchasing),
+			"mainBusMfctOrPrdn" : checkYes(data.cbcrTable2List[i].mainBusMfctOrPrdn),
+			"mainBusSaleMktDistr" : checkYes(data.cbcrTable2List[i].mainBusSaleMktDistr),
+			"mainBusAdminMgmtSupportSvc" : checkYes(data.cbcrTable2List[i].mainBusAdminMgmtSupportSvc),
+			"mainBusProvSvcToUnrelatedParti" : checkYes(data.cbcrTable2List[i].mainBusProvSvcToUnrelatedParti),
+			"mainBusInternalGroupFinance" : checkYes(data.cbcrTable2List[i].mainBusInternalGroupFinance),
+			"mainBusRegulatedFinSvc" : checkYes(data.cbcrTable2List[i].mainBusRegulatedFinSvc),
+			"mainBusInsurance" : checkYes(data.cbcrTable2List[i].mainBusInsurance),
+			"mainBusHoldingEquityInstrument" : checkYes(data.cbcrTable2List[i].mainBusHoldingEquityInstrument),
+			"mainBusDormant" : checkYes(data.cbcrTable2List[i].mainBusDormant),
+			"mainBusOther" : checkYes(data.cbcrTable2List[i].mainBusOther)
 
 		};
 		Table2Array.push(Table2Obj);
