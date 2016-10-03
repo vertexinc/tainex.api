@@ -285,16 +285,16 @@
 							<table style="width: 100%">
 								<tr>
 									<td>Reporting Entity:</td>
-									<td><%=tieMainPage.getCurrentTieDoc().getReportingEntity().getName()%>{{reportingEntity}}</td>
+									<td><!--%=tieMainPage.getCurrentTieDoc().getReportingEntity().getName()%-->{{reportingEntity.reportingEntityName}}</td>
 								</tr>
 								<tr>
 									<td>Resident Country:</td>
-									<td><%=tieMainPage.getCurrentTieDoc().getResCountryCode()%></td>
+									<td><!--%=tieMainPage.getCurrentTieDoc().getResCountryCode()%-->{{reportingEntity.resCountryCode}}</td>
 								</tr>
 							</table>
 						</div>
 						<div class="col-md-3">Currency:</div>
-						<div class="col-md-3"><%=tieMainPage.getCurrentTieDoc().getCurrencyCode()%></div>
+						<div class="col-md-3"><!--%=tieMainPage.getCurrentTieDoc().getCurrencyCode()%-->{{reportingEntity.currencyCode}}</div>
 					</div>
 
 					</br>

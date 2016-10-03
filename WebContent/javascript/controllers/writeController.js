@@ -34,6 +34,7 @@ app
 								// $scope.gridApi.selection.selectRow($scope.gridOptions.data[0]);
 								firstRow();
 								$scope.refOtherTable();
+
 							};
 
 							$scope.gridOptions = {
@@ -43,8 +44,6 @@ app
 							};
 
 							$scope.myRow = [];
-
-						
 
 							$scope.gridOptions = {
 								// enableSorting: true,
@@ -79,7 +78,7 @@ app
 								} ],
 								data : DocArray,
 
-								rowTemplate : '<div ng-class="{\'my-style-1\':row.entity.reportingEntity==\'RU=03389\'}" <div ng-repeat="col in colContainer.renderedColumns track by col.colDef.name"  class="ui-grid-cell" ui-grid-cell></div></div>',
+								rowTemplate : '<div ng-class="{\'my-style-1\':row.entity.reportingEntity==$scope.reportingEntity.reportingEntityCode}" <div ng-repeat="col in colContainer.renderedColumns track by col.colDef.name"  class="ui-grid-cell" ui-grid-cell></div></div>',
 
 								onRegisterApi : function(gridApi) {
 									$scope.gridApi = gridApi;
@@ -96,15 +95,12 @@ app
 											.rowSelectionChanged(
 													$scope,
 													function(rows) {
-														
 
 														$scope.mySelections = gridApi.selection
 																.getSelectedRows();
 
 														$scope.rowIndex = $scope.gridOptions.data
 																.indexOf(rows.entity);
-														
-														$scope.reportingEntity = mySelections[0].reportingEntity;
 
 														// post tieDocID via
 														// ajax
@@ -130,6 +126,14 @@ app
 							$scope.gridOptions.noUnselect = true;
 
 							$scope.refOtherTable = function() {
+								// ref table header
+								$scope.reportingEntity = {
+									reportingEntityCode : currentDocHeader.reportingEntityCode,
+									reportingEntityName : currentDocHeader.reportingEntityName,
+									currencyCode : currentDocHeader.currencyCode,
+									resCountryCode : currentDocHeader.resCountryCode
+								};
+
 								$scope.gridOptions2.data.length = 0;
 								$scope.gridOptions3.data.length = 0;
 								$scope.gridOptions4.data.length = 0;
@@ -184,13 +188,10 @@ app
 										.css('height', newHeight + 'px');
 
 							};
-							
-							$scope.reportingEntity; 
-							
-							
+
 							$scope.gridOptions2 = {
 								// enableSorting: true,
-								
+
 								columnDefs : [ {
 									name : 'TIN',
 									field : 'TIN'

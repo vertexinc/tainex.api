@@ -205,14 +205,19 @@ var Table1Array = [];
 var Table2Array = [];
 var Table3Array = [];
 
-var currentDocHeader = 'No Header';
+var currentDocHeader = {};
 
 //this data is passing in doc data from parent data
 setCurrentDoc = function(data) {
 	// this.docId = docId;
 	
 	//set the doc table header value
-	currentDocHeader = data.reportingEntityCode;
+	currentDocHeader.reportingEntityCode = data.reportingEntityCode;
+	currentDocHeader.reportingEntityName = data.reportingEntity.name;
+	currentDocHeader.currencyCode = data.currencyCode;
+	currentDocHeader.resCountryCode = data.resCountryCode;
+	
+	
 	console.log('data.reportingEntityCode -- >' + currentDocHeader);
 	
 	if (EntityArray.length > 0) {
