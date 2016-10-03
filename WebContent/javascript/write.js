@@ -55,6 +55,8 @@ var postDoc = function(tieDocId) {
 
 // data from call back
 
+
+
 $(".member tr").click(function() {
 	var rowID = $(this).find(".msgID").text();
 	// alert("rowID:" + rowID);
@@ -71,8 +73,10 @@ $(".member tr").click(function() {
 			// alert(data.sender.name);
 			// table2data = data.tieDocList[0].cbcrTable2List;
 			//alert("data.tieDocList[0]" + data.tieDocList[0])
-			setCurrentDoc(data.tieDocList[0]);
 			
+			
+			setCurrentDoc(data.tieDocList[0]);
+			 
 			updateTab(data);
 			updateMsgPane(data);
 			createDocs(data); // show the list of docs of the msg
@@ -167,8 +171,10 @@ var updateMsgPane = function(data) {
 var DocArray = [];
 // loop through doclist to select out table columns
 // data: Message Object
-var createDocs = function(data) {
 
+
+var createDocs = function(data) {
+	
 	if (DocArray.length > 0) {
 		DocArray = []
 	}
@@ -207,15 +213,17 @@ var Table3Array = [];
 
 var currentDocHeader = {};
 
+var currentEntityCode;
+
 //this data is passing in doc data from parent data
-setCurrentDoc = function(data) {
+setCurrentDoc = function(docData) {
 	// this.docId = docId;
 	
 	//set the doc table header value
-	currentDocHeader.reportingEntityCode = data.reportingEntityCode;
-	currentDocHeader.reportingEntityName = data.reportingEntity.name;
-	currentDocHeader.currencyCode = data.currencyCode;
-	currentDocHeader.resCountryCode = data.resCountryCode;
+	currentDocHeader.reportingEntityCode = docData.reportingEntityCode;
+	currentDocHeader.reportingEntityName = docData.reportingEntity.name;
+	currentDocHeader.currencyCode = docData.currencyCode;
+	currentDocHeader.resCountryCode = docData.resCountryCode;
 	
 	
 	console.log('data.reportingEntityCode -- >' + currentDocHeader);
@@ -227,18 +235,19 @@ setCurrentDoc = function(data) {
 	// generate TaxEntity
 	// var currentDocData = msgData.tieDocList[docId];
 	console.log("setCurrentDoc Start, currentDocData : "
-			+ JSON.stringify(data));
+			+ JSON.stringify(docData));
 	console.log("setCurrentDoc End");
-	for (var i = 0; i < data.taxEntityList.length; i++) {	
+	for (var i = 0; i < docData.taxEntityList.length; i++) {	
 		var EntityObj = {
-			"TIN" : data.taxEntityList[i].taxIdNum,
-			"Name" : data.taxEntityList[i].name,
-			"EntityCode" : data.taxEntityList[i].entityCode,
+			"TIN" : docData.taxEntityList[i].taxIdNum,
+			"Name" : docData.taxEntityList[i].name,
+			"EntityCode" : docData.taxEntityList[i].entityCode,
 			"DocType" : "CBCR",
-			"IncorporationCountry" : data.taxEntityList[i].reportingEntityCode,
-			"ResidentCountry" : data.taxEntityList[i].incorpCountryCode,
-			"IsPE" : checkYes(data.taxEntityList[i].isPermExtabliment),
-			"Address" : data.taxEntityList[i].addrStreet
+			"IncorporationCountry" : docData.taxEntityList[i].reportingEntityCode,
+			"ResidentCountry" : docData.taxEntityList[i].incorpCountryCode,
+			"IsPE" : checkYes(docData.taxEntityList[i].isPermExtabliment),
+			"Address" : docData.taxEntityList[i].addrStreet,
+			"MainEntity":docData.reportingEntityCode
 		};
 
 		EntityArray.push(EntityObj);
@@ -246,50 +255,50 @@ setCurrentDoc = function(data) {
 		console.log("EntityObj Numbher is : " + EntityObj.TIN);
 	}
 
-	for (var i = 0; i < data.cbcrTable1List.length; i++) {
+	for (var i = 0; i < docData.cbcrTable1List.length; i++) {
 		var Table1Obj = {
-			"TaxJurisdiction" : data.cbcrTable1List[i].taxJurisdiction,
-			"UnrelatedParty" : data.cbcrTable1List[i].revenueUnrelatedParty,
-			"RelatedParty" : data.cbcrTable1List[i].revenueRelatedParty,
-			"Total" : data.cbcrTable1List[i].revenueTotal,
-			"ProfitBeforeIncomeTax" : data.cbcrTable1List[i].plBeforeIncomeTax,
-			"IncomeTaxPaid " : data.cbcrTable1List[i].incomeTaxPaid,
-			"IncomeTaxAccrued" : data.cbcrTable1List[i].incomeTaxAccrued,
-			"StatedCaptial" : data.cbcrTable1List[i].statedCapital,
-			"AccumulatedEarnings" : data.cbcrTable1List[i].accumulatedEarnings,
-			"NumberofEmployees" : data.cbcrTable1List[i].numberOfEmployees,
-			"TangibleAssetsotherthanCashandCashEquivalents" : data.cbcrTable1List[i].tangibleAssetsNonCash
+			"TaxJurisdiction" : docData.cbcrTable1List[i].taxJurisdiction,
+			"UnrelatedParty" : docData.cbcrTable1List[i].revenueUnrelatedParty,
+			"RelatedParty" : docData.cbcrTable1List[i].revenueRelatedParty,
+			"Total" : docData.cbcrTable1List[i].revenueTotal,
+			"ProfitBeforeIncomeTax" : docData.cbcrTable1List[i].plBeforeIncomeTax,
+			"IncomeTaxPaid " : docData.cbcrTable1List[i].incomeTaxPaid,
+			"IncomeTaxAccrued" : docData.cbcrTable1List[i].incomeTaxAccrued,
+			"StatedCaptial" : docData.cbcrTable1List[i].statedCapital,
+			"AccumulatedEarnings" : docData.cbcrTable1List[i].accumulatedEarnings,
+			"NumberofEmployees" : docData.cbcrTable1List[i].numberOfEmployees,
+			"TangibleAssetsotherthanCashandCashEquivalents" : docData.cbcrTable1List[i].tangibleAssetsNonCash
 
 		};
 		Table1Array.push(Table1Obj);
 	}
 
-	for (var i = 0; i < data.cbcrTable2List.length; i++) {
+	for (var i = 0; i < docData.cbcrTable2List.length; i++) {
 		var Table2Obj = {
-			"taxJurisdiction" : data.cbcrTable2List[i].taxJurisdiction,
-			"entityCode" : data.cbcrTable2List[i].entityCode,
-			"taxJurisOfIncorporation" : data.cbcrTable2List[i].taxJurisOfIncorporation,
-			"mainBusRAndD" : checkYes(data.cbcrTable2List[i].mainBusRAndD),
-			"mainBusHoldingIp" : checkYes(data.cbcrTable2List[i].mainBusHoldingIp),
-			"mainBusPurchasing " : checkYes(data.cbcrTable2List[i].mainBusPurchasing),
-			"mainBusMfctOrPrdn" : checkYes(data.cbcrTable2List[i].mainBusMfctOrPrdn),
-			"mainBusSaleMktDistr" : checkYes(data.cbcrTable2List[i].mainBusSaleMktDistr),
-			"mainBusAdminMgmtSupportSvc" : checkYes(data.cbcrTable2List[i].mainBusAdminMgmtSupportSvc),
-			"mainBusProvSvcToUnrelatedParti" : checkYes(data.cbcrTable2List[i].mainBusProvSvcToUnrelatedParti),
-			"mainBusInternalGroupFinance" : checkYes(data.cbcrTable2List[i].mainBusInternalGroupFinance),
-			"mainBusRegulatedFinSvc" : checkYes(data.cbcrTable2List[i].mainBusRegulatedFinSvc),
-			"mainBusInsurance" : checkYes(data.cbcrTable2List[i].mainBusInsurance),
-			"mainBusHoldingEquityInstrument" : checkYes(data.cbcrTable2List[i].mainBusHoldingEquityInstrument),
-			"mainBusDormant" : checkYes(data.cbcrTable2List[i].mainBusDormant),
-			"mainBusOther" : checkYes(data.cbcrTable2List[i].mainBusOther)
+			"taxJurisdiction" : docData.cbcrTable2List[i].taxJurisdiction,
+			"entityCode" : docData.cbcrTable2List[i].entityCode,
+			"taxJurisOfIncorporation" : docData.cbcrTable2List[i].taxJurisOfIncorporation,
+			"mainBusRAndD" : checkYes(docData.cbcrTable2List[i].mainBusRAndD),
+			"mainBusHoldingIp" : checkYes(docData.cbcrTable2List[i].mainBusHoldingIp),
+			"mainBusPurchasing " : checkYes(docData.cbcrTable2List[i].mainBusPurchasing),
+			"mainBusMfctOrPrdn" : checkYes(docData.cbcrTable2List[i].mainBusMfctOrPrdn),
+			"mainBusSaleMktDistr" : checkYes(docData.cbcrTable2List[i].mainBusSaleMktDistr),
+			"mainBusAdminMgmtSupportSvc" : checkYes(docData.cbcrTable2List[i].mainBusAdminMgmtSupportSvc),
+			"mainBusProvSvcToUnrelatedParti" : checkYes(docData.cbcrTable2List[i].mainBusProvSvcToUnrelatedParti),
+			"mainBusInternalGroupFinance" : checkYes(docData.cbcrTable2List[i].mainBusInternalGroupFinance),
+			"mainBusRegulatedFinSvc" : checkYes(docData.cbcrTable2List[i].mainBusRegulatedFinSvc),
+			"mainBusInsurance" : checkYes(docData.cbcrTable2List[i].mainBusInsurance),
+			"mainBusHoldingEquityInstrument" : checkYes(docData.cbcrTable2List[i].mainBusHoldingEquityInstrument),
+			"mainBusDormant" : checkYes(docData.cbcrTable2List[i].mainBusDormant),
+			"mainBusOther" : checkYes(docData.cbcrTable2List[i].mainBusOther)
 
 		};
 		Table2Array.push(Table2Obj);
 	}
 
-	for (var i = 0; i < data.cbcrTable3List.length; i++) {
+	for (var i = 0; i < docData.cbcrTable3List.length; i++) {
 		var Table3Obj = {
-			"additionalInfo" : data.cbcrTable3List[i].additionalInfo
+			"additionalInfo" : docData.cbcrTable3List[i].additionalInfo
 		};
 		Table3Array.push(Table3Obj);
 	}

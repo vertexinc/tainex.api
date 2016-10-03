@@ -77,8 +77,9 @@ app
 									field : 'reportingPeriod',
 								} ],
 								data : DocArray,
-
-								rowTemplate : '<div ng-class="{\'my-style-1\':row.entity.reportingEntity==$scope.reportingEntity.reportingEntityCode}" <div ng-repeat="col in colContainer.renderedColumns track by col.colDef.name"  class="ui-grid-cell" ui-grid-cell></div></div>',
+								
+								//$scope.reportingEntity.reportingEntityCode
+								//rowTemplate : '<div ng-class="{\'my-style-1\':row.entity.TIN==\'10004\'}" <div ng-repeat="col in colContainer.renderedColumns track by col.colDef.name"  class="ui-grid-cell" ui-grid-cell></div></div>',
 
 								onRegisterApi : function(gridApi) {
 									$scope.gridApi = gridApi;
@@ -133,7 +134,7 @@ app
 									currencyCode : currentDocHeader.currencyCode,
 									resCountryCode : currentDocHeader.resCountryCode
 								};
-
+								
 								$scope.gridOptions2.data.length = 0;
 								$scope.gridOptions3.data.length = 0;
 								$scope.gridOptions4.data.length = 0;
@@ -216,10 +217,24 @@ app
 								}, {
 									name : 'Address',
 									field : 'Address',
-								} ],
+								},{
+									name:'mainEntity',
+									field:'MainEntity',
+									//visible : false
+								}],
 								data : EntityArray,
-								rowTemplate : '<div ng-class="{\'my-style-1\':row.entity.EntityCode===\'IndustryCo\' }" <div ng-repeat="col in colContainer.renderedColumns track by col.colDef.name"  class="ui-grid-cell" ui-grid-cell></div></div>'
+								
+								rowTemplate : '<div ng-class="{\'High-Light-Style\':row.entity.EntityCode===row.entity.MainEntity }" <div ng-repeat="col in colContainer.renderedColumns track by col.colDef.name"  class="ui-grid-cell" ui-grid-cell></div></div>'
+								//rowTemplate : '<div ng-class="{\'High-Light-Style\':entityHighlight(row.entity.EntityCode) }" <div ng-repeat="col in colContainer.renderedColumns track by col.colDef.name"  class="ui-grid-cell" ui-grid-cell></div></div>'
 							};
+							
+							
+							$scope.entityHighlight = function(entityCode){
+								return entityCode === "ICI ELIM"
+								 
+								
+							}
+								
 							$scope.gridOptions3 = {
 								// enableSorting: true,
 								headerTemplate : 'views/CbcrTable1Header.html',

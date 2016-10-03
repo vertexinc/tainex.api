@@ -266,9 +266,9 @@
 					</tbody>
 				</table-->
 				<div >
-					mySelections:{{mySelections}}
+					<!-- mySelections:{{mySelections}}
 					</br>
-					ID : {{rowIndex}}
+					ID : {{rowIndex}}-->
 					<div id="grid1" ui-grid="gridOptions" ui-grid-selection
 						ui-grid-auto-resize class="grid"></div>
 
