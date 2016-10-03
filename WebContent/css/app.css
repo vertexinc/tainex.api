@@ -1122,3 +1122,14 @@ td {
 	width: 755px;
 	height: 550px;
 }
+
+/*Row color test*/
+.my-style-1 {
+  background-color: #ff0000 !important;
+}
+.my-style-2 {
+  background-color: #ffffff !important;
+}
+.my-style-3 {
+  background-color: #0000ff !important;
+}

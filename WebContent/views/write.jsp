@@ -65,7 +65,7 @@
 
 	</div>
 	<div style="border: 1px solid #000"></div>
-	<div class="container">
+	<div class="container"  ng-controller="writeController">
 		<div class="scrollbar3" id="style-4">
 			<!--  div class="force-overflow3"-->
 
@@ -265,14 +265,16 @@
 
 					</tbody>
 				</table-->
-				<div ng-controller="writeController">
-			
+				<div >
+					mySelections:{{mySelections}}
+					</br>
+					ID : {{rowIndex}}
 					<div id="grid1" ui-grid="gridOptions" ui-grid-selection
 						ui-grid-auto-resize class="grid"></div>
 
 				</div>
 			</div>
-			<div id="Entity" class="tabcontent">
+			<div id="Entity" class="tabcontent"  >
 				<div class="row" id="docrow">
 					<h3>&nbsp;&nbsp; Entities in CBCR Doc:</h3>
 				</div>
@@ -283,7 +285,7 @@
 							<table style="width: 100%">
 								<tr>
 									<td>Reporting Entity:</td>
-									<td><%=tieMainPage.getCurrentTieDoc().getReportingEntity().getName()%></td>
+									<td><%=tieMainPage.getCurrentTieDoc().getReportingEntity().getName()%>{{reportingEntity}}</td>
 								</tr>
 								<tr>
 									<td>Resident Country:</td>
@@ -324,7 +326,7 @@
 							<%}%>
 						</tbody>
 					</table-->
-					<div ng-controller="writeController">
+					<div>
 						<div id="grid2" ui-grid="gridOptions2" ui-grid-auto-resize
 							class="grid2"></div>
 					</div>
@@ -387,7 +389,7 @@
 
 
 				</div>
-				<div ng-controller="writeController">
+				<div >
 					<div id="grid3" ui-grid="gridOptions3" ui-grid-auto-resize
 						class="grid3"></div>
 				</div>
@@ -495,7 +497,7 @@
 							<!--[endif]-->
 						</tbody>
 					</table>
-					<div ng-controller="writeController">
+					<div>
 						<div id="grid4" ui-grid="gridOptions4" ui-grid-auto-resize ui-grid-pagination
 							class="grid4"></div>
 					</div>
@@ -523,7 +525,7 @@
 			
 					</table>	
 					</br>
-					<div ng-controller="writeController">
+					<div>
 						<div id="grid5" ui-grid="gridOptions5" ui-grid-auto-resize
 							class="grid5"></div>
 					</div>

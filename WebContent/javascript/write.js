@@ -76,7 +76,7 @@ $(".member tr").click(function() {
 			updateTab(data);
 			updateMsgPane(data);
 			createDocs(data); // show the list of docs of the msg
-
+			
 			// determine the currentDoc, as the first in the doc list
 			
 			// highlight the current doc row in the doc list table
@@ -205,9 +205,15 @@ var Table1Array = [];
 var Table2Array = [];
 var Table3Array = [];
 
-//pass in doc data
+var currentDocHeader = 'No Header';
+
+//this data is passing in doc data from parent data
 setCurrentDoc = function(data) {
 	// this.docId = docId;
+	
+	//set the doc table header value
+	currentDocHeader = data.reportingEntityCode;
+	console.log('data.reportingEntityCode -- >' + currentDocHeader);
 	
 	if (EntityArray.length > 0) {
 		EntityArray = []

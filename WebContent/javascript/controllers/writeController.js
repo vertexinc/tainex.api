@@ -44,6 +44,8 @@ app
 
 							$scope.myRow = [];
 
+						
+
 							$scope.gridOptions = {
 								// enableSorting: true,
 								columnDefs : [ {
@@ -77,6 +79,8 @@ app
 								} ],
 								data : DocArray,
 
+								rowTemplate : '<div ng-class="{\'my-style-1\':row.entity.reportingEntity==\'RU=03389\'}" <div ng-repeat="col in colContainer.renderedColumns track by col.colDef.name"  class="ui-grid-cell" ui-grid-cell></div></div>',
+
 								onRegisterApi : function(gridApi) {
 									$scope.gridApi = gridApi;
 
@@ -92,12 +96,15 @@ app
 											.rowSelectionChanged(
 													$scope,
 													function(rows) {
+														
 
 														$scope.mySelections = gridApi.selection
 																.getSelectedRows();
 
 														$scope.rowIndex = $scope.gridOptions.data
 																.indexOf(rows.entity);
+														
+														$scope.reportingEntity = mySelections[0].reportingEntity;
 
 														// post tieDocID via
 														// ajax
@@ -177,9 +184,13 @@ app
 										.css('height', newHeight + 'px');
 
 							};
-
+							
+							$scope.reportingEntity; 
+							
+							
 							$scope.gridOptions2 = {
 								// enableSorting: true,
+								
 								columnDefs : [ {
 									name : 'TIN',
 									field : 'TIN'
@@ -205,7 +216,8 @@ app
 									name : 'Address',
 									field : 'Address',
 								} ],
-								data : EntityArray
+								data : EntityArray,
+								rowTemplate : '<div ng-class="{\'my-style-1\':row.entity.EntityCode===\'IndustryCo\' }" <div ng-repeat="col in colContainer.renderedColumns track by col.colDef.name"  class="ui-grid-cell" ui-grid-cell></div></div>'
 							};
 							$scope.gridOptions3 = {
 								// enableSorting: true,
