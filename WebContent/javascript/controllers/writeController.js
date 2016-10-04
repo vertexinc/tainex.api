@@ -37,16 +37,17 @@ app
 
 							};
 
-							/*$scope.gridOptions = {
-								enableFullRowSelection : true
-							};*/
+							/*
+							 * $scope.gridOptions = { enableFullRowSelection :
+							 * true };
+							 */
 
 							$scope.myRow = [];
 
 							$scope.gridOptions = {
 								// enableSorting: true,
 								enableRowSelection : true,
-								enableFullRowSelection : true,
+								//enableFullRowSelection : true,
 								columnDefs : [ {
 									name : 'docId',
 									field : 'id',
@@ -77,7 +78,8 @@ app
 									field : 'reportingPeriod',
 								} ],
 								data : DocArray,
-
+								//currenthighlightrow
+								rowTemplate : '<div ng-click="grid.appScope.highlight(row)" ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.uid" class="ui-grid-cell" ng-class="col.colIndex()" ui-grid-cell></div>',
 								// $scope.reportingEntity.reportingEntityCode
 								// rowTemplate : '<div
 								// ng-class="{\'my-style-1\':row.entity.TIN==\'10004\'}"
@@ -120,7 +122,11 @@ app
 													});
 								}
 							};
-
+							
+							//set currenthighlightrow function
+							$scope.highlight = function(row){
+								alert("Current Highlight row: " + row.entity.code);
+							};
 							$scope.mySelections = [];
 							$scope.changeDelete = function() {
 								console.log('Selection length = '
