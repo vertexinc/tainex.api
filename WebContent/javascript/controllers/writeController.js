@@ -76,10 +76,13 @@ app
 								}, {
 									name : 'reportingPeriod',
 									field : 'reportingPeriod',
+								},{
+									name : 'highLight',
+									field : 'highLight',
 								} ],
 								data : DocArray,
 								//currenthighlightrow
-								rowTemplate : '<div ng-click="grid.appScope.highlight(row)" ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.uid" class="ui-grid-cell" ng-class="col.colIndex()" ui-grid-cell></div>',
+								rowTemplate : '<div ng-click="grid.appScope.highlight(row)" ng-class="{\'High-Light-Style\':row.entity.highLight===true }"  ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.uid" class="ui-grid-cell" ng-class="col.colIndex()" ui-grid-cell></div>',
 								// $scope.reportingEntity.reportingEntityCode
 								// rowTemplate : '<div
 								// ng-class="{\'my-style-1\':row.entity.TIN==\'10004\'}"
@@ -125,7 +128,12 @@ app
 							
 							//set currenthighlightrow function
 							$scope.highlight = function(row){
-								alert("Current Highlight row: " + row.entity.code);
+								//alert("Current Highlight row: " + row.entity.code);
+								row.entity.highLight = true;
+								
+								//'<div ng-class="{\'High-Light-Style\':row.entity.EntityCode===row.entity.MainEntity }" 
+								//<div ng-repeat="col in colContainer.renderedColumns track by col.colDef.name"  
+								//class="ui-grid-cell" ui-grid-cell></div></div>'
 							};
 							$scope.mySelections = [];
 							$scope.changeDelete = function() {

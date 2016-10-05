@@ -188,7 +188,9 @@ var createDocs = function(data) {
 			"currency" : data.tieDocList[i].currencyCode,
 			"residentCountry" : data.tieDocList[i].resCountryCode,
 			"accountingStandard" : data.tieDocList[i].accountingStandard,
-			"reportingPeriod" : data.tieDocList[i].reportingPeriod
+			"reportingPeriod" : data.tieDocList[i].reportingPeriod,
+			//pass in default highlight
+			"highLight":false
 		};
 		DocArray.push(DocObj);
 	}
