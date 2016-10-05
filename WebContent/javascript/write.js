@@ -190,7 +190,8 @@ var createDocs = function(data) {
 			"accountingStandard" : data.tieDocList[i].accountingStandard,
 			"reportingPeriod" : data.tieDocList[i].reportingPeriod,
 			//pass in default highlight
-			"highLight":false
+			// first one set to true
+			"highLight":i === 0 
 		};
 		DocArray.push(DocObj);
 	}

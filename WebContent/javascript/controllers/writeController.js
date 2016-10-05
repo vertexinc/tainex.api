@@ -129,6 +129,11 @@ app
 							//set currenthighlightrow function
 							$scope.highlight = function(row){
 								//alert("Current Highlight row: " + row.entity.code);
+								//unselect other rows first
+								for (i = 0;i < DocArray.length; i++){
+									DocArray[i].highLight = false;
+								}
+									
 								row.entity.highLight = true;
 								
 								//'<div ng-class="{\'High-Light-Style\':row.entity.EntityCode===row.entity.MainEntity }" 
