@@ -79,6 +79,7 @@ app
 								},{
 									name : 'highLight',
 									field : 'highLight',
+									visible : false
 								} ],
 								data : DocArray,
 								//currenthighlightrow
@@ -120,8 +121,9 @@ app
 														// to set the current
 														// Doc
 														// setCurrentDoc($scope.rowIndex);
-														postDoc($scope.mySelections[0].id);
-														$scope.refOtherTable();
+														
+														//postDoc($scope.mySelections[0].id);
+														//$scope.refOtherTable();
 													});
 								}
 							};
@@ -136,9 +138,11 @@ app
 									
 								row.entity.highLight = true;
 								
-								//'<div ng-class="{\'High-Light-Style\':row.entity.EntityCode===row.entity.MainEntity }" 
-								//<div ng-repeat="col in colContainer.renderedColumns track by col.colDef.name"  
-								//class="ui-grid-cell" ui-grid-cell></div></div>'
+								//move highlight funtion from previous select function
+								postDoc(row.entity.id);
+								$scope.refOtherTable();
+								
+								
 							};
 							$scope.mySelections = [];
 							$scope.changeDelete = function() {
