@@ -42,7 +42,7 @@ var postDoc = function(tieDocId) {
 		url : "http://localhost:8080/TIEapp/login",
 		data : temp,
 		success : function(data) {
-			
+
 			setCurrentDoc(data);
 			updateEntityandOtherTab(data);
 		},
@@ -54,8 +54,6 @@ var postDoc = function(tieDocId) {
 }
 
 // data from call back
-
-
 
 $(".member tr").click(function() {
 	var rowID = $(this).find(".msgID").text();
@@ -72,17 +70,16 @@ $(".member tr").click(function() {
 			// $("#msgText").text(data);
 			// alert(data.sender.name);
 			// table2data = data.tieDocList[0].cbcrTable2List;
-			//alert("data.tieDocList[0]" + data.tieDocList[0])
-			
-			
+			// alert("data.tieDocList[0]" + data.tieDocList[0])
+
 			setCurrentDoc(data.tieDocList[0]);
-			 
+
 			updateTab(data);
 			updateMsgPane(data);
 			createDocs(data); // show the list of docs of the msg
-			
+
 			// determine the currentDoc, as the first in the doc list
-			
+
 			// highlight the current doc row in the doc list table
 
 			// TODO
@@ -122,25 +119,17 @@ var updateTab = function(data) {
 }
 
 var updateEntityandOtherTab = function(data) {
-	$("#currentEntityTab")
-			.attr("title", data.reportingEntityCode);
-	$("#entityTagSub").text(
-			"(" + top8letter(data.reportingEntityCode) + ")");
+	$("#currentEntityTab").attr("title", data.reportingEntityCode);
+	$("#entityTagSub").text("(" + top8letter(data.reportingEntityCode) + ")");
 
-	$("#currentTable1Tab")
-			.attr("title", data.reportingEntityCode);
-	$("#t1TagSub").text(
-			"(" + top8letter(data.reportingEntityCode) + ")");
+	$("#currentTable1Tab").attr("title", data.reportingEntityCode);
+	$("#t1TagSub").text("(" + top8letter(data.reportingEntityCode) + ")");
 
-	$("#currentTable2Tab")
-			.attr("title", data.reportingEntityCode);
-	$("#t2TagSub").text(
-			"(" + top8letter(data.reportingEntityCode) + ")");
+	$("#currentTable2Tab").attr("title", data.reportingEntityCode);
+	$("#t2TagSub").text("(" + top8letter(data.reportingEntityCode) + ")");
 
-	$("#currentTable3Tab")
-			.attr("title", data.reportingEntityCode);
-	$("#t3TagSub").text(
-			"(" + top8letter(data.reportingEntityCode) + ")");
+	$("#currentTable3Tab").attr("title", data.reportingEntityCode);
+	$("#t3TagSub").text("(" + top8letter(data.reportingEntityCode) + ")");
 }
 
 var top8letter = function(input) {
@@ -172,9 +161,8 @@ var DocArray = [];
 // loop through doclist to select out table columns
 // data: Message Object
 
-
 var createDocs = function(data) {
-	
+
 	if (DocArray.length > 0) {
 		DocArray = []
 	}
@@ -189,20 +177,20 @@ var createDocs = function(data) {
 			"residentCountry" : data.tieDocList[i].resCountryCode,
 			"accountingStandard" : data.tieDocList[i].accountingStandard,
 			"reportingPeriod" : data.tieDocList[i].reportingPeriod,
-			//pass in default highlight
+			// pass in default highlight
 			// first one set to true
-			"highLight":i === 0 
+			"highLight" : i === 0
 		};
 		DocArray.push(DocObj);
 	}
 }
 
 // validate yes or no
-var checkYes = function(num){
+var checkYes = function(num) {
 	this.num = num;
-	if (num == 1){
+	if (num == 1) {
 		return 'YES';
-	}else{
+	} else {
 		return ' '
 	}
 }
@@ -218,19 +206,18 @@ var currentDocHeader = {};
 
 var currentEntityCode;
 
-//this data is passing in doc data from parent data
+// this data is passing in doc data from parent data
 setCurrentDoc = function(docData) {
 	// this.docId = docId;
-	
-	//set the doc table header value
+
+	// set the doc table header value
 	currentDocHeader.reportingEntityCode = docData.reportingEntityCode;
 	currentDocHeader.reportingEntityName = docData.reportingEntity.name;
 	currentDocHeader.currencyCode = docData.currencyCode;
 	currentDocHeader.resCountryCode = docData.resCountryCode;
-	
-	
+
 	console.log('data.reportingEntityCode -- >' + currentDocHeader);
-	
+
 	if (EntityArray.length > 0) {
 		EntityArray = []
 	}
@@ -240,7 +227,7 @@ setCurrentDoc = function(docData) {
 	console.log("setCurrentDoc Start, currentDocData : "
 			+ JSON.stringify(docData));
 	console.log("setCurrentDoc End");
-	for (var i = 0; i < docData.taxEntityList.length; i++) {	
+	for (var i = 0; i < docData.taxEntityList.length; i++) {
 		var EntityObj = {
 			"TIN" : docData.taxEntityList[i].taxIdNum,
 			"Name" : docData.taxEntityList[i].name,
@@ -250,7 +237,7 @@ setCurrentDoc = function(docData) {
 			"ResidentCountry" : docData.taxEntityList[i].incorpCountryCode,
 			"IsPE" : checkYes(docData.taxEntityList[i].isPermExtabliment),
 			"Address" : docData.taxEntityList[i].addrStreet,
-			"MainEntity":docData.reportingEntityCode
+			"MainEntity" : docData.reportingEntityCode
 		};
 
 		EntityArray.push(EntityObj);
@@ -307,3 +294,13 @@ setCurrentDoc = function(docData) {
 	}
 
 }
+// resize upper and lower
+$(".panel-left").resizable({
+	handleSelector : ".splitter",
+	resizeHeight : false
+});
+
+$(".panel-top").resizable({
+	handleSelector : ".splitter-horizontal",
+	resizeWidth : false
+});

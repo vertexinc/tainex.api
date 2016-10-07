@@ -18,6 +18,7 @@
 
 
 <script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/jquery-resizable/dist/jquery-resizable.min.js"></script>
 <link rel="stylesheet"
 	href="bower_components/bootstrap/dist/css/bootstrap.css">
 <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>

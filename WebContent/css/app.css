@@ -19,6 +19,7 @@ a {
 }
 
 .container {
+	
 	display: flex;
 	width: 100%;
 	height: 100%;
@@ -653,10 +654,7 @@ textarea {
   	left: 0;*/
 }
 
-#upper {
-	height: 260px;
-	border-bottom: 1px solid #000;
-}
+
 
 #Message {
 	width: 100%;
@@ -1128,5 +1126,40 @@ td {
   background-color: #b3ffb3 !important;
 }
 
+/*spliter*/
+.splitter-horizontal {
+  flex: 0 0 auto;
+  height: 18px;
+  background: url(https://raw.githubusercontent.com/RickStrahl/jquery-resizable/master/assets/hsizegrip.png) center center no-repeat #535353;
+  cursor: row-resize;
+}
 
+/*#upper {
+	height: 260px;
+	border-bottom: 1px solid #000;
+}*/
+
+.panel-top {
+  flex: 0 0 auto;
+  /* only manually resize*/
+  padding: 10px;
+  height: 260px;
+  width: 100%;
+  /*white-space: nowrap;
+  background: #838383;
+  color: white;*/
+}
+
+
+.panel-container-vertical {
+  display: flex;
+  flex-direction: column;
+
+  overflow: hidden;
+}
+
+.panel-bottom {
+  flex: 1 1 auto;
+
+}
 
