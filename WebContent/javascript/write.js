@@ -39,7 +39,7 @@ var postDoc = function(tieDocId) {
 	var temp = "action=selectCurrentDoc" + "&tieDocId=" + tieDocId;
 	$.ajax({
 		type : "POST",
-		url : "http://localhost:8080/TIEapp/login",
+		url : "http://localhost:8080/login",
 		data : temp,
 		success : function(data) {
 
@@ -63,7 +63,7 @@ $(".member tr").click(function() {
 		type : "POST",
 		// contentType:"application/json",
 		// dataType:'json',
-		url : "http://localhost:8080/TIEapp/login",
+		url : "http://localhost:8080/lfogin",
 		data : temp,
 		success : function(data) {
 			// alert('success'),

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="TIEapp:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="TIEapp-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="TIEapp:war exploded" />
+    </root>
+  </artifact>
+</component>
