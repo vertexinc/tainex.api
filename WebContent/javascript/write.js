@@ -63,7 +63,7 @@ $(".member tr").click(function() {
 		type : "POST",
 		// contentType:"application/json",
 		// dataType:'json',
-		url : "http://localhost:8080/lfogin",
+		url : "http://localhost:8080/login",
 		data : temp,
 		success : function(data) {
 			// alert('success'),
