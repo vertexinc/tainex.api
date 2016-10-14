@@ -65,7 +65,8 @@ public class LoginServlet extends HttpServlet {
 			} else if (action.equals("selectCurrentDoc")) {
 				selectCurrentDoc(request, response, sessionController);
 			} else {
-				RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
+				//RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("index1.html");
 				rd.forward(request, response);
 			} // end switch on action
 
@@ -95,7 +96,8 @@ public class LoginServlet extends HttpServlet {
 				/*
 				 * Put logic here?
 				 */
-				RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
+				//RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("index1.html");
 				rd.include(request, response);
 			} else {
 				out.print("<p style=\"color:red; text-align: center; \">Sorry username or password error</p>");
