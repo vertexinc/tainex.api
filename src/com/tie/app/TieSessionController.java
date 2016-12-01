@@ -22,6 +22,7 @@ import com.tie.model.TieMsgReceiver;
 import com.tie.model.TieMsgState;
 import com.tie.model.TieUser;
 import com.tie.model.TieTaxEntity;
+import com.tie.ui.Header;
 import com.tie.ui.TieMainPage;
 
 /**
@@ -172,6 +173,22 @@ public class TieSessionController extends TieControllerBase {
 
 		return retval;
 	}// end getMainPage()
+	
+	/*
+	 * Init object when user first login
+	 */
+	public Header initMainPage(){
+		Header header = new Header();
+		header.setAppName(TieMainPage.getTieMainPage().getAppName());
+		header.setUserName(TieMainPage.getTieMainPage().getUsername());
+		ArrayList<String> language = new ArrayList<String>();
+		language.add("en");
+		language.add("zh");
+		language.add("es");
+		language.add("fr");
+		header.setLanguage(language);
+		return header;
+	}
 
 	/**
 	 * Select the msg object for the given id. Set it to the main page as the
@@ -315,5 +332,6 @@ public class TieSessionController extends TieControllerBase {
 		currentDoc.setTable3String(table3String.toString());
 
 	}// end populateDoc(.)
+	
 
 }// end class TieSessionContrller

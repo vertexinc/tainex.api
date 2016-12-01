@@ -1,0 +1,12 @@
+{
+  "TRANSLATE": {
+    "FOR": "for",
+    "WELCOME":"Welcome",
+    "TRAINING":"Training",
+    "LANGUAGE": "Language",
+    "COMPOSE": "Compose",
+    "INBOX":"Inbox",
+    "DRAFT": "Draft",
+    "SEARCHBY": "Search By"
+  }
+}

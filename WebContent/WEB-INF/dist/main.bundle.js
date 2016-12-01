@@ -8835,7 +8835,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var TieappService = (function () {
     function TieappService(_http) {
         this._http = _http;
-        this._url = "tieapp.data.json";
+        // private _url = "tieapp.data.json";
+        this._url = "./app/tieapp.data.json";
         this.currentUrl = 'login';
         this._currentMsgUrl1 = "./app/tieapp.data.messageDetail1.json";
         this._currentMsgUrl2 = "./app/tieapp.data.messageDetail2.json";
@@ -8844,26 +8845,16 @@ var TieappService = (function () {
         this._currentDocUrl2 = "./app/tieapp.data.doc2.json";
         this._currentDocUrl3 = "./app/tieapp.data.doc3.json";
         this._currentDocUrl4 = "./app/tieapp.data.doc4.json";
-        this.textPostUrl = "https://jsonplaceholder.typicode.com/posts";
     }
     TieappService.prototype.getData = function () {
         return this._http.get(this._url)
             .map(function (res) { return res.json(); });
     };
     TieappService.prototype.getHeader = function () {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/json' });
-        // let headers = new Headers({ 'Content-Type': 'text/plain; charset=UTF-8' });
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'text/html' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* RequestOptions */]({ headers: headers });
-        var param = JSON.stringify({ action: "initPage" });
-        //   let param = {
-        //   "userId": 11,
-        //   "id": 11,
-        //   "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-        //   "body": "quia et suscipi"
-        // };
-        alert("posted");
-        //  return this._http.post(this.textPostUrl, param, options)
-        return this._http.post(this.currentUrl, param, options)
+        var params = 'action=initPage';
+        return this._http.post(this.currentUrl, params)
             .map(function (res) { return res.json(); });
     };
     TieappService.prototype.setCurrentMsgURL = function (messageId) {
@@ -8903,7 +8894,7 @@ var TieappService = (function () {
         }
     };
     TieappService.prototype.postCurrentMsg = function (messageId) {
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/json' });
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'text/html' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* RequestOptions */]({ headers: headers });
         var temp = "action=selectCurrentMsg" + "&msgid=" + messageId;
         alert(temp);
@@ -40779,7 +40770,7 @@ var AppComponent = (function () {
         });
         this._tieappService.getHeader()
             .subscribe(function (tieMsgData) {
-            alert(JSON.stringify(tieMsgData));
+            _this.header = tieMsgData;
         });
     };
     AppComponent.prototype.tieAppShowInfo = function (showApp) {

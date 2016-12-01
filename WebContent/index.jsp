@@ -48,3 +48,29 @@
 
 </body>
 </html>
+
+
+
+
+<!--  
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Tieapp</title>
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+	<tieapp-root>Loading...</tieapp-root>
+	
+	<script type="text/javascript" src="dist/inline.js"></script>
+	<script type="text/javascript" src="dist/styles.bundle.js"></script>
+	<script type="text/javascript" src="dist/scripts.bundle.js"></script>
+	<script type="text/javascript" src="dist/main.bundle.js"></script>
+</body>
+</html> 
+
+-->
