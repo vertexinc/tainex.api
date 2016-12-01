@@ -40778,8 +40778,9 @@ var AppComponent = (function () {
             _this.tieapp = tieMsgData;
         });
         this._tieappService.getHeader()
-            .subscribe(function (tieMsgData) {
-            alert(JSON.stringify(tieMsgData));
+            .subscribe(function (tieData) {
+            _this.header = tieData;
+            alert(JSON.stringify(tieData));
         });
     };
     AppComponent.prototype.tieAppShowInfo = function (showApp) {
