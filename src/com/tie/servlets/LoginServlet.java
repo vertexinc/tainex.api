@@ -94,14 +94,15 @@ public class LoginServlet extends HttpServlet {
 			System.out.println(param.toString());
 			// 4. Set response type to JSON
 			String action = param.getAction();
-	
+
 			System.out.println("param.getAction: " + param.getAction());
 			if (action.equals("initPage")) {
 				System.out.println("Directing to initPage function");
 				initPage(request, response, sessionController);
 			} else {
 				System.out.println("not Directing to initPage function: " + param.getAction());
-				initPage(request, response, sessionController);
+				RequestDispatcher rd = request.getRequestDispatcher("dist/index.html");
+				rd.forward(request, response);
 			}
 
 			// 5. Add article to List<Article>

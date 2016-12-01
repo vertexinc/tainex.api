@@ -49,6 +49,6 @@ public class Param {
 
 	@Override
 	public String toString() {
-		return "Param [action=" + action + "]";
+		return "Param [action=" + action + ", messageId=" + messageId + ", docId=" + docId + "]";
 	}
 }
