@@ -16,6 +16,11 @@ public class Param {
 		// super();
 		this.action = action;
 	}
+	
+	public Param() {
+		// super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public int getMessageId() {
 		return messageId;
@@ -31,11 +36,6 @@ public class Param {
 
 	public void setDocId(int docId) {
 		this.docId = docId;
-	}
-
-	public Param() {
-		// super();
-		// TODO Auto-generated constructor stub
 	}
 
 

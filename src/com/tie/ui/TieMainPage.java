@@ -22,7 +22,7 @@ public class TieMainPage {
 	private String appName;
 	private String username;
 	//supported language list each is a String 
-	private String language;
+	private List<String> language = new ArrayList<String>();
 	private SelectionCriteria selectionCriteria;
 	//Dont make it static, the 2nd user login will see the override values
 	private static TieMainPage tieMainPage = new TieMainPage();
@@ -33,6 +33,17 @@ public class TieMainPage {
 	public List<TieTaxEntity> taxEntitylist = new ArrayList<TieTaxEntity>();
 	public String toListString;
 	public String table3String;
+	//current tieMsg
+	private TieMsg currentMsg;
+	
+	//current Doc
+	private TieDoc currentTieDoc;
+	
+	//store list of table1 records
+	public List<CbcrTable1> cbcrTable1RecordList = new ArrayList<CbcrTable1>();
+	
+	public List<CbcrTable2> cbcrTable2RecordList = new ArrayList<CbcrTable2>();
+	
 	
 	public String getTable3String() {
 		return table3String;
@@ -50,18 +61,6 @@ public class TieMainPage {
 		this.toListString = toListString;
 	}
 
-
-	//current tieMsg
-	private TieMsg currentMsg;
-	
-	//current Doc
-	private TieDoc currentTieDoc;
-	
-	//store list of table1 records
-	public List<CbcrTable1> cbcrTable1RecordList = new ArrayList<CbcrTable1>();
-	
-	public List<CbcrTable2> cbcrTable2RecordList = new ArrayList<CbcrTable2>();
-	
 	public TieDoc getCurrentTieDoc() {
 		return currentTieDoc;
 	}
@@ -117,8 +116,12 @@ public class TieMainPage {
 	}
 
 	public void init() {
-		language = "EN";
 		selectionCriteria = new SelectionCriteria();
+		language.add("en");
+		language.add("zh");
+		language.add("es");
+		language.add("fr");
+		setLanguage(language);
 		//tieMsgState.setTieMsgStateId(currentMsg.getTieMsgId());
 	}
 	
@@ -142,11 +145,11 @@ public class TieMainPage {
 		this.username = username;
 	}
 
-	public String getLanguage() {
+	public List<String> getLanguage() {
 		return language;
 	}
 
-	public void setLanguage(String language) {
+	public void setLanguage( List<String> language) {
 		this.language = language;
 	}
 

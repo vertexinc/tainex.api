@@ -33,6 +33,7 @@ import org.json.JSONObject;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.tie.app.TieController;
 import com.tie.app.TieSecurityManager;
 import com.tie.app.TieSessionController;
@@ -42,6 +43,7 @@ import com.tie.model.TieDoc;
 import com.tie.model.TieMsg;
 import com.tie.ui.Header;
 import com.tie.ui.Param;
+import com.tie.ui.TieMainPage;
 import com.tie.dao.LoginDao;
 
 @WebServlet("/login")
@@ -91,6 +93,7 @@ public class LoginServlet extends HttpServlet {
 			// 3. Convert received JSON to Article
 			// Article article = mapper.readValue(json, Article.class);
 			Param param = mapper.readValue(json, Param.class);
+
 			System.out.println(param.toString());
 			// 4. Set response type to JSON
 			String action = param.getAction();
@@ -181,13 +184,25 @@ public class LoginServlet extends HttpServlet {
 		out.close();
 	}// end doPost(..)
 
+	//Return the whole TIEapp json when init
+	//Customize init json to front end
 	private void initPage(HttpServletRequest request, HttpServletResponse response,
 			TieSessionController sessionController) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Header header = sessionController.initMainPage();
 		ObjectMapper ma = new ObjectMapper();
+		
+		//SimpleModule module = new SimpleModule();
+		//module.addSerializer(Header.class, new InitSerializer());
+		//ma.registerModule(module);
+		ObjectMapper ma2 = new ObjectMapper();
+		TieMainPage retval = null;
+		retval = TieMainPage.getTieMainPage();
+		String tieJson = ma2.writeValueAsString(retval);
 		String headerjson = ma.writeValueAsString(header);
-		System.out.println(headerjson);
+		//String serialized = ma.writeValueAsString(header);
+		System.out.println("header json string: " + headerjson);
+		System.out.println("init json string: " + tieJson);
 		response.setContentType("text/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(headerjson);

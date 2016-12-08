@@ -91,6 +91,26 @@ public class TieSessionController extends TieControllerBase {
 		// ------- populate for msg pane --------
 		List<TieMsg> msgList = new ArrayList<TieMsg>();
 		msgList = persister.getTieMsgDao().findTieMsgByOwnerId(user.getTieUserId());// (user.getTieUserId());
+		for(TieMsg msg:msgList){
+			int msgId = msg.getTieMsgId();
+			int senderId = msg.getSenderId();
+			int statusId = msg.getTieMsgStateId();
+			TieMsgState tieMsgState = TieMsgState.findById(statusId);
+			TieUser sender = persister.getTieUserDao().findTieUserById(senderId);
+			List<TieMsgReceiver> tiemsgReceiverList = new ArrayList<TieMsgReceiver>();
+			tiemsgReceiverList = persister.getTieMsgReceiverDao().findTieMsgReceiverById(msgId);
+
+			// Populate toListString
+			StringBuilder toListString = new StringBuilder("");
+			for (TieMsgReceiver tieMsgReceiver : tiemsgReceiverList) {
+				toListString.append(tieMsgReceiver.getSenderCode()).append("@").append(tieMsgReceiver.getReceivingCountry())
+						.append(";");
+			}
+			msg.setMsgReceiverList(toListString.toString());
+			msg.setSender(sender);
+			msg.setTieMsgState(tieMsgState);
+		}
+		
 		TieMainPage.getTieMainPage().setMsgList(msgList);
 
 		// TODO
