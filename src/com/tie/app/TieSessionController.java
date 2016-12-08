@@ -95,11 +95,17 @@ public class TieSessionController extends TieControllerBase {
 			int msgId = msg.getTieMsgId();
 			int senderId = msg.getSenderId();
 			int statusId = msg.getTieMsgStateId();
+			//int currentDocId = msg.getTieDocList().get(0).getTieDocId();
+					
+//			List<TieTaxEntity> taxEntitylist = new ArrayList<TieTaxEntity>();
+//			taxEntitylist = persister.getTieEntityDao().findTieEntityByTieDocId(currentDocId);
+//			TieMainPage.getTieMainPage().setTaxEntitylist(taxEntitylist);
+			
 			TieMsgState tieMsgState = TieMsgState.findById(statusId);
 			TieUser sender = persister.getTieUserDao().findTieUserById(senderId);
 			List<TieMsgReceiver> tiemsgReceiverList = new ArrayList<TieMsgReceiver>();
 			tiemsgReceiverList = persister.getTieMsgReceiverDao().findTieMsgReceiverById(msgId);
-
+			
 			// Populate toListString
 			StringBuilder toListString = new StringBuilder("");
 			for (TieMsgReceiver tieMsgReceiver : tiemsgReceiverList) {
@@ -112,6 +118,7 @@ public class TieSessionController extends TieControllerBase {
 		}
 		
 		TieMainPage.getTieMainPage().setMsgList(msgList);
+		System.out.println("Check msglist: " + msgList.toString());
 
 		// TODO
 		// ------ populate current msg pane, msg tab -------
@@ -158,11 +165,13 @@ public class TieSessionController extends TieControllerBase {
 		tieTaxEntity = persister.getTieEntityDao().findTieEntityByCode(currentDoc.getReportingEntityCode());
 		currentDoc.setReportingEntity(tieTaxEntity);
 
+
 		// ------ populate current msg pane, entity tab -------
 		int currentDocId = currentDoc.getTieDocId();
 		List<TieTaxEntity> taxEntitylist = new ArrayList<TieTaxEntity>();
 		taxEntitylist = persister.getTieEntityDao().findTieEntityByTieDocId(currentDocId);
-		TieMainPage.getTieMainPage().setTaxEntitylist(taxEntitylist);
+		currentDoc.setTaxEntityList(taxEntitylist);
+		
 
 		// ------ populate current msg pane, table1 tab -------
 		List<CbcrTable1> cbcrTable1List = persister.getCbcrTable1Dao().findCbcrTable1ByTieDocId(currentDocId);
@@ -180,6 +189,7 @@ public class TieSessionController extends TieControllerBase {
 			table3String.append(cbcrTable3.getAdditionalInfo()).append(";").append("\n");
 		}
 		TieMainPage.getTieMainPage().setTable3String(table3String.toString());
+		
 	}// end handleLogin()
 
 	/**

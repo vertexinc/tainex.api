@@ -33,10 +33,20 @@ public class TieMsg {
 	private String timestamp;
 	private String rawMsg;
 	private String msgReceiverList;
-
+	
+	private List<TieTaxEntity> tieTaxEntity= new ArrayList<TieTaxEntity>();
+	
 	private List<TieDoc> tieDocList = new ArrayList<TieDoc>();
 	// OECD Message Type indicator
 	public static String[] messageTypeIndi = { "CBC401", "CBC402", "CBC403" };
+
+	public List<TieTaxEntity> getTieTaxEntity() {
+		return tieTaxEntity;
+	}
+
+	public void setTieTaxEntity(List<TieTaxEntity> tieTaxEntity) {
+		this.tieTaxEntity = tieTaxEntity;
+	}
 
 	public String getMsgReceiverList() {
 		return msgReceiverList;
