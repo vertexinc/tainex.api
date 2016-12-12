@@ -36,6 +36,17 @@ public class TieMainPage {
 	//current tieMsg
 	private TieMsg currentMsg;
 	
+	//docList
+	private List<TieDoc> tieDocList;
+	public List<TieDoc> getTieDocList() {
+		return tieDocList;
+	}
+
+	public void setTieDocList(List<TieDoc> tieDocList) {
+		this.tieDocList = tieDocList;
+	}
+
+
 	//current Doc
 	private TieDoc currentTieDoc;
 	

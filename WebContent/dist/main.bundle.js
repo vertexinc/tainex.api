@@ -8844,13 +8844,10 @@ var TieappService = (function () {
         this._currentDocUrl2 = "./app/tieapp.data.doc2.json";
         this._currentDocUrl3 = "./app/tieapp.data.doc3.json";
         this._currentDocUrl4 = "./app/tieapp.data.doc4.json";
-        this.textPostUrl = "https://jsonplaceholder.typicode.com/posts";
     }
     TieappService.prototype.getData = function () {
-        return this._http.get(this._url)
-            .map(function (res) { return res.json(); });
-    };
-    TieappService.prototype.getHeader = function () {
+        // return this._http.get(this._url)
+        //   .map(res => res.json());
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/json' });
         // let headers = new Headers({ 'Content-Type': 'text/plain; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* RequestOptions */]({ headers: headers });
@@ -8861,11 +8858,26 @@ var TieappService = (function () {
         //   "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
         //   "body": "quia et suscipi"
         // };
-        alert("posted");
-        //  return this._http.post(this.textPostUrl, param, options)
+        //  return this._http.get(this._url)
         return this._http.post(this.currentUrl, param, options)
             .map(function (res) { return res.json(); });
     };
+    // getHeader(): Observable<any> {
+    //   let headers = new Headers({ 'Content-Type': 'application/json' });
+    //   // let headers = new Headers({ 'Content-Type': 'text/plain; charset=UTF-8' });
+    //   let options = new RequestOptions({ headers: headers });
+    //   let param =  JSON.stringify({action:"initPage"});
+    // //   let param = {
+    // //   "userId": 11,
+    // //   "id": 11,
+    // //   "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+    // //   "body": "quia et suscipi"
+    // // };
+    //   alert("posted")
+    //   //  return this._http.post(this.textPostUrl, param, options)
+    //   return this._http.post(this.currentUrl, param, options)
+    //     .map(res => res.json());
+    // }
     TieappService.prototype.setCurrentMsgURL = function (messageId) {
         switch (messageId) {
             case 10: {
@@ -40768,6 +40780,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var AppComponent = (function () {
     function AppComponent(_tieappService) {
         this._tieappService = _tieappService;
+        this.tieapp = {
+            header: {
+                appName: "",
+                userName: "",
+                language: []
+            },
+            body: {
+                messageList: {
+                    messageSumList: []
+                },
+                messageDetail: {},
+                currentDoc: {}
+            }
+        };
         this.showApp = true;
         this.showTraining = false;
     }
@@ -40775,13 +40801,18 @@ var AppComponent = (function () {
         var _this = this;
         this._tieappService.getData()
             .subscribe(function (tieMsgData) {
-            _this.tieapp = tieMsgData;
+            _this.tieapp.header.appName = tieMsgData.appName;
+            _this.tieapp.header.userName = tieMsgData.username;
+            _this.tieapp.header.language = tieMsgData.language;
+            _this.tieapp.body.messageList.messageSumList = tieMsgData.msgList;
+            _this.tieapp.body.messageDetail = tieMsgData.currentMsg,
+                _this.tieapp.body.currentDoc = tieMsgData.currentTieDoc;
         });
-        this._tieappService.getHeader()
-            .subscribe(function (tieData) {
-            _this.header = tieData;
-            alert(JSON.stringify(tieData));
-        });
+        // this._tieappService.getHeader()
+        //     .subscribe(tieData => {
+        //         this.header = tieData;
+        //         alert(JSON.stringify(tieData));
+        //     })
     };
     AppComponent.prototype.tieAppShowInfo = function (showApp) {
         this.showApp = showApp;
@@ -53515,15 +53546,15 @@ var BodyComponent = (function () {
     };
     BodyComponent.prototype.emitMessageId = function (tieMsgId) {
         var _this = this;
-        // this._tieappService.setCurrentMsgURL(tieMsgId);
-        // this._tieappService.getCurrentMsg()
-        //     .subscribe(currentMessageData => {
-        //       this.body.messageDetail = currentMessageData;
-        //     })
-        this._tieappService.postCurrentMsg(tieMsgId)
+        this._tieappService.setCurrentMsgURL(tieMsgId);
+        this._tieappService.getCurrentMsg()
             .subscribe(function (currentMessageData) {
             _this.body.messageDetail = currentMessageData;
         });
+        // this._tieappService.postCurrentMsg(tieMsgId)
+        //   .subscribe(currentMessageData => {
+        //     this.body.messageDetail = currentMessageData;
+        //   })
     };
     __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Input */])(), 
@@ -53869,12 +53900,6 @@ var MessagedetailComponent = (function () {
             .subscribe(function (currentDocData) {
             _this.currentDoc = currentDocData;
         });
-    };
-    MessagedetailComponent.prototype.truncateInfo = function (info) {
-        if (info.length > 10) {
-            info = info.substring(0, 10) + '...';
-        }
-        return info;
     };
     __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Input */])(), 
@@ -57595,7 +57620,7 @@ module.exports = ""
 /* 645 */
 /***/ function(module, exports) {
 
-module.exports = "<div id='bodyContainer' *ngIf=\"body\">\r\n  <div *ngIf=\"showSearchCriteria\" id='tieapp-searchcriteria'>\r\n    <tieapp-searchcriteria title=\"Search By\">\r\n      <tieapp-search-detail></tieapp-search-detail>\r\n    </tieapp-searchcriteria>\r\n\r\n  </div>\r\n  <a (click)=\"showSearchCriteria = !showSearchCriteria\">\r\n    <div *ngIf=\"!showSearchCriteria\"><i class=\"fa fa-chevron-right\" aria-hidden=\"true\"></i></div>\r\n    <div *ngIf=\"showSearchCriteria\"><i class=\"fa fa-chevron-left\" aria-hidden=\"true\"></i></div>\r\n  </a>\r\n  <div id=\"rightpanel\">\r\n    <div id=\"rightpanelflex\">\r\n      <div id='tieapp-messagelist'>\r\n        \r\n        <!-- <tieapp-messagelist  [tieMsgs]=\"body.messagelist\"></tieapp-messagelist> -->\r\n        <tieapp-messagelist [messageList]=\"body.messageList\" [currentSelectedMessageId]=\"body.messageList.messageSumList[0].tieMsgId\" (emitMessageId)=\"emitMessageId($event)\"> </tieapp-messagelist>\r\n      </div>\r\n      <div class=\"splitter-horizontal\"></div>\r\n      <div id='tieapp-messagedetail'>\r\n        <tieapp-messagedetail [messageDetail]=\"body.messageDetail\" [currentDoc]=\"body.messageDetail.tieDocList[0]\"></tieapp-messagedetail>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div id='bodyContainer' *ngIf=\"body\">\r\n  <div *ngIf=\"showSearchCriteria\" id='tieapp-searchcriteria'>\r\n    <tieapp-searchcriteria title=\"Search By\">\r\n      <tieapp-search-detail></tieapp-search-detail>\r\n    </tieapp-searchcriteria>\r\n\r\n  </div>\r\n  <a (click)=\"showSearchCriteria = !showSearchCriteria\">\r\n    <div *ngIf=\"!showSearchCriteria\"><i class=\"fa fa-chevron-right\" aria-hidden=\"true\"></i></div>\r\n    <div *ngIf=\"showSearchCriteria\"><i class=\"fa fa-chevron-left\" aria-hidden=\"true\"></i></div>\r\n  </a>\r\n  <div id=\"rightpanel\">\r\n    <div id=\"rightpanelflex\">\r\n      <div id='tieapp-messagelist'>\r\n\r\n        <!-- <tieapp-messagelist  [tieMsgs]=\"body.messagelist\"></tieapp-messagelist> -->\r\n        <tieapp-messagelist [messageList]=\"body.messageList.messageSumList\" [currentSelectedMessageId]=\"10\" (emitMessageId)=\"emitMessageId($event)\"> </tieapp-messagelist>\r\n      </div>\r\n      <div class=\"splitter-horizontal\"></div>\r\n      <div id='tieapp-messagedetail'>\r\n        <tieapp-messagedetail [messageDetail]=\"body.messageDetail\"  [currentDoc]=\"body.currentDoc\"></tieapp-messagedetail>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ },
 /* 646 */
@@ -57607,13 +57632,13 @@ module.exports = "<tieapp-cbcrtable1></tieapp-cbcrtable1>\r\n<tieapp-cbcrtable2>
 /* 647 */
 /***/ function(module, exports) {
 
-module.exports = "<div *ngIf=\"currentDoc\">\r\n\t<div style=\"text-align: center\">Table 1. Overview of allocation of income, taxes and business activities by tax jurisdiction</div>\r\n\t<div class=\"headinfo\">Name of the MNE group:{{currentDoc.reportingEntity.name}}</div>\r\n\t<div class=\"headinfo\">Fiscal Year Concerned: Not noted from original dataset</div>\r\n\t<div class=\"ui-grid-top-panel\" style=\"text-align: center\">\r\n\t\t<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-collapse: collapse; \">\r\n\t\t\t<thead>\r\n\t\t\t\t<tr height=\"34\" style=\"mso-height-source: userset; height: 25.5pt\">\r\n\t\t\t\t\t<th rowspan=\"2\" height=\"121\" class=\"xl76\" style=\"height: 90.75pt; \">Tax Jurisdiction\r\n\t\t\t\t\t</th>\r\n\t\t\t\t\t<!-- 271 -->\r\n\t\t\t\t\t<th colspan=\"3\" class=\"xl76\" style=\" \">Revenues</th>\r\n\t\t\t\t\t<th rowspan=\"2\" class=\"xl76\" style=\" \">\r\n\t\t\t\t\t\t<meta charset=\"utf-8\"> <span style=\"white-space: pre-wrap\">Profit (Loss) Before Income Tax</span>\r\n\t\t\t\t\t</th>\r\n\t\t\t\t\t<th rowspan=\"2\" class=\"xl76\" style=\" \">Income Tax Paid (on cash basis)\r\n\t\t\t\t\t</th>\r\n\t\t\t\t\t<th rowspan=\"2\" class=\"xl76\" style=\" \">Income Tax Accrued - Current Year</th>\r\n\t\t\t\t\t<th rowspan=\"2\" class=\"xl76\" style=\"\">Stated Captial</th>\r\n\t\t\t\t\t<th rowspan=\"2\" class=\"xl76\" style=\" \">Accumulated Earnings</th>\r\n\t\t\t\t\t<th rowspan=\"2\" class=\"xl76\" style=\"\">Number of Employees</th>\r\n\t\t\t\t\t<th rowspan=\"2\" class=\"xl76\" style=\" \">Tangible Assets other than Cash and Cash Equivalents</th>\r\n\t\t\t\t</tr>\r\n\t\t\t\t<tr height=\"87\" style=\"mso-height-source: userset; height: 65.25pt\">\r\n\t\t\t\t\t<th height=\"87\" class=\"xl76\" style=\"height: 65.25pt;  \">Unrelated Party\r\n\t\t\t\t\t</th>\r\n\t\t\t\t\t<th class=\"xl76\" style=\" \">Related Party\r\n\t\t\t\t\t</th>\r\n\t\t\t\t\t<th class=\"xl76\" style=\" \">Total</th>\r\n\t\t\t\t</tr>\r\n\t\t\t</thead>\r\n\t\t\t<tbody >\r\n\t\t\t\t<tr *ngFor=\"let cbcrtable1Item of currentDoc.cbcrTable1List\">\r\n\t\t\t\t\t<td>{{cbcrtable1Item.taxJurisdiction }}</td>\r\n\t\t\t\t\t<td>{{cbcrtable1Item.revenueUnrelatedParty | currency:'USD':true:'4.0-0' }}</td>\r\n\t\t\t\t\t<td>{{cbcrtable1Item.revenueRelatedParty | currency:'USD':true:'4.0-0' }}</td>\r\n\t\t\t\t\t<td>{{cbcrtable1Item.revenueTotal | currency:'USD':true:'4.0-0' }}</td>\r\n\t\t\t\t\t<td>{{cbcrtable1Item.plBeforeIncomeTax | currency:'USD':true:'4.0-0' }}</td>\r\n\t\t\t\t\t<td>{{cbcrtable1Item.incomeTaxPaid | currency:'USD':true:'4.0-0' }}</td>\r\n\t\t\t\t\t<td>{{cbcrtable1Item.incomeTaxAccrued | currency:'USD':true:'4.0-0' }}</td>\r\n\t\t\t\t\t<td>{{cbcrtable1Item.statedCapital | currency:'USD':true:'4.0-0' }}</td>\r\n\t\t\t\t\t<td>{{cbcrtable1Item.accumulatedEarnings | currency:'USD':true:'4.0-0' }}</td>\r\n\t\t\t\t\t<td>{{cbcrtable1Item.numberOfEmployees}}</td>\r\n\t\t\t\t\t<td>{{cbcrtable1Item.tangibleAssetsNonCash | currency:'USD':true:'4.0-0' }}</td>\r\n\t\t\t\t</tr>\r\n\r\n\t\t\t</tbody>\r\n\t\t</table>\r\n\t</div>\r\n</div>\r\n"
+module.exports = ""
 
 /***/ },
 /* 648 */
 /***/ function(module, exports) {
 
-module.exports = "<div *ngIf=\"currentDoc\">\r\n\t<div style=\"text-align: center\">Table 2. List of all the Constituent Entities of the MNE group included in each aggregation per tax jurisdiction</div>\r\n\t<div class=\"headinfo\">Name of the MNE group:{{currentDoc.reportingEntity.name}}</div>\r\n\t<div class=\"headinfo\">Fiscal Year Concerned: Not noted from original dataset</div>\r\n\t<div class=\"ui-grid-top-panel\" style=\"text-align: center\">\r\n\t\t<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-collapse: collapse; \">\r\n\r\n\r\n\t\t\t<thead>\r\n\r\n\t\t\t\t<tr height=\"22\" style=\"height: 16.5pt\">\r\n\t\t\t\t\t<th rowspan=\"2\" height=\"170\" class=\"x0l67\" style=\"height: 127.5pt; \">Tax Jurisdiction</th>\r\n\t\t\t\t\t<th rowspan=\"2\" class=\"x0l67\" style=\"\">Constituent Entities resident in the Tax Jurisdiction</th>\r\n\t\t\t\t\t<th rowspan=\"2\" class=\"x0l67\" style=\"\">Tax Jurisdiction of organisation of incorporation if different from Tax Jurisdiction of Resident</th>\r\n\t\t\t\t\t<th colspan=\"13\" class=\"x0l67\" style=\"border-left: none; \">Main business activity(ies)\r\n\t\t\t\t\t</th>\r\n\t\t\t\t</tr>\r\n\t\t\t\t<tr height=\"148\" style=\"mso-height-source: userset; height: 111.0pt\">\r\n\t\t\t\t\t<th height=\"148\" class=\"x0l67\" style=\"height: 111.0pt; border-top: none; border-left: none; \">Research and Development</th>\r\n\t\t\t\t\t<th class=\"x0l67\" style=\"border-top: none; border-left: none; \">Holding or Managing intellectual Property</th>\r\n\t\t\t\t\t<th class=\"x0l67\" style=\"border-top: none; border-left: none; \">Purchase or Procurement</th>\r\n\t\t\t\t\t<th class=\"x0l67\" style=\"border-top: none; border-left: none; \">Manufacturing or Production</th>\r\n\t\t\t\t\t<th class=\"x0l67\" style=\"border-top: none; border-left: none; \">Sales, Marketing or Distribution</th>\r\n\t\t\t\t\t<th class=\"x0l67\" style=\"border-top: none; border-left: none; \">Administrative, Management or Support Services</th>\r\n\t\t\t\t\t<th class=\"x0l67\" style=\"border-top: none; border-left: none; \">Provision of Services to unrelated parties</th>\r\n\t\t\t\t\t<th class=\"x0l67\" style=\"border-top: none; border-left: none; \">Internal Group Finance</th>\r\n\t\t\t\t\t<th class=\"x0l67\" style=\"border-top: none; border-left: none; \">Regulated Financial Services</th>\r\n\t\t\t\t\t<th class=\"x0l67\" style=\"border-top: none; border-left: none; \">Insurance</th>\r\n\t\t\t\t\t<th class=\"x0l67\" style=\"border-top: none; border-left: none; \">Holding shares or other equity instruments</th>\r\n\t\t\t\t\t<th class=\"x0l67\" style=\"border-top: none; border-left: none; \">Dormant</th>\r\n\t\t\t\t\t<th class=\"x0l67\" style=\"border-top: none; border-left: none; \">Other2</th>\r\n\t\t\t\t</tr>\r\n\t\t\t</thead>\r\n\t\t\t<tbody *ngIf=\"currentDoc\">\r\n\t\t\t\t<tr *ngFor=\"let cbcrtable2Item of currentDoc.cbcrTable2List\">\r\n\t\t\t\t\t<td>{{cbcrtable2Item.taxJurisdiction}}</td>\r\n\t\t\t\t\t<td>{{cbcrtable2Item.entityCode}}</td>\r\n\t\t\t\t\t<td>{{cbcrtable2Item.taxJurisOfIncorporation}}</td>\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t<div *ngIf=\"cbcrtable2Item.mainBusRAndD === 1\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t<div *ngIf=\"cbcrtable2Item.mainBusHoldingIp === 1\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t<div *ngIf=\"cbcrtable2Item.mainBusPurchasing === 1\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t<div *ngIf=\"cbcrtable2Item.mainBusMfctOrPrdn === 1\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t<div *ngIf=\"cbcrtable2Item.mainBusSaleMktDistr === 1\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t<div *ngIf=\"cbcrtable2Item.mainBusAdminMgmtSupportSvc === 1\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t<div *ngIf=\"cbcrtable2Item.mainBusProvSvcToUnrelatedParti === 1\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t<div *ngIf=\"cbcrtable2Item.mainBusInternalGroupFinance === 1\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t<div *ngIf=\"cbcrtable2Item.mainBusRegulatedFinSvc === 1\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t<div *ngIf=\"cbcrtable2Item.mainBusInsurance === 1\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t<div *ngIf=\"cbcrtable2Item.mainBusHoldingEquityInstrument === 1\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t<div *ngIf=\"cbcrtable2Item.mainBusDormant === 1\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t<div *ngIf=\"cbcrtable2Item.mainBusOther === 1\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t</tr>\r\n\r\n\t\t\t</tbody>\r\n\t\t</table>\r\n\t</div>\r\n\t<div id=\"note\">Please specify the nature if the activity of the Consitituent Entity in the \"Additional Information\" section.</div>\r\n</div>\r\n"
+module.exports = "<div *ngIf=\"currentDoc\">\r\n\t<div style=\"text-align: center\">Table 2. List of all the Constituent Entities of the MNE group included in each aggregation per tax jurisdiction</div>\r\n\t<!-- <div class=\"headinfo\">Name of the MNE group:{{currentDoc.reportingEntity.name}}</div> -->\r\n\t<div class=\"headinfo\">Fiscal Year Concerned: Not noted from original dataset</div>\r\n\t<div class=\"ui-grid-top-panel\" style=\"text-align: center\">\r\n\t\t<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-collapse: collapse; \">\r\n\r\n\r\n\t\t\t<thead>\r\n\r\n\t\t\t\t<tr height=\"22\" style=\"height: 16.5pt\">\r\n\t\t\t\t\t<th rowspan=\"2\" height=\"170\" class=\"x0l67\" style=\"height: 127.5pt; \">Tax Jurisdiction</th>\r\n\t\t\t\t\t<th rowspan=\"2\" class=\"x0l67\" style=\"\">Constituent Entities resident in the Tax Jurisdiction</th>\r\n\t\t\t\t\t<th rowspan=\"2\" class=\"x0l67\" style=\"\">Tax Jurisdiction of organisation of incorporation if different from Tax Jurisdiction of Resident</th>\r\n\t\t\t\t\t<th colspan=\"13\" class=\"x0l67\" style=\"border-left: none; \">Main business activity(ies)\r\n\t\t\t\t\t</th>\r\n\t\t\t\t</tr>\r\n\t\t\t\t<tr height=\"148\" style=\"mso-height-source: userset; height: 111.0pt\">\r\n\t\t\t\t\t<th height=\"148\" class=\"x0l67\" style=\"height: 111.0pt; border-top: none; border-left: none; \">Research and Development</th>\r\n\t\t\t\t\t<th class=\"x0l67\" style=\"border-top: none; border-left: none; \">Holding or Managing intellectual Property</th>\r\n\t\t\t\t\t<th class=\"x0l67\" style=\"border-top: none; border-left: none; \">Purchase or Procurement</th>\r\n\t\t\t\t\t<th class=\"x0l67\" style=\"border-top: none; border-left: none; \">Manufacturing or Production</th>\r\n\t\t\t\t\t<th class=\"x0l67\" style=\"border-top: none; border-left: none; \">Sales, Marketing or Distribution</th>\r\n\t\t\t\t\t<th class=\"x0l67\" style=\"border-top: none; border-left: none; \">Administrative, Management or Support Services</th>\r\n\t\t\t\t\t<th class=\"x0l67\" style=\"border-top: none; border-left: none; \">Provision of Services to unrelated parties</th>\r\n\t\t\t\t\t<th class=\"x0l67\" style=\"border-top: none; border-left: none; \">Internal Group Finance</th>\r\n\t\t\t\t\t<th class=\"x0l67\" style=\"border-top: none; border-left: none; \">Regulated Financial Services</th>\r\n\t\t\t\t\t<th class=\"x0l67\" style=\"border-top: none; border-left: none; \">Insurance</th>\r\n\t\t\t\t\t<th class=\"x0l67\" style=\"border-top: none; border-left: none; \">Holding shares or other equity instruments</th>\r\n\t\t\t\t\t<th class=\"x0l67\" style=\"border-top: none; border-left: none; \">Dormant</th>\r\n\t\t\t\t\t<th class=\"x0l67\" style=\"border-top: none; border-left: none; \">Other2</th>\r\n\t\t\t\t</tr>\r\n\t\t\t</thead>\r\n\t\t\t<tbody *ngIf=\"currentDoc\">\r\n\t\t\t\t<tr *ngFor=\"let cbcrtable2Item of currentDoc.cbcrTable2List\">\r\n\t\t\t\t\t<td>{{cbcrtable2Item.taxJurisdiction}}</td>\r\n\t\t\t\t\t<td>{{cbcrtable2Item.entityCode}}</td>\r\n\t\t\t\t\t<td>{{cbcrtable2Item.taxJurisOfIncorporation}}</td>\r\n\t\t\t\t\t<!-- <td>\r\n\t\t\t\t\t\t<div *ngIf=\"cbcrtable2Item.mainBusRAndD === 1\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t<div *ngIf=\"cbcrtable2Item.mainBusHoldingIp === 1\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t<div *ngIf=\"cbcrtable2Item.mainBusPurchasing === 1\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t<div *ngIf=\"cbcrtable2Item.mainBusMfctOrPrdn === 1\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t<div *ngIf=\"cbcrtable2Item.mainBusSaleMktDistr === 1\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t<div *ngIf=\"cbcrtable2Item.mainBusAdminMgmtSupportSvc === 1\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t<div *ngIf=\"cbcrtable2Item.mainBusProvSvcToUnrelatedParti === 1\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t<div *ngIf=\"cbcrtable2Item.mainBusInternalGroupFinance === 1\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t<div *ngIf=\"cbcrtable2Item.mainBusRegulatedFinSvc === 1\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t<div *ngIf=\"cbcrtable2Item.mainBusInsurance === 1\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t<div *ngIf=\"cbcrtable2Item.mainBusHoldingEquityInstrument === 1\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t<div *ngIf=\"cbcrtable2Item.mainBusDormant === 1\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t</td>\r\n\t\t\t\t\t<td>\r\n\t\t\t\t\t\t<div *ngIf=\"cbcrtable2Item.mainBusOther === 1\"><i class=\"fa fa-check\" aria-hidden=\"true\"></i></div>\r\n\t\t\t\t\t</td> -->\r\n\t\t\t\t</tr>\r\n\r\n\t\t\t</tbody>\r\n\t\t</table>\r\n\t</div>\r\n\t<div id=\"note\">Please specify the nature if the activity of the Consitituent Entity in the \"Additional Information\" section.</div>\r\n</div>\r\n"
 
 /***/ },
 /* 649 */
@@ -57637,19 +57662,19 @@ module.exports = "<div *ngIf=\"currentDoc\">\r\n  <div class=\"row\" id=\"docrow
 /* 652 */
 /***/ function(module, exports) {
 
-module.exports = "<div id=\"currentMsgBody\" *ngIf=\"messageDetail\">\r\n  <div class=\"row\">\r\n    <div class=\"col-md-3\">\r\n      <p>\r\n        From:<span id=\"from\"> {{messageDetail.sender.name}}</span>\r\n      </p>\r\n    </div>\r\n\r\n\r\n    <div class=\"col-md-3\">\r\n      <p>\r\n        Date: <span id=\"date\">{{messageDetail.timestamp}}</span>\r\n      </p>\r\n    </div>\r\n\r\n    <div class=\"col-md-3\">\r\n      <p>\r\n        Reporting Period: <span id=\"reportingPeriod\"> {{messageDetail.reportingPeriod}}</span>\r\n      </p>\r\n    </div>\r\n\r\n    <div class=\"col-md-3\">\r\n      <p>\r\n        Status: <span id=tieMsgState> {{messageDetail.tieMsgState.name}} </span>\r\n      </p>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"row\">\r\n    <div class=\"col-md-3\">\r\n      <div>To:</div>\r\n    </div>\r\n    <div class=\"col-md-9\">\r\n      <input type=\"text\" class=\"form-control\" id=\"To\" placeholder=\"{{messageDetail.msgReceiverList}}\">\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"row\">\r\n    <div class=\"col-md-3\">\r\n      <div>Subject:</div>\r\n    </div>\r\n    <div class=\"col-md-9\">\r\n      <input type=\"text\" class=\"form-control\" id=\"Subject\" placeholder=\"{{messageDetail.subject}}\">\r\n    </div>\r\n  </div>\r\n\r\n\r\n  <div class=\"row\">\r\n    <div class=\"col-md-3\">\r\n      <div>Notes:</div>\r\n    </div>\r\n    <div class=\"col-md-9\">\r\n      <textarea rows=\"4\" cols=\"95\" id=\"notes\">{{messageDetail.notes}}</textarea>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"row\">\r\n    <div class=\"col-md-3\">\r\n      <div>Warning:</div>\r\n    </div>\r\n    <div class=\"col-md-9\">\r\n      <input type=\"text\" class=\"form-control\" id=\"Warning\" placeholder=\"{{messageDetail.warning}}\">\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"row\">\r\n    <div class=\"col-md-3\">\r\n      <div>Contact:</div>\r\n    </div>\r\n    <div class=\"col-md-9\">\r\n      <input type=\"text\" class=\"form-control\" id=\"Contact\" placeholder=\"{{messageDetail.contact}}\">\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"row\">\r\n    <div class=\"col-md-3\">\r\n\r\n      <div>\r\n        OECD Message Ref ID:\r\n      </div>\r\n\r\n      <div>\r\n        OECD Message Type:\r\n      </div>\r\n      <div>\r\n        Sending Country:\r\n      </div>\r\n      <div>Language:</div>\r\n\r\n    </div>\r\n    <div class=\"col-md-3\">\r\n      <div>\r\n        {{messageDetail.corrMessageRefIds}}\r\n      </div>\r\n      <div class=\"styled-select\">\r\n        <select class=\"form-control\" id=\"sel1\">\r\n          <!-- <option *ngFor=\"let OECDMessageTypeItem of messageDetail.OECDMessageType\">{{OECDMessageTypeItem}}</option> -->\r\n          <option>not an array</option>\r\n        </select>\r\n      </div>\r\n      <div>\r\n        {{messageDetail.transmittingCountry}}\r\n      </div>\r\n      <div class=\"styled-select\">\r\n        <select class=\"form-control\" id=\"sel1\">\r\n          <!-- <option *ngFor = \"let languageItem of messageDetail.Language\">{{languageItem}}</option> -->\r\n          <option>not an array</option>\r\n        </select>\r\n      </div>\r\n    </div>\r\n    <div class=\"col-md-3\">\r\n      <div>\r\n        Reporting Period:\r\n      </div>\r\n      <div>\r\n        OECD Message Type Indic:\r\n      </div>\r\n      <div>\r\n        Receiving Country:\r\n      </div>\r\n\r\n    </div>\r\n    <div class=\"col-md-3\">\r\n      <div>\r\n\r\n        {{messageDetail.reportingPeriod}}\r\n      </div>\r\n      <div class=\"styled-select\">\r\n        <select class=\"form-control\" id=\"sel1\">\r\n          <!-- <option  *ngFor = \"let OECDMessageTypeIndicItem of messageDetail.OECDMessageTypeIndic\">{{OECDMessageTypeIndicItem}}</option> -->\r\n          <option>not an array</option>\r\n        </select>\r\n      </div>\r\n      <div>\r\n\r\n        {{messageDetail.receivingCountries}}\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = ""
 
 /***/ },
 /* 653 */
 /***/ function(module, exports) {
 
-module.exports = "\r\n<ul class=\"nav nav-tabs\" role=\"tablist\" >\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link active\" href=\"#message\" title=\"Message\" role=\"tab\" data-toggle=\"tab\">Message</a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#docs\" title=\"Current Message:{{messageDetail.subject}} \" role=\"tab\" data-toggle=\"tab\">Docs<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Message : {{messageDetail.subject|tabsum:4}}</div></a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#entity\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Entity<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name|tabsum:3}}</div></a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#table1\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Table1<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name|tabsum:3}}</div></a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#table2\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Table2<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name|tabsum:3}}</div></a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#table3\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Table3<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name|tabsum:3}}</div></a>\r\n  </li>\r\n</ul>\r\n\r\n<!-- Tab panes -->\r\n<div class=\"tab-content\">\r\n  <div role=\"tabpanel\" class=\"tab-pane fade in active\" id=\"message\"><tieapp-message [messageDetail]=\"messageDetail\"></tieapp-message></div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"docs\"><tieapp-doclist [messageDetail]=\"messageDetail\" [currentDocId] = \"messageDetail.tieDocList[0].tieDocId\" (emitCurrentDocId)=\"emitCurrentDocId($event)\"></tieapp-doclist></div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"entity\"><tieapp-entitylist [currentDoc]=\"currentDoc\" ></tieapp-entitylist></div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"table1\"><tieapp-cbcrtable1 [currentDoc]=\"currentDoc\"></tieapp-cbcrtable1></div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"table2\"><tieapp-cbcrtable2 [currentDoc]=\"currentDoc\"></tieapp-cbcrtable2></div>\r\n  <div role=\"tabpane1\" class=\"tab-pane fade\" id=\"table3\"><tieapp-cbcrtable3 [currentDoc]=\"currentDoc\"></tieapp-cbcrtable3></div>\r\n</div>\r\n"
+module.exports = "\r\n<ul class=\"nav nav-tabs\" role=\"tablist\" >\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link active\" href=\"#message\" title=\"Message\" role=\"tab\" data-toggle=\"tab\">Message</a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#docs\" title=\"Current Message:{{messageDetail.subject}} \" role=\"tab\" data-toggle=\"tab\">Docs<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Message : {{messageDetail.subject}}</div></a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#entity\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Entity<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name}}</div></a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#table1\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Table1<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name}}</div></a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#table2\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Table2<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name}}</div></a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#table3\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Table3<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name}}</div></a>\r\n  </li>\r\n</ul>\r\n\r\n<!-- Tab panes -->\r\n<div class=\"tab-content\">\r\n  <div role=\"tabpanel\" class=\"tab-pane fade in active\" id=\"message\"><tieapp-message [messageDetail]=\"messageDetail\"></tieapp-message></div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"docs\"><tieapp-doclist [messageDetail]=\"messageDetail\" [currentDocId] = \"13\" (emitCurrentDocId)=\"emitCurrentDocId($event)\"></tieapp-doclist></div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"entity\"><tieapp-entitylist [currentDoc]=\"currentDoc\" ></tieapp-entitylist></div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"table1\"><tieapp-cbcrtable1 [currentDoc]=\"currentDoc\"></tieapp-cbcrtable1></div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"table2\"><tieapp-cbcrtable2 [currentDoc]=\"currentDoc\"></tieapp-cbcrtable2></div>\r\n  <div role=\"tabpane1\" class=\"tab-pane fade\" id=\"table3\"><tieapp-cbcrtable3 [currentDoc]=\"currentDoc\"></tieapp-cbcrtable3></div>\r\n</div>\r\n"
 
 /***/ },
 /* 654 */
 /***/ function(module, exports) {
 
-module.exports = "<table>\r\n  <thead>\r\n    <tr>\r\n      <th>User</th>\r\n      <th>Subject</th>\r\n      <th>Description</th>\r\n      <th>Date</th>\r\n      <th>Status</th>\r\n    </tr>\r\n  </thead>\r\n  <tbody class=\"msgbody\" *ngIf=\"messageList\">\r\n    <tr class=\"\" *ngFor=\"let tieMsg of messageList.messageSumList\" (click)=\"onSelect(tieMsg.tieMsgId)\" [ngStyle]=\"isHighlight(tieMsg.tieMsgId)\">\r\n      <!-- (click)=\"onSelect(tieMsg)\"> -->\r\n      <td>{{tieMsg.user}}</td>\r\n      <td>{{tieMsg.subject}}</td>\r\n      <td>{{tieMsg.description}}</td>\r\n      <td>{{tieMsg.date}}</td>\r\n      <td>{{tieMsg.status}}</td>\r\n    </tr>\r\n  </tbody>\r\n\r\n\r\n</table>\r\n<!-- <div *ngIf=\"currentMsgInfo\">\r\n  <p> description: {{currentMsgInfo.description}}</p>\r\n  <p> From: {{currentMsgInfo.from}}</p>\r\n  <p>To: {{currentMsgInfo.to}}</p>\r\n</div> -->\r\n<!-- <messagedetail [currentMsg] = \"tieMsg\">/<messagedetail> -->\r\n"
+module.exports = "<table>\r\n  <thead>\r\n    <tr>\r\n      <th>User</th>\r\n      <th>Subject</th>\r\n      <th>Description</th>\r\n      <th>Date</th>\r\n      <th>Status</th>\r\n    </tr>\r\n  </thead>\r\n  <tr class=\"\" *ngFor=\"let tieMsg of messageList\" (click)=\"onSelect(tieMsg.tieMsgId)\" [ngStyle]=\"isHighlight(tieMsg.tieMsgId)\">\r\n    <!-- (click)=\"onSelect(tieMsg)\"> -->\r\n    <td>{{tieMsg.sender.name}}</td>\r\n    <td>{{tieMsg.subject}}</td>\r\n    <td>{{tieMsg.description}}</td>\r\n    <td>{{tieMsg.timestamp}}</td>\r\n    <td>{{tieMsg.tieMsgState.name}}</td>\r\n  </tr>\r\n  </tbody>\r\n\r\n\r\n</table>\r\n<!-- <div *ngIf=\"currentMsgInfo\">\r\n  <p> description: {{currentMsgInfo.description}}</p>\r\n  <p> From: {{currentMsgInfo.from}}</p>\r\n  <p>To: {{currentMsgInfo.to}}</p>\r\n</div> -->\r\n<!-- <messagedetail [currentMsg] = \"tieMsg\">/<messagedetail> -->\r\n"
 
 /***/ },
 /* 655 */
@@ -57679,7 +57704,7 @@ module.exports = "<!-- <div *ngIf=\"isLoading\"><i class=\"fa fa-spinner fa-spin
 /* 659 */
 /***/ function(module, exports) {
 
-module.exports = "<div id='tieapp' *ngIf=\"tieapp\">\r\n  <!-- <div id='tieapp'> -->\r\n  <div id='tieapp-header'>\r\n    <tieapp-header [header]=\"header\" (tieAppShowInfo)=\"tieAppShowInfo($event)\" (trainingShowInfo)=\"trainingShowInfo($event)\"></tieapp-header>\r\n\r\n  </div>\r\n  <div id='tieapp-body'>\r\n\r\n    <div *ngIf=\"showApp\">\r\n      <tieapp-body [body]=\"tieapp.body\"></tieapp-body>\r\n    </div>\r\n    <div *ngIf=\"showTraining\">\r\n      <tieapp-training></tieapp-training>\r\n    </div>\r\n  </div>\r\n\r\n  <div id='tieapp-footer'>\r\n    <!-- <tieapp-footer [footer]=\"tieapp.footer\"></tieapp-footer> -->\r\n    <tieapp-footer></tieapp-footer>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div id='tieapp' *ngIf=\"tieapp\">\r\n  <!-- <div id='tieapp'> -->\r\n  <div id='tieapp-header'>\r\n    <tieapp-header [header]=\"tieapp.header\" (tieAppShowInfo)=\"tieAppShowInfo($event)\" (trainingShowInfo)=\"trainingShowInfo($event)\"></tieapp-header>\r\n\r\n  </div>\r\n  <div id='tieapp-body'>\r\n\r\n    <div *ngIf=\"showApp\">\r\n      <tieapp-body [body]=\"tieapp.body\"></tieapp-body>\r\n    </div>\r\n    <div *ngIf=\"showTraining\">\r\n      <tieapp-training></tieapp-training>\r\n    </div>\r\n  </div>\r\n\r\n  <div id='tieapp-footer'>\r\n    <!-- <tieapp-footer [footer]=\"tieapp.footer\"></tieapp-footer> -->\r\n    <tieapp-footer></tieapp-footer>\r\n  </div>\r\n</div>\r\n"
 
 /***/ },
 /* 660 */

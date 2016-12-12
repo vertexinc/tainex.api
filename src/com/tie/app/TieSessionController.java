@@ -153,6 +153,7 @@ public class TieSessionController extends TieControllerBase {
 		// ------ populate current msg pane, doc tab, docs of the currentMsg
 		List<TieDoc> tieDocList = new ArrayList<TieDoc>();
 		tieDocList = persister.getTieDocDao().findTieDocByTieMsgId(currentTieMsgId);
+		TieMainPage.getTieMainPage().setTieDocList(tieDocList);
 		currentmsg.setTieDocList(tieDocList);
 
 		// populate current doc

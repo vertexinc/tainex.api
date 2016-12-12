@@ -205,7 +205,7 @@ public class LoginServlet extends HttpServlet {
 		System.out.println("init json string: " + tieJson);
 		response.setContentType("text/json");
 		response.setCharacterEncoding("UTF-8");
-		response.getWriter().write(headerjson);
+		response.getWriter().write(tieJson);
 	}
 
 	/**
