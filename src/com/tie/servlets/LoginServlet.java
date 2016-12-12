@@ -201,7 +201,6 @@ public class LoginServlet extends HttpServlet {
 		String tieJson = ma2.writeValueAsString(retval);
 		String headerjson = ma.writeValueAsString(header);
 		//String serialized = ma.writeValueAsString(header);
-		System.out.println("header json string: " + headerjson);
 		System.out.println("init json string: " + tieJson);
 		response.setContentType("text/json");
 		response.setCharacterEncoding("UTF-8");

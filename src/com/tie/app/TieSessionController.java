@@ -95,6 +95,7 @@ public class TieSessionController extends TieControllerBase {
 			int msgId = msg.getTieMsgId();
 			int senderId = msg.getSenderId();
 			int statusId = msg.getTieMsgStateId();
+			
 			//int currentDocId = msg.getTieDocList().get(0).getTieDocId();
 					
 //			List<TieTaxEntity> taxEntitylist = new ArrayList<TieTaxEntity>();
@@ -102,7 +103,9 @@ public class TieSessionController extends TieControllerBase {
 //			TieMainPage.getTieMainPage().setTaxEntitylist(taxEntitylist);
 			
 			TieMsgState tieMsgState = TieMsgState.findById(statusId);
+			String msgState = tieMsgState.getName();
 			TieUser sender = persister.getTieUserDao().findTieUserById(senderId);
+			String userName = sender.getName();
 			List<TieMsgReceiver> tiemsgReceiverList = new ArrayList<TieMsgReceiver>();
 			tiemsgReceiverList = persister.getTieMsgReceiverDao().findTieMsgReceiverById(msgId);
 			
@@ -115,10 +118,12 @@ public class TieSessionController extends TieControllerBase {
 			msg.setMsgReceiverList(toListString.toString());
 			msg.setSender(sender);
 			msg.setTieMsgState(tieMsgState);
+			msg.setUserName(userName);
+			msg.setMsgState(msgState);
 		}
 		
 		TieMainPage.getTieMainPage().setMsgList(msgList);
-		System.out.println("Check msglist: " + msgList.toString());
+		
 
 		// TODO
 		// ------ populate current msg pane, msg tab -------

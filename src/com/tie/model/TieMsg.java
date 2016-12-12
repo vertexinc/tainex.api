@@ -34,6 +34,25 @@ public class TieMsg {
 	private String rawMsg;
 	private String msgReceiverList;
 	
+	private String userName;
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getMsgState() {
+		return msgState;
+	}
+
+	public void setMsgState(String msgState) {
+		this.msgState = msgState;
+	}
+
+	private String msgState;
+	
 	private List<TieTaxEntity> tieTaxEntity= new ArrayList<TieTaxEntity>();
 	
 	private List<TieDoc> tieDocList = new ArrayList<TieDoc>();
