@@ -238,20 +238,32 @@ public class TieSessionController extends TieControllerBase {
 		TieMsg tieMsg = persister.getTieMsgDao().findTieMsgByTieMsgId(msgId);
 
 		populateMsg(tieMsg);
-
+		int senderId = tieMsg.getSenderId();
+		int statusId = tieMsg.getTieMsgStateId();
+		TieMsgState tieMsgState = TieMsgState.findById(statusId);
+		String msgState = tieMsgState.getName();
+		TieUser sender = persister.getTieUserDao().findTieUserById(senderId);
+		String userName = sender.getName();
+		tieMsg.setUserName(userName);
+		tieMsg.setMsgState(msgState);
+		
+		int currenttieDocId = tieMsg.getTieDocList().get(0).getTieDocId();
+		handleSelectCurrentDoc(currenttieDocId);
+		
 		TieMainPage.getTieMainPage().setCurrentMsg(tieMsg);
+	
 		return tieMsg;
-	}// end handleSelectCurrentMsg(.)
+	}// end handleSelectCurrentMsg(.)0
 	
 	public TieDoc handleSelectCurrentDoc(int tieDocId) {
 		TiePersister persister = TieController.getController().getPersister();
 		TieDoc tieDoc = (TieDoc) persister.getTieDocDao().findTieDocByTieDocId(tieDocId);
 
 		populateDoc(tieDoc);
-
+		TieMainPage.getTieMainPage().setCurrentTieDoc(tieDoc);
 		//TieMainPage.getTieMainPage().setCurrentMsg(tieMsg);
 		return tieDoc;
-	}// end handleSelectCurrentMsg(.)
+	}// end handleSelectCurrentDoc(.)
 
 	/**
 	 * Populate all elements of the given message from the given object,

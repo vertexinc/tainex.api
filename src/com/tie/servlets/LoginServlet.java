@@ -97,13 +97,18 @@ public class LoginServlet extends HttpServlet {
 			System.out.println(param.toString());
 			// 4. Set response type to JSON
 			String action = param.getAction();
+			int messageId = param.getMessageId();
+			int docId = param.getDocId();
 
 			System.out.println("param.getAction: " + param.getAction());
 			if (action.equals("initPage")) {
 				System.out.println("Directing to initPage function");
 				initPage(request, response, sessionController);
-			} else {
-				System.out.println("not Directing to initPage function: " + param.getAction());
+			}else if (action.equals("selectCurrentMsg")){
+				selectCurrentMsg(request, response, sessionController,messageId);
+			}else if (action.equals("selectCurrentDoc")){
+				selectCurrentDoc(request, response, sessionController);
+			}else {
 				RequestDispatcher rd = request.getRequestDispatcher("dist/index.html");
 				rd.forward(request, response);
 			}
@@ -216,32 +221,34 @@ public class LoginServlet extends HttpServlet {
 	 * @throws IOException
 	 */
 	public void selectCurrentMsg(HttpServletRequest request, HttpServletResponse response,
-			TieSessionController sessionController) throws ServletException, IOException {
-		int msgid = 0;
-		// if( id==null ) id =0;
-		if (request.getParameter("msgid") == null) {
-			msgid = 0;
-		} else {
-			msgid = Integer.parseInt(request.getParameter("msgid"));
-
-		}
-		String contextPath = request.getContextPath();
+			TieSessionController sessionController, int messageId) throws ServletException, IOException {
+//		int msgid = 0;
+//		// if( id==null ) id =0;
+//		if (request.getParameter("msgid") == null) {
+//			msgid = 0;
+//		} else {
+//			msgid = Integer.parseInt(request.getParameter("msgid"));
+//
+//		}
+//		String contextPath = request.getContextPath();
 
 		// -------Temp code, will clean later
 		// TiePersister persister =
 		// TieController.getController().getPersister();
-		TieMsg msg = sessionController.handleSelectCurrentMsg(msgid);
+		TieMsg msg = sessionController.handleSelectCurrentMsg(messageId);
 		// sessionController.handleSelectCurrentMsg(msgid);
 		// persister.getTieMsgDao().findTieMsgByTieMsgId(msgid);
 		// System.out.println("MSG pojo :" + msg.toString());
-
+		TieMainPage retval = null;
+		retval = TieMainPage.getTieMainPage();
+		
 		ObjectMapper ma = new ObjectMapper();
-		String msgjson = ma.writeValueAsString(msg);
-		System.out.println(msgjson);
+		String tieJson = ma.writeValueAsString(retval);
+		System.out.println(tieJson);
 
 		response.setContentType("text/json");
 		response.setCharacterEncoding("UTF-8");
-		response.getWriter().write(msgjson);
+		response.getWriter().write(tieJson);
 
 		// System.out.println(msgjson);
 
