@@ -107,7 +107,7 @@ public class LoginServlet extends HttpServlet {
 			}else if (action.equals("selectCurrentMsg")){
 				selectCurrentMsg(request, response, sessionController,messageId);
 			}else if (action.equals("selectCurrentDoc")){
-				selectCurrentDoc(request, response, sessionController);
+				selectCurrentDoc(request, response, sessionController,docId);
 			}else {
 				RequestDispatcher rd = request.getRequestDispatcher("dist/index.html");
 				rd.forward(request, response);
@@ -239,12 +239,14 @@ public class LoginServlet extends HttpServlet {
 		// sessionController.handleSelectCurrentMsg(msgid);
 		// persister.getTieMsgDao().findTieMsgByTieMsgId(msgid);
 		// System.out.println("MSG pojo :" + msg.toString());
+		
 		TieMainPage retval = null;
 		retval = TieMainPage.getTieMainPage();
 		
 		ObjectMapper ma = new ObjectMapper();
 		String tieJson = ma.writeValueAsString(retval);
-		System.out.println(tieJson);
+		String msgjson = ma.writeValueAsString(msg);
+		System.out.println("DocJSON" + msgjson);
 
 		response.setContentType("text/json");
 		response.setCharacterEncoding("UTF-8");
@@ -255,23 +257,30 @@ public class LoginServlet extends HttpServlet {
 	}// end selectCurrentMsg
 
 	public void selectCurrentDoc(HttpServletRequest request, HttpServletResponse response,
-			TieSessionController sessionController) throws ServletException, IOException {
-		int tieDocId = 0;
-
-		if (request.getParameter("tieDocId") == null) {
-			tieDocId = 0;
-		} else {
-			tieDocId = Integer.parseInt(request.getParameter("tieDocId"));
-		}
-		TieDoc tieDoc = sessionController.handleSelectCurrentDoc(tieDocId);
+			TieSessionController sessionController, int docId) throws ServletException, IOException {
+//		int tieDocId = 0;
+//
+//		if (request.getParameter("tieDocId") == null) {
+//			tieDocId = 0;
+//		} else {
+//			tieDocId = Integer.parseInt(request.getParameter("tieDocId"));
+//		}
+		TieDoc tieDoc = sessionController.handleSelectCurrentDoc(docId);
 
 		ObjectMapper ma = new ObjectMapper();
 		String docjson = ma.writeValueAsString(tieDoc);
 		System.out.println("DocJSON" + docjson);
 
+		TieMainPage retval = null;
+		retval = TieMainPage.getTieMainPage();
+		
+		
+		String tieJson = ma.writeValueAsString(retval);
+		
+
 		response.setContentType("text/json");
 		response.setCharacterEncoding("UTF-8");
-		response.getWriter().write(docjson);
+		response.getWriter().write(tieJson);
 	}// end
 		// selectCurrentDoc
 

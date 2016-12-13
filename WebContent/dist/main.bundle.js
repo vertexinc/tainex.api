@@ -8922,6 +8922,14 @@ var TieappService = (function () {
         return this._http.post(this.currentUrl, param, options)
             .map(function (res) { return res.json(); });
     };
+    TieappService.prototype.postCurrentDoc = function (docId) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/json' });
+        // let headers = new Headers({ 'Content-Type': 'text/plain; charset=UTF-8' });
+        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* RequestOptions */]({ headers: headers });
+        var param = JSON.stringify({ action: "selectCurrentDoc", docId: docId });
+        return this._http.post(this.currentUrl, param, options)
+            .map(function (res) { return res.json(); });
+    };
     TieappService.prototype.getCurrentMsg = function () {
         // return this.message;
         return this._http.get(this._currentMsgUrl)
@@ -53901,10 +53909,14 @@ var MessagedetailComponent = (function () {
     MessagedetailComponent.prototype.emitCurrentDocId = function (docId) {
         var _this = this;
         //alert(docId);
-        this._tieappService.setCurrentDocURL(docId);
-        this._tieappService.getCurrentDoc()
+        // this._tieappService.setCurrentDocURL(docId);
+        // this._tieappService.getCurrentDoc()
+        //   .subscribe(currentDocData => {
+        //     this.currentDoc = currentDocData;
+        //   })
+        this._tieappService.postCurrentDoc(docId)
             .subscribe(function (currentDocData) {
-            _this.currentDoc = currentDocData;
+            _this.currentDoc = currentDocData.currentTieDoc;
         });
     };
     __decorate([
@@ -57626,7 +57638,7 @@ module.exports = ""
 /* 645 */
 /***/ function(module, exports) {
 
-module.exports = "<div id='bodyContainer' *ngIf=\"body\">\r\n  <div *ngIf=\"showSearchCriteria\" id='tieapp-searchcriteria'>\r\n    <tieapp-searchcriteria title=\"Search By\">\r\n      <tieapp-search-detail></tieapp-search-detail>\r\n    </tieapp-searchcriteria>\r\n\r\n  </div>\r\n  <a (click)=\"showSearchCriteria = !showSearchCriteria\">\r\n    <div *ngIf=\"!showSearchCriteria\"><i class=\"fa fa-chevron-right\" aria-hidden=\"true\"></i></div>\r\n    <div *ngIf=\"showSearchCriteria\"><i class=\"fa fa-chevron-left\" aria-hidden=\"true\"></i></div>\r\n  </a>\r\n  <div id=\"rightpanel\">\r\n    <div id=\"rightpanelflex\">\r\n      <div id='tieapp-messagelist'>\r\n\r\n        <!-- <tieapp-messagelist  [tieMsgs]=\"body.messagelist\"></tieapp-messagelist> -->\r\n        <tieapp-messagelist [messageList]=\"body.messageList.messageSumList\" [currentSelectedMessageId]=\"10\" (emitMessageId)=\"emitMessageId($event)\"> </tieapp-messagelist>\r\n      </div>\r\n      <div class=\"splitter-horizontal\"></div>\r\n      <div id='tieapp-messagedetail'>\r\n        <tieapp-messagedetail [messageDetail]=\"body.messageDetail\"  [currentDoc]=\"body.currentDoc\"></tieapp-messagedetail>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div id='bodyContainer' *ngIf=\"body\">\r\n  <div *ngIf=\"showSearchCriteria\" id='tieapp-searchcriteria'>\r\n    <tieapp-searchcriteria title=\"Search By\">\r\n      <tieapp-search-detail></tieapp-search-detail>\r\n    </tieapp-searchcriteria>\r\n\r\n  </div>\r\n  <a (click)=\"showSearchCriteria = !showSearchCriteria\">\r\n    <div *ngIf=\"!showSearchCriteria\"><i class=\"fa fa-chevron-right\" aria-hidden=\"true\"></i></div>\r\n    <div *ngIf=\"showSearchCriteria\"><i class=\"fa fa-chevron-left\" aria-hidden=\"true\"></i></div>\r\n  </a>\r\n  <div id=\"rightpanel\">\r\n    <div id=\"rightpanelflex\">\r\n      <div id='tieapp-messagelist'>\r\n\r\n        <!-- <tieapp-messagelist  [tieMsgs]=\"body.messagelist\"></tieapp-messagelist> -->\r\n        <tieapp-messagelist [messageList]=\"body.messageList.messageSumList\" [currentSelectedMessageId]=\"body.messageDetail.tieMsgId\" (emitMessageId)=\"emitMessageId($event)\"> </tieapp-messagelist>\r\n      </div>\r\n      <div class=\"splitter-horizontal\"></div>\r\n      <div id='tieapp-messagedetail'>\r\n        <tieapp-messagedetail [messageDetail]=\"body.messageDetail\"  [currentDoc]=\"body.currentDoc\"></tieapp-messagedetail>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ },
 /* 646 */
@@ -57674,7 +57686,7 @@ module.exports = "<div id=\"currentMsgBody\" *ngIf=\"messageDetail\">\r\n  <div 
 /* 653 */
 /***/ function(module, exports) {
 
-module.exports = "\r\n<ul class=\"nav nav-tabs\" role=\"tablist\" >\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link active\" href=\"#message\" title=\"Message\" role=\"tab\" data-toggle=\"tab\">Message</a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#docs\" title=\"Current Message:{{messageDetail.subject}} \" role=\"tab\" data-toggle=\"tab\">Docs<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Message : {{messageDetail.subject}}</div></a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#entity\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Entity<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name}}</div></a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#table1\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Table1<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name}}</div></a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#table2\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Table2<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name}}</div></a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#table3\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Table3<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name}}</div></a>\r\n  </li>\r\n</ul>\r\n\r\n<!-- Tab panes -->\r\n<div class=\"tab-content\">\r\n  <div role=\"tabpanel\" class=\"tab-pane fade in active\" id=\"message\"><tieapp-message [messageDetail]=\"messageDetail\"></tieapp-message></div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"docs\"><tieapp-doclist [messageDetail]=\"messageDetail\" [currentDocId] = \"13\" (emitCurrentDocId)=\"emitCurrentDocId($event)\"></tieapp-doclist></div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"entity\"><tieapp-entitylist [currentDoc]=\"currentDoc\" ></tieapp-entitylist></div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"table1\"><tieapp-cbcrtable1 [currentDoc]=\"currentDoc\"></tieapp-cbcrtable1></div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"table2\"><tieapp-cbcrtable2 [currentDoc]=\"currentDoc\"></tieapp-cbcrtable2></div>\r\n  <div role=\"tabpane1\" class=\"tab-pane fade\" id=\"table3\"><tieapp-cbcrtable3 [currentDoc]=\"currentDoc\"></tieapp-cbcrtable3></div>\r\n</div>\r\n"
+module.exports = "\r\n<ul class=\"nav nav-tabs\" role=\"tablist\" >\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link active\" href=\"#message\" title=\"Message\" role=\"tab\" data-toggle=\"tab\">Message</a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#docs\" title=\"Current Message:{{messageDetail.subject}} \" role=\"tab\" data-toggle=\"tab\">Docs<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Message : {{messageDetail.subject}}</div></a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#entity\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Entity<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name}}</div></a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#table1\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Table1<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name}}</div></a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#table2\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Table2<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name}}</div></a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#table3\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Table3<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name}}</div></a>\r\n  </li>\r\n</ul>\r\n\r\n<!-- Tab panes -->\r\n<div class=\"tab-content\">\r\n  <div role=\"tabpanel\" class=\"tab-pane fade in active\" id=\"message\"><tieapp-message [messageDetail]=\"messageDetail\"></tieapp-message></div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"docs\"><tieapp-doclist [messageDetail]=\"messageDetail\" [currentDocId] = \"currentDoc.tieDocId\" (emitCurrentDocId)=\"emitCurrentDocId($event)\"></tieapp-doclist></div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"entity\"><tieapp-entitylist [currentDoc]=\"currentDoc\" ></tieapp-entitylist></div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"table1\"><tieapp-cbcrtable1 [currentDoc]=\"currentDoc\"></tieapp-cbcrtable1></div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"table2\"><tieapp-cbcrtable2 [currentDoc]=\"currentDoc\"></tieapp-cbcrtable2></div>\r\n  <div role=\"tabpane1\" class=\"tab-pane fade\" id=\"table3\"><tieapp-cbcrtable3 [currentDoc]=\"currentDoc\"></tieapp-cbcrtable3></div>\r\n</div>\r\n"
 
 /***/ },
 /* 654 */
