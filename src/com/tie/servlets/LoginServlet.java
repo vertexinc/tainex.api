@@ -269,14 +269,14 @@ public class LoginServlet extends HttpServlet {
 
 		ObjectMapper ma = new ObjectMapper();
 		String docjson = ma.writeValueAsString(tieDoc);
-		System.out.println("DocJSON" + docjson);
+		
 
 		TieMainPage retval = null;
 		retval = TieMainPage.getTieMainPage();
 		
 		
 		String tieJson = ma.writeValueAsString(retval);
-		
+		System.out.println("DocJSON" + docjson);
 
 		response.setContentType("text/json");
 		response.setCharacterEncoding("UTF-8");
