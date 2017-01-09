@@ -316,13 +316,17 @@ public class TieMsg {
 	@Override
 	public String toString() {
 		return "TieMsg [tieMsgId=" + tieMsgId + ", subject=" + subject + ", code=" + code + ", description="
-				+ description + ", notes=" + notes + ", senderId=" + senderId + ", ownerid=" + ownerid
-				+ ", tieMsgStateId=" + tieMsgStateId + ", sendingEntityIdNum=" + sendingEntityIdNum
-				+ ", transmittingCountry=" + transmittingCountry + ", receivingCountries=" + receivingCountries
-				+ ", messageType=" + messageType + ", lauguage=" + lauguage + ", warning=" + warning + ", contact="
-				+ contact + ", messageRefId=" + messageRefId + ", messageTypeIndic=" + messageTypeIndic
-				+ ", corrMessageRefIds=" + corrMessageRefIds + ", reportingPeriod=" + reportingPeriod + ", timestamp="
-				+ timestamp + ", rawMsg=" + rawMsg + "]";
+				+ description + ", notes=" + notes + ", senderId=" + senderId + ", sender=" + sender + ", ownerid="
+				+ ownerid + ", tieMsgStateId=" + tieMsgStateId + ", tieMsgState=" + tieMsgState
+				+ ", sendingEntityIdNum=" + sendingEntityIdNum + ", transmittingCountry=" + transmittingCountry
+				+ ", receivingCountries=" + receivingCountries + ", messageType=" + messageType + ", lauguage="
+				+ lauguage + ", warning=" + warning + ", contact=" + contact + ", messageRefId=" + messageRefId
+				+ ", messageTypeIndic=" + messageTypeIndic + ", corrMessageRefIds=" + corrMessageRefIds
+				+ ", reportingPeriod=" + reportingPeriod + ", timestamp=" + timestamp + ", rawMsg=" + rawMsg
+				+ ", msgReceiverList=" + msgReceiverList + ", userName=" + userName + ", msgState=" + msgState
+				+ ", tieTaxEntity=" + tieTaxEntity + ", tieDocList=" + tieDocList + "]";
 	}
+
+	
 
 }

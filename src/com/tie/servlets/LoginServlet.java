@@ -104,11 +104,18 @@ public class LoginServlet extends HttpServlet {
 			if (action.equals("initPage")) {
 				System.out.println("Directing to initPage function");
 				initPage(request, response, sessionController);
-			}else if (action.equals("selectCurrentMsg")){
-				selectCurrentMsg(request, response, sessionController,messageId);
-			}else if (action.equals("selectCurrentDoc")){
-				selectCurrentDoc(request, response, sessionController,docId);
-			}else {
+			} else if (action.equals("selectCurrentMsg")) {
+				selectCurrentMsg(request, response, sessionController, messageId);
+			} else if (action.equals("selectCurrentDoc")) {
+				selectCurrentDoc(request, response, sessionController, docId);
+			} else if (action.equals("save")) {
+				System.out.println("======Directing to save function======");
+				System.out.println("tieMsg.toString " + param.getTieMsg());
+				
+				//Call session controller to save currentMessage into database
+				saveCurrentMessage(sessionController, param.getTieMsg());
+				
+			} else {
 				RequestDispatcher rd = request.getRequestDispatcher("dist/index.html");
 				rd.forward(request, response);
 			}
@@ -189,23 +196,28 @@ public class LoginServlet extends HttpServlet {
 		out.close();
 	}// end doPost(..)
 
-	//Return the whole TIEapp json when init
-	//Customize init json to front end
+	private void saveCurrentMessage(TieSessionController sessionController, TieMsg tieMsg) {
+		// TODO Auto-generated method stub
+		sessionController.handleSaveMessage(tieMsg);
+	}
+
+	// Return the whole TIEapp json when init
+	// Customize init json to front end
 	private void initPage(HttpServletRequest request, HttpServletResponse response,
 			TieSessionController sessionController) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Header header = sessionController.initMainPage();
 		ObjectMapper ma = new ObjectMapper();
-		
-		//SimpleModule module = new SimpleModule();
-		//module.addSerializer(Header.class, new InitSerializer());
-		//ma.registerModule(module);
+
+		// SimpleModule module = new SimpleModule();
+		// module.addSerializer(Header.class, new InitSerializer());
+		// ma.registerModule(module);
 		ObjectMapper ma2 = new ObjectMapper();
 		TieMainPage retval = null;
 		retval = TieMainPage.getTieMainPage();
 		String tieJson = ma2.writeValueAsString(retval);
 		String headerjson = ma.writeValueAsString(header);
-		//String serialized = ma.writeValueAsString(header);
+		// String serialized = ma.writeValueAsString(header);
 		System.out.println("init json string: " + tieJson);
 		response.setContentType("text/json");
 		response.setCharacterEncoding("UTF-8");
@@ -222,15 +234,15 @@ public class LoginServlet extends HttpServlet {
 	 */
 	public void selectCurrentMsg(HttpServletRequest request, HttpServletResponse response,
 			TieSessionController sessionController, int messageId) throws ServletException, IOException {
-//		int msgid = 0;
-//		// if( id==null ) id =0;
-//		if (request.getParameter("msgid") == null) {
-//			msgid = 0;
-//		} else {
-//			msgid = Integer.parseInt(request.getParameter("msgid"));
-//
-//		}
-//		String contextPath = request.getContextPath();
+		// int msgid = 0;
+		// // if( id==null ) id =0;
+		// if (request.getParameter("msgid") == null) {
+		// msgid = 0;
+		// } else {
+		// msgid = Integer.parseInt(request.getParameter("msgid"));
+		//
+		// }
+		// String contextPath = request.getContextPath();
 
 		// -------Temp code, will clean later
 		// TiePersister persister =
@@ -239,10 +251,10 @@ public class LoginServlet extends HttpServlet {
 		// sessionController.handleSelectCurrentMsg(msgid);
 		// persister.getTieMsgDao().findTieMsgByTieMsgId(msgid);
 		// System.out.println("MSG pojo :" + msg.toString());
-		
+
 		TieMainPage retval = null;
 		retval = TieMainPage.getTieMainPage();
-		
+
 		ObjectMapper ma = new ObjectMapper();
 		String tieJson = ma.writeValueAsString(retval);
 		String msgjson = ma.writeValueAsString(msg);
@@ -258,23 +270,21 @@ public class LoginServlet extends HttpServlet {
 
 	public void selectCurrentDoc(HttpServletRequest request, HttpServletResponse response,
 			TieSessionController sessionController, int docId) throws ServletException, IOException {
-//		int tieDocId = 0;
-//
-//		if (request.getParameter("tieDocId") == null) {
-//			tieDocId = 0;
-//		} else {
-//			tieDocId = Integer.parseInt(request.getParameter("tieDocId"));
-//		}
+		// int tieDocId = 0;
+		//
+		// if (request.getParameter("tieDocId") == null) {
+		// tieDocId = 0;
+		// } else {
+		// tieDocId = Integer.parseInt(request.getParameter("tieDocId"));
+		// }
 		TieDoc tieDoc = sessionController.handleSelectCurrentDoc(docId);
 
 		ObjectMapper ma = new ObjectMapper();
 		String docjson = ma.writeValueAsString(tieDoc);
-		
 
 		TieMainPage retval = null;
 		retval = TieMainPage.getTieMainPage();
-		
-		
+
 		String tieJson = ma.writeValueAsString(retval);
 		System.out.println("DocJSON" + docjson);
 

@@ -1,15 +1,27 @@
 package com.tie.ui;
 
+import com.tie.model.TieMsg;
+
 public class Param {
 	private String action;
 	private int messageId;
 	private int docId;
+	private TieMsg tieMsg;
 	
-	public Param(String action, int messageId, int docId) {
+	public Param(String action, int messageId, int docId,TieMsg tieMsg) {
 		super();
 		this.action = action;
 		this.messageId = messageId;
 		this.docId = docId;
+		this.tieMsg = tieMsg;
+	}
+
+	public TieMsg getTieMsg() {
+		return tieMsg;
+	}
+
+	public void setTieMsg(TieMsg tieMsg) {
+		this.tieMsg = tieMsg;
 	}
 
 	public Param(String action) {

@@ -157,4 +157,47 @@ public class TieMsgDao extends BaseDao {
 
 		return msg;
 	}
+	
+	public void saveTieMessage(TieMsg tieMsg){
+		
+		getConnection();
+		
+	
+		try {
+			System.out.println("Started to save");
+			String sql = "insert into mx.tiemsg values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+			PreparedStatement saveStatement = conn.prepareStatement(sql);
+			saveStatement.setString(1, null);
+			saveStatement.setString(2, tieMsg.getSubject());
+			saveStatement.setString(3, tieMsg.getCode());
+			saveStatement.setString(4, tieMsg.getDescription());
+			saveStatement.setString(5, tieMsg.getNotes());
+			saveStatement.setInt(6, 3);
+			saveStatement.setInt(7, 4);//CD This is hard coded as 4, will change to tieMsg.getOwnerId() later
+			saveStatement.setInt(8, 1);
+			saveStatement.setString(9, tieMsg.getSendingEntityIdNum());
+			saveStatement.setString(10, tieMsg.getTransmittingCountry());
+			saveStatement.setString(11, tieMsg.getReceivingCountries());
+			saveStatement.setString(12, tieMsg.getMessageType());
+			saveStatement.setString(13, tieMsg.getLauguage());
+			saveStatement.setString(14, tieMsg.getWarning());
+			saveStatement.setString(15, tieMsg.getContact());
+			saveStatement.setString(16, tieMsg.getMessageRefId());
+			saveStatement.setString(17, tieMsg.getMessageTypeIndic());
+			saveStatement.setString(18, tieMsg.getCorrMessageRefIds());
+			saveStatement.setString(19, tieMsg.getReportingPeriod());
+			saveStatement.setString(20, tieMsg.getTimestamp());
+			saveStatement.setString(21, tieMsg.getRawMsg());
+	
+	
+		
+			
+			saveStatement.executeUpdate();
+			System.out.println("Done  save: " + tieMsg);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+	}
 }

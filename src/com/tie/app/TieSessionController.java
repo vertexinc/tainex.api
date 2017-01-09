@@ -271,7 +271,7 @@ public class TieSessionController extends TieControllerBase {
 	 * 
 	 * @param tieMsg
 	 */
-	private void populateMsg(TieMsg tieMsg) {
+	public void populateMsg(TieMsg tieMsg) {
 		if (tieMsg == null)
 			return;
 
@@ -307,6 +307,7 @@ public class TieSessionController extends TieControllerBase {
 		// Handle current doc situation
 		
 		// CurrentDoc Problem - > we only set the first doc as currentDoc 
+		
 		TieDoc currentDoc = tieDocList.get(0);
 
 		// Populate reporting entity object (findbyCode) TieTaxEntity
@@ -340,7 +341,7 @@ public class TieSessionController extends TieControllerBase {
 		currentDoc.setTable3String(table3String.toString());
 
 	}// end populateMsg(.)
-	private void populateDoc(TieDoc tieDoc) {
+	public void populateDoc(TieDoc tieDoc) {
 		if (tieDoc == null)
 			return;
 
@@ -381,5 +382,10 @@ public class TieSessionController extends TieControllerBase {
 
 	}// end populateDoc(.)
 	
+	public void handleSaveMessage(TieMsg msg){
+		TiePersister persister = TieController.getController().getPersister();
+		persister.getTieMsgDao().saveTieMessage(msg);;
+		
+	}
 
 }// end class TieSessionContrller
