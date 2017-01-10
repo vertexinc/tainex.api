@@ -247,6 +247,7 @@ public class LoginServlet extends HttpServlet {
 		// -------Temp code, will clean later
 		// TiePersister persister =
 		// TieController.getController().getPersister();
+		System.out.println("Current Msg Id" + messageId);
 		TieMsg msg = sessionController.handleSelectCurrentMsg(messageId);
 		// sessionController.handleSelectCurrentMsg(msgid);
 		// persister.getTieMsgDao().findTieMsgByTieMsgId(msgid);
@@ -258,7 +259,7 @@ public class LoginServlet extends HttpServlet {
 		ObjectMapper ma = new ObjectMapper();
 		String tieJson = ma.writeValueAsString(retval);
 		String msgjson = ma.writeValueAsString(msg);
-		System.out.println("DocJSON" + msgjson);
+		System.out.println("msgJSON" + msgjson);
 
 		response.setContentType("text/json");
 		response.setCharacterEncoding("UTF-8");
