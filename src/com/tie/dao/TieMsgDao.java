@@ -17,10 +17,11 @@ import com.tie.model.TieMsg;
 public class TieMsgDao extends BaseDao {
 	public List<TieMsg> findTieMsgByOwnerId(int id) {
 		getConnection();
-	
+
 		List<TieMsg> msgList = new ArrayList<TieMsg>();
 		try {
-			TieMsg tieMsg = new TieMsg();;
+			TieMsg tieMsg = new TieMsg();
+			;
 			String sql = "select * from mx.tiemsg where ownerid = ?";
 
 			PreparedStatement selectStatement = conn.prepareStatement(sql);
@@ -60,13 +61,9 @@ public class TieMsgDao extends BaseDao {
 			System.out.println(e);
 		} finally {
 			/*
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}*/
+			 * if (conn != null) { try { conn.close(); } catch (SQLException e)
+			 * { e.printStackTrace(); } }
+			 */
 			if (pst != null) {
 				try {
 					pst.close();
@@ -86,12 +83,13 @@ public class TieMsgDao extends BaseDao {
 
 		return msgList;
 	}
+
 	public TieMsg findTieMsgByTieMsgId(int id) {
 		getConnection();
-	
+
 		TieMsg msg = new TieMsg();
 		try {
-			
+
 			String sql = "select * from mx.tiemsg where tiemsgId = ?";
 
 			PreparedStatement selectStatement = conn.prepareStatement(sql);
@@ -125,19 +123,15 @@ public class TieMsgDao extends BaseDao {
 						sendingEntityIdNum, transmittingCountry, receivingCountries, messageType, lauguage, warning,
 						contact, messageRefId, messageTypeIndic, corrMessageRefIds, reportingPeriod, timestamp, rawMsg);
 				// tieapp = new TieApp(name,description);
-				
+
 			}
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
 			/*
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}*/
+			 * if (conn != null) { try { conn.close(); } catch (SQLException e)
+			 * { e.printStackTrace(); } }
+			 */
 			if (pst != null) {
 				try {
 					pst.close();
@@ -157,47 +151,74 @@ public class TieMsgDao extends BaseDao {
 
 		return msg;
 	}
-	
-	public void saveTieMessage(TieMsg tieMsg){
-		
+
+	public void saveTieMessage(TieMsg tieMsg) {
+
 		getConnection();
-		
-	
+
 		try {
 			System.out.println("Started to save");
-			String sql = "insert into mx.tiemsg values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-
+			String sql;
+			if (tieMsg.getTieMsgId() == 0) {
+				sql = "insert into mx.tiemsg values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			} else {
+				sql = "update mx.tiemsg set subject=?, code=?, description=?,notes=?,senderId=?,ownerid=?,tieMsgStateId=?,sendingEntityIdNum=?,transmittingCountry=?,receivingCountries=?,messageType=?,lauguage=?,warning=?,contact=?,messageRefId=?,messageTypeIndic=?,corrMessageRefIds=?,reportingPeriod=?,timestamp=?,rawMsg=? WHERE tieMsgId=?";
+			}
 			PreparedStatement saveStatement = conn.prepareStatement(sql);
-			saveStatement.setString(1, null);
-			saveStatement.setString(2, tieMsg.getSubject());
-			saveStatement.setString(3, tieMsg.getCode());
-			saveStatement.setString(4, tieMsg.getDescription());
-			saveStatement.setString(5, tieMsg.getNotes());
-			saveStatement.setInt(6, 3);
-			saveStatement.setInt(7, 4);//CD This is hard coded as 4, will change to tieMsg.getOwnerId() later
-			saveStatement.setInt(8, 1);
-			saveStatement.setString(9, tieMsg.getSendingEntityIdNum());
-			saveStatement.setString(10, tieMsg.getTransmittingCountry());
-			saveStatement.setString(11, tieMsg.getReceivingCountries());
-			saveStatement.setString(12, tieMsg.getMessageType());
-			saveStatement.setString(13, tieMsg.getLauguage());
-			saveStatement.setString(14, tieMsg.getWarning());
-			saveStatement.setString(15, tieMsg.getContact());
-			saveStatement.setString(16, tieMsg.getMessageRefId());
-			saveStatement.setString(17, tieMsg.getMessageTypeIndic());
-			saveStatement.setString(18, tieMsg.getCorrMessageRefIds());
-			saveStatement.setString(19, tieMsg.getReportingPeriod());
-			saveStatement.setString(20, tieMsg.getTimestamp());
-			saveStatement.setString(21, tieMsg.getRawMsg());
-	
-	
-		
-			
+
+			if (tieMsg.getTieMsgId() == 0) {
+				saveStatement.setString(1, null);
+				saveStatement.setString(2, tieMsg.getSubject());
+				saveStatement.setString(3, tieMsg.getCode());
+				saveStatement.setString(4, tieMsg.getDescription());
+				saveStatement.setString(5, tieMsg.getNotes());
+				saveStatement.setInt(6, 3);
+				saveStatement.setInt(7, 4);// CD This is hard coded as 4, will
+											// change to tieMsg.getOwnerId()
+											// later
+				saveStatement.setInt(8, 1);
+				saveStatement.setString(9, tieMsg.getSendingEntityIdNum());
+				saveStatement.setString(10, tieMsg.getTransmittingCountry());
+				saveStatement.setString(11, tieMsg.getReceivingCountries());
+				saveStatement.setString(12, tieMsg.getMessageType());
+				saveStatement.setString(13, tieMsg.getLauguage());
+				saveStatement.setString(14, tieMsg.getWarning());
+				saveStatement.setString(15, tieMsg.getContact());
+				saveStatement.setString(16, tieMsg.getMessageRefId());
+				saveStatement.setString(17, tieMsg.getMessageTypeIndic());
+				saveStatement.setString(18, tieMsg.getCorrMessageRefIds());
+				saveStatement.setString(19, tieMsg.getReportingPeriod());
+				saveStatement.setString(20, tieMsg.getTimestamp());
+				saveStatement.setString(21, tieMsg.getRawMsg());
+			} else {
+				saveStatement.setString(1, tieMsg.getSubject());
+				saveStatement.setString(2, tieMsg.getCode());
+				saveStatement.setString(3, tieMsg.getDescription());
+				saveStatement.setString(4, tieMsg.getNotes());
+				saveStatement.setInt(5, 3);
+				saveStatement.setInt(6, 4);
+				saveStatement.setInt(7, 1);
+				saveStatement.setString(8, tieMsg.getSendingEntityIdNum());
+				saveStatement.setString(9, tieMsg.getTransmittingCountry());
+				saveStatement.setString(10, tieMsg.getReceivingCountries());
+				saveStatement.setString(11, tieMsg.getMessageType());
+				saveStatement.setString(12, tieMsg.getLauguage());
+				saveStatement.setString(13, tieMsg.getWarning());
+				saveStatement.setString(14, tieMsg.getContact());
+				saveStatement.setString(15, tieMsg.getMessageRefId());
+				saveStatement.setString(16, tieMsg.getMessageTypeIndic());
+				saveStatement.setString(17, tieMsg.getCorrMessageRefIds());
+				saveStatement.setString(18, tieMsg.getReportingPeriod());
+				saveStatement.setString(19, tieMsg.getTimestamp());
+				saveStatement.setString(20, tieMsg.getRawMsg());
+				saveStatement.setInt(21, tieMsg.getTieMsgId());
+			}
+
 			saveStatement.executeUpdate();
 			System.out.println("Done  save: " + tieMsg);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		
+
 	}
 }

@@ -40967,7 +40967,28 @@ var AppComponent = (function () {
         this.showApp = true;
         this.showTraining = false;
     }
+    AppComponent.prototype.ngOnChanges = function () {
+        //this.getAppData();
+    };
     AppComponent.prototype.ngOnInit = function () {
+        this.getAppData();
+        // this.getAppData;
+        // this._tieappService.getData()
+        //   .subscribe(tieMsgData => {
+        //     // pageData = transformRawDataToPageStructure( rawData ); transform the given data structure into the exact structure of the pages
+        //     // updateScreen( pageData )
+        //
+        //     this.tieapp.header.appName = tieMsgData.appName;
+        //     this.tieapp.header.userName = tieMsgData.username;
+        //     this.tieapp.header.language = tieMsgData.language;
+        //
+        //     this.tieapp.body.messageList.messageSumList = tieMsgData.msgList;
+        //     this.tieapp.body.messageDetail = tieMsgData.currentMsg;
+        //     this.tieapp.body.currentDoc = tieMsgData.currentTieDoc
+        //
+        //   });
+    };
+    AppComponent.prototype.getAppData = function () {
         var _this = this;
         this._tieappService.getData()
             .subscribe(function (tieMsgData) {
@@ -40980,17 +41001,16 @@ var AppComponent = (function () {
             _this.tieapp.body.messageDetail = tieMsgData.currentMsg;
             _this.tieapp.body.currentDoc = tieMsgData.currentTieDoc;
         });
-        // this._tieappService.getHeader()
-        //     .subscribe(tieData => {
-        //         this.header = tieData;
-        //         alert(JSON.stringify(tieData));
-        //     })
     };
     AppComponent.prototype.tieAppShowInfo = function (showApp) {
         this.showApp = showApp;
     };
     AppComponent.prototype.trainingShowInfo = function (showTraining) {
         this.showTraining = showTraining;
+    };
+    AppComponent.prototype.emitSaveChangeAtBody = function () {
+        // alert("emit applied!");
+        //  this.getAppData();
     };
     AppComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
@@ -54125,6 +54145,7 @@ var BodyComponent = (function () {
         this._tieappService = _tieappService;
         this.showSearchCriteria = false;
         this.showTable = false;
+        this.emitSaveChangeAtBody = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
     }
     BodyComponent.prototype.ngOnInit = function () {
     };
@@ -54159,7 +54180,7 @@ var BodyComponent = (function () {
         var copy = JSON.parse(JSON.stringify(objectModel));
         //let newObject = objectModel
         var msgId = copy.tieMsgId;
-        copy.tieMsgId = msgId + 1;
+        copy.tieMsgId = 0;
         copy.subject = "new";
         copy.sender.name = "new";
         copy.description = "new";
@@ -54179,6 +54200,9 @@ var BodyComponent = (function () {
     };
     BodyComponent.prototype.emiteDelete = function () {
     };
+    BodyComponent.prototype.emitSaveChangeAtMessageDetail = function () {
+        this.emitSaveChangeAtBody.emit();
+    };
     __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
         __metadata('design:type', Object)
@@ -54187,6 +54211,10 @@ var BodyComponent = (function () {
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
         __metadata('design:type', Object)
     ], BodyComponent.prototype, "language", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(), 
+        __metadata('design:type', Object)
+    ], BodyComponent.prototype, "emitSaveChangeAtBody", void 0);
     BodyComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'tieapp-body',
@@ -54207,52 +54235,12 @@ var BodyComponent = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return Message; });
 var Message = (function () {
-    // user: string;
-    // subject: string;
-    // description: string;
-    // date: string;
-    // status: string;
-    // from: string;
-    //
-    // reportingPeriod: string;
-    // to: string;
-    // notes: string;
-    // warning: string;
-    // contact: string;
-    // OECDMessageRefID: string;
-    // OECDMessageType: Array<string>;
-    // OECDMessageTypeIndic: Array<string>;
-    // sendingCountry: string;
-    // receivingCountry: string;
-    // Language: Array<string>;
-    //
-    // constructor(user, subject, description, date, status, from,
-    //    reportingPeriod, to, notes, warning, contact, OECDMessageRefID, OECDMessageType, OECDMessageTypeIndic,
-    //   sendingCountry, receivingCountry, Language) {
-    //   this.user = user;
-    //   this.subject = subject;
-    //   this.description = description;
-    //   this.date = date;
-    //   this.status = status;
-    //   this.from = from;
-    //
-    //   this.reportingPeriod = reportingPeriod;
-    //   this.to = to;
-    //   this.notes = notes;
-    //   this.warning = warning;
-    //   this.contact = contact;
-    //   this.OECDMessageRefID = OECDMessageRefID;
-    //   this.OECDMessageType = OECDMessageType;
-    //   this.OECDMessageTypeIndic = OECDMessageTypeIndic;
-    //   this.sendingCountry = sendingCountry;
-    //   this.receivingCountry = receivingCountry;
-    //   this.Language = Language;
-    // };
-    function Message(user, subject, description, date, status, from, reportingPeriod, msgReceiverList, notes, warning, contact, OECDMessageRefID, OECDMessageType, OECDMessageTypeIndic, sendingCountry, receivingCountry, Language) {
+    function Message(tieMsgId, user, subject, description, timestamp, status, from, reportingPeriod, msgReceiverList, notes, warning, contact, OECDMessageRefID, messageType, messageTypeIndic, sendingCountry, receivingCountry, language) {
+        this.tieMsgId = tieMsgId;
         this.user = user;
         this.subject = subject;
         this.description = description;
-        this.date = date;
+        this.timestamp = timestamp;
         this.status = status;
         this.from = from;
         this.reportingPeriod = reportingPeriod;
@@ -54261,11 +54249,11 @@ var Message = (function () {
         this.warning = warning;
         this.contact = contact;
         this.OECDMessageRefID = OECDMessageRefID;
-        this.OECDMessageType = OECDMessageType;
-        this.OECDMessageTypeIndic = OECDMessageTypeIndic;
+        this.messageType = messageType;
+        this.messageTypeIndic = messageTypeIndic;
         this.sendingCountry = sendingCountry;
         this.receivingCountry = receivingCountry;
-        this.Language = Language;
+        this.language = language;
     }
     return Message;
 }());
@@ -54544,14 +54532,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var MessageComponent = (function () {
     function MessageComponent(_tieappService) {
         this._tieappService = _tieappService;
+        this.emitSaveChangeAtMessage = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         this.model = new __WEBPACK_IMPORTED_MODULE_1__message__["a" /* Message */]();
+        this.OECDMessageTypeList = ['CbC', 'CbCR'];
+        this.OECDMessageTypeIndicList = ['CBC401', 'CBC402'];
     }
     MessageComponent.prototype.ngOnChanges = function () {
+        this.model.tieMsgId = this.messageDetail.tieMsgId;
         this.model.msgReceiverList = this.messageDetail.msgReceiverList;
         this.model.subject = this.messageDetail.subject;
         this.model.notes = this.messageDetail.notes;
         this.model.warning = this.messageDetail.warning;
         this.model.contact = this.messageDetail.contact;
+        this.model.messageType = this.messageDetail.messageType;
+        this.model.reportingPeriod = this.messageDetail.reportingPeriod;
+        this.model.timestamp = this.messageDetail.timestamp;
     };
     MessageComponent.prototype.ngOnInit = function () {
     };
@@ -54566,6 +54561,7 @@ var MessageComponent = (function () {
             .subscribe(function (saveReturnData) {
             alert(saveReturnData);
         });
+        this.emitSaveChangeAtMessage.emit();
     };
     __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
@@ -54574,7 +54570,11 @@ var MessageComponent = (function () {
     __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
         __metadata('design:type', Object)
-    ], MessageComponent.prototype, "language", void 0);
+    ], MessageComponent.prototype, "languageList", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(), 
+        __metadata('design:type', Object)
+    ], MessageComponent.prototype, "emitSaveChangeAtMessage", void 0);
     MessageComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'tieapp-message',
@@ -54611,6 +54611,7 @@ var MessagedetailComponent = (function () {
     // private currentDoc = this.messageDetail.tieDocList[0];
     function MessagedetailComponent(_tieappService) {
         this._tieappService = _tieappService;
+        this.emitSaveChangeAtMessageDetail = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         // this.currentMessageName = this.truncateInfo(this.messageDetail.subject);
         // this.currentDocName = this.truncateInfo(this.currentDoc.name)
     }
@@ -54629,6 +54630,9 @@ var MessagedetailComponent = (function () {
             _this.currentDoc = currentDocData.currentTieDoc;
         });
     };
+    MessagedetailComponent.prototype.emitSaveChangeAtMessage = function () {
+        this.emitSaveChangeAtMessageDetail.emit();
+    };
     __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
         __metadata('design:type', Object)
@@ -54645,6 +54649,10 @@ var MessagedetailComponent = (function () {
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
         __metadata('design:type', Object)
     ], MessagedetailComponent.prototype, "language", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(), 
+        __metadata('design:type', Object)
+    ], MessagedetailComponent.prototype, "emitSaveChangeAtMessageDetail", void 0);
     MessagedetailComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'tieapp-messagedetail',
@@ -54684,6 +54692,9 @@ var MessagelistComponent = (function () {
         this._tieappService = _tieappService;
         this.emitMessageId = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
     }
+    // ngOnChanges() {
+    //   alert(JSON.stringify(this.messageList));
+    // }
     MessagelistComponent.prototype.ngOnInit = function () {
     };
     MessagelistComponent.prototype.isHighlight = function (tieMsgId) {
@@ -58434,7 +58445,7 @@ module.exports = ""
 /* 653 */
 /***/ function(module, exports) {
 
-module.exports = "<div id='bodyContainer' *ngIf=\"body\">\r\n  <div *ngIf=\"showSearchCriteria\" id='tieapp-searchcriteria'>\r\n    <tieapp-searchcriteria title=\"Search By\" (emitCompose)=\"emitCompose($event)\">\r\n      <tieapp-search-detail></tieapp-search-detail>\r\n    </tieapp-searchcriteria>\r\n\r\n  </div>\r\n  <a (click)=\"showSearchCriteria = !showSearchCriteria\">\r\n    <div *ngIf=\"!showSearchCriteria\"><i class=\"fa fa-chevron-right\" aria-hidden=\"true\"></i></div>\r\n    <div *ngIf=\"showSearchCriteria\"><i class=\"fa fa-chevron-left\" aria-hidden=\"true\"></i></div>\r\n  </a>\r\n  <div id=\"rightpanel\">\r\n    <div id=\"rightpanelflex\">\r\n      <div id='tieapp-messagelist'>\r\n\r\n        <!-- <tieapp-messagelist  [tieMsgs]=\"body.messagelist\"></tieapp-messagelist> -->\r\n        <tieapp-messagelist [messageList]=\"body.messageList.messageSumList\" [currentSelectedMessageId]=\"body.messageDetail.tieMsgId\"  (emitMessageId)=\"emitMessageId($event)\"> </tieapp-messagelist>\r\n\r\n      </div>\r\n      <div class=\"splitter-horizontal\"></div>\r\n      <div id='tieapp-messagedetail'>\r\n        <tieapp-messagedetail [messageDetail]=\"body.messageDetail\" [language] = \"language\" [currentDoc]=\"body.currentDoc\" [showTable]=\"showTable\"></tieapp-messagedetail>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div id='bodyContainer' *ngIf=\"body\">\r\n  <div *ngIf=\"showSearchCriteria\" id='tieapp-searchcriteria'>\r\n    <tieapp-searchcriteria title=\"Search By\" (emitCompose)=\"emitCompose($event)\">\r\n      <tieapp-search-detail></tieapp-search-detail>\r\n    </tieapp-searchcriteria>\r\n\r\n  </div>\r\n  <a (click)=\"showSearchCriteria = !showSearchCriteria\">\r\n    <div *ngIf=\"!showSearchCriteria\"><i class=\"fa fa-chevron-right\" aria-hidden=\"true\"></i></div>\r\n    <div *ngIf=\"showSearchCriteria\"><i class=\"fa fa-chevron-left\" aria-hidden=\"true\"></i></div>\r\n  </a>\r\n  <div id=\"rightpanel\">\r\n    <div id=\"rightpanelflex\">\r\n      <div id='tieapp-messagelist'>\r\n\r\n        <!-- <tieapp-messagelist  [tieMsgs]=\"body.messagelist\"></tieapp-messagelist> -->\r\n        <tieapp-messagelist [messageList]=\"body.messageList.messageSumList\" [currentSelectedMessageId]=\"body.messageDetail.tieMsgId\"  (emitMessageId)=\"emitMessageId($event)\"> </tieapp-messagelist>\r\n\r\n      </div>\r\n      <div class=\"splitter-horizontal\"></div>\r\n      <div id='tieapp-messagedetail'>\r\n        <tieapp-messagedetail [messageDetail]=\"body.messageDetail\" [language] = \"language\" [currentDoc]=\"body.currentDoc\" [showTable]=\"showTable\" (emitSaveChangeAtMessageDetail)=\"emitSaveChangeAtMessageDetail($event)\"></tieapp-messagedetail>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ },
 /* 654 */
@@ -58476,13 +58487,13 @@ module.exports = "<div *ngIf=\"currentDoc\">\r\n  <div class=\"row\" id=\"docrow
 /* 660 */
 /***/ function(module, exports) {
 
-module.exports = "<div id=\"currentMsgBody\" *ngIf=\"messageDetail\">\r\n  <form (ngSubmit)=\"onSubmit()\" #heroForm=\"ngForm\">\r\n    <!-- Items in this form {{diagnostic}} -->\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3\">\r\n        <p>\r\n          From:<span id=\"from\"> {{messageDetail.userName}}</span>\r\n        </p>\r\n      </div>\r\n\r\n\r\n      <div class=\"col-md-3\">\r\n        <p>\r\n          Date: <span id=\"date\">{{messageDetail.timestamp}}</span>\r\n        </p>\r\n      </div>\r\n\r\n      <div class=\"col-md-3\">\r\n        <p>\r\n          Reporting Period: <span id=\"reportingPeriod\"> {{messageDetail.reportingPeriod}}</span>\r\n        </p>\r\n      </div>\r\n\r\n      <div class=\"col-md-3\">\r\n        <p>\r\n          Status: <span id=tieMsgState> {{messageDetail.msgState}} </span>\r\n        </p>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3\">\r\n        <div>To:</div>\r\n      </div>\r\n      <div class=\"col-md-9\">\r\n        <!-- <textarea style=\"overflow:auto\" class=\"textarea\" rows=\"0\">{{messageDetail.msgReceiverList}}</textarea> -->\r\n        <input type=\"text\" class=\"form-control\" id=\"msgReceiverList\"\r\n               required\r\n               [(ngModel)]=\"model.msgReceiverList\" name=\"msgReceiverList\"\r\n               #name=\"ngModel\">\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3\">\r\n        <div>Subject:</div>\r\n      </div>\r\n      <div class=\"col-md-9\">\r\n        <!-- <input type=\"text\" class=\"form-control\" id=\"Subject\" placeholder=\"{{messageDetail.subject}}\" [(ngModel)]=\"model.subject\" name=\"subject\"> -->\r\n        <input type=\"text\" class=\"form-control\" id=\"Subject\"\r\n               required\r\n               [(ngModel)]=\"model.subject\" name=\"subject\"\r\n               #name=\"ngModel\">\r\n      </div>\r\n    </div>\r\n\r\n\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3\">\r\n        <div>Notes:</div>\r\n      </div>\r\n      <div class=\"col-md-9\">\r\n        <textarea style=\"overflow:auto\" class=\"notestextarea\" rows=\"3\" [(ngModel)]=\"model.notes\" name=\"notes\">{{messageDetail.notes}}</textarea>\r\n        <!-- <textarea rows=\"4\" cols=\"95\" id=\"notes\" [(ngModel)]=\"model.notes\" name=\"notes\">wheres note {{messageDetail.notes}}</textarea> -->\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3\">\r\n        <div>Warning:</div>\r\n      </div>\r\n      <div class=\"col-md-9\">\r\n          <input type=\"text\" class=\"form-control\" id=\"warning\"\r\n                 required\r\n                 [(ngModel)]=\"model.warning\" name=\"warning\"\r\n                 #name=\"ngModel\">\r\n        <!-- <input type=\"text\" class=\"form-control\" id=\"Warning\" placeholder=\"{{messageDetail.warning}}\" [(ngModel)]=\"model.warning\" name=\"warning\"> -->\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3\">\r\n        <div>Contact:</div>\r\n      </div>\r\n      <div class=\"col-md-9\">\r\n        <!-- <textarea style=\"overflow:auto\" class=\"textarea\" rows=\"0\">{{messageDetail.contact}}</textarea> -->\r\n        <input type=\"text\" class=\"form-control\" id=\"contact\"\r\n               required\r\n               [(ngModel)]=\"model.contact\" name=\"contact\"\r\n               #name=\"ngModel\">\r\n        <!-- <input type=\"text\" class=\"form-control\" id=\"Contact\" placeholder=\"{{messageDetail.contact}}\" [(ngModel)]=\"model.contact\" name=\"contact\"> -->\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3\">\r\n\r\n        <div>\r\n          OECD Message Ref ID:\r\n        </div>\r\n\r\n        <div>\r\n          OECD Message Type:\r\n        </div>\r\n        <div>\r\n          Sending Country:\r\n        </div>\r\n        <div>Language:</div>\r\n\r\n      </div>\r\n      <div class=\"col-md-3\">\r\n        <div>\r\n          {{messageDetail.corrMessageRefIds}}\r\n        </div>\r\n        <div class=\"styled-select\">\r\n          <select class=\"form-control\" id=\"sel1\">\r\n          <!-- <option *ngFor=\"let OECDMessageTypeItem of messageDetail.OECDMessageType\">{{OECDMessageTypeItem}}</option> -->\r\n          <option>CbC</option>\r\n          <option>CbCR</option>\r\n        </select>\r\n        </div>\r\n        <div>\r\n          {{messageDetail.transmittingCountry}}\r\n        </div>\r\n        <div class=\"styled-select\">\r\n          <select class=\"form-control\" id=\"sel1\">\r\n          <option *ngFor = \"let languageItem of language\">{{languageItem}}</option>\r\n\r\n        </select>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-md-3\">\r\n        <div>\r\n          Reporting Period:\r\n        </div>\r\n        <div>\r\n          OECD Message Type Indic:\r\n        </div>\r\n        <div>\r\n          Receiving Country:\r\n        </div>\r\n\r\n      </div>\r\n      <div class=\"col-md-3\">\r\n        <div>\r\n\r\n          {{messageDetail.reportingPeriod}}\r\n        </div>\r\n        <div class=\"styled-select\">\r\n          <select class=\"form-control\" id=\"sel1\">\r\n          <!-- <option  *ngFor = \"let OECDMessageTypeIndicItem of messageDetail.OECDMessageTypeIndic\">{{OECDMessageTypeIndicItem}}</option> -->\r\n          <option>CBC401</option>\r\n          <option>CBC402</option>\r\n        </select>\r\n        </div>\r\n        <div>\r\n\r\n          {{messageDetail.receivingCountries}}\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <button type=\"button\" type=\"submit\" class=\"btn btn-primary\">Save</button>\r\n    <button type=\"button\" class=\"btn btn-primary\">Delete</button>\r\n    <button type=\"button\" class=\"btn btn-primary\">Send</button>\r\n  </form>\r\n</div>\r\n"
+module.exports = "<div id=\"currentMsgBody\" *ngIf=\"messageDetail\">\r\n  <form (ngSubmit)=\"onSubmit()\" #heroForm=\"ngForm\">\r\n    <!-- Items in this form {{diagnostic}} -->\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3\">\r\n        <p>\r\n          From:<span id=\"from\"> {{messageDetail.userName}}</span>\r\n        </p>\r\n      </div>\r\n\r\n\r\n      <div class=\"col-md-3\">\r\n        <p>\r\n          Date: <span id=\"date\">{{messageDetail.timestamp}}</span>\r\n        </p>\r\n      </div>\r\n\r\n      <div class=\"col-md-3\">\r\n        <p>\r\n          Reporting Period: <span id=\"reportingPeriod\"> {{messageDetail.reportingPeriod}}</span>\r\n        </p>\r\n      </div>\r\n\r\n      <div class=\"col-md-3\">\r\n        <p>\r\n          Status: <span id=tieMsgState> {{messageDetail.msgState}} </span>\r\n        </p>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3\">\r\n        <div>To:</div>\r\n      </div>\r\n      <div class=\"col-md-9\">\r\n        <!-- <textarea style=\"overflow:auto\" class=\"textarea\" rows=\"0\">{{messageDetail.msgReceiverList}}</textarea> -->\r\n        <input type=\"text\" class=\"form-control\" id=\"msgReceiverList\" required [(ngModel)]=\"model.msgReceiverList\" name=\"msgReceiverList\" #name=\"ngModel\">\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3\">\r\n        <div>Subject:</div>\r\n      </div>\r\n      <div class=\"col-md-9\">\r\n        <!-- <input type=\"text\" class=\"form-control\" id=\"Subject\" placeholder=\"{{messageDetail.subject}}\" [(ngModel)]=\"model.subject\" name=\"subject\"> -->\r\n        <input type=\"text\" class=\"form-control\" id=\"Subject\" required [(ngModel)]=\"model.subject\" name=\"subject\" #name=\"ngModel\">\r\n      </div>\r\n    </div>\r\n\r\n\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3\">\r\n        <div>Notes:</div>\r\n      </div>\r\n      <div class=\"col-md-9\">\r\n        <textarea style=\"overflow:auto\" class=\"notestextarea\" rows=\"3\" [(ngModel)]=\"model.notes\" name=\"notes\">{{messageDetail.notes}}</textarea>\r\n        <!-- <textarea rows=\"4\" cols=\"95\" id=\"notes\" [(ngModel)]=\"model.notes\" name=\"notes\">wheres note {{messageDetail.notes}}</textarea> -->\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3\">\r\n        <div>Warning:</div>\r\n      </div>\r\n      <div class=\"col-md-9\">\r\n        <input type=\"text\" class=\"form-control\" id=\"warning\" required [(ngModel)]=\"model.warning\" name=\"warning\" #name=\"ngModel\">\r\n        <!-- <input type=\"text\" class=\"form-control\" id=\"Warning\" placeholder=\"{{messageDetail.warning}}\" [(ngModel)]=\"model.warning\" name=\"warning\"> -->\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3\">\r\n        <div>Contact:</div>\r\n      </div>\r\n      <div class=\"col-md-9\">\r\n        <!-- <textarea style=\"overflow:auto\" class=\"textarea\" rows=\"0\">{{messageDetail.contact}}</textarea> -->\r\n        <input type=\"text\" class=\"form-control\" id=\"contact\" required [(ngModel)]=\"model.contact\" name=\"contact\" #name=\"ngModel\">\r\n        <!-- <input type=\"text\" class=\"form-control\" id=\"Contact\" placeholder=\"{{messageDetail.contact}}\" [(ngModel)]=\"model.contact\" name=\"contact\"> -->\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3\">\r\n\r\n        <div>\r\n          OECD Message Ref ID:\r\n        </div>\r\n\r\n        <div>\r\n          OECD Message Type:\r\n        </div>\r\n        <div>\r\n          Sending Country:\r\n        </div>\r\n        <div>Language:</div>\r\n\r\n      </div>\r\n      <div class=\"col-md-3\">\r\n        <div>\r\n          {{messageDetail.corrMessageRefIds}}\r\n        </div>\r\n        <div class=\"styled-select\">\r\n          <select class=\"form-control\" id=\"sel1\" required [(ngModel)]=\"model.messageType\" name=\"messageType\" #messageType=\"ngModel\">\r\n          <!-- <option *ngFor=\"let OECDMessageTypeItem of messageDetail.OECDMessageType\">{{OECDMessageTypeItem}}</option> -->\r\n           <option *ngFor=\"let messageType of OECDMessageTypeList\" [value]=\"messageType\">{{messageType}}</option>\r\n        </select>\r\n        </div>\r\n        <div>\r\n          {{messageDetail.transmittingCountry}}\r\n        </div>\r\n        <div class=\"styled-select\">\r\n          <select class=\"form-control\" id=\"sel1\">\r\n          <option *ngFor = \"let language of languageList\">{{language}}</option>\r\n\r\n        </select>\r\n        </div>\r\n      </div>\r\n      <div class=\"col-md-3\">\r\n        <div>\r\n          Reporting Period:\r\n        </div>\r\n        <div>\r\n          OECD Message Type Indic:\r\n        </div>\r\n        <div>\r\n          Receiving Country:\r\n        </div>\r\n\r\n      </div>\r\n      <div class=\"col-md-3\">\r\n        <div>\r\n\r\n          {{messageDetail.reportingPeriod}}\r\n        </div>\r\n        <div class=\"styled-select\">\r\n          <!-- <select class=\"form-control\" id=\"sel1\">\r\n\r\n          <option>CBC401</option>\r\n          <option>CBC402</option> -->\r\n          <select class=\"form-control\" id=\"sel1\" required [(ngModel)]=\"model.messageTypeIndic\" name=\"messageTypeIndic\" #messageTypeIndic=\"ngModel\">\r\n\r\n           <option *ngFor=\"let messageTypeIndic of OECDMessageTypeIndicList\" [value]=\"messageTypeIndic\">{{messageTypeIndic}}</option>\r\n        </select>\r\n        </div>\r\n        <div>\r\n\r\n          {{messageDetail.receivingCountries}}\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <button type=\"button\" type=\"submit\" class=\"btn btn-primary\">Save</button>\r\n    <button type=\"button\" class=\"btn btn-primary\">Delete</button>\r\n    <button type=\"button\" class=\"btn btn-primary\">Send</button>\r\n  </form>\r\n</div>\r\n"
 
 /***/ },
 /* 661 */
 /***/ function(module, exports) {
 
-module.exports = "<ul class=\"nav nav-tabs\" role=\"tablist\">\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link active\" href=\"#message\" title=\"Message\" role=\"tab\" data-toggle=\"tab\">Message</a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#docs\" title=\"Current Message:{{messageDetail.subject}} \" role=\"tab\" data-toggle=\"tab\">Docs<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Message : {{messageDetail.subject}}</div></a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#entity\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Entity<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name}}</div></a>\r\n  </li>\r\n  <li *ngIf=\"showTable\" class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#table1\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Table1<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name}}</div></a>\r\n  </li>\r\n  <li *ngIf=\"showTable\" class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#table2\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Table2<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name}}</div></a>\r\n  </li>\r\n  <li *ngIf=\"showTable\" class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#table3\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Table3<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name}}</div></a>\r\n  </li>\r\n</ul>\r\n\r\n<!-- Tab panes -->\r\n<div class=\"tab-content\">\r\n  <div role=\"tabpanel\" class=\"tab-pane fade in active\" id=\"message\">\r\n    <tieapp-message [messageDetail]=\"messageDetail\" [language] = \"language\"></tieapp-message>\r\n  </div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"docs\">\r\n    <tieapp-doclist [messageDetail]=\"messageDetail\" [currentDocId]=\"currentDoc.tieDocId\" (emitCurrentDocId)=\"emitCurrentDocId($event)\"></tieapp-doclist>\r\n  </div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"entity\">\r\n    <tieapp-entitylist [currentDoc]=\"currentDoc\"></tieapp-entitylist>\r\n  </div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"table1\">\r\n    <tieapp-cbcrtable1 [currentDoc]=\"currentDoc\"></tieapp-cbcrtable1>\r\n  </div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"table2\">\r\n    <tieapp-cbcrtable2 [currentDoc]=\"currentDoc\"></tieapp-cbcrtable2>\r\n  </div>\r\n  <div role=\"tabpane1\" class=\"tab-pane fade\" id=\"table3\">\r\n    <tieapp-cbcrtable3 [currentDoc]=\"currentDoc\"></tieapp-cbcrtable3>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<ul class=\"nav nav-tabs\" role=\"tablist\">\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link active\" href=\"#message\" title=\"Message\" role=\"tab\" data-toggle=\"tab\">Message</a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#docs\" title=\"Current Message:{{messageDetail.subject}} \" role=\"tab\" data-toggle=\"tab\">Docs<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Message : {{messageDetail.subject}}</div></a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#entity\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Entity<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name}}</div></a>\r\n  </li>\r\n  <li *ngIf=\"showTable\" class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#table1\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Table1<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name}}</div></a>\r\n  </li>\r\n  <li *ngIf=\"showTable\" class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#table2\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Table2<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name}}</div></a>\r\n  </li>\r\n  <li *ngIf=\"showTable\" class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#table3\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Table3<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name}}</div></a>\r\n  </li>\r\n</ul>\r\n\r\n<!-- Tab panes -->\r\n<div class=\"tab-content\">\r\n  <div role=\"tabpanel\" class=\"tab-pane fade in active\" id=\"message\">\r\n    <tieapp-message [messageDetail]=\"messageDetail\" [languageList] = \"language\" (emitSaveChangeAtMessage)=\"emitSaveChangeAtMessage($event)\"></tieapp-message>\r\n  </div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"docs\">\r\n    <tieapp-doclist [messageDetail]=\"messageDetail\" [currentDocId]=\"currentDoc.tieDocId\" (emitCurrentDocId)=\"emitCurrentDocId($event)\"></tieapp-doclist>\r\n  </div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"entity\">\r\n    <tieapp-entitylist [currentDoc]=\"currentDoc\"></tieapp-entitylist>\r\n  </div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"table1\">\r\n    <tieapp-cbcrtable1 [currentDoc]=\"currentDoc\"></tieapp-cbcrtable1>\r\n  </div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"table2\">\r\n    <tieapp-cbcrtable2 [currentDoc]=\"currentDoc\"></tieapp-cbcrtable2>\r\n  </div>\r\n  <div role=\"tabpane1\" class=\"tab-pane fade\" id=\"table3\">\r\n    <tieapp-cbcrtable3 [currentDoc]=\"currentDoc\"></tieapp-cbcrtable3>\r\n  </div>\r\n</div>\r\n"
 
 /***/ },
 /* 662 */
@@ -58518,7 +58529,7 @@ module.exports = "<!-- <div *ngIf=\"isLoading\"><i class=\"fa fa-spinner fa-spin
 /* 667 */
 /***/ function(module, exports) {
 
-module.exports = "<div id='tieapp' *ngIf=\"tieapp\">\r\n  <!-- <div id='tieapp'> -->\r\n  <div id='tieapp-header'>\r\n    <tieapp-header [header]=\"tieapp.header\" (tieAppShowInfo)=\"tieAppShowInfo($event)\" (trainingShowInfo)=\"trainingShowInfo($event)\"></tieapp-header>\r\n\r\n  </div>\r\n  <div id='tieapp-body'>\r\n\r\n    <div *ngIf=\"showApp\">\r\n      <tieapp-body [body]=\"tieapp.body\" [language]=\"tieapp.header.language\"></tieapp-body>\r\n    </div>\r\n    <div *ngIf=\"showTraining\">\r\n      <tieapp-training></tieapp-training>\r\n    </div>\r\n  </div>\r\n\r\n  <div id='tieapp-footer'>\r\n    <!-- <tieapp-footer [footer]=\"tieapp.footer\"></tieapp-footer> -->\r\n    <tieapp-footer></tieapp-footer>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div id='tieapp' *ngIf=\"tieapp\">\r\n  <!-- <div id='tieapp'> -->\r\n  <div id='tieapp-header'>\r\n    <tieapp-header [header]=\"tieapp.header\" (tieAppShowInfo)=\"tieAppShowInfo($event)\" (trainingShowInfo)=\"trainingShowInfo($event)\"></tieapp-header>\r\n\r\n  </div>\r\n  <div id='tieapp-body'>\r\n\r\n    <div *ngIf=\"showApp\">\r\n      <tieapp-body [body]=\"tieapp.body\" [language]=\"tieapp.header.language\" (emitSaveChangeAtBody) = \"emitSaveChangeAtBody($event)\"></tieapp-body>\r\n    </div>\r\n    <div *ngIf=\"showTraining\">\r\n      <tieapp-training></tieapp-training>\r\n    </div>\r\n  </div>\r\n\r\n  <div id='tieapp-footer'>\r\n    <!-- <tieapp-footer [footer]=\"tieapp.footer\"></tieapp-footer> -->\r\n    <tieapp-footer></tieapp-footer>\r\n  </div>\r\n</div>\r\n"
 
 /***/ },
 /* 668 */

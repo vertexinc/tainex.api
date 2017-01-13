@@ -17,7 +17,7 @@ public class TieDocDao extends BaseDao {
 		List<TieDoc> tieDocList = new ArrayList<TieDoc>();
 		try {
 			TieDoc tieDoc = new TieDoc();
-			;
+			
 			String sql = "select * from mx.tiedoc where tiemsgid = ?";
 
 			PreparedStatement selectStatement = conn.prepareStatement(sql);

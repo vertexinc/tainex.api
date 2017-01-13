@@ -22,7 +22,7 @@ public class TieMsg {
 	private String transmittingCountry;
 	private String receivingCountries;
 	private String messageType;
-	private String lauguage;
+	private String language;
 	private String warning;
 	private String contact;
 	private String messageRefId;
@@ -131,7 +131,7 @@ public class TieMsg {
 		this.transmittingCountry = transmittingCountry;
 		this.receivingCountries = receivingCountries;
 		this.messageType = messageType;
-		this.lauguage = lauguage;
+		this.language = language;
 		this.warning = warning;
 		this.contact = contact;
 		this.messageRefId = messageRefId;
@@ -242,11 +242,11 @@ public class TieMsg {
 	}
 
 	public String getLauguage() {
-		return lauguage;
+		return language;
 	}
 
 	public void setLauguage(String lauguage) {
-		this.lauguage = lauguage;
+		this.language = lauguage;
 	}
 
 	public String getWarning() {
@@ -320,7 +320,7 @@ public class TieMsg {
 				+ ownerid + ", tieMsgStateId=" + tieMsgStateId + ", tieMsgState=" + tieMsgState
 				+ ", sendingEntityIdNum=" + sendingEntityIdNum + ", transmittingCountry=" + transmittingCountry
 				+ ", receivingCountries=" + receivingCountries + ", messageType=" + messageType + ", lauguage="
-				+ lauguage + ", warning=" + warning + ", contact=" + contact + ", messageRefId=" + messageRefId
+				+ language + ", warning=" + warning + ", contact=" + contact + ", messageRefId=" + messageRefId
 				+ ", messageTypeIndic=" + messageTypeIndic + ", corrMessageRefIds=" + corrMessageRefIds
 				+ ", reportingPeriod=" + reportingPeriod + ", timestamp=" + timestamp + ", rawMsg=" + rawMsg
 				+ ", msgReceiverList=" + msgReceiverList + ", userName=" + userName + ", msgState=" + msgState
