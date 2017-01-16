@@ -38,7 +38,7 @@ public class TieSessionController extends TieControllerBase {
 
 	// The key to access session controller
 	public static String sesssionControllerName = "theSessionController";
-
+	public TieUser currUser; 
 	public void init() {
 
 	}
@@ -66,6 +66,37 @@ public class TieSessionController extends TieControllerBase {
 	// from the persister get the Dao and invoke method insides it to populate
 	/* over to mainPage */
 	// everything in one time
+	public void handleMsgList() {
+		TiePersister persister = TieController.getController().getPersister();
+		List<TieMsg> msgList = new ArrayList<TieMsg>();
+		msgList = persister.getTieMsgDao().findTieMsgByOwnerId(currUser.getTieUserId());// (user.getTieUserId());
+		for (TieMsg msg : msgList) {
+			int msgId = msg.getTieMsgId();
+			int senderId = msg.getSenderId();
+			int statusId = msg.getTieMsgStateId();
+			TieMsgState tieMsgState = TieMsgState.findById(statusId);
+			String msgState = tieMsgState.getName();
+			TieUser sender = persister.getTieUserDao().findTieUserById(senderId);
+			String userName = sender.getName();
+			List<TieMsgReceiver> tiemsgReceiverList = new ArrayList<TieMsgReceiver>();
+			tiemsgReceiverList = persister.getTieMsgReceiverDao().findTieMsgReceiverById(msgId);
+
+			// Populate toListString
+			StringBuilder toListString = new StringBuilder("");
+			for (TieMsgReceiver tieMsgReceiver : tiemsgReceiverList) {
+				toListString.append(tieMsgReceiver.getSenderCode()).append("@")
+						.append(tieMsgReceiver.getReceivingCountry()).append(";");
+			}
+			msg.setMsgReceiverList(toListString.toString());
+			msg.setSender(sender);
+			msg.setTieMsgState(tieMsgState);
+			msg.setUserName(userName);
+			msg.setMsgState(msgState);
+		}
+
+		TieMainPage.getTieMainPage().setMsgList(msgList);
+	}
+
 	public void handleLogin(String username) {
 		TiePersister persister = TieController.getController().getPersister();
 
@@ -74,6 +105,7 @@ public class TieSessionController extends TieControllerBase {
 
 		// find the id of the user who's login ()
 		TieUser user = persister.getTieUserDao().findTieUserByCode(username);
+		currUser = user;
 		// System.out.println("User:" + user.toString());
 		String userNameOnBoard = user.getName();
 
@@ -386,7 +418,6 @@ public class TieSessionController extends TieControllerBase {
 	public TieMsg handleSaveMessage(TieMsg msg) {
 		TiePersister persister = TieController.getController().getPersister();
 		return persister.getTieMsgDao().saveTieMessage(msg);
-		
 
 	}
 

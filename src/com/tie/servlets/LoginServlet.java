@@ -202,10 +202,15 @@ public class LoginServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		TieMsg returnSavedTieMsg = sessionController.handleSaveMessage(tieMsg);
 		
+		TieMainPage retval = null;
+		sessionController.handleMsgList();
+		retval = TieMainPage.getTieMainPage();
+		retval.setCurrentMsg(returnSavedTieMsg);
+		
 		ObjectMapper ma = new ObjectMapper();
-		String saveMsgReturnJson = ma.writeValueAsString(returnSavedTieMsg);
+		String saveMsgReturnJson = ma.writeValueAsString(retval);
 
-		System.out.println("saveMsgReturnJson" + tieMsg);
+		System.out.println("saveMsgReturnJson" + saveMsgReturnJson);
 
 		response.setContentType("text/json");
 		response.setCharacterEncoding("UTF-8");

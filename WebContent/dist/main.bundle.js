@@ -40990,9 +40990,17 @@ var AppComponent = (function () {
     AppComponent.prototype.trainingShowInfo = function (showTraining) {
         this.showTraining = showTraining;
     };
-    AppComponent.prototype.emitSaveChangeAtBody = function () {
-        // alert("emit applied!");
-        //  this.getAppData();
+    AppComponent.prototype.emitSaveChangeAtBody = function (model) {
+        var _this = this;
+        alert("emit applied!");
+        alert(JSON.stringify(model));
+        this._tieappService.postSave(model)
+            .subscribe(function (saveReturnData) {
+            alert("returning: " + JSON.stringify(saveReturnData));
+            _this.tieapp.body.messageList.messageSumList = saveReturnData.msgList;
+            _this.tieapp.body.messageDetail = saveReturnData.currentMsg;
+            _this.tieapp.body.currentDoc = saveReturnData.currentTieDoc;
+        });
     };
     AppComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
@@ -54182,8 +54190,8 @@ var BodyComponent = (function () {
     };
     BodyComponent.prototype.emiteDelete = function () {
     };
-    BodyComponent.prototype.emitSaveChangeAtMessageDetail = function () {
-        this.emitSaveChangeAtBody.emit();
+    BodyComponent.prototype.emitSaveChangeAtMessageDetail = function (model) {
+        this.emitSaveChangeAtBody.emit(model);
     };
     __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
@@ -54539,11 +54547,11 @@ var MessageComponent = (function () {
     });
     MessageComponent.prototype.onSubmit = function () {
         alert("Message to be saved:" + JSON.stringify(this.model));
-        this._tieappService.postSave(this.model)
-            .subscribe(function (saveReturnData) {
-            alert("returning: " + JSON.stringify(saveReturnData));
-        });
-        this.emitSaveChangeAtMessage.emit();
+        // this._tieappService.postSave(this.model)
+        //   .subscribe(saveReturnData => {
+        //     alert("returning: " + JSON.stringify(saveReturnData))
+        //   });
+        this.emitSaveChangeAtMessage.emit(this.model);
     };
     __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
@@ -54612,8 +54620,8 @@ var MessagedetailComponent = (function () {
             _this.currentDoc = currentDocData.currentTieDoc;
         });
     };
-    MessagedetailComponent.prototype.emitSaveChangeAtMessage = function () {
-        this.emitSaveChangeAtMessageDetail.emit();
+    MessagedetailComponent.prototype.emitSaveChangeAtMessage = function (model) {
+        this.emitSaveChangeAtMessageDetail.emit(model);
     };
     __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
