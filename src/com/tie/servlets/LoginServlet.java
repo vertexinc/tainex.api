@@ -56,6 +56,7 @@ public class LoginServlet extends HttpServlet {
 		response.setContentType("text/html");
 
 		HttpSession session = request.getSession(false);
+		System.out.println("SessionId is : " + session.getId());
 		PrintWriter out = response.getWriter();
 		// Get TieSessionController from the httpsession
 		TieSessionController sessionController = (TieSessionController) session
@@ -113,7 +114,7 @@ public class LoginServlet extends HttpServlet {
 				System.out.println("tieMsg.toString " + param.getTieMsg());
 				
 				//Call session controller to save currentMessage into database
-				saveCurrentMessage(sessionController, param.getTieMsg());
+				saveCurrentMessage(request, response,sessionController, param.getTieMsg());
 				
 			} else {
 				RequestDispatcher rd = request.getRequestDispatcher("dist/index.html");
@@ -196,9 +197,19 @@ public class LoginServlet extends HttpServlet {
 		out.close();
 	}// end doPost(..)
 
-	private void saveCurrentMessage(TieSessionController sessionController, TieMsg tieMsg) {
+	//Return saved message back in JSON format
+	private void saveCurrentMessage(HttpServletRequest request, HttpServletResponse response, TieSessionController sessionController, TieMsg tieMsg) throws IOException {
 		// TODO Auto-generated method stub
-		sessionController.handleSaveMessage(tieMsg);
+		TieMsg returnSavedTieMsg = sessionController.handleSaveMessage(tieMsg);
+		
+		ObjectMapper ma = new ObjectMapper();
+		String saveMsgReturnJson = ma.writeValueAsString(returnSavedTieMsg);
+
+		System.out.println("saveMsgReturnJson" + tieMsg);
+
+		response.setContentType("text/json");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(saveMsgReturnJson);
 	}
 
 	// Return the whole TIEapp json when init

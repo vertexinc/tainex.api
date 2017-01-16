@@ -40968,32 +40968,14 @@ var AppComponent = (function () {
         this.showTraining = false;
     }
     AppComponent.prototype.ngOnChanges = function () {
-        //this.getAppData();
     };
     AppComponent.prototype.ngOnInit = function () {
         this.getAppData();
-        // this.getAppData;
-        // this._tieappService.getData()
-        //   .subscribe(tieMsgData => {
-        //     // pageData = transformRawDataToPageStructure( rawData ); transform the given data structure into the exact structure of the pages
-        //     // updateScreen( pageData )
-        //
-        //     this.tieapp.header.appName = tieMsgData.appName;
-        //     this.tieapp.header.userName = tieMsgData.username;
-        //     this.tieapp.header.language = tieMsgData.language;
-        //
-        //     this.tieapp.body.messageList.messageSumList = tieMsgData.msgList;
-        //     this.tieapp.body.messageDetail = tieMsgData.currentMsg;
-        //     this.tieapp.body.currentDoc = tieMsgData.currentTieDoc
-        //
-        //   });
     };
     AppComponent.prototype.getAppData = function () {
         var _this = this;
         this._tieappService.getData()
             .subscribe(function (tieMsgData) {
-            // pageData = transformRawDataToPageStructure( rawData ); transform the given data structure into the exact structure of the pages
-            // updateScreen( pageData )
             _this.tieapp.header.appName = tieMsgData.appName;
             _this.tieapp.header.userName = tieMsgData.username;
             _this.tieapp.header.language = tieMsgData.language;
@@ -54559,7 +54541,7 @@ var MessageComponent = (function () {
         alert("Message to be saved:" + JSON.stringify(this.model));
         this._tieappService.postSave(this.model)
             .subscribe(function (saveReturnData) {
-            alert(saveReturnData);
+            alert("returning: " + JSON.stringify(saveReturnData));
         });
         this.emitSaveChangeAtMessage.emit();
     };

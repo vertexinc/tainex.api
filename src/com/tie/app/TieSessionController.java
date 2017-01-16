@@ -383,10 +383,10 @@ public class TieSessionController extends TieControllerBase {
 
 	}// end populateDoc(.)
 
-	public void handleSaveMessage(TieMsg msg) {
+	public TieMsg handleSaveMessage(TieMsg msg) {
 		TiePersister persister = TieController.getController().getPersister();
-		persister.getTieMsgDao().saveTieMessage(msg);
-		;
+		return persister.getTieMsgDao().saveTieMessage(msg);
+		
 
 	}
 
