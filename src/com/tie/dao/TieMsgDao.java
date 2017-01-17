@@ -160,18 +160,20 @@ public class TieMsgDao extends BaseDao {
 		return msg;
 	}
 
-	public TieMsg saveTieMessage(TieMsg tieMsg) {
+	public TieMsg saveTieMessage(TieMsg tieMsg, String sessionId) {
 		// TODO : insert and update in separate methods
 		if (tieMsg.getTieMsgId() == 0) {
-			return insertTieMessage(tieMsg);
+			return insertTieMessage(tieMsg,sessionId);
 		} else {
 			return updateTieMessage(tieMsg);
 		}
 
 	}
 
-	public TieMsg insertTieMessage(TieMsg tieMsg) {
+	public TieMsg insertTieMessage(TieMsg tieMsg, String sessionId) {
 		int newMsgId = 0;
+		//Set specific code for message insertion
+		String insersionCode = sessionId;
 		getConnection();
 		try {
 			System.out.println("Started to insert");
@@ -180,7 +182,7 @@ public class TieMsgDao extends BaseDao {
 			PreparedStatement saveStatement = conn.prepareStatement(sql);
 			saveStatement.setString(1, null);
 			saveStatement.setString(2, tieMsg.getSubject());
-			saveStatement.setString(3, tieMsg.getCode());
+			saveStatement.setString(3, insersionCode);
 			saveStatement.setString(4, tieMsg.getDescription());
 			saveStatement.setString(5, tieMsg.getNotes());
 			saveStatement.setInt(6, 3);
@@ -202,46 +204,48 @@ public class TieMsgDao extends BaseDao {
 			saveStatement.setString(20, tieMsg.getTimestamp());
 			saveStatement.setString(21, tieMsg.getRawMsg());
 			saveStatement.executeUpdate();
-			
-			//separate method to handle the Id
-			String newMsgIdSql = "select * from mx.tiemsg where code IS NULL";
+
+			// separate method to handle the Id
+			String newMsgIdSql = "select * from mx.tiemsg where code = ?";
 			PreparedStatement newMsgIdSqlStatement = conn.prepareStatement(newMsgIdSql);
+			newMsgIdSqlStatement.setString(1, insersionCode);
 			rs = newMsgIdSqlStatement.executeQuery();
-			while (rs.next()){
+			while (rs.next()) {
 				newMsgId = rs.getInt("tieMsgId");
 			}
 			System.out.println("Done  insert: " + tieMsg);
 			System.out.println("new TieMSgId : " + newMsgId);
-			
+
 			String updateMsgIdSql = "update mx.tiemsg set code=tieMsgId where tieMsgId = ?";
 			PreparedStatement updateMsgIdStatement = conn.prepareStatement(updateMsgIdSql);
 			updateMsgIdStatement.setInt(1, newMsgId);
 			updateMsgIdStatement.executeUpdate();
-			
-			//Set code to Id after return the tiemsg;
-			updateCode();
+
+			// Set code to Id after return the tiemsg;
+			// updateCode();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		
+
 		return findTieMsgByTieMsgId(newMsgId);
 	}
-	
-	public void updateCode() throws SQLException{
-		int newMsgId = 0;
-		getConnection();
-		String newMsgIdSql = "select * from mx.tiemsg where code IS NULL";
-		PreparedStatement newMsgIdSqlStatement = conn.prepareStatement(newMsgIdSql);
-		rs = newMsgIdSqlStatement.executeQuery();
-		while (rs.next()){
-			newMsgId = rs.getInt("tieMsgId");
-		}
-			
-		String updateMsgIdSql = "update mx.tiemsg set code=tieMsgId where tieMsgId = ?";
-		PreparedStatement updateMsgIdStatement = conn.prepareStatement(updateMsgIdSql);
-		updateMsgIdStatement.setInt(1, newMsgId);
-		updateMsgIdStatement.executeUpdate();
-	}
+
+//	public void updateCode() throws SQLException {
+//		int newMsgId = 0;
+//		getConnection();
+//
+//		String newMsgIdSql = "select * from mx.tiemsg where code IS NULL";
+//		PreparedStatement newMsgIdSqlStatement = conn.prepareStatement(newMsgIdSql);
+//		rs = newMsgIdSqlStatement.executeQuery();
+//
+//		newMsgId = rs.getInt("tieMsgId");
+//		System.out.println(newMsgId);
+//
+//		String updateMsgIdSql = "update mx.tiemsg set code=tieMsgId where tieMsgId = ?";
+//		PreparedStatement updateMsgIdStatement = conn.prepareStatement(updateMsgIdSql);
+//		updateMsgIdStatement.setInt(1, newMsgId);
+//		updateMsgIdStatement.executeUpdate();
+//	}
 
 	public TieMsg updateTieMessage(TieMsg tieMsg) {
 		int currMsgId = tieMsg.getTieMsgId();

@@ -200,7 +200,8 @@ public class LoginServlet extends HttpServlet {
 	//Return saved message back in JSON format
 	private void saveCurrentMessage(HttpServletRequest request, HttpServletResponse response, TieSessionController sessionController, TieMsg tieMsg) throws IOException {
 		// TODO Auto-generated method stub
-		TieMsg returnSavedTieMsg = sessionController.handleSaveMessage(tieMsg);
+		String sessionId = request.getSession().getId();
+		TieMsg returnSavedTieMsg = sessionController.handleSaveMessage(tieMsg,sessionId);
 		
 		TieMainPage retval = null;
 		sessionController.handleMsgList();
