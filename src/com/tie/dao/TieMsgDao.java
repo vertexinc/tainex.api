@@ -9,6 +9,7 @@ package com.tie.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class TieMsgDao extends BaseDao {
 		List<TieMsg> msgList = new ArrayList<TieMsg>();
 		try {
 			TieMsg tieMsg = new TieMsg();
-			;
+
 			String sql = "select * from mx.tiemsg where ownerid = ?";
 
 			PreparedStatement selectStatement = conn.prepareStatement(sql);
@@ -162,8 +163,8 @@ public class TieMsgDao extends BaseDao {
 
 	public TieMsg saveTieMessage(TieMsg tieMsg, String sessionId) {
 		// TODO : insert and update in separate methods
-		if (tieMsg.getTieMsgId() == 0) {
-			return insertTieMessage(tieMsg,sessionId);
+		if (tieMsg.getTieMsgId() <= 0) {
+			return insertTieMessage(tieMsg, sessionId);
 		} else {
 			return updateTieMessage(tieMsg);
 		}
@@ -172,8 +173,11 @@ public class TieMsgDao extends BaseDao {
 
 	public TieMsg insertTieMessage(TieMsg tieMsg, String sessionId) {
 		int newMsgId = 0;
-		//Set specific code for message insertion
-		String insersionCode = sessionId;
+		// Set specific code for message insertion
+		String timestamp = new Timestamp(System.currentTimeMillis()).toString();
+		String className = this.getClass().getSimpleName();
+		String insersionCode = sessionId + timestamp + className;
+		System.out.println("insertionCode: " + insersionCode);
 		getConnection();
 		try {
 			System.out.println("Started to insert");
@@ -230,22 +234,25 @@ public class TieMsgDao extends BaseDao {
 		return findTieMsgByTieMsgId(newMsgId);
 	}
 
-//	public void updateCode() throws SQLException {
-//		int newMsgId = 0;
-//		getConnection();
-//
-//		String newMsgIdSql = "select * from mx.tiemsg where code IS NULL";
-//		PreparedStatement newMsgIdSqlStatement = conn.prepareStatement(newMsgIdSql);
-//		rs = newMsgIdSqlStatement.executeQuery();
-//
-//		newMsgId = rs.getInt("tieMsgId");
-//		System.out.println(newMsgId);
-//
-//		String updateMsgIdSql = "update mx.tiemsg set code=tieMsgId where tieMsgId = ?";
-//		PreparedStatement updateMsgIdStatement = conn.prepareStatement(updateMsgIdSql);
-//		updateMsgIdStatement.setInt(1, newMsgId);
-//		updateMsgIdStatement.executeUpdate();
-//	}
+	// public void updateCode() throws SQLException {
+	// int newMsgId = 0;
+	// getConnection();
+	//
+	// String newMsgIdSql = "select * from mx.tiemsg where code IS NULL";
+	// PreparedStatement newMsgIdSqlStatement =
+	// conn.prepareStatement(newMsgIdSql);
+	// rs = newMsgIdSqlStatement.executeQuery();
+	//
+	// newMsgId = rs.getInt("tieMsgId");
+	// System.out.println(newMsgId);
+	//
+	// String updateMsgIdSql = "update mx.tiemsg set code=tieMsgId where
+	// tieMsgId = ?";
+	// PreparedStatement updateMsgIdStatement =
+	// conn.prepareStatement(updateMsgIdSql);
+	// updateMsgIdStatement.setInt(1, newMsgId);
+	// updateMsgIdStatement.executeUpdate();
+	// }
 
 	public TieMsg updateTieMessage(TieMsg tieMsg) {
 		int currMsgId = tieMsg.getTieMsgId();
@@ -253,29 +260,29 @@ public class TieMsgDao extends BaseDao {
 		try {
 			System.out.println("Started to updateTieMessage");
 			String sql;// TODO : insert and update in separate methods
-			sql = "update mx.tiemsg set subject=?, code=?, description=?,notes=?,senderId=?,ownerid=?,tieMsgStateId=?,sendingEntityIdNum=?,transmittingCountry=?,receivingCountries=?,messageType=?,lauguage=?,warning=?,contact=?,messageRefId=?,messageTypeIndic=?,corrMessageRefIds=?,reportingPeriod=?,timestamp=?,rawMsg=? WHERE tieMsgId=?";
+			sql = "update mx.tiemsg set subject=?, description=?,notes=?,senderId=?,ownerid=?,tieMsgStateId=?,sendingEntityIdNum=?,transmittingCountry=?,receivingCountries=?,messageType=?,lauguage=?,warning=?,contact=?,messageRefId=?,messageTypeIndic=?,corrMessageRefIds=?,reportingPeriod=?,timestamp=?,rawMsg=? WHERE tieMsgId=?";
 			PreparedStatement saveStatement = conn.prepareStatement(sql);
 			saveStatement.setString(1, tieMsg.getSubject());
-			saveStatement.setString(2, tieMsg.getCode());
-			saveStatement.setString(3, tieMsg.getDescription());
-			saveStatement.setString(4, tieMsg.getNotes());
-			saveStatement.setInt(5, 3);
-			saveStatement.setInt(6, 4);
-			saveStatement.setInt(7, 1);
-			saveStatement.setString(8, tieMsg.getSendingEntityIdNum());
-			saveStatement.setString(9, tieMsg.getTransmittingCountry());
-			saveStatement.setString(10, tieMsg.getReceivingCountries());
-			saveStatement.setString(11, tieMsg.getMessageType());
-			saveStatement.setString(12, tieMsg.getLauguage());
-			saveStatement.setString(13, tieMsg.getWarning());
-			saveStatement.setString(14, tieMsg.getContact());
-			saveStatement.setString(15, tieMsg.getMessageRefId());
-			saveStatement.setString(16, tieMsg.getMessageTypeIndic());
-			saveStatement.setString(17, tieMsg.getCorrMessageRefIds());
-			saveStatement.setString(18, tieMsg.getReportingPeriod());
-			saveStatement.setString(19, tieMsg.getTimestamp());
-			saveStatement.setString(20, tieMsg.getRawMsg());
-			saveStatement.setInt(21, tieMsg.getTieMsgId());
+//			saveStatement.setString(2, tieMsg.getCode());
+			saveStatement.setString(2, tieMsg.getDescription());
+			saveStatement.setString(3, tieMsg.getNotes());
+			saveStatement.setInt(4, 3);
+			saveStatement.setInt(5, 4);
+			saveStatement.setInt(6, 1);
+			saveStatement.setString(7, tieMsg.getSendingEntityIdNum());
+			saveStatement.setString(8, tieMsg.getTransmittingCountry());
+			saveStatement.setString(9, tieMsg.getReceivingCountries());
+			saveStatement.setString(10, tieMsg.getMessageType());
+			saveStatement.setString(11, tieMsg.getLauguage());
+			saveStatement.setString(12, tieMsg.getWarning());
+			saveStatement.setString(13, tieMsg.getContact());
+			saveStatement.setString(14, tieMsg.getMessageRefId());
+			saveStatement.setString(15, tieMsg.getMessageTypeIndic());
+			saveStatement.setString(16, tieMsg.getCorrMessageRefIds());
+			saveStatement.setString(17, tieMsg.getReportingPeriod());
+			saveStatement.setString(18, tieMsg.getTimestamp());
+			saveStatement.setString(19, tieMsg.getRawMsg());
+			saveStatement.setInt(20, tieMsg.getTieMsgId());
 			saveStatement.executeUpdate();
 			System.out.println("Done  update: " + tieMsg);
 		} catch (Exception e) {
