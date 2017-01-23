@@ -54136,7 +54136,7 @@ var BodyComponent = (function () {
     function BodyComponent(_tieappService) {
         this._tieappService = _tieappService;
         this.showSearchCriteria = false;
-        this.showTable = false;
+        this.showTable = true;
         this.emitSaveChangeAtBody = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         this.tempId = 0;
     }
@@ -54150,6 +54150,7 @@ var BodyComponent = (function () {
             .subscribe(function (currentMessageData) {
             _this.body.messageDetail = currentMessageData.currentMsg;
             _this.body.currentDoc = currentMessageData.currentTieDoc;
+            //TODO: if currentDoc is undefined --> this.showTable = false;
         }, function (error) {
             _this.body.messageDetail = {};
             _this.body.currentDoc = {};
@@ -54171,6 +54172,7 @@ var BodyComponent = (function () {
         });
     };
     BodyComponent.prototype.emitCompose = function () {
+        this.showTable = false;
         var msgList = this.body.messageList.messageSumList;
         var objectModel = msgList[msgList.length - 1];
         var copy = JSON.parse(JSON.stringify(objectModel));
@@ -54196,6 +54198,7 @@ var BodyComponent = (function () {
         this.body.messageDetail.transmittingCountry = 'MX';
         this.body.messageDetail.receivingCountries = 'US';
         this.body.messageDetail.description = 'CBCR docs';
+        this.body.messageTypeIndic = 'CBC401';
         // var object = this.body.messageList[this.body.messageList.length - 1];
         // object.tieMsgId += 1;
         // this.body.messageList.push(object);
@@ -54442,6 +54445,24 @@ var DoclistComponent = (function () {
         };
         return styles;
     };
+    DoclistComponent.prototype.onChange = function (event) {
+        this.file = null;
+        alert("starts to read");
+        var text = "";
+        var eventObj = event;
+        var target = eventObj.target;
+        var files = target.files;
+        this.file = files[0];
+        alert(this.file.name);
+        var reader = new FileReader();
+        reader.onload = function (file) {
+            var contents = file.target;
+            text = contents.result;
+            alert(text);
+            console.log(text);
+        };
+        reader.readAsText(this.file);
+    };
     __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
         __metadata('design:type', Object)
@@ -54550,6 +54571,7 @@ var MessageComponent = (function () {
         this.model.contact = this.messageDetail.contact;
         this.model.messageType = this.messageDetail.messageType;
         this.model.reportingPeriod = this.messageDetail.reportingPeriod;
+        this.model.messageTypeIndic = this.messageDetail.messageTypeIndic;
         //the time is the time the current message been composed
         this.model.timestamp = this.messageDetail.timestamp;
         //Hard coded values
@@ -58391,7 +58413,7 @@ module.exports = "table {\r\n  border: 1px solid #fcfcfc;\r\n\r\n  width: 100%;\
 /* 641 */
 /***/ function(module, exports) {
 
-module.exports = ".docbody tr:hover {\r\n\tbackground-color: #eff5dc;\r\n}\r\n\r\n\r\ntable {\r\n  /*table-layout: fixed;*/\r\n  width: 100%;\r\n}\r\nth, td {\r\n\r\n    overflow: hidden;\r\n\r\n}\r\n#docbuttons{\r\n  text-align: right;\r\n}\r\n.btn {\r\n  height: 30px;\r\n  font-size: 12px;\r\n  vertical-align: middle;\r\n}\r\n\r\ntbody tr:nth-child(odd) {\r\n  background: #fcfcfc;\r\n}\r\ntbody tr:nth-child(even) {\r\n  background: #fcfcfc;\r\n}\r\n"
+module.exports = ".docbody tr:hover {\r\n  background-color: #eff5dc;\r\n}\r\n\r\ntable {\r\n  /*table-layout: fixed;*/\r\n  width: 100%;\r\n}\r\n\r\nth, td {\r\n  overflow: hidden;\r\n}\r\n\r\n#docbuttons {\r\n  text-align: right;\r\n}\r\n\r\n.btn {\r\n  color: white;\r\n  height: 30px;\r\n  font-size: 12px;\r\n  vertical-align: middle;\r\n  /*background-color: lightgreen;*/\r\n}\r\n.btn:hover{\r\n\tbackground-color: lightgreen\r\n}\r\ntbody tr:nth-child(odd) {\r\n  background: #fcfcfc;\r\n}\r\n\r\ntbody tr:nth-child(even) {\r\n  background: #fcfcfc;\r\n}\r\n\r\n.inputfile {\r\n  width: 0.1px;\r\n  height: 0.1px;\r\n  opacity: 0;\r\n  overflow: hidden;\r\n  position: absolute;\r\n  z-index: -1;\r\n}\r\n\r\n.inputfile+label {\r\n  font-size: 12px;\r\n  color: white;\r\n  background-color: #44c4e7;\r\n  display: inline-block;\r\n  /*padding-top: 20px;*/\r\n  height: 30px;\r\n  margin-top: 10px;\r\n  vertical-align: middle;\r\n  padding-left: 15px;\r\n  padding-right: 15px;\r\n  padding-top: 5px;\r\n  border-radius: 3px;\r\n}\r\n\r\n.inputfile:focus+label, .inputfile+label:hover {\r\n  background-color: lightgreen;\r\n}\r\n\r\n.inputfile+label {\r\n  cursor: pointer;\r\n  /* \"hand\" cursor */\r\n}\r\n\r\n.inputfile:focus+label {\r\n  outline: 1px dotted #000;\r\n  outline: -webkit-focus-ring-color auto 5px;\r\n}\r\n"
 
 /***/ },
 /* 642 */
@@ -58488,7 +58510,7 @@ module.exports = "<div *ngIf=\"currentDoc\">\r\n  <div style=\"text-align: cente
 /* 658 */
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"row\">\r\n  <div class=\"col-md-6\">Tax Documents In Message:</div>\r\n  <div id=\"docbuttons\" class=\"col-md-6\">\r\n    <button type=\"button\" class=\"btn btn-info\">Attach ...</button>\r\n    <button type=\"button\" class=\"btn btn-info\">Detach ...\r\n    </button>\r\n  </div>\r\n</div>\r\n\r\n\r\n<table>\r\n  <thead>\r\n    <tr>\r\n      <th>Code</th>\r\n      <th>Title</th>\r\n      <th>Doc Type</th>\r\n      <th>Reporting Entity</th>\r\n      <th>Currency</th>\r\n      <th>Resident Country</th>\r\n      <th>Accounting Standard</th>\r\n      <th>Reporting Period</th>\r\n    </tr>\r\n  </thead>\r\n  <tbody class=\"docbody\" *ngIf=\"messageDetail\">\r\n    <tr class=\"\" *ngFor=\"let doclistItem of messageDetail.tieDocList\" (click)=\"onSelect(doclistItem.tieDocId)\" [ngStyle]=\"isHighlight(doclistItem.tieDocId)\">\r\n      <td>{{doclistItem.code}}</td>\r\n      <td>{{doclistItem.name}}</td>\r\n      <td>{{doclistItem.tieDocTypeId|doctype}}</td>\r\n      <td>{{doclistItem.reportingEntityCode}}</td>\r\n      <td>{{doclistItem.currencyCode}}</td>\r\n      <td>{{doclistItem.resCountryCode}}</td>\r\n      <td>{{doclistItem.accountingStandard}}</td>\r\n      <td>{{doclistItem.reportingPeriod}}</td>\r\n    </tr>\r\n\r\n\r\n  </tbody>\r\n</table>\r\n"
+module.exports = "<div class=\"row\">\r\n  <div class=\"col-md-6\">Tax Documents In Message:</div>\r\n  <div id=\"docbuttons\" class=\"col-md-6\">\r\n    <!-- <button type=\"button\" class=\"btn btn-info\">Attach ...</button> -->\r\n    <input type=\"file\" name=\"file\" id=\"file\" class=\"inputfile\" (change)=\"onChange($event)\" />\r\n    <label for=\"file\">Attach ...</label>\r\n    <button type=\"button\" class=\"btn btn-info\">Detach ...\r\n    </button>\r\n  </div>\r\n</div>\r\n\r\n\r\n<table>\r\n  <thead>\r\n    <tr>\r\n      <th>Code</th>\r\n      <th>Title</th>\r\n      <th>Doc Type</th>\r\n      <th>Reporting Entity</th>\r\n      <th>Currency</th>\r\n      <th>Resident Country</th>\r\n      <th>Accounting Standard</th>\r\n      <th>Reporting Period</th>\r\n    </tr>\r\n  </thead>\r\n  <tbody class=\"docbody\" *ngIf=\"messageDetail\">\r\n    <tr class=\"\" *ngFor=\"let doclistItem of messageDetail.tieDocList\" (click)=\"onSelect(doclistItem.tieDocId)\" [ngStyle]=\"isHighlight(doclistItem.tieDocId)\">\r\n      <td>{{doclistItem.code}}</td>\r\n      <td>{{doclistItem.name}}</td>\r\n      <td>{{doclistItem.tieDocTypeId|doctype}}</td>\r\n      <td>{{doclistItem.reportingEntityCode}}</td>\r\n      <td>{{doclistItem.currencyCode}}</td>\r\n      <td>{{doclistItem.resCountryCode}}</td>\r\n      <td>{{doclistItem.accountingStandard}}</td>\r\n      <td>{{doclistItem.reportingPeriod}}</td>\r\n    </tr>\r\n\r\n\r\n  </tbody>\r\n</table>\r\n"
 
 /***/ },
 /* 659 */
