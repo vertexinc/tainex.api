@@ -54440,7 +54440,7 @@ var DoclistComponent = (function () {
             console.log(text);
             _this._tieappService.postDoc(text)
                 .subscribe(function (docData) {
-                alert("docAttached");
+                alert("docAttached: " + JSON.stringify(docData));
             });
         };
         reader.readAsText(this.file);
