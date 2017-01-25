@@ -7,14 +7,24 @@ public class Param {
 	private int messageId;
 	private int docId;
 	private TieMsg tieMsg;
+	private String docString;
 	
-	public Param(String action, int messageId, int docId,TieMsg tieMsg) {
+	public Param(String action, int messageId, int docId,TieMsg tieMsg,String docString) {
 		super();
 		this.action = action;
 		this.messageId = messageId;
 		this.docId = docId;
 		this.tieMsg = tieMsg;
+		this.docString = docString;
 	}
+	public String getDocString() {
+		return docString;
+	}
+
+	public void setDocString(String docString) {
+		this.docString = docString;
+	}
+
 
 	public TieMsg getTieMsg() {
 		return tieMsg;
@@ -58,9 +68,11 @@ public class Param {
 	public void setAction(String action) {
 		this.action = action;
 	}
-
 	@Override
 	public String toString() {
-		return "Param [action=" + action + ", messageId=" + messageId + ", docId=" + docId + "]";
+		return "Param [action=" + action + ", messageId=" + messageId + ", docId=" + docId + ", tieMsg=" + tieMsg
+				+ ", docString=" + docString + "]";
 	}
+
+	
 }

@@ -68,15 +68,6 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter("userpass");
 
 		// ---- determine action to take after user logged in ------
-		// String action;
-		// if (request.getParameter("action") == null) {
-		// System.out.println("action is: " + request.getParameter("action"));
-		// action = "";
-		// } else {
-		// System.out.println("request.getParameter action is:" +
-		// request.getParameter("action"));
-		// action = request.getParameter("action");
-		// }
 
 		// If user has already loggin in
 		if (sessionController != null) {
@@ -92,7 +83,7 @@ public class LoginServlet extends HttpServlet {
 			ObjectMapper mapper = new ObjectMapper();
 
 			// 3. Convert received JSON to Article
-			// Article article = mapper.readValue(json, Article.class);
+		
 			Param param = mapper.readValue(json, Param.class);
 
 			System.out.println(param.toString());
@@ -100,6 +91,7 @@ public class LoginServlet extends HttpServlet {
 			String action = param.getAction();
 			int messageId = param.getMessageId();
 			int docId = param.getDocId();
+			String docString = param.getDocString();
 
 			System.out.println("param.getAction: " + param.getAction());
 			if (action.equals("initPage")) {
@@ -107,6 +99,8 @@ public class LoginServlet extends HttpServlet {
 				initPage(request, response, sessionController);
 			} else if (action.equals("selectCurrentMsg")) {
 				selectCurrentMsg(request, response, sessionController, messageId);
+				System.out.println("docString " + docString);
+				System.out.println("param is :  " + param.toString());
 			} else if (action.equals("selectCurrentDoc")) {
 				selectCurrentDoc(request, response, sessionController, docId);
 			} else if (action.equals("save")) {
@@ -116,34 +110,15 @@ public class LoginServlet extends HttpServlet {
 				//Call session controller to save currentMessage into database
 				saveCurrentMessage(request, response,sessionController, param.getTieMsg());
 				
-			} else {
+			} else if(action.equals("saveDoc")){
+				System.out.println("======Directing to Doc saving function======");
+				System.out.println("tdocString " + docString);
+				TieMsg currentMsg = TieMainPage.getTieMainPage().getCurrentMsg();
+				attachDoc(request, response,sessionController, docString,currentMsg);
+			}else {
 				RequestDispatcher rd = request.getRequestDispatcher("dist/index.html");
 				rd.forward(request, response);
 			}
-
-			// 5. Add article to List<Article>
-			// articles.add(article);
-
-			// 6. Send List<Article> as JSON to client
-			// mapper.writeValue(response.getOutputStream(), articles);
-			// switch logic based on action value
-
-			// if (action.equals("initPage")) {
-			// System.out.println("action = initPage!");
-			// initPage(request, response, sessionController);
-			// } else if (action.equals("selectCurrentMsg")) {
-			// selectCurrentMsg(request, response, sessionController);
-			// } else if (action.equals("selectCurrentDoc")) {
-			// selectCurrentDoc(request, response, sessionController);
-			// } else {
-			// // RequestDispatcher rd =
-			// // request.getRequestDispatcher("welcome.jsp");
-			// System.out.println("request:" + request.toString());
-			// System.out.println("request.getParameter failed");
-			// RequestDispatcher rd =
-			// request.getRequestDispatcher("dist/index.html");
-			// rd.forward(request, response);
-			// } // end switch on action
 
 		} else {
 
@@ -169,20 +144,6 @@ public class LoginServlet extends HttpServlet {
 				 */
 				sessionController.handleLogin(username);
 
-				// ToDo: change the tow lines blow to send back the object to
-				// existing ng2 page
-				// Header header = sessionController.initMainPage();
-				// ObjectMapper ma = new ObjectMapper();
-				// String headerjson = ma.writeValueAsString(header);
-				// System.out.println(headerjson);
-				// response.setContentType("text/json");
-				// response.setCharacterEncoding("UTF-8");
-				// response.getWriter().write(headerjson);
-				/*
-				 * Put logic here?
-				 */
-				// RequestDispatcher rd =
-				// request.getRequestDispatcher("welcome.jsp");
 				RequestDispatcher rd = request.getRequestDispatcher("dist/index.html");
 
 				rd.include(request, response);
@@ -196,6 +157,26 @@ public class LoginServlet extends HttpServlet {
 		out.flush();
 		out.close();
 	}// end doPost(..)
+
+	private void attachDoc(HttpServletRequest request, HttpServletResponse response,
+			TieSessionController sessionController, String docString, TieMsg tieMsg) throws IOException {
+		// TODO Auto-generated method stub
+		
+		//TieMainPage retval = null;
+		TieDoc parsedDoc = sessionController.handleAttachDoc(docString, tieMsg);
+		//retval = TieMainPage.getTieMainPage();
+		
+		
+		ObjectMapper ma = new ObjectMapper();
+		String saveMsgReturnJson = ma.writeValueAsString(parsedDoc);
+
+		System.out.println("docReturnJson : " + saveMsgReturnJson);
+
+		response.setContentType("text/json");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(saveMsgReturnJson);
+		
+	}
 
 	//Return saved message back in JSON format
 	private void saveCurrentMessage(HttpServletRequest request, HttpServletResponse response, TieSessionController sessionController, TieMsg tieMsg) throws IOException {
