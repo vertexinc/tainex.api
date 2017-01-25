@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import com.tie.model.TieDoc;
 import com.tie.model.TieMsg;
+import com.tie.model.TieTaxEntity;
 
 public class TaxDocParser {
 	TieDoc attachedDoc = new TieDoc();
@@ -85,8 +86,14 @@ public class TaxDocParser {
 		scanner.close();
 		// assign extracted data to each target
 		handleCBCRHeaderData(headerData, attachedDoc);
+		handleCBCREntityData(entityData, attachedDoc);
+		handleCBCRTable1Data(table1Data, attachedDoc);
+		handleCBCRTable2Data(table2Data, attachedDoc);
+		handleCBCRTable3Data(table3Data, attachedDoc);
+
+		System.out.println(attachedDoc.toString());
 		return attachedDoc;
-	}// end method parse
+	}// end method parse()
 
 	private void handleCBCRHeaderData(List<String> inputData, TieDoc attachedDoc) {
 		if (inputData.get(1) != null) {
@@ -98,7 +105,50 @@ public class TaxDocParser {
 			attachedDoc.setCurrencyCode(headerDataList[5]);
 			attachedDoc.setResCountryCode(headerDataList[6]);
 		}
-		System.out.println(attachedDoc.toString());
-	}// end method handleExtractedData
 
+	}// end method handleExtractedData(..)
+
+	private void handleCBCREntityData(List<String> inputData, TieDoc attachedDoc) {
+		List<TieTaxEntity> tieTaxEntityList = new ArrayList<TieTaxEntity>();
+		int dataSize = inputData.size();
+		for (int i = 1; i < dataSize; i++) {
+			TieTaxEntity tieTaxEntity = new TieTaxEntity();
+			String[] tieTaxEntityRecordDataList = inputData.get(i).split(",");
+			tieTaxEntity.setName(tieTaxEntityRecordDataList[1]);
+			tieTaxEntity.setEntityCode(tieTaxEntityRecordDataList[2]);
+			tieTaxEntity.setDescription(tieTaxEntityRecordDataList[3]);
+			tieTaxEntity.setTaxIdNum(tieTaxEntityRecordDataList[4]);
+			tieTaxEntity.setIncorpCountryCode(tieTaxEntityRecordDataList[5]);
+			tieTaxEntity.setOtherEntityInfo(tieTaxEntityRecordDataList[6]);
+			tieTaxEntity.setResCountryCode(tieTaxEntityRecordDataList[7]);
+			tieTaxEntity.setIdNum(tieTaxEntityRecordDataList[8]);
+			tieTaxEntity.setIsPermExtabliment(Integer.parseInt(tieTaxEntityRecordDataList[9]));
+			tieTaxEntity.setAddrLegalType(tieTaxEntityRecordDataList[10]);
+			tieTaxEntity.setAddrCountryCode(tieTaxEntityRecordDataList[11]);
+			tieTaxEntity.setAddrFreeText(tieTaxEntityRecordDataList[12]);
+			tieTaxEntity.setAddrStreet(tieTaxEntityRecordDataList[13]);
+			tieTaxEntity.setAddrBuildingIdentifier(tieTaxEntityRecordDataList[14]);
+			tieTaxEntity.setAddrSuiteIdentifier(tieTaxEntityRecordDataList[15]);
+			tieTaxEntity.setAddrFloorIdentifier(tieTaxEntityRecordDataList[16]);
+			tieTaxEntity.setAddrPOB(tieTaxEntityRecordDataList[17]);
+			//addrPostCode
+			//addrCity
+			//addrCountrySubentity
+			tieTaxEntityList.add(tieTaxEntity);
+		}
+		
+		attachedDoc.setTaxEntityList(tieTaxEntityList);
+	}// end method handleCBCREntityData(..)
+
+	private void handleCBCRTable1Data(List<String> inputData, TieDoc attachedDoc) {
+
+	}// end method handleCBCRTable1Data(..)
+
+	private void handleCBCRTable2Data(List<String> inputData, TieDoc attachedDoc) {
+
+	}// end method handleCBCRTable2Data(..)
+
+	private void handleCBCRTable3Data(List<String> inputData, TieDoc attachedDoc) {
+
+	}// end method handleCBCRTable3Data(..)
 }// end class TaxMsgParser
