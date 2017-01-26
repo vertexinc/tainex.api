@@ -112,7 +112,7 @@ public class LoginServlet extends HttpServlet {
 				
 			} else if(action.equals("saveDoc")){
 				System.out.println("======Directing to Doc saving function======");
-				System.out.println("tdocString " + docString);
+				System.out.println("docString " + docString);
 				TieMsg currentMsg = TieMainPage.getTieMainPage().getCurrentMsg();
 				attachDoc(request, response,sessionController, docString,currentMsg);
 			}else {

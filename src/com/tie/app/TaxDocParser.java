@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
+import com.tie.model.CbcrTable1;
+import com.tie.model.CbcrTable2;
+import com.tie.model.CbcrTable3;
 import com.tie.model.TieDoc;
 import com.tie.model.TieMsg;
 import com.tie.model.TieTaxEntity;
@@ -97,7 +100,7 @@ public class TaxDocParser {
 
 	private void handleCBCRHeaderData(List<String> inputData, TieDoc attachedDoc) {
 		if (inputData.get(1) != null) {
-			String[] headerDataList = inputData.get(1).split(",");
+			String[] headerDataList = inputData.get(1).split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 			attachedDoc.setName(headerDataList[1]);
 			attachedDoc.setCode(headerDataList[2]);
 			attachedDoc.setDescription(headerDataList[3]);
@@ -113,7 +116,7 @@ public class TaxDocParser {
 		int dataSize = inputData.size();
 		for (int i = 1; i < dataSize; i++) {
 			TieTaxEntity tieTaxEntity = new TieTaxEntity();
-			String[] tieTaxEntityRecordDataList = inputData.get(i).split(",");
+			String[] tieTaxEntityRecordDataList = inputData.get(i).split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 			tieTaxEntity.setName(tieTaxEntityRecordDataList[1]);
 			tieTaxEntity.setEntityCode(tieTaxEntityRecordDataList[2]);
 			tieTaxEntity.setDescription(tieTaxEntityRecordDataList[3]);
@@ -131,24 +134,91 @@ public class TaxDocParser {
 			tieTaxEntity.setAddrSuiteIdentifier(tieTaxEntityRecordDataList[15]);
 			tieTaxEntity.setAddrFloorIdentifier(tieTaxEntityRecordDataList[16]);
 			tieTaxEntity.setAddrPOB(tieTaxEntityRecordDataList[17]);
-			//addrPostCode
-			//addrCity
-			//addrCountrySubentity
+			// addrPostCode
+			// addrCity
+			// addrCountrySubentity
 			tieTaxEntityList.add(tieTaxEntity);
 		}
-		
+
 		attachedDoc.setTaxEntityList(tieTaxEntityList);
 	}// end method handleCBCREntityData(..)
 
 	private void handleCBCRTable1Data(List<String> inputData, TieDoc attachedDoc) {
-
+		List<CbcrTable1> cbcrTable1List = new ArrayList<CbcrTable1>();
+		int dataSize = inputData.size();
+		for (int i = 1; i < dataSize; i++) {
+			CbcrTable1 cbcrTable1 = new CbcrTable1();
+			String[] CbcrTable1RecordDataList = inputData.get(i).split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+			cbcrTable1.setTaxJurisdiction(CbcrTable1RecordDataList[1]);
+			cbcrTable1.setRevenueUnrelatedParty(Float.valueOf(CbcrTable1RecordDataList[2]));
+			cbcrTable1.setRevenueRelatedParty(Float.valueOf(CbcrTable1RecordDataList[3]));
+			cbcrTable1.setRevenueTotal(Float.valueOf(CbcrTable1RecordDataList[4]));
+			cbcrTable1.setPlBeforeIncomeTax(Float.valueOf(CbcrTable1RecordDataList[5]));
+			cbcrTable1.setIncomeTaxPaid(Float.valueOf(CbcrTable1RecordDataList[6]));
+			cbcrTable1.setIncomeTaxAccrued(Float.valueOf(CbcrTable1RecordDataList[7]));
+			cbcrTable1.setStatedCapital(Float.valueOf(CbcrTable1RecordDataList[8]));
+			cbcrTable1.setAccumulatedEarnings(Float.valueOf(CbcrTable1RecordDataList[9]));
+			cbcrTable1.setNumberOfEmployees(Integer.parseInt(CbcrTable1RecordDataList[10]));
+			cbcrTable1.setTangibleAssetsNonCash(Float.valueOf(CbcrTable1RecordDataList[11]));
+			cbcrTable1List.add(cbcrTable1);
+		}
+		attachedDoc.setCbcrTable1List(cbcrTable1List);
 	}// end method handleCBCRTable1Data(..)
 
 	private void handleCBCRTable2Data(List<String> inputData, TieDoc attachedDoc) {
-
+		List<CbcrTable2> cbcrTable2List = new ArrayList<CbcrTable2>();
+		int dataSize = inputData.size();
+		for (int i = 1; i < dataSize; i++) {
+			CbcrTable2 cbcrTable2 = new CbcrTable2();
+			String[] CbcrTable2RecordDataList = inputData.get(i).split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+		
+				System.out.println("CbcrTable2RecordDataList Length : " + CbcrTable2RecordDataList.length);
+		
+			cbcrTable2.setEntityCode(CbcrTable2RecordDataList[1]);
+			cbcrTable2.setTaxJurisdiction(CbcrTable2RecordDataList[2]);
+			cbcrTable2.setTaxJurisOfIncorporation(CbcrTable2RecordDataList[3]);
+			// Handle null value of integer
+			cbcrTable2.setMainBusRAndD(parseIntHelper(CbcrTable2RecordDataList[4]));
+			cbcrTable2.setMainBusHoldingIp(parseIntHelper(CbcrTable2RecordDataList[5]));
+			cbcrTable2.setMainBusPurchasing(parseIntHelper(CbcrTable2RecordDataList[6]));
+			cbcrTable2.setMainBusSaleMktDistr(parseIntHelper(CbcrTable2RecordDataList[7]));
+			cbcrTable2.setMainBusAdminMgmtSupportSvc(parseIntHelper(CbcrTable2RecordDataList[8]));
+			 cbcrTable2.setMainBusProvSvcToUnrelatedParti(parseIntHelper(CbcrTable2RecordDataList[9]));
+			 cbcrTable2.setMainBusInternalGroupFinance(parseIntHelper(CbcrTable2RecordDataList[10]));
+			 cbcrTable2.setMainBusInsurance(parseIntHelper(CbcrTable2RecordDataList[11]));
+			 cbcrTable2.setMainBusHoldingEquityInstrument(parseIntHelper(CbcrTable2RecordDataList[12]));
+			 cbcrTable2.setMainBusDormant(parseIntHelper(CbcrTable2RecordDataList[13]));
+			 cbcrTable2.setMainBusOther(parseIntHelper(CbcrTable2RecordDataList[14]));
+			 cbcrTable2.setMainBusOtherNotes(parseIntHelper(CbcrTable2RecordDataList[15]));
+			cbcrTable2List.add(cbcrTable2);
+		}
+		attachedDoc.setCbcrTable2List(cbcrTable2List);
 	}// end method handleCBCRTable2Data(..)
 
 	private void handleCBCRTable3Data(List<String> inputData, TieDoc attachedDoc) {
-
+		List<CbcrTable3> cbcrTable3List = new ArrayList<CbcrTable3>();
+		int dataSize = inputData.size();
+		for (int i = 1; i < dataSize; i++) {
+			CbcrTable3 cbcrTable3 = new CbcrTable3();
+			String[] CbcrTable3RecordDataList = inputData.get(i).split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+			cbcrTable3.setCountryCode(CbcrTable3RecordDataList[1]);
+			cbcrTable3.setSummaryRef(CbcrTable3RecordDataList[2]);
+			cbcrTable3.setMneGroupName(CbcrTable3RecordDataList[3]);
+			cbcrTable3.setFiscalYearConcerned(CbcrTable3RecordDataList[4]);
+			cbcrTable3.setAdditionalInfo(CbcrTable3RecordDataList[5]);
+			cbcrTable3List.add(cbcrTable3);
+		}
+		attachedDoc.setCbcrTable3List(cbcrTable3List);
 	}// end method handleCBCRTable3Data(..)
+
+	private int parseIntHelper(String input) {
+		int number = 0;
+		try {
+			if (input != null)
+				number = Integer.parseInt(input);
+		} catch (NumberFormatException e) {
+			number = 0;
+		}
+		return number;
+	}
 }// end class TaxMsgParser
