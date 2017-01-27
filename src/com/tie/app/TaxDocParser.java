@@ -36,38 +36,38 @@ public class TaxDocParser {
 
 			// extract CBCR_Header
 			if (trimedLine.substring(0, 11).equals("CBCR_Header")) {
-				System.out.println("====CBCR_Header Detected====");
+			
 				headerData.add(trimedLine);
 				currentTarget = "CBCR_Header";
 			}
 
 			// extract CBCR_Entity
 			if (trimedLine.substring(0, 11).equals("CBCR_Entity")) {
-				System.out.println("====CBCR_Entity Detected====");
+				
 				entityData.add(trimedLine);
 				currentTarget = "CBCR_Entity";
 			}
 			// extract CBCR_Table1
 			if (trimedLine.substring(0, 11).equals("CBCR_Table1")) {
-				System.out.println("====CBCR_Table1 Detected====");
+				
 				table1Data.add(trimedLine);
 				currentTarget = "CBCR_Table1";
 			}
 			// extract CBCR_Table2
 			if (trimedLine.substring(0, 11).equals("CBCR_Table2")) {
-				System.out.println("====CBCR_Table2 Detected====");
+			
 				table2Data.add(trimedLine);
 				currentTarget = "CBCR_Table2";
 			}
 			// extract CBCR_Table3
 			if (trimedLine.substring(0, 11).equals("CBCR_Table3")) {
-				System.out.println("====CBCR_Table3 Detected====");
+			
 				table3Data.add(trimedLine);
 				currentTarget = "CBCR_Table3";
 			}
 			// extract targetData
 			if (trimedLine.charAt(0) == ',' && trimedLine.charAt(1) != ',') {
-				System.out.println("====data Detected====");
+			
 				if (currentTarget == "CBCR_Header") {
 					headerData.add(trimedLine);
 				}
@@ -95,6 +95,7 @@ public class TaxDocParser {
 		handleCBCRTable3Data(table3Data, attachedDoc);
 
 		System.out.println(attachedDoc.toString());
+		tieMsg.getTieDocList().add(attachedDoc);
 		return attachedDoc;
 	}// end method parse()
 
@@ -171,9 +172,6 @@ public class TaxDocParser {
 		for (int i = 1; i < dataSize; i++) {
 			CbcrTable2 cbcrTable2 = new CbcrTable2();
 			String[] CbcrTable2RecordDataList = inputData.get(i).split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-		
-				System.out.println("CbcrTable2RecordDataList Length : " + CbcrTable2RecordDataList.length);
-		
 			cbcrTable2.setEntityCode(CbcrTable2RecordDataList[1]);
 			cbcrTable2.setTaxJurisdiction(CbcrTable2RecordDataList[2]);
 			cbcrTable2.setTaxJurisOfIncorporation(CbcrTable2RecordDataList[3]);
@@ -183,13 +181,13 @@ public class TaxDocParser {
 			cbcrTable2.setMainBusPurchasing(parseIntHelper(CbcrTable2RecordDataList[6]));
 			cbcrTable2.setMainBusSaleMktDistr(parseIntHelper(CbcrTable2RecordDataList[7]));
 			cbcrTable2.setMainBusAdminMgmtSupportSvc(parseIntHelper(CbcrTable2RecordDataList[8]));
-			 cbcrTable2.setMainBusProvSvcToUnrelatedParti(parseIntHelper(CbcrTable2RecordDataList[9]));
-			 cbcrTable2.setMainBusInternalGroupFinance(parseIntHelper(CbcrTable2RecordDataList[10]));
-			 cbcrTable2.setMainBusInsurance(parseIntHelper(CbcrTable2RecordDataList[11]));
-			 cbcrTable2.setMainBusHoldingEquityInstrument(parseIntHelper(CbcrTable2RecordDataList[12]));
-			 cbcrTable2.setMainBusDormant(parseIntHelper(CbcrTable2RecordDataList[13]));
-			 cbcrTable2.setMainBusOther(parseIntHelper(CbcrTable2RecordDataList[14]));
-			 cbcrTable2.setMainBusOtherNotes(parseIntHelper(CbcrTable2RecordDataList[15]));
+			cbcrTable2.setMainBusProvSvcToUnrelatedParti(parseIntHelper(CbcrTable2RecordDataList[9]));
+			cbcrTable2.setMainBusInternalGroupFinance(parseIntHelper(CbcrTable2RecordDataList[10]));
+			cbcrTable2.setMainBusInsurance(parseIntHelper(CbcrTable2RecordDataList[11]));
+			cbcrTable2.setMainBusHoldingEquityInstrument(parseIntHelper(CbcrTable2RecordDataList[12]));
+			cbcrTable2.setMainBusDormant(parseIntHelper(CbcrTable2RecordDataList[13]));
+			cbcrTable2.setMainBusOther(parseIntHelper(CbcrTable2RecordDataList[14]));
+			cbcrTable2.setMainBusOtherNotes(parseIntHelper(CbcrTable2RecordDataList[15]));
 			cbcrTable2List.add(cbcrTable2);
 		}
 		attachedDoc.setCbcrTable2List(cbcrTable2List);
@@ -220,5 +218,5 @@ public class TaxDocParser {
 			number = 0;
 		}
 		return number;
-	}
+	}// end method parseIntHelper(.)
 }// end class TaxMsgParser

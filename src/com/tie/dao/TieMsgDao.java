@@ -230,7 +230,7 @@ public class TieMsgDao extends BaseDao {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-
+		//After saving, return the message from db
 		return findTieMsgByTieMsgId(newMsgId);
 	}
 

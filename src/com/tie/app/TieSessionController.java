@@ -421,9 +421,11 @@ public class TieSessionController extends TieControllerBase {
 
 	}
 	
-	public TieDoc handleAttachDoc(String tieDocString, TieMsg currentMsg){
+	public TieDoc handleAttachDoc(String tieDocString, TieMsg currentMsg, String sessionId){
 		TaxDocParser taxDocParser = new TaxDocParser();
-		return taxDocParser.parse(tieDocString, currentMsg);
+		TieDoc parsedDoc = taxDocParser.parse(tieDocString, currentMsg); 
+		TiePersister persister = TieController.getController().getPersister();
+		return persister.getTieDocDao().saveAttachedDoc(parsedDoc, sessionId);
 	}
 
 }// end class TieSessionContrller

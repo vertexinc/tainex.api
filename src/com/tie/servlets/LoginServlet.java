@@ -83,7 +83,7 @@ public class LoginServlet extends HttpServlet {
 			ObjectMapper mapper = new ObjectMapper();
 
 			// 3. Convert received JSON to Article
-		
+
 			Param param = mapper.readValue(json, Param.class);
 
 			System.out.println(param.toString());
@@ -106,16 +106,16 @@ public class LoginServlet extends HttpServlet {
 			} else if (action.equals("save")) {
 				System.out.println("======Directing to save function======");
 				System.out.println("tieMsg.toString " + param.getTieMsg());
-				
-				//Call session controller to save currentMessage into database
-				saveCurrentMessage(request, response,sessionController, param.getTieMsg());
-				
-			} else if(action.equals("saveDoc")){
+
+				// Call session controller to save currentMessage into database
+				saveCurrentMessage(request, response, sessionController, param.getTieMsg());
+
+			} else if (action.equals("saveDoc")) {
 				System.out.println("======Directing to Doc saving function======");
 				System.out.println("docString " + docString);
 				TieMsg currentMsg = TieMainPage.getTieMainPage().getCurrentMsg();
-				attachDoc(request, response,sessionController, docString,currentMsg);
-			}else {
+				attachDoc(request, response, sessionController, docString, currentMsg);
+			} else {
 				RequestDispatcher rd = request.getRequestDispatcher("dist/index.html");
 				rd.forward(request, response);
 			}
@@ -161,34 +161,41 @@ public class LoginServlet extends HttpServlet {
 	private void attachDoc(HttpServletRequest request, HttpServletResponse response,
 			TieSessionController sessionController, String docString, TieMsg tieMsg) throws IOException {
 		// TODO Auto-generated method stub
-		
-		//TieMainPage retval = null;
-		TieDoc parsedDoc = sessionController.handleAttachDoc(docString, tieMsg);
-		//retval = TieMainPage.getTieMainPage();
-		
-		
-		ObjectMapper ma = new ObjectMapper();
-		String saveMsgReturnJson = ma.writeValueAsString(parsedDoc);
+		String sessionId = request.getSession().getId();
+		// TieMainPage retval = null;
+		TieDoc parsedDoc = sessionController.handleAttachDoc(docString, tieMsg, sessionId);
+		// retval = TieMainPage.getTieMainPage();
 
-		System.out.println("docReturnJson : " + saveMsgReturnJson);
+		ObjectMapper ma = new ObjectMapper();
+		String saveDocReturnJson = ma.writeValueAsString(parsedDoc);
+
+		System.out.println("docReturnJson : " + saveDocReturnJson);
+
+		TieMainPage retval = null;
+		retval = TieMainPage.getTieMainPage();
+		ObjectMapper msgMap = new ObjectMapper();
+
+		String savedReturnJson = msgMap.writeValueAsString(retval);
+		// System.out.println("tieMsgReturnJson : " + savedReturnJson);
 
 		response.setContentType("text/json");
 		response.setCharacterEncoding("UTF-8");
-		response.getWriter().write(saveMsgReturnJson);
-		
-	}
+		response.getWriter().write(savedReturnJson);
 
-	//Return saved message back in JSON format
-	private void saveCurrentMessage(HttpServletRequest request, HttpServletResponse response, TieSessionController sessionController, TieMsg tieMsg) throws IOException {
+	}//end attachDoc(.....)
+
+	// Return saved message back in JSON format
+	private void saveCurrentMessage(HttpServletRequest request, HttpServletResponse response,
+			TieSessionController sessionController, TieMsg tieMsg) throws IOException {
 		// TODO Auto-generated method stub
 		String sessionId = request.getSession().getId();
-		TieMsg returnSavedTieMsg = sessionController.handleSaveMessage(tieMsg,sessionId);
-		
+		TieMsg returnSavedTieMsg = sessionController.handleSaveMessage(tieMsg, sessionId);
+
 		TieMainPage retval = null;
 		sessionController.handleMsgList();
 		retval = TieMainPage.getTieMainPage();
 		retval.setCurrentMsg(returnSavedTieMsg);
-		
+
 		ObjectMapper ma = new ObjectMapper();
 		String saveMsgReturnJson = ma.writeValueAsString(retval);
 
@@ -197,7 +204,7 @@ public class LoginServlet extends HttpServlet {
 		response.setContentType("text/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(saveMsgReturnJson);
-	}
+	}//end saveCurrentMessage(....)
 
 	// Return the whole TIEapp json when init
 	// Customize init json to front end
@@ -220,7 +227,7 @@ public class LoginServlet extends HttpServlet {
 		response.setContentType("text/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(tieJson);
-	}
+	}// end initPage (...)
 
 	/**
 	 * Prepare Ajax response to the select current msg request
@@ -265,7 +272,7 @@ public class LoginServlet extends HttpServlet {
 
 		// System.out.println(msgjson);
 
-	}// end selectCurrentMsg
+	}// end selectCurrentMsg(....)
 
 	public void selectCurrentDoc(HttpServletRequest request, HttpServletResponse response,
 			TieSessionController sessionController, int docId) throws ServletException, IOException {
@@ -290,7 +297,6 @@ public class LoginServlet extends HttpServlet {
 		response.setContentType("text/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(tieJson);
-	}// end
-		// selectCurrentDoc
+	}// end selectCurrentDoc(....)
 
 }// end class LoginService
