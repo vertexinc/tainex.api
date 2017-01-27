@@ -197,8 +197,8 @@ public class TieDocDao extends BaseDao {
 			
 			String updateDocCodeSql = "update tieDoc set code=? where tieDocId = ?";
 			PreparedStatement updateDocCodeStatement = conn.prepareStatement(updateDocCodeSql);
-			updateDocCodeStatement.setInt(1, newDocId);
-			updateDocCodeStatement.setString(2, recoverCode);
+			updateDocCodeStatement.setString(1, recoverCode);
+			updateDocCodeStatement.setInt(2, newDocId);
 			updateDocCodeStatement.executeUpdate();
 
 			// Set code to Id after return the tiemsg;
