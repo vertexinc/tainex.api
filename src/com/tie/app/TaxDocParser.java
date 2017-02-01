@@ -94,8 +94,8 @@ public class TaxDocParser {
 		handleCBCRTable2Data(table2Data, attachedDoc);
 		handleCBCRTable3Data(table3Data, attachedDoc);
 
-		System.out.println(attachedDoc.toString());
-		tieMsg.getTieDocList().add(attachedDoc);
+		System.out.println("What would return in currentTieMessage from tieMainPage : "+ attachedDoc.toString());
+		//tieMsg.getTieDocList().add(attachedDoc);
 		return attachedDoc;
 	}// end method parse()
 

@@ -135,9 +135,9 @@ public class TieDocDao extends BaseDao {
 
 	}
 
-	public TieDoc saveAttachedDoc(TieDoc tieDoc, String sessionId) {
+	public TieDoc saveAttachedDoc(TieDoc tieDoc, String sessionId,int currentMsgId) {
 		if (tieDoc.getTieDocId() <= 0) {
-			return insertTieDoc(tieDoc, sessionId);
+			return insertTieDoc(tieDoc, sessionId,currentMsgId);
 		} else {
 			return updateTieDoc(tieDoc);
 		}
@@ -148,7 +148,7 @@ public class TieDocDao extends BaseDao {
 		return null;
 	}// end updateTieMessage(.)
 
-	private TieDoc insertTieDoc(TieDoc tieDoc, String sessionId) {
+	private TieDoc insertTieDoc(TieDoc tieDoc, String sessionId,int currentMsgId) {
 		// TODO Auto-generated method stub
 		int newDocId = 0;
 		String timestamp = new Timestamp(System.currentTimeMillis()).toString();
@@ -156,6 +156,7 @@ public class TieDocDao extends BaseDao {
 		String insersionCode = sessionId + timestamp + className;
 		String recoverCode = tieDoc.getCode();
 		getConnection();
+		
 		try {
 			System.out.println("Started to insert");
 			String sql;// TODO : insert and update in separate methods
@@ -168,7 +169,7 @@ public class TieDocDao extends BaseDao {
 			// tieDocTypeId
 			saveStatement.setInt(5, 1);
 			// tieMsgId need to be passed in
-			saveStatement.setInt(6, 3);
+			saveStatement.setInt(6, currentMsgId);
 
 			saveStatement.setString(7, tieDoc.getReportingEntityCode());
 			saveStatement.setString(8, tieDoc.getCurrencyCode());
@@ -194,7 +195,7 @@ public class TieDocDao extends BaseDao {
 			PreparedStatement updateDocIdStatement = conn.prepareStatement(updateDocIdSql);
 			updateDocIdStatement.setInt(1, newDocId);
 			updateDocIdStatement.executeUpdate();
-			
+
 			String updateDocCodeSql = "update tieDoc set code=? where tieDocId = ?";
 			PreparedStatement updateDocCodeStatement = conn.prepareStatement(updateDocCodeSql);
 			updateDocCodeStatement.setString(1, recoverCode);
@@ -206,7 +207,8 @@ public class TieDocDao extends BaseDao {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		// After saving, return the message from db
+		// After saving, return the doc from db
+		//System.out.println("Done insertTieDoc with return: " + findTieDocByTieDocId(newDocId).toString());
 		return findTieDocByTieDocId(newDocId);
 	}// end insertTieMessage(..)
 }

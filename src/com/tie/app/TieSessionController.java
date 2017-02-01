@@ -422,10 +422,17 @@ public class TieSessionController extends TieControllerBase {
 	}
 	
 	public TieDoc handleAttachDoc(String tieDocString, TieMsg currentMsg, String sessionId){
+		TieDoc returnDoc = new TieDoc();
 		TaxDocParser taxDocParser = new TaxDocParser();
+		//Attache the doc to the current selected message
+		int currentMsgId = TieMainPage.getTieMainPage().getCurrentMsg().getTieMsgId();
+		
 		TieDoc parsedDoc = taxDocParser.parse(tieDocString, currentMsg); 
 		TiePersister persister = TieController.getController().getPersister();
-		return persister.getTieDocDao().saveAttachedDoc(parsedDoc, sessionId);
+		returnDoc = persister.getTieDocDao().saveAttachedDoc(parsedDoc, sessionId,currentMsgId);
+		currentMsg.getTieDocList().add(returnDoc);
+		System.out.println("What would return in currentTieMessage from tieMainPage : "+ returnDoc.toString());
+		return returnDoc;
 	}
 
 }// end class TieSessionContrller

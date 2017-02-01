@@ -7250,7 +7250,7 @@ var TieappService = (function () {
         // let headers = new Headers({ 'Content-Type': 'text/plain; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* RequestOptions */]({ headers: headers });
         var param = JSON.stringify({ action: "saveDoc", docString: docString });
-        alert("ready to save doc: " + param);
+        // alert("ready to save doc: " + param)
         return this._http.post(this.currentUrl, param, options)
             .map(function (res) { return res.json(); });
     };
@@ -7259,7 +7259,7 @@ var TieappService = (function () {
         // let headers = new Headers({ 'Content-Type': 'text/plain; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* RequestOptions */]({ headers: headers });
         var param = JSON.stringify({ action: "save", tieMsg: model });
-        alert("ready to post" + param);
+        // alert("ready to post" + param)
         return this._http.post(this.currentUrl, param, options)
             .map(function (res) { return res.json(); });
     };
@@ -40970,7 +40970,6 @@ var AppComponent = (function () {
         alert(JSON.stringify(model));
         this._tieappService.postSave(model)
             .subscribe(function (saveReturnData) {
-            alert("returning: " + JSON.stringify(saveReturnData));
             _this.tieapp.body.messageList.messageSumList = saveReturnData.msgList;
             _this.tieapp.body.messageDetail = saveReturnData.currentMsg;
             _this.tieapp.body.currentDoc = saveReturnData.currentTieDoc;
@@ -54409,6 +54408,7 @@ var DoclistComponent = (function () {
     function DoclistComponent(_tieappService) {
         this._tieappService = _tieappService;
         this.emitCurrentDocId = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+        this.emitAttachedFile = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
     }
     DoclistComponent.prototype.ngOnInit = function () {
     };
@@ -54425,25 +54425,28 @@ var DoclistComponent = (function () {
     DoclistComponent.prototype.onChange = function (event) {
         var _this = this;
         this.file = null;
-        alert("starts to read");
         var text = "";
         var eventObj = event;
         var target = eventObj.target;
         var files = target.files;
         this.file = files[0];
-        alert(this.file.name);
         var reader = new FileReader();
         reader.onload = function (file) {
             var contents = file.target;
             text = contents.result;
-            alert(text);
             console.log(text);
             _this._tieappService.postDoc(text)
                 .subscribe(function (docData) {
-                alert("docAttached: " + JSON.stringify(docData));
+                _this.emitAttachedFile.emit(docData);
+                //alert("docAttached: " + JSON.stringify(docData));
             });
         };
         reader.readAsText(this.file);
+    };
+    DoclistComponent.prototype.onClick = function (event) {
+        var eventObj = event;
+        var target = eventObj.target;
+        target.value = null;
     };
     __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
@@ -54457,6 +54460,10 @@ var DoclistComponent = (function () {
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
         __metadata('design:type', Object)
     ], DoclistComponent.prototype, "currentDocId", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(), 
+        __metadata('design:type', Object)
+    ], DoclistComponent.prototype, "emitAttachedFile", void 0);
     DoclistComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'tieapp-doclist',
@@ -54571,7 +54578,6 @@ var MessageComponent = (function () {
         configurable: true
     });
     MessageComponent.prototype.onSubmit = function () {
-        alert("Message to be saved:" + JSON.stringify(this.model));
         // this._tieappService.postSave(this.model)
         //   .subscribe(saveReturnData => {
         //     alert("returning: " + JSON.stringify(saveReturnData))
@@ -54636,13 +54642,13 @@ var MessagedetailComponent = (function () {
     MessagedetailComponent.prototype.ngOnInit = function () {
     };
     MessagedetailComponent.prototype.emitCurrentDocId = function (docId) {
-        var _this = this;
         //alert(docId);
         // this._tieappService.setCurrentDocURL(docId);
         // this._tieappService.postCurrentDoc(docId)
         // .subscribe(currentDocData => {
         //   this.currentDoc = currentDocData.currentTieDoc
         // })
+        var _this = this;
         this._tieappService.postCurrentDoc(docId)
             .subscribe(function (currentDocData) {
             _this.currentDoc = currentDocData.currentTieDoc;
@@ -54650,6 +54656,12 @@ var MessagedetailComponent = (function () {
     };
     MessagedetailComponent.prototype.emitSaveChangeAtMessage = function (model) {
         this.emitSaveChangeAtMessageDetail.emit(model);
+    };
+    MessagedetailComponent.prototype.emitAttachedFile = function (text) {
+        // alert("emited at messageDetail: " + text);
+        this.messageDetail = text.currentMsg;
+        alert("this.messageDetail.tieDocList)" + JSON.stringify(this.messageDetail.tieDocList));
+        console.log("this.messageDetail.tieDocList)" + JSON.stringify(this.messageDetail.tieDocList));
     };
     __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
@@ -58493,7 +58505,7 @@ module.exports = "<div *ngIf=\"currentDoc\">\r\n  <div style=\"text-align: cente
 /* 658 */
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"row\">\r\n  <div class=\"col-md-6\">Tax Documents In Message:</div>\r\n  <div id=\"docbuttons\" class=\"col-md-6\">\r\n    <!-- <button type=\"button\" class=\"btn btn-info\">Attach ...</button> -->\r\n    <input type=\"file\" name=\"file\" id=\"file\" class=\"inputfile\" (change)=\"onChange($event)\" />\r\n    <label for=\"file\">Attach ...</label>\r\n    <button type=\"button\" class=\"btn btn-info\">Detach ...\r\n    </button>\r\n  </div>\r\n</div>\r\n\r\n\r\n<table>\r\n  <thead>\r\n    <tr>\r\n      <th>Code</th>\r\n      <th>Title</th>\r\n      <th>Doc Type</th>\r\n      <th>Reporting Entity</th>\r\n      <th>Currency</th>\r\n      <th>Resident Country</th>\r\n      <th>Accounting Standard</th>\r\n      <th>Reporting Period</th>\r\n    </tr>\r\n  </thead>\r\n  <tbody class=\"docbody\" *ngIf=\"messageDetail\">\r\n    <tr class=\"\" *ngFor=\"let doclistItem of messageDetail.tieDocList\" (click)=\"onSelect(doclistItem.tieDocId)\" [ngStyle]=\"isHighlight(doclistItem.tieDocId)\">\r\n      <td>{{doclistItem.code}}</td>\r\n      <td>{{doclistItem.name}}</td>\r\n      <td>{{doclistItem.tieDocTypeId|doctype}}</td>\r\n      <td>{{doclistItem.reportingEntityCode}}</td>\r\n      <td>{{doclistItem.currencyCode}}</td>\r\n      <td>{{doclistItem.resCountryCode}}</td>\r\n      <td>{{doclistItem.accountingStandard}}</td>\r\n      <td>{{doclistItem.reportingPeriod}}</td>\r\n    </tr>\r\n\r\n\r\n  </tbody>\r\n</table>\r\n"
+module.exports = "<div class=\"row\">\r\n  <div class=\"col-md-6\">Tax Documents In Message:</div>\r\n  <div id=\"docbuttons\" class=\"col-md-6\">\r\n    <!-- <button type=\"button\" class=\"btn btn-info\">Attach ...</button> -->\r\n    <input type=\"file\" name=\"file\" id=\"file\" class=\"inputfile\" (change)=\"onChange($event)\" (click)=\"onClick($event)\"/>\r\n    <label for=\"file\">Attach ...</label>\r\n    <button type=\"button\" class=\"btn btn-info\">Detach ...\r\n    </button>\r\n  </div>\r\n</div>\r\n\r\n\r\n<table>\r\n  <thead>\r\n    <tr>\r\n      <th>Code</th>\r\n      <th>Title</th>\r\n      <th>Doc Type</th>\r\n      <th>Reporting Entity</th>\r\n      <th>Currency</th>\r\n      <th>Resident Country</th>\r\n      <th>Accounting Standard</th>\r\n      <th>Reporting Period</th>\r\n    </tr>\r\n  </thead>\r\n  <tbody class=\"docbody\" *ngIf=\"messageDetail\">\r\n    <tr class=\"\" *ngFor=\"let doclistItem of messageDetail.tieDocList\" (click)=\"onSelect(doclistItem.tieDocId)\" [ngStyle]=\"isHighlight(doclistItem.tieDocId)\">\r\n      <td>{{doclistItem.code}}</td>\r\n      <td>{{doclistItem.name}}</td>\r\n      <td>{{doclistItem.tieDocTypeId|doctype}}</td>\r\n      <td>{{doclistItem.reportingEntityCode}}</td>\r\n      <td>{{doclistItem.currencyCode}}</td>\r\n      <td>{{doclistItem.resCountryCode}}</td>\r\n      <td>{{doclistItem.accountingStandard}}</td>\r\n      <td>{{doclistItem.reportingPeriod}}</td>\r\n    </tr>\r\n\r\n\r\n  </tbody>\r\n</table>\r\n"
 
 /***/ },
 /* 659 */
@@ -58511,7 +58523,7 @@ module.exports = "<div id=\"currentMsgBody\" *ngIf=\"messageDetail\">\r\n  <form
 /* 661 */
 /***/ function(module, exports) {
 
-module.exports = "<ul class=\"nav nav-tabs\" role=\"tablist\">\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link active\" href=\"#message\" title=\"Message\" role=\"tab\" data-toggle=\"tab\">Message</a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#docs\" title=\"Current Message:{{messageDetail.subject}} \" role=\"tab\" data-toggle=\"tab\">Docs<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Message : {{messageDetail.subject}}</div></a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#entity\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Entity<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name}}</div></a>\r\n  </li>\r\n  <li *ngIf=\"showTable\" class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#table1\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Table1<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name}}</div></a>\r\n  </li>\r\n  <li *ngIf=\"showTable\" class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#table2\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Table2<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name}}</div></a>\r\n  </li>\r\n  <li *ngIf=\"showTable\" class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#table3\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Table3<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name}}</div></a>\r\n  </li>\r\n</ul>\r\n\r\n<!-- Tab panes -->\r\n<div class=\"tab-content\">\r\n  <div role=\"tabpanel\" class=\"tab-pane fade in active\" id=\"message\">\r\n    <tieapp-message [messageDetail]=\"messageDetail\" [languageList] = \"language\" (emitSaveChangeAtMessage)=\"emitSaveChangeAtMessage($event)\"></tieapp-message>\r\n  </div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"docs\">\r\n    <tieapp-doclist [messageDetail]=\"messageDetail\" [currentDocId]=\"currentDoc.tieDocId\" (emitCurrentDocId)=\"emitCurrentDocId($event)\"></tieapp-doclist>\r\n  </div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"entity\">\r\n    <tieapp-entitylist [currentDoc]=\"currentDoc\"></tieapp-entitylist>\r\n  </div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"table1\">\r\n    <tieapp-cbcrtable1 [currentDoc]=\"currentDoc\"></tieapp-cbcrtable1>\r\n  </div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"table2\">\r\n    <tieapp-cbcrtable2 [currentDoc]=\"currentDoc\"></tieapp-cbcrtable2>\r\n  </div>\r\n  <div role=\"tabpane1\" class=\"tab-pane fade\" id=\"table3\">\r\n    <tieapp-cbcrtable3 [currentDoc]=\"currentDoc\"></tieapp-cbcrtable3>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<ul class=\"nav nav-tabs\" role=\"tablist\">\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link active\" href=\"#message\" title=\"Message\" role=\"tab\" data-toggle=\"tab\">Message</a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#docs\" title=\"Current Message:{{messageDetail.subject}} \" role=\"tab\" data-toggle=\"tab\">Docs<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Message : {{messageDetail.subject}}</div></a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#entity\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Entity<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name}}</div></a>\r\n  </li>\r\n  <li *ngIf=\"showTable\" class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#table1\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Table1<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name}}</div></a>\r\n  </li>\r\n  <li *ngIf=\"showTable\" class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#table2\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Table2<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name}}</div></a>\r\n  </li>\r\n  <li *ngIf=\"showTable\" class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#table3\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Table3<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name}}</div></a>\r\n  </li>\r\n</ul>\r\n\r\n<!-- Tab panes -->\r\n<div class=\"tab-content\">\r\n  <div role=\"tabpanel\" class=\"tab-pane fade in active\" id=\"message\">\r\n    <tieapp-message [messageDetail]=\"messageDetail\" [languageList] = \"language\" (emitSaveChangeAtMessage)=\"emitSaveChangeAtMessage($event)\"></tieapp-message>\r\n  </div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"docs\">\r\n    <tieapp-doclist [messageDetail]=\"messageDetail\" [currentDocId]=\"currentDoc.tieDocId\" (emitCurrentDocId)=\"emitCurrentDocId($event)\" (emitAttachedFile)=\"emitAttachedFile($event)\"></tieapp-doclist>\r\n  </div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"entity\">\r\n    <tieapp-entitylist [currentDoc]=\"currentDoc\"></tieapp-entitylist>\r\n  </div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"table1\">\r\n    <tieapp-cbcrtable1 [currentDoc]=\"currentDoc\"></tieapp-cbcrtable1>\r\n  </div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"table2\">\r\n    <tieapp-cbcrtable2 [currentDoc]=\"currentDoc\"></tieapp-cbcrtable2>\r\n  </div>\r\n  <div role=\"tabpane1\" class=\"tab-pane fade\" id=\"table3\">\r\n    <tieapp-cbcrtable3 [currentDoc]=\"currentDoc\"></tieapp-cbcrtable3>\r\n  </div>\r\n</div>\r\n"
 
 /***/ },
 /* 662 */
