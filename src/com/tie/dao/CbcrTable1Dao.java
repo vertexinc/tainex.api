@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.tie.model.CbcrTable1;
+import com.tie.model.TieDoc;
 import com.tie.model.TieMsg;
+import com.tie.model.TieTaxEntity;
 
 public class CbcrTable1Dao extends BaseDao{
 	public List<CbcrTable1> findCbcrTable1ByTieDocId(int id) {
@@ -69,5 +71,38 @@ public class CbcrTable1Dao extends BaseDao{
 		}
 
 		return cbcrTable1List;
+	}
+	
+	public List<CbcrTable1> saveAttachedCbcrTable1(TieDoc parsedDoc, int docId){
+		getConnection();
+		//use other insertionCode
+		try {
+			for(int i = 0;i < parsedDoc.getCbcrTable1List().size();i++){
+			String sql;// TODO : insert and update in separate methods
+			sql = "insert into cbcrtable1 values(?,?,?,?,?,?,?,?,?,?,?,?);";
+			PreparedStatement saveStatement = conn.prepareStatement(sql);
+			saveStatement.setInt(1, docId);
+			saveStatement.setString(2, parsedDoc.getCbcrTable1List().get(i).getTaxJurisdiction());
+			saveStatement.setFloat(3, parsedDoc.getCbcrTable1List().get(i).getRevenueUnrelatedParty());
+			saveStatement.setFloat(4, parsedDoc.getCbcrTable1List().get(i).getRevenueRelatedParty());
+			saveStatement.setFloat(5, parsedDoc.getCbcrTable1List().get(i).getRevenueTotal());
+			saveStatement.setFloat(6, parsedDoc.getCbcrTable1List().get(i).getPlBeforeIncomeTax());
+			saveStatement.setFloat(7, parsedDoc.getCbcrTable1List().get(i).getIncomeTaxPaid());
+			saveStatement.setFloat(8, parsedDoc.getCbcrTable1List().get(i).getIncomeTaxAccrued());
+			saveStatement.setFloat(9, parsedDoc.getCbcrTable1List().get(i).getStatedCapital());
+			saveStatement.setFloat(10, parsedDoc.getCbcrTable1List().get(i).getAccumulatedEarnings());
+			saveStatement.setInt(11, parsedDoc.getCbcrTable1List().get(i).getNumberOfEmployees());
+			saveStatement.setFloat(12, parsedDoc.getCbcrTable1List().get(i).getTangibleAssetsNonCash());
+			
+			saveStatement.executeUpdate();
+
+
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+	return findCbcrTable1ByTieDocId(docId);
+		//return null;
 	}
 }

@@ -145,7 +145,7 @@ public class TieEntityDao extends BaseDao {
 		return mainEntity;
 	}
 	
-	public List<TieTaxEntity> saveAttachedDocEntity(TieDoc parsedDoc, String sessionId, int docId){
+	public List<TieTaxEntity> saveAttachedDocEntity(TieDoc parsedDoc,int docId){
 		
 //		String entityCode = parsedDoc.getReportingEntity().getEntityCode();
 //		String timestamp = new Timestamp(System.currentTimeMillis()).toString();

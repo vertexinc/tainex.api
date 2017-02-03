@@ -436,9 +436,11 @@ public class TieSessionController extends TieControllerBase {
 		TiePersister persister = TieController.getController().getPersister();
 		
 		returnDoc = persister.getTieDocDao().saveAttachedDoc(parsedDoc, sessionId,currentMsgId);
-		List<TieTaxEntity> returnTaxEntityList = persister.getTieEntityDao().saveAttachedDocEntity(parsedDoc,sessionId,returnDoc.getTieDocId());
+		List<TieTaxEntity> returnTaxEntityList = persister.getTieEntityDao().saveAttachedDocEntity(parsedDoc, returnDoc.getTieDocId());
+		List<CbcrTable1> returnCbcrTable1 = persister.getCbcrTable1Dao().saveAttachedCbcrTable1(parsedDoc, returnDoc.getTieDocId());
 		
 		returnDoc.setTaxEntityList(returnTaxEntityList);
+		returnDoc.setCbcrTable1List(returnCbcrTable1);
 		
 		currentMsg.getTieDocList().add(returnDoc);
 		System.out.println("What would return in currentTieMessage from tieMainPage : "+ returnDoc.toString());
