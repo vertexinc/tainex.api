@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.tie.model.CbcrTable1;
 import com.tie.model.CbcrTable2;
+import com.tie.model.TieDoc;
 import com.tie.model.TieMsg;
 
 public class CbcrTable2Dao extends BaseDao{
@@ -39,7 +40,7 @@ public class CbcrTable2Dao extends BaseDao{
 				int mainBusHoldingEquityInstrument = rs.getInt("mainBusHoldingEquityInstrument");
 				int mainBusDormant = rs.getInt("mainBusDormant");
 				int mainBusOther = rs.getInt("mainBusOther");
-				int mainBusOtherNotes = rs.getInt("mainBusOtherNotes");
+				String mainBusOtherNotes = rs.getString("mainBusOtherNotes");
 				int mainBusMfctOrPrdn = rs.getInt("mainBusMfctOrPrdn");
 
 				cbcrTable2 = new CbcrTable2(id, taxJurisdiction, entityCode, taxJurisOfIncorporation, mainBusRAndD, mainBusHoldingIp, mainBusPurchasing, mainBusSaleMktDistr,
@@ -77,5 +78,44 @@ public class CbcrTable2Dao extends BaseDao{
 		}
 
 		return cbcrTable2List;
+	}
+
+	public List<CbcrTable2> saveAttachedCbcrTable2(TieDoc parsedDoc, int tieDocId) {
+		// TODO Auto-generated method stub
+		getConnection();
+		//use other insertionCode
+		try {
+			for(int i = 0;i < parsedDoc.getCbcrTable1List().size();i++){
+			String sql;// TODO : insert and update in separate methods
+			sql = "insert into cbcrtable2 values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+			PreparedStatement saveStatement = conn.prepareStatement(sql);
+			saveStatement.setInt(1, tieDocId);
+			saveStatement.setString(2, parsedDoc.getCbcrTable2List().get(i).getTaxJurisdiction());
+			saveStatement.setString(3, parsedDoc.getCbcrTable2List().get(i).getEntityCode());
+			saveStatement.setString(4, parsedDoc.getCbcrTable2List().get(i).getTaxJurisOfIncorporation());
+			saveStatement.setInt(5,parsedDoc.getCbcrTable2List().get(i).getMainBusRAndD());
+			saveStatement.setInt(6,parsedDoc.getCbcrTable2List().get(i).getMainBusHoldingIp());
+			saveStatement.setInt(7,parsedDoc.getCbcrTable2List().get(i).getMainBusPurchasing());
+			saveStatement.setInt(8,parsedDoc.getCbcrTable2List().get(i).getMainBusSaleMktDistr());
+			saveStatement.setInt(9,parsedDoc.getCbcrTable2List().get(i).getMainBusAdminMgmtSupportSvc());
+			saveStatement.setInt(10,parsedDoc.getCbcrTable2List().get(i).getMainBusProvSvcToUnrelatedParti());
+			saveStatement.setInt(11,parsedDoc.getCbcrTable2List().get(i).getMainBusInternalGroupFinance());
+			saveStatement.setInt(12,parsedDoc.getCbcrTable2List().get(i).getMainBusRegulatedFinSvc());
+			saveStatement.setInt(13,parsedDoc.getCbcrTable2List().get(i).getMainBusInsurance());
+			saveStatement.setInt(14,parsedDoc.getCbcrTable2List().get(i).getMainBusHoldingEquityInstrument());
+			saveStatement.setInt(15,parsedDoc.getCbcrTable2List().get(i).getMainBusDormant());
+			saveStatement.setInt(16,parsedDoc.getCbcrTable2List().get(i).getMainBusOther());
+			saveStatement.setString(17,parsedDoc.getCbcrTable2List().get(i).getMainBusOtherNotes());
+			saveStatement.setInt(18,parsedDoc.getCbcrTable2List().get(i).getMainBusMfctOrPrdn());
+			saveStatement.executeUpdate();
+
+
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+	return findCbcrTable2ByTieDocId(tieDocId);
+		//return null;
 	}
 }

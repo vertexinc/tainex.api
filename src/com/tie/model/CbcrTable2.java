@@ -17,7 +17,7 @@ public class CbcrTable2 {
 	private int mainBusHoldingEquityInstrument;
 	private int mainBusDormant;
 	private int mainBusOther;
-	private int mainBusOtherNotes;
+	private String mainBusOtherNotes;
 	private int mainBusMfctOrPrdn;
 
 	public CbcrTable2() {
@@ -30,7 +30,7 @@ public class CbcrTable2 {
 			int mainBusRAndD, int mainBusHoldingIp, int mainBusPurchasing, int mainBusSaleMktDistr,
 			int mainBusAdminMgmtSupportSvc, int mainBusProvSvcToUnrelatedParti, int mainBusInternalGroupFinance,
 			int mainBusRegulatedFinSvc, int mainBusInsurance, int mainBusHoldingEquityInstrument, int mainBusDormant,
-			int mainBusOther, int mainBusOtherNotes, int mainBusMfctOrPrdn) {
+			int mainBusOther, String mainBusOtherNotes, int mainBusMfctOrPrdn) {
 		//super();
 		this.tieDocId = tieDocId;
 		this.taxJurisdiction = taxJurisdiction;
@@ -114,13 +114,13 @@ public class CbcrTable2 {
 
 
 
-	public int getMainBusOtherNotes() {
+	public String getMainBusOtherNotes() {
 		return mainBusOtherNotes;
 	}
 
 
 
-	public void setMainBusOtherNotes(int mainBusOtherNotes) {
+	public void setMainBusOtherNotes(String mainBusOtherNotes) {
 		this.mainBusOtherNotes = mainBusOtherNotes;
 	}
 

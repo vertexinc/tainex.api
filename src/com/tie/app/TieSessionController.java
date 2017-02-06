@@ -438,6 +438,7 @@ public class TieSessionController extends TieControllerBase {
 		returnDoc = persister.getTieDocDao().saveAttachedDoc(parsedDoc, sessionId,currentMsgId);
 		List<TieTaxEntity> returnTaxEntityList = persister.getTieEntityDao().saveAttachedDocEntity(parsedDoc, returnDoc.getTieDocId());
 		List<CbcrTable1> returnCbcrTable1 = persister.getCbcrTable1Dao().saveAttachedCbcrTable1(parsedDoc, returnDoc.getTieDocId());
+		List<CbcrTable2> returnCbcrTable2 = persister.getCbcrTable2Dao().saveAttachedCbcrTable2(parsedDoc, returnDoc.getTieDocId());
 		
 		returnDoc.setTaxEntityList(returnTaxEntityList);
 		returnDoc.setCbcrTable1List(returnCbcrTable1);

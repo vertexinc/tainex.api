@@ -187,7 +187,7 @@ public class TaxDocParser {
 			cbcrTable2.setMainBusHoldingEquityInstrument(parseIntHelper(CbcrTable2RecordDataList[12]));
 			cbcrTable2.setMainBusDormant(parseIntHelper(CbcrTable2RecordDataList[13]));
 			cbcrTable2.setMainBusOther(parseIntHelper(CbcrTable2RecordDataList[14]));
-			cbcrTable2.setMainBusOtherNotes(parseIntHelper(CbcrTable2RecordDataList[15]));
+			cbcrTable2.setMainBusOtherNotes(CbcrTable2RecordDataList[15]);
 			cbcrTable2List.add(cbcrTable2);
 		}
 		attachedDoc.setCbcrTable2List(cbcrTable2List);
