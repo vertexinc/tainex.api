@@ -85,7 +85,7 @@ public class CbcrTable2Dao extends BaseDao{
 		getConnection();
 		//use other insertionCode
 		try {
-			for(int i = 0;i < parsedDoc.getCbcrTable1List().size();i++){
+			for(int i = 0;i < parsedDoc.getCbcrTable2List().size();i++){
 			String sql;// TODO : insert and update in separate methods
 			sql = "insert into cbcrtable2 values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 			PreparedStatement saveStatement = conn.prepareStatement(sql);
@@ -117,5 +117,18 @@ public class CbcrTable2Dao extends BaseDao{
 		
 	return findCbcrTable2ByTieDocId(tieDocId);
 		//return null;
+	}
+	
+	public void deleteCbcrTable2ByDocId(int docId) {
+		getConnection();
+		try {
+			String sql;
+			sql = "delete from cbcrtable2 where tieDocId = ?";
+			PreparedStatement deleteStatement = conn.prepareStatement(sql);
+			deleteStatement.setInt(1, docId);
+			deleteStatement.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 	}
 }

@@ -105,4 +105,17 @@ public class CbcrTable1Dao extends BaseDao{
 	return findCbcrTable1ByTieDocId(docId);
 		//return null;
 	}
+	
+	public void deleteCbcrTable1ByDocId(int docId) {
+		getConnection();
+		try {
+			String sql;
+			sql = "delete from cbcrtable1 where tieDocId = ?";
+			PreparedStatement deleteStatement = conn.prepareStatement(sql);
+			deleteStatement.setInt(1, docId);
+			deleteStatement.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
 }

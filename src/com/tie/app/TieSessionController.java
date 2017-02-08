@@ -439,13 +439,29 @@ public class TieSessionController extends TieControllerBase {
 		List<TieTaxEntity> returnTaxEntityList = persister.getTieEntityDao().saveAttachedDocEntity(parsedDoc, returnDoc.getTieDocId());
 		List<CbcrTable1> returnCbcrTable1 = persister.getCbcrTable1Dao().saveAttachedCbcrTable1(parsedDoc, returnDoc.getTieDocId());
 		List<CbcrTable2> returnCbcrTable2 = persister.getCbcrTable2Dao().saveAttachedCbcrTable2(parsedDoc, returnDoc.getTieDocId());
+		List<CbcrTable3> returnCbcrTable3 = persister.getCbcrTable3Dao().saveAttachedCbcrTable3(parsedDoc, returnDoc.getTieDocId());
 		
 		returnDoc.setTaxEntityList(returnTaxEntityList);
 		returnDoc.setCbcrTable1List(returnCbcrTable1);
+		returnDoc.setCbcrTable2List(returnCbcrTable2);
+		returnDoc.setCbcrTable3List(returnCbcrTable3);
 		
 		currentMsg.getTieDocList().add(returnDoc);
 		System.out.println("What would return in currentTieMessage from tieMainPage : "+ returnDoc.toString());
 		return returnDoc;
+	}
+
+	public void handleDetachDoc(List<String> docIdListArray) {
+		TiePersister persister = TieController.getController().getPersister();
+		for(String idString:docIdListArray){
+			int docId = Integer.parseInt(String.valueOf(idString));
+			persister.getTieEntityDao().deleteEntityByDocId(docId);
+			persister.getCbcrTable1Dao().deleteCbcrTable1ByDocId(docId);
+			persister.getCbcrTable2Dao().deleteCbcrTable2ByDocId(docId);
+			persister.getCbcrTable3Dao().deleteCbcrTable3ByDocId(docId);
+			persister.getTieDocDao().deleteTieDocDocId(docId);
+		}
+		// TODO Auto-generated method stub
 	}
 
 }// end class TieSessionContrller

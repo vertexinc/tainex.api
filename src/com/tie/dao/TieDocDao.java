@@ -211,4 +211,17 @@ public class TieDocDao extends BaseDao {
 		//System.out.println("Done insertTieDoc with return: " + findTieDocByTieDocId(newDocId).toString());
 		return findTieDocByTieDocId(newDocId);
 	}// end insertTieMessage(..)
+	
+	public void deleteTieDocDocId(int docId) {
+		getConnection();
+		try {
+			String sql;
+			sql = "delete from tiedoc where tieDocId = ?";
+			PreparedStatement deleteStatement = conn.prepareStatement(sql);
+			deleteStatement.setInt(1, docId);
+			deleteStatement.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
 }

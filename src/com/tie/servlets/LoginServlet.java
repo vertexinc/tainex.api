@@ -16,8 +16,11 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -92,6 +95,7 @@ public class LoginServlet extends HttpServlet {
 			int messageId = param.getMessageId();
 			int docId = param.getDocId();
 			String docString = param.getDocString();
+			String detachDocIdList = param.getDocIdListString();
 
 			System.out.println("param.getAction: " + param.getAction());
 			if (action.equals("initPage")) {
@@ -115,6 +119,11 @@ public class LoginServlet extends HttpServlet {
 				System.out.println("docString " + docString);
 				TieMsg currentMsg = TieMainPage.getTieMainPage().getCurrentMsg();
 				attachDoc(request, response, sessionController, docString, currentMsg);
+			} else if(action.equals("detachDoc")){
+				System.out.println("======Directing to Doc detachment======");
+				System.out.println("detach Doc Id: " + detachDocIdList);
+				List<String> docIdListArray = Arrays.asList(detachDocIdList.split(","));
+				detachDoc(request, response,sessionController, docIdListArray);
 			} else {
 				RequestDispatcher rd = request.getRequestDispatcher("dist/index.html");
 				rd.forward(request, response);
@@ -157,6 +166,25 @@ public class LoginServlet extends HttpServlet {
 		out.flush();
 		out.close();
 	}// end doPost(..)
+
+	private void detachDoc(HttpServletRequest request, HttpServletResponse response, TieSessionController sessionController, List<String> docIdListArray) throws IOException {
+		
+		sessionController.handleDetachDoc(docIdListArray);
+		
+		ObjectMapper ma = new ObjectMapper();
+		
+
+		TieMainPage retval = null;
+		retval = TieMainPage.getTieMainPage();
+		ObjectMapper msgMap = new ObjectMapper();
+
+		String detachedReturnJson = msgMap.writeValueAsString(retval);
+		// System.out.println("tieMsgReturnJson : " + savedReturnJson);
+
+		response.setContentType("text/json");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(detachedReturnJson);
+	}
 
 	private void attachDoc(HttpServletRequest request, HttpServletResponse response,
 			TieSessionController sessionController, String docString, TieMsg tieMsg) throws IOException {

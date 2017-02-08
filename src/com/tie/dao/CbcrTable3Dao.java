@@ -7,6 +7,7 @@ import java.util.List;
 
 
 import com.tie.model.CbcrTable3;
+import com.tie.model.TieDoc;
 import com.tie.model.TieMsg;
 
 public class CbcrTable3Dao extends BaseDao{
@@ -63,5 +64,45 @@ public class CbcrTable3Dao extends BaseDao{
 		}
 
 		return cbcrTable3List;
+	}
+
+	public List<CbcrTable3> saveAttachedCbcrTable3(TieDoc parsedDoc, int tieDocId) {
+		// TODO Auto-generated method stub
+		getConnection();
+		//use other insertionCode
+		try {
+			for(int i = 0;i < parsedDoc.getCbcrTable3List().size();i++){
+			String sql;// TODO : insert and update in separate methods
+			sql = "insert into cbcrtable3 values(?,?,?,?,?,?);";
+			PreparedStatement saveStatement = conn.prepareStatement(sql);
+			saveStatement.setInt(1, tieDocId);
+			saveStatement.setString(2, parsedDoc.getCbcrTable3List().get(i).getCountryCode());
+			saveStatement.setString(3, parsedDoc.getCbcrTable3List().get(i).getSummaryRef());
+			saveStatement.setString(4, parsedDoc.getCbcrTable3List().get(i).getMneGroupName());
+			saveStatement.setString(5,parsedDoc.getCbcrTable3List().get(i).getFiscalYearConcerned());
+			saveStatement.setString(6,parsedDoc.getCbcrTable3List().get(i).getAdditionalInfo());
+		
+			saveStatement.executeUpdate();
+
+
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+	return findCbcrTable3ByTieDocId(tieDocId);
+	}
+	
+	public void deleteCbcrTable3ByDocId(int docId) {
+		getConnection();
+		try {
+			String sql;
+			sql = "delete from cbcrtable3 where tieDocId = ?";
+			PreparedStatement deleteStatement = conn.prepareStatement(sql);
+			deleteStatement.setInt(1, docId);
+			deleteStatement.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 	}
 }

@@ -144,64 +144,59 @@ public class TieEntityDao extends BaseDao {
 
 		return mainEntity;
 	}
-	
-	public List<TieTaxEntity> saveAttachedDocEntity(TieDoc parsedDoc,int docId){
-		
-//		String entityCode = parsedDoc.getReportingEntity().getEntityCode();
-//		String timestamp = new Timestamp(System.currentTimeMillis()).toString();
-//		String className = this.getClass().getSimpleName();
-//		String insersionCode = sessionId + timestamp + className;
-		
-	getConnection();
-		//use other insertionCode
+
+	public List<TieTaxEntity> saveAttachedDocEntity(TieDoc parsedDoc, int docId) {
+
+		getConnection();
+		// use other insertionCode
 		try {
-			for(int i = 0;i < parsedDoc.getTaxEntityList().size();i++){
-			String sql;// TODO : insert and update in separate methods
-			sql = "insert into taxentity values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-			PreparedStatement saveStatement = conn.prepareStatement(sql);
-			saveStatement.setInt(1, docId);
-			saveStatement.setString(2, parsedDoc.getTaxEntityList().get(i).getEntityCode());
-			saveStatement.setString(3, parsedDoc.getTaxEntityList().get(i).getName());
-			saveStatement.setString(4, parsedDoc.getTaxEntityList().get(i).getDescription());
-			// tieDocTypeId
-			saveStatement.setString(5, parsedDoc.getTaxEntityList().get(i).getTaxIdNum());
-			// tieMsgId need to be passed in
-			saveStatement.setString(6, parsedDoc.getTaxEntityList().get(i).getIncorpCountryCode());
+			for (int i = 0; i < parsedDoc.getTaxEntityList().size(); i++) {
+				String sql;// TODO : insert and update in separate methods
+				sql = "insert into taxentity values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+				PreparedStatement saveStatement = conn.prepareStatement(sql);
+				saveStatement.setInt(1, docId);
+				saveStatement.setString(2, parsedDoc.getTaxEntityList().get(i).getEntityCode());
+				saveStatement.setString(3, parsedDoc.getTaxEntityList().get(i).getName());
+				saveStatement.setString(4, parsedDoc.getTaxEntityList().get(i).getDescription());
+				// tieDocTypeId
+				saveStatement.setString(5, parsedDoc.getTaxEntityList().get(i).getTaxIdNum());
+				// tieMsgId need to be passed in
+				saveStatement.setString(6, parsedDoc.getTaxEntityList().get(i).getIncorpCountryCode());
 
-			saveStatement.setString(7, parsedDoc.getTaxEntityList().get(i).getOtherEntityInfo());
-			saveStatement.setString(8, parsedDoc.getTaxEntityList().get(i).getResCountryCode());
-			saveStatement.setString(9, parsedDoc.getTaxEntityList().get(i).getIdNum());
-			saveStatement.setInt(10, parsedDoc.getTaxEntityList().get(i).getIsPermExtabliment());
-			saveStatement.setString(11, parsedDoc.getTaxEntityList().get(i).getAddrLegalType());
-			saveStatement.setString(12, parsedDoc.getTaxEntityList().get(i).getAddrCountryCode());
-			saveStatement.setString(13, parsedDoc.getTaxEntityList().get(i).getAddrFreeText());
-			saveStatement.setString(14, parsedDoc.getTaxEntityList().get(i).getAddrStreet());
-			saveStatement.setString(15, parsedDoc.getTaxEntityList().get(i).getAddrBuildingIdentifier());
-			saveStatement.setString(16, parsedDoc.getTaxEntityList().get(i).getAddrSuiteIdentifier());
-			saveStatement.setString(17, parsedDoc.getTaxEntityList().get(i).getAddrFloorIdentifier());
-			saveStatement.setString(18, parsedDoc.getTaxEntityList().get(i).getAddrPOB());
-			saveStatement.setString(19, "no value");
-			saveStatement.setString(20, "no value");
-			saveStatement.setString(21, "no value");
-			saveStatement.executeUpdate();
-
-			// separate method to handle the Id
-
-//			String updateDocCodeSql = "update taxentity set code=? where tieDocId = ?";
-//			PreparedStatement updateDocCodeStatement = conn.prepareStatement(updateDocCodeSql);
-//			updateDocCodeStatement.setString(1, entityCode);
-//			updateDocCodeStatement.setInt(2, dotId);
-//			updateDocCodeStatement.executeUpdate();
-
-			// Set code to Id after return the tiemsg;
-			// updateCode();
+				saveStatement.setString(7, parsedDoc.getTaxEntityList().get(i).getOtherEntityInfo());
+				saveStatement.setString(8, parsedDoc.getTaxEntityList().get(i).getResCountryCode());
+				saveStatement.setString(9, parsedDoc.getTaxEntityList().get(i).getIdNum());
+				saveStatement.setInt(10, parsedDoc.getTaxEntityList().get(i).getIsPermExtabliment());
+				saveStatement.setString(11, parsedDoc.getTaxEntityList().get(i).getAddrLegalType());
+				saveStatement.setString(12, parsedDoc.getTaxEntityList().get(i).getAddrCountryCode());
+				saveStatement.setString(13, parsedDoc.getTaxEntityList().get(i).getAddrFreeText());
+				saveStatement.setString(14, parsedDoc.getTaxEntityList().get(i).getAddrStreet());
+				saveStatement.setString(15, parsedDoc.getTaxEntityList().get(i).getAddrBuildingIdentifier());
+				saveStatement.setString(16, parsedDoc.getTaxEntityList().get(i).getAddrSuiteIdentifier());
+				saveStatement.setString(17, parsedDoc.getTaxEntityList().get(i).getAddrFloorIdentifier());
+				saveStatement.setString(18, parsedDoc.getTaxEntityList().get(i).getAddrPOB());
+				saveStatement.setString(19, "no value");
+				saveStatement.setString(20, "no value");
+				saveStatement.setString(21, "no value");
+				saveStatement.executeUpdate();
 			}
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		
-	return findTieEntityByTieDocId(docId);
-		//return null;
+
+		return findTieEntityByTieDocId(docId);
 	}
 
+	public void deleteEntityByDocId(int docId) {
+		getConnection();
+		try {
+			String sql;
+			sql = "delete from taxentity where tieDocId = ?";
+			PreparedStatement deleteStatement = conn.prepareStatement(sql);
+			deleteStatement.setInt(1, docId);
+			deleteStatement.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
 }
