@@ -79,7 +79,6 @@ public class LoginServlet extends HttpServlet {
 			String json = "";
 			if (br != null) {
 				json = br.readLine();
-
 			}
 
 			// 2. initiate jackson mapper

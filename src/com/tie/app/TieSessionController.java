@@ -462,9 +462,10 @@ public class TieSessionController extends TieControllerBase {
 			persister.getTieDocDao().deleteTieDocDocId(docId);
 		}
 		int currentTieMsgId = TieMainPage.getTieMainPage().getCurrentMsg().getTieMsgId();
-		TieMsg currentMsg = persister.getTieMsgDao().findTieMsgByTieMsgId(currentTieMsgId);
-		TieMainPage.getTieMainPage().setCurrentMsg(currentMsg);
+//		TieMsg currentMsg = persister.getTieMsgDao().findTieMsgByTieMsgId(currentTieMsgId);
+		TieMainPage.getTieMainPage().setCurrentMsg(handleSelectCurrentMsg(currentTieMsgId));
 		// TODO Auto-generated method stub
+		//handleSelectCurrentMsg(currentTieMsgId);
 	}
 
 }// end class TieSessionContrller
