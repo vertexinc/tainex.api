@@ -54473,8 +54473,11 @@ var DoclistComponent = (function () {
             this._tieappService.postDetachedDocId(idList)
                 .subscribe(function (docData) {
                 _this.emitDetachedDocIdList.emit(docData);
+                alert(JSON.stringify(docData));
+                console.log("return value after detachment: " + JSON.stringify(docData));
             });
         }
+        // this.detachList = [];
     };
     DoclistComponent.prototype.onConfirm = function () {
         // this.detach = false;
@@ -54716,6 +54719,7 @@ var MessagedetailComponent = (function () {
     };
     MessagedetailComponent.prototype.emitDetachedDocIdList = function (text) {
         this.messageDetail = text.currentMsg;
+        console.log("this.messageDetail after delete" + JSON.stringify(this.messageDetail));
     };
     __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 

@@ -123,7 +123,7 @@ public class LoginServlet extends HttpServlet {
 				System.out.println("======Directing to Doc detachment======");
 				System.out.println("detach Doc Id: " + detachDocIdList);
 				List<String> docIdListArray = Arrays.asList(detachDocIdList.split(","));
-				detachDoc(request, response,sessionController, docIdListArray);
+				detachDoc(request, response,sessionController, docIdListArray,messageId);
 			} else {
 				RequestDispatcher rd = request.getRequestDispatcher("dist/index.html");
 				rd.forward(request, response);
@@ -167,10 +167,11 @@ public class LoginServlet extends HttpServlet {
 		out.close();
 	}// end doPost(..)
 
-	private void detachDoc(HttpServletRequest request, HttpServletResponse response, TieSessionController sessionController, List<String> docIdListArray) throws IOException {
+	private void detachDoc(HttpServletRequest request, HttpServletResponse response, TieSessionController sessionController, List<String> docIdListArray, int messageId) throws ServletException, IOException  {
 		
 		sessionController.handleDetachDoc(docIdListArray);
-		
+		//sessionController.init();
+//		
 		ObjectMapper ma = new ObjectMapper();
 		
 
@@ -184,6 +185,7 @@ public class LoginServlet extends HttpServlet {
 		response.setContentType("text/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(detachedReturnJson);
+	
 	}
 
 	private void attachDoc(HttpServletRequest request, HttpServletResponse response,

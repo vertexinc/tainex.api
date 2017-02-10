@@ -461,6 +461,9 @@ public class TieSessionController extends TieControllerBase {
 			persister.getCbcrTable3Dao().deleteCbcrTable3ByDocId(docId);
 			persister.getTieDocDao().deleteTieDocDocId(docId);
 		}
+		int currentTieMsgId = TieMainPage.getTieMainPage().getCurrentMsg().getTieMsgId();
+		TieMsg currentMsg = persister.getTieMsgDao().findTieMsgByTieMsgId(currentTieMsgId);
+		TieMainPage.getTieMainPage().setCurrentMsg(currentMsg);
 		// TODO Auto-generated method stub
 	}
 
