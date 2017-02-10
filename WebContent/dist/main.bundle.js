@@ -54477,7 +54477,7 @@ var DoclistComponent = (function () {
                 console.log("return value after detachment: " + JSON.stringify(docData));
             });
         }
-        // this.detachList = [];
+        this.detachList = [];
     };
     DoclistComponent.prototype.onConfirm = function () {
         // this.detach = false;
