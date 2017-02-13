@@ -135,9 +135,9 @@ public class TieDocDao extends BaseDao {
 
 	}
 
-	public TieDoc saveAttachedDoc(TieDoc tieDoc, String sessionId,int currentMsgId) {
+	public TieDoc saveAttachedDoc(TieDoc tieDoc, String sessionId, int currentMsgId) {
 		if (tieDoc.getTieDocId() <= 0) {
-			return insertTieDoc(tieDoc, sessionId,currentMsgId);
+			return insertTieDoc(tieDoc, sessionId, currentMsgId);
 		} else {
 			return updateTieDoc(tieDoc);
 		}
@@ -148,15 +148,64 @@ public class TieDocDao extends BaseDao {
 		return null;
 	}// end updateTieMessage(.)
 
-	private TieDoc insertTieDoc(TieDoc tieDoc, String sessionId,int currentMsgId) {
+	private boolean tieDocCodeExist(String docCode, int currentMsgId) {
+		getConnection();
+		try {
+			String sql;// TODO : insert and update in separate methods
+			sql = "select 1 from tiedoc where tiemsgId = ? and code = ?";
+			PreparedStatement checkStatement = conn.prepareStatement(sql);
+			checkStatement.setInt(1, currentMsgId);
+			checkStatement.setString(2, docCode);
+			rs = checkStatement.executeQuery();
+			while (rs.next()) {
+				int result = rs.getInt("1");
+				if(result >= 1){
+					return true;
+				}
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return false;
+	}
+
+	private int RecoverCodeCount(String existCodeCopy, int currentMsgId) {
+		// TODO Auto-generated method stub
+		getConnection();
+		try {
+			String sql;// TODO : insert and update in separate methods
+			sql = "select count(*) as num from tiedoc where tiemsgId = ? and code like ?";
+			PreparedStatement checkStatement = conn.prepareStatement(sql);
+			checkStatement.setInt(1, currentMsgId);
+			checkStatement.setString(2, existCodeCopy+'%');
+			rs = checkStatement.executeQuery();
+			while (rs.next()) {
+				int result = rs.getInt("num");
+				System.out.println("=======Num is" + result +"==========");
+				return result;
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return 0;
+	}
+
+	private TieDoc insertTieDoc(TieDoc tieDoc, String sessionId, int currentMsgId) {
 		// TODO Auto-generated method stub
 		int newDocId = 0;
 		String timestamp = new Timestamp(System.currentTimeMillis()).toString();
 		String className = this.getClass().getSimpleName();
 		String insersionCode = sessionId + timestamp + className;
 		String recoverCode = tieDoc.getCode();
+
+		// Handle duplicate doc file code
+		if (tieDocCodeExist(recoverCode, currentMsgId)) {
+			String existCodeCopy = recoverCode + "_";
+			int recoverCodeCount = RecoverCodeCount(existCodeCopy,currentMsgId) + 1;
+			recoverCode = existCodeCopy + Integer.toString(recoverCodeCount);
+		}
 		getConnection();
-		
+
 		try {
 			System.out.println("Started to insert");
 			String sql;// TODO : insert and update in separate methods
@@ -208,10 +257,11 @@ public class TieDocDao extends BaseDao {
 			System.out.println(e);
 		}
 		// After saving, return the doc from db
-		//System.out.println("Done insertTieDoc with return: " + findTieDocByTieDocId(newDocId).toString());
+		// System.out.println("Done insertTieDoc with return: " +
+		// findTieDocByTieDocId(newDocId).toString());
 		return findTieDocByTieDocId(newDocId);
 	}// end insertTieMessage(..)
-	
+
 	public void deleteTieDocDocId(int docId) {
 		getConnection();
 		try {
