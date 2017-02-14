@@ -31,7 +31,7 @@ public class TieMsgDao extends BaseDao {
 		try {
 			TieMsg tieMsg = new TieMsg();
 
-			String sql = "select * from mx.tiemsg where ownerid = ?";
+			String sql = "select * from tiemsg where ownerid = ?";
 
 			PreparedStatement selectStatement = conn.prepareStatement(sql);
 			selectStatement.setInt(1, id);
@@ -99,7 +99,7 @@ public class TieMsgDao extends BaseDao {
 		TieMsg msg = new TieMsg();
 		try {
 
-			String sql = "select * from mx.tiemsg where tiemsgId = ?";
+			String sql = "select * from tiemsg where tiemsgId = ?";
 
 			PreparedStatement selectStatement = conn.prepareStatement(sql);
 			selectStatement.setInt(1, id);
@@ -182,7 +182,7 @@ public class TieMsgDao extends BaseDao {
 		try {
 			System.out.println("Started to insert");
 			String sql;// TODO : insert and update in separate methods
-			sql = "insert into mx.tiemsg values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			sql = "insert into tiemsg values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement saveStatement = conn.prepareStatement(sql);
 			saveStatement.setString(1, null);
 			saveStatement.setString(2, tieMsg.getSubject());
@@ -210,7 +210,7 @@ public class TieMsgDao extends BaseDao {
 			saveStatement.executeUpdate();
 
 			// separate method to handle the Id
-			String newMsgIdSql = "select * from mx.tiemsg where code = ?";
+			String newMsgIdSql = "select * from tiemsg where code = ?";
 			PreparedStatement newMsgIdSqlStatement = conn.prepareStatement(newMsgIdSql);
 			newMsgIdSqlStatement.setString(1, insersionCode);
 			rs = newMsgIdSqlStatement.executeQuery();
@@ -220,7 +220,7 @@ public class TieMsgDao extends BaseDao {
 			System.out.println("Done  insert: " + tieMsg);
 			System.out.println("new TieMSgId : " + newMsgId);
 
-			String updateMsgIdSql = "update mx.tiemsg set code=tieMsgId where tieMsgId = ?";
+			String updateMsgIdSql = "update tiemsg set code=tieMsgId where tieMsgId = ?";
 			PreparedStatement updateMsgIdStatement = conn.prepareStatement(updateMsgIdSql);
 			updateMsgIdStatement.setInt(1, newMsgId);
 			updateMsgIdStatement.executeUpdate();
@@ -260,7 +260,7 @@ public class TieMsgDao extends BaseDao {
 		try {
 			System.out.println("Started to updateTieMessage");
 			String sql;// TODO : insert and update in separate methods
-			sql = "update mx.tiemsg set subject=?, description=?,notes=?,senderId=?,ownerid=?,tieMsgStateId=?,sendingEntityIdNum=?,transmittingCountry=?,receivingCountries=?,messageType=?,lauguage=?,warning=?,contact=?,messageRefId=?,messageTypeIndic=?,corrMessageRefIds=?,reportingPeriod=?,timestamp=?,rawMsg=? WHERE tieMsgId=?";
+			sql = "update tiemsg set subject=?, description=?,notes=?,senderId=?,ownerid=?,tieMsgStateId=?,sendingEntityIdNum=?,transmittingCountry=?,receivingCountries=?,messageType=?,lauguage=?,warning=?,contact=?,messageRefId=?,messageTypeIndic=?,corrMessageRefIds=?,reportingPeriod=?,timestamp=?,rawMsg=? WHERE tieMsgId=?";
 			PreparedStatement saveStatement = conn.prepareStatement(sql);
 			saveStatement.setString(1, tieMsg.getSubject());
 //			saveStatement.setString(2, tieMsg.getCode());

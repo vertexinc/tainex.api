@@ -18,7 +18,7 @@ public class TieEntityDao extends BaseDao {
 		try {
 			TieTaxEntity taxentity = new TieTaxEntity();
 
-			String sql = "select * from mx.taxentity where tieDocId = ? order by taxIdNum";
+			String sql = "select * from taxentity where tieDocId = ? order by taxIdNum";
 
 			PreparedStatement selectStatement = conn.prepareStatement(sql);
 			selectStatement.setInt(1, id);
@@ -84,7 +84,7 @@ public class TieEntityDao extends BaseDao {
 		TieTaxEntity mainEntity = new TieTaxEntity();
 
 		try {
-			String sql = "select * from mx.taxentity where entityCode = ?";
+			String sql = "select * from taxentity where entityCode = ?";
 
 			PreparedStatement selectStatement = conn.prepareStatement(sql);
 			selectStatement.setString(1, code);

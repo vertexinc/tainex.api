@@ -18,7 +18,7 @@ public class TieMsgReceiverDao extends BaseDao {
 		List<TieMsgReceiver> tieMsgReceiverList = new ArrayList<TieMsgReceiver>();
 		try {
 			TieMsgReceiver tieMsgReceiver = new TieMsgReceiver();
-			String sql = "select * from mx.tiemsgreceiver where tiemsgid = ?";
+			String sql = "select * from tiemsgreceiver where tiemsgid = ?";
 
 			PreparedStatement selectStatement = conn.prepareStatement(sql);
 			selectStatement.setInt(1, id);

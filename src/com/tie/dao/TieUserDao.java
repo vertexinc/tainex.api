@@ -15,7 +15,7 @@ public class TieUserDao extends BaseDao {
 
 		TieUser tieUser = null;
 		try {
-			String sql = "select * from mx.tieuser where code = ?";
+			String sql = "select * from tieuser where code = ?";
 
 			PreparedStatement selectStatement = conn.prepareStatement(sql);
 			selectStatement.setString(1, code);
@@ -73,7 +73,7 @@ public class TieUserDao extends BaseDao {
 
 		TieUser tieUser = null;
 		try {
-			String sql = "select * from mx.tieuser where tieuserid = ?";
+			String sql = "select * from tieuser where tieuserid = ?";
 
 			PreparedStatement selectStatement = conn.prepareStatement(sql);
 			selectStatement.setInt(1, id);

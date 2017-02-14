@@ -19,7 +19,7 @@ public class TieDocDao extends BaseDao {
 		try {
 			TieDoc tieDoc = new TieDoc();
 
-			String sql = "select * from mx.tiedoc where tiemsgid = ?";
+			String sql = "select * from tiedoc where tiemsgid = ?";
 
 			PreparedStatement selectStatement = conn.prepareStatement(sql);
 			selectStatement.setInt(1, id);
@@ -80,7 +80,7 @@ public class TieDocDao extends BaseDao {
 
 		try {
 
-			String sql = "select * from mx.tiedoc where tieDocId = ?";
+			String sql = "select * from tiedoc where tieDocId = ?";
 
 			PreparedStatement selectStatement = conn.prepareStatement(sql);
 			selectStatement.setInt(1, id);

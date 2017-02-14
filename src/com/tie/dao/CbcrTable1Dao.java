@@ -17,7 +17,7 @@ public class CbcrTable1Dao extends BaseDao{
 		List<CbcrTable1> cbcrTable1List = new ArrayList<CbcrTable1>();
 		try {
 			CbcrTable1 cbcrTable1 = new CbcrTable1();;
-			String sql = "select * from mx.cbcrtable1 where tieDocId = ?";
+			String sql = "select * from cbcrtable1 where tieDocId = ?";
 
 			PreparedStatement selectStatement = conn.prepareStatement(sql);
 			selectStatement.setInt(1, id);

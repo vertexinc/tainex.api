@@ -12,7 +12,7 @@ public class TieMsgTrackingStatusDao extends BaseDao{
 
 		TieMsgTrackingStateus tieMsgTrackingStateus = null;
 		try {
-			String sql = "select * from mx.tiemsgtrackingstateus where tieMsgTrackingStatusId = ?";
+			String sql = "select * from tiemsgtrackingstateus where tieMsgTrackingStatusId = ?";
 
 			PreparedStatement selectStatement = conn.prepareStatement(sql);
 			selectStatement.setInt(1, id);

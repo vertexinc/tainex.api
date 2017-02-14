@@ -21,7 +21,7 @@ public class TieAppDao extends BaseDao {
 		String appname = "test";
 		TieApp tieapp = null;
 		try {
-			String sql = "select * from mx.tieapp where tieAppId = ?";
+			String sql = "select * from tieapp where tieAppId = ?";
 
 			PreparedStatement selectStatement = conn.prepareStatement(sql);
 			selectStatement.setInt(1, id);
