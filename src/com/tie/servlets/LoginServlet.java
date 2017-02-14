@@ -118,11 +118,15 @@ public class LoginServlet extends HttpServlet {
 				System.out.println("docString " + docString);
 				TieMsg currentMsg = TieMainPage.getTieMainPage().getCurrentMsg();
 				attachDoc(request, response, sessionController, docString, currentMsg);
-			} else if(action.equals("detachDoc")){
+			} else if (action.equals("detachDoc")) {
 				System.out.println("======Directing to Doc detachment======");
 				System.out.println("detach Doc Id: " + detachDocIdList);
 				List<String> docIdListArray = Arrays.asList(detachDocIdList.split(","));
-				detachDoc(request, response,sessionController, docIdListArray,messageId);
+				detachDoc(request, response, sessionController, docIdListArray, messageId);
+			} else if (action.equals("deleteMsg")) {
+				System.out.println("======Directing to Msg delete======");
+				deleteMsg(request, response, sessionController, TieMainPage.getTieMainPage().getCurrentMsg().getTieMsgId());
+				initPage(request, response, sessionController);
 			} else {
 				RequestDispatcher rd = request.getRequestDispatcher("dist/index.html");
 				rd.forward(request, response);
@@ -166,13 +170,32 @@ public class LoginServlet extends HttpServlet {
 		out.close();
 	}// end doPost(..)
 
-	private void detachDoc(HttpServletRequest request, HttpServletResponse response, TieSessionController sessionController, List<String> docIdListArray, int messageId) throws ServletException, IOException  {
-		
+	private void deleteMsg(HttpServletRequest request, HttpServletResponse response,
+			TieSessionController sessionController, int messageId) throws IOException {
+		// TODO Auto-generated method stub
+		sessionController.handleDeleteMsg(messageId);
+		System.out.println("The message to be deleted" + messageId);
+//		ObjectMapper ma = new ObjectMapper();
+//
+//		TieMainPage retval = null;
+//		retval = TieMainPage.getTieMainPage();
+//		ObjectMapper msgMap = new ObjectMapper();
+//
+//		String detachedReturnJson = msgMap.writeValueAsString(retval);
+//		// System.out.println("tieMsgReturnJson : " + savedReturnJson);
+//
+//		response.setContentType("text/json");
+//		response.setCharacterEncoding("UTF-8");
+//		response.getWriter().write(detachedReturnJson);
+	}
+
+	private void detachDoc(HttpServletRequest request, HttpServletResponse response,
+			TieSessionController sessionController, List<String> docIdListArray, int messageId)
+			throws ServletException, IOException {
+
 		sessionController.handleDetachDoc(docIdListArray);
-		//sessionController.init();
-//		
+
 		ObjectMapper ma = new ObjectMapper();
-		
 
 		TieMainPage retval = null;
 		retval = TieMainPage.getTieMainPage();
@@ -184,7 +207,7 @@ public class LoginServlet extends HttpServlet {
 		response.setContentType("text/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(detachedReturnJson);
-	
+
 	}
 
 	private void attachDoc(HttpServletRequest request, HttpServletResponse response,
@@ -211,7 +234,7 @@ public class LoginServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(savedReturnJson);
 
-	}//end attachDoc(.....)
+	}// end attachDoc(.....)
 
 	// Return saved message back in JSON format
 	private void saveCurrentMessage(HttpServletRequest request, HttpServletResponse response,
@@ -233,7 +256,7 @@ public class LoginServlet extends HttpServlet {
 		response.setContentType("text/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(saveMsgReturnJson);
-	}//end saveCurrentMessage(....)
+	}// end saveCurrentMessage(....)
 
 	// Return the whole TIEapp json when init
 	// Customize init json to front end

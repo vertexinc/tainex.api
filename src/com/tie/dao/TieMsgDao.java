@@ -290,4 +290,17 @@ public class TieMsgDao extends BaseDao {
 		}
 		return findTieMsgByTieMsgId(currMsgId);
 	}
+	
+	public void deleteMessageById(int tieMsgId){
+		getConnection();
+		try {
+			String sql;// TODO : insert and update in separate methods
+			sql = "delete from tiemsg where tiemsgid = ?";
+			PreparedStatement deleteStatement = conn.prepareStatement(sql);
+			deleteStatement.setInt(1, tieMsgId);
+			deleteStatement.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
 }

@@ -468,4 +468,23 @@ public class TieSessionController extends TieControllerBase {
 		//handleSelectCurrentMsg(currentTieMsgId);
 	}
 
+	public void handleDeleteMsg(int messageId) {
+		// TODO Auto-generated method stub
+		TiePersister persister = TieController.getController().getPersister();
+		
+		// 1 get the doc list of currentMessage
+		List<TieDoc> docListOfCurrentMessage = persister.getTieDocDao().findTieDocByTieMsgId(messageId);
+		List<String> docIdListArray = new ArrayList<String>();
+		for(TieDoc tieDoc:docListOfCurrentMessage){
+			docIdListArray.add(Integer.toString(tieDoc.getTieDocId()));
+		}
+		
+		// 2 call handleDetachDoc to delete all docs from the currentMessage
+		handleDetachDoc(docIdListArray);
+		
+		// 3 delete current message
+		persister.getTieMsgDao().deleteMessageById(messageId);
+		handleMsgList();
+	}
+
 }// end class TieSessionContrller
