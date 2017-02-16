@@ -39,6 +39,7 @@ public class TieSessionController extends TieControllerBase {
 	// The key to access session controller
 	public static String sesssionControllerName = "theSessionController";
 	public TieUser currUser; 
+	public List<TieMsg> msgList = new ArrayList<TieMsg>();
 	public void init() {
 
 	}
@@ -121,7 +122,7 @@ public class TieSessionController extends TieControllerBase {
 		// TieMainPage.getTieMainPage().setMsgList(msgList);
 
 		// ------- populate for msg pane --------
-		List<TieMsg> msgList = new ArrayList<TieMsg>();
+		//List<TieMsg> msgList = new ArrayList<TieMsg>();
 		msgList = persister.getTieMsgDao().findTieMsgByOwnerId(user.getTieUserId());// (user.getTieUserId());
 		for (TieMsg msg : msgList) {
 			int msgId = msg.getTieMsgId();
@@ -485,6 +486,16 @@ public class TieSessionController extends TieControllerBase {
 		// 3 delete current message
 		persister.getTieMsgDao().deleteMessageById(messageId);
 		handleMsgList();
+		
+		// 4 Reset current message
+		int currentMsgId = msgList.get(0).getTieMsgId();
+		handleSelectCurrentMsg(currentMsgId);
+		
+		// 5 Reset current doc
+		List<TieDoc> tieDocList = new ArrayList<TieDoc>();
+		tieDocList = persister.getTieDocDao().findTieDocByTieMsgId(currentMsgId);
+		int currentDocId = tieDocList.get(0).getTieDocId();
+		handleSelectCurrentDoc(currentDocId);
 	}
 
 }// end class TieSessionContrller

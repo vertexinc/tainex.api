@@ -40956,8 +40956,6 @@ var AppComponent = (function () {
         this.showApp = true;
         this.showTraining = false;
     }
-    AppComponent.prototype.ngOnChanges = function () {
-    };
     AppComponent.prototype.ngOnInit = function () {
         this.getAppData();
     };
@@ -40995,9 +40993,25 @@ var AppComponent = (function () {
         this._tieappService.deleteCurrentMsg()
             .subscribe(function (tieMsgData) {
             alert("Message deleted");
+            console.log("====================1========================");
+            console.log("current data after delete:" + JSON.stringify(tieMsgData));
+            console.log("====================1========================");
+            console.log("current this.tieapp.body.messageList.messageSumList after delete:" + JSON.stringify(tieMsgData.msgList));
+            console.log("====================1========================");
+            console.log("current this.tieapp.body.messageDetail after delete:" + JSON.stringify(tieMsgData.currentMsg));
+            console.log("====================1========================");
+            console.log("current this.tieapp.body.currentDoc after delete:" + JSON.stringify(tieMsgData.currentTieDoc));
             _this.tieapp.body.messageList.messageSumList = tieMsgData.msgList;
             _this.tieapp.body.messageDetail = tieMsgData.currentMsg;
             _this.tieapp.body.currentDoc = tieMsgData.currentTieDoc;
+            console.log("===================2=========================");
+            console.log("current data after delete:" + JSON.stringify(tieMsgData));
+            console.log("===================2=========================");
+            console.log("current this.tieapp.body.messageList.messageSumList after delete:" + JSON.stringify(tieMsgData.msgList));
+            console.log("===================2=========================");
+            console.log("current this.tieapp.body.messageDetail after delete:" + JSON.stringify(tieMsgData.currentMsg));
+            console.log("===================2=========================");
+            console.log("current this.tieapp.body.currentDoc after delete:" + JSON.stringify(tieMsgData.currentTieDoc));
         });
     };
     AppComponent = __decorate([
