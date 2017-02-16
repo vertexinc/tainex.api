@@ -38,8 +38,9 @@ public class TieSessionController extends TieControllerBase {
 
 	// The key to access session controller
 	public static String sesssionControllerName = "theSessionController";
-	public TieUser currUser; 
+	public TieUser currUser;
 	public List<TieMsg> msgList = new ArrayList<TieMsg>();
+
 	public void init() {
 
 	}
@@ -122,7 +123,7 @@ public class TieSessionController extends TieControllerBase {
 		// TieMainPage.getTieMainPage().setMsgList(msgList);
 
 		// ------- populate for msg pane --------
-		//List<TieMsg> msgList = new ArrayList<TieMsg>();
+		// List<TieMsg> msgList = new ArrayList<TieMsg>();
 		msgList = persister.getTieMsgDao().findTieMsgByOwnerId(user.getTieUserId());// (user.getTieUserId());
 		for (TieMsg msg : msgList) {
 			int msgId = msg.getTieMsgId();
@@ -280,6 +281,8 @@ public class TieSessionController extends TieControllerBase {
 		if (!tieMsg.getTieDocList().isEmpty()) {
 			int currenttieDocId = tieMsg.getTieDocList().get(0).getTieDocId();
 			handleSelectCurrentDoc(currenttieDocId);
+		}else{
+			TieMainPage.getTieMainPage().setCurrentTieDoc(null);
 		}
 		TieMainPage.getTieMainPage().setCurrentMsg(tieMsg);
 
@@ -418,43 +421,48 @@ public class TieSessionController extends TieControllerBase {
 
 	public TieMsg handleSaveMessage(TieMsg msg, String sessionId) {
 		TiePersister persister = TieController.getController().getPersister();
-		return persister.getTieMsgDao().saveTieMessage(msg,sessionId);
+		return persister.getTieMsgDao().saveTieMessage(msg, sessionId);
 
 	}
-	
-	public TieDoc handleAttachDoc(String tieDocString, TieMsg currentMsg, String sessionId){
+
+	public TieDoc handleAttachDoc(String tieDocString, TieMsg currentMsg, String sessionId) {
 		TieDoc returnDoc = new TieDoc();
-	
+
 		CbcrTable1 returnTable1 = new CbcrTable1();
 		CbcrTable2 returnTable2 = new CbcrTable2();
 		CbcrTable3 returnTable3 = new CbcrTable3();
-		
+
 		TaxDocParser taxDocParser = new TaxDocParser();
-		//Attache the doc to the current selected message
+		// Attache the doc to the current selected message
 		int currentMsgId = TieMainPage.getTieMainPage().getCurrentMsg().getTieMsgId();
-		
-		TieDoc parsedDoc = taxDocParser.parse(tieDocString, currentMsg); 
+
+		TieDoc parsedDoc = taxDocParser.parse(tieDocString, currentMsg);
 		TiePersister persister = TieController.getController().getPersister();
-		
-		returnDoc = persister.getTieDocDao().saveAttachedDoc(parsedDoc, sessionId,currentMsgId);
-		List<TieTaxEntity> returnTaxEntityList = persister.getTieEntityDao().saveAttachedDocEntity(parsedDoc, returnDoc.getTieDocId());
-		List<CbcrTable1> returnCbcrTable1 = persister.getCbcrTable1Dao().saveAttachedCbcrTable1(parsedDoc, returnDoc.getTieDocId());
-		List<CbcrTable2> returnCbcrTable2 = persister.getCbcrTable2Dao().saveAttachedCbcrTable2(parsedDoc, returnDoc.getTieDocId());
-		List<CbcrTable3> returnCbcrTable3 = persister.getCbcrTable3Dao().saveAttachedCbcrTable3(parsedDoc, returnDoc.getTieDocId());
-		
+
+		returnDoc = persister.getTieDocDao().saveAttachedDoc(parsedDoc, sessionId, currentMsgId);
+		List<TieTaxEntity> returnTaxEntityList = persister.getTieEntityDao().saveAttachedDocEntity(parsedDoc,
+				returnDoc.getTieDocId());
+		List<CbcrTable1> returnCbcrTable1 = persister.getCbcrTable1Dao().saveAttachedCbcrTable1(parsedDoc,
+				returnDoc.getTieDocId());
+		List<CbcrTable2> returnCbcrTable2 = persister.getCbcrTable2Dao().saveAttachedCbcrTable2(parsedDoc,
+				returnDoc.getTieDocId());
+		List<CbcrTable3> returnCbcrTable3 = persister.getCbcrTable3Dao().saveAttachedCbcrTable3(parsedDoc,
+				returnDoc.getTieDocId());
+
 		returnDoc.setTaxEntityList(returnTaxEntityList);
 		returnDoc.setCbcrTable1List(returnCbcrTable1);
 		returnDoc.setCbcrTable2List(returnCbcrTable2);
 		returnDoc.setCbcrTable3List(returnCbcrTable3);
-		
+
 		currentMsg.getTieDocList().add(returnDoc);
-		System.out.println("What would return in currentTieMessage from tieMainPage : "+ returnDoc.toString());
+		System.out.println("What would return in currentTieMessage from tieMainPage : " + returnDoc.toString());
+		TieMainPage.getTieMainPage().setCurrentTieDoc(returnDoc);
 		return returnDoc;
 	}
 
 	public void handleDetachDoc(List<String> docIdListArray) {
 		TiePersister persister = TieController.getController().getPersister();
-		for(String idString:docIdListArray){
+		for (String idString : docIdListArray) {
 			int docId = Integer.parseInt(String.valueOf(idString));
 			persister.getTieEntityDao().deleteEntityByDocId(docId);
 			persister.getCbcrTable1Dao().deleteCbcrTable1ByDocId(docId);
@@ -463,34 +471,43 @@ public class TieSessionController extends TieControllerBase {
 			persister.getTieDocDao().deleteTieDocDocId(docId);
 		}
 		int currentTieMsgId = TieMainPage.getTieMainPage().getCurrentMsg().getTieMsgId();
-//		TieMsg currentMsg = persister.getTieMsgDao().findTieMsgByTieMsgId(currentTieMsgId);
+		// TieMsg currentMsg =
+		// persister.getTieMsgDao().findTieMsgByTieMsgId(currentTieMsgId);
 		TieMainPage.getTieMainPage().setCurrentMsg(handleSelectCurrentMsg(currentTieMsgId));
 		// TODO Auto-generated method stub
-		//handleSelectCurrentMsg(currentTieMsgId);
+		// handleSelectCurrentMsg(currentTieMsgId);
+		List<TieDoc> tieDocList = new ArrayList<TieDoc>();
+		tieDocList = persister.getTieDocDao().findTieDocByTieMsgId(currentTieMsgId);
+		if (!tieDocList.isEmpty()) {
+			int currentDocId = tieDocList.get(0).getTieDocId();
+			handleSelectCurrentDoc(currentDocId);
+		}else{
+			TieMainPage.getTieMainPage().setCurrentTieDoc(null);
+		}
 	}
 
 	public void handleDeleteMsg(int messageId) {
 		// TODO Auto-generated method stub
 		TiePersister persister = TieController.getController().getPersister();
-		
+
 		// 1 get the doc list of currentMessage
 		List<TieDoc> docListOfCurrentMessage = persister.getTieDocDao().findTieDocByTieMsgId(messageId);
 		List<String> docIdListArray = new ArrayList<String>();
-		for(TieDoc tieDoc:docListOfCurrentMessage){
+		for (TieDoc tieDoc : docListOfCurrentMessage) {
 			docIdListArray.add(Integer.toString(tieDoc.getTieDocId()));
 		}
-		
+
 		// 2 call handleDetachDoc to delete all docs from the currentMessage
 		handleDetachDoc(docIdListArray);
-		
+
 		// 3 delete current message
 		persister.getTieMsgDao().deleteMessageById(messageId);
 		handleMsgList();
-		
+
 		// 4 Reset current message
 		int currentMsgId = msgList.get(0).getTieMsgId();
 		handleSelectCurrentMsg(currentMsgId);
-		
+
 		// 5 Reset current doc
 		List<TieDoc> tieDocList = new ArrayList<TieDoc>();
 		tieDocList = persister.getTieDocDao().findTieDocByTieMsgId(currentMsgId);

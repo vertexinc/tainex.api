@@ -40993,25 +40993,9 @@ var AppComponent = (function () {
         this._tieappService.deleteCurrentMsg()
             .subscribe(function (tieMsgData) {
             alert("Message deleted");
-            console.log("====================1========================");
-            console.log("current data after delete:" + JSON.stringify(tieMsgData));
-            console.log("====================1========================");
-            console.log("current this.tieapp.body.messageList.messageSumList after delete:" + JSON.stringify(tieMsgData.msgList));
-            console.log("====================1========================");
-            console.log("current this.tieapp.body.messageDetail after delete:" + JSON.stringify(tieMsgData.currentMsg));
-            console.log("====================1========================");
-            console.log("current this.tieapp.body.currentDoc after delete:" + JSON.stringify(tieMsgData.currentTieDoc));
             _this.tieapp.body.messageList.messageSumList = tieMsgData.msgList;
             _this.tieapp.body.messageDetail = tieMsgData.currentMsg;
             _this.tieapp.body.currentDoc = tieMsgData.currentTieDoc;
-            console.log("===================2=========================");
-            console.log("current data after delete:" + JSON.stringify(tieMsgData));
-            console.log("===================2=========================");
-            console.log("current this.tieapp.body.messageList.messageSumList after delete:" + JSON.stringify(tieMsgData.msgList));
-            console.log("===================2=========================");
-            console.log("current this.tieapp.body.messageDetail after delete:" + JSON.stringify(tieMsgData.currentMsg));
-            console.log("===================2=========================");
-            console.log("current this.tieapp.body.currentDoc after delete:" + JSON.stringify(tieMsgData.currentTieDoc));
         });
     };
     AppComponent = __decorate([
@@ -54162,7 +54146,13 @@ var BodyComponent = (function () {
         this._tieappService.postCurrentMsg(tieMsgId)
             .subscribe(function (currentMessageData) {
             _this.body.messageDetail = currentMessageData.currentMsg;
-            _this.body.currentDoc = currentMessageData.currentTieDoc;
+            if (currentMessageData.currentTieDoc != null) {
+                _this.body.currentDoc = currentMessageData.currentTieDoc;
+            }
+            else {
+                _this.showTable = false;
+                _this.body.currentDoc = { name: "No doc" };
+            }
             //TODO: if currentDoc is undefined --> this.showTable = false;
         }, function (error) {
             _this.body.messageDetail = {};
@@ -54765,11 +54755,20 @@ var MessagedetailComponent = (function () {
     MessagedetailComponent.prototype.emitAttachedFile = function (text) {
         // alert("emited at messageDetail: " + text);
         this.messageDetail = text.currentMsg;
+        this.currentDoc = text.currentTieDoc;
+        this.showTable = true;
         alert("this.messageDetail.tieDocList)" + JSON.stringify(this.messageDetail.tieDocList));
         console.log("this.messageDetail.tieDocList)" + JSON.stringify(this.messageDetail.tieDocList));
     };
     MessagedetailComponent.prototype.emitDetachedDocIdList = function (text) {
         this.messageDetail = text.currentMsg;
+        if (text.currentTieDoc != null) {
+            this.currentDoc = text.currentTieDoc;
+        }
+        else {
+            this.showTable = false;
+            this.currentDoc = { name: "No doc" };
+        }
         console.log("this.messageDetail after delete" + JSON.stringify(this.messageDetail));
     };
     __decorate([
