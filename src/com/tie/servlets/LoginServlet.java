@@ -127,6 +127,10 @@ public class LoginServlet extends HttpServlet {
 				System.out.println("======Directing to Msg delete======");
 				deleteMsg(request, response, sessionController, TieMainPage.getTieMainPage().getCurrentMsg().getTieMsgId());
 				initPage(request, response, sessionController);
+			} else if (action.equals("reset")) {
+				System.out.println("======Directing to Reset======");
+				reset(request, response, sessionController);
+				
 			} else {
 				RequestDispatcher rd = request.getRequestDispatcher("dist/index.html");
 				rd.forward(request, response);
@@ -169,6 +173,29 @@ public class LoginServlet extends HttpServlet {
 		out.flush();
 		out.close();
 	}// end doPost(..)
+
+	private void reset(HttpServletRequest request, HttpServletResponse response,
+			TieSessionController sessionController) throws IOException {
+		// TODO Auto-generated method stub
+		
+		
+
+		TieMainPage retval = null;
+		sessionController.handleMsgList();
+		TieMainPage.getTieMainPage().setCurrentMsg(null);
+		TieMainPage.getTieMainPage().setCurrentTieDoc(null);
+		retval = TieMainPage.getTieMainPage();
+		
+
+		ObjectMapper ma = new ObjectMapper();
+		String saveMsgReturnJson = ma.writeValueAsString(retval);
+
+		System.out.println("saveMsgReturnJson" + saveMsgReturnJson);
+
+		response.setContentType("text/json");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(saveMsgReturnJson);
+	}
 
 	private void deleteMsg(HttpServletRequest request, HttpServletResponse response,
 			TieSessionController sessionController, int messageId) throws IOException {
