@@ -16,6 +16,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
@@ -117,7 +118,12 @@ public class LoginServlet extends HttpServlet {
 				System.out.println("======Directing to Doc saving function======");
 				System.out.println("docString " + docString);
 				TieMsg currentMsg = TieMainPage.getTieMainPage().getCurrentMsg();
-				attachDoc(request, response, sessionController, docString, currentMsg);
+				try {
+					attachDoc(request, response, sessionController, docString, currentMsg);
+				} catch (NumberFormatException | ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			} else if (action.equals("detachDoc")) {
 				System.out.println("======Directing to Doc detachment======");
 				System.out.println("detach Doc Id: " + detachDocIdList);
@@ -238,7 +244,7 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	private void attachDoc(HttpServletRequest request, HttpServletResponse response,
-			TieSessionController sessionController, String docString, TieMsg tieMsg) throws IOException {
+			TieSessionController sessionController, String docString, TieMsg tieMsg) throws IOException, NumberFormatException, ParseException {
 		// TODO Auto-generated method stub
 		String sessionId = request.getSession().getId();
 		// TieMainPage retval = null;
@@ -274,6 +280,8 @@ public class LoginServlet extends HttpServlet {
 		sessionController.handleMsgList();
 		retval = TieMainPage.getTieMainPage();
 		retval.setCurrentMsg(returnSavedTieMsg);
+		//retval.setCurrentMsg(returnSavedTieMsg);
+		retval.setCurrentTieDoc(null);
 
 		ObjectMapper ma = new ObjectMapper();
 		String saveMsgReturnJson = ma.writeValueAsString(retval);

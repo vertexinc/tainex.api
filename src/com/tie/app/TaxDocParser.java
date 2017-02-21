@@ -1,5 +1,8 @@
 package com.tie.app;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -19,7 +22,7 @@ public class TaxDocParser {
 	// the main function of the parser. The input objects are not changed.
 	// The caller may then choose to add doc to the msg object outside the
 	// parser
-	public TieDoc parse(String docText, TieMsg tieMsg) {
+	public TieDoc parse(String docText, TieMsg tieMsg) throws NumberFormatException, ParseException {
 		List<String> headerData = new ArrayList<String>();
 		List<String> entityData = new ArrayList<String>();
 		List<String> table1Data = new ArrayList<String>();
@@ -36,38 +39,38 @@ public class TaxDocParser {
 
 			// extract CBCR_Header
 			if (trimedLine.substring(0, 11).equals("CBCR_Header")) {
-			
+
 				headerData.add(trimedLine);
 				currentTarget = "CBCR_Header";
 			}
 
 			// extract CBCR_Entity
 			if (trimedLine.substring(0, 11).equals("CBCR_Entity")) {
-				
+
 				entityData.add(trimedLine);
 				currentTarget = "CBCR_Entity";
 			}
 			// extract CBCR_Table1
 			if (trimedLine.substring(0, 11).equals("CBCR_Table1")) {
-				
+
 				table1Data.add(trimedLine);
 				currentTarget = "CBCR_Table1";
 			}
 			// extract CBCR_Table2
 			if (trimedLine.substring(0, 11).equals("CBCR_Table2")) {
-			
+
 				table2Data.add(trimedLine);
 				currentTarget = "CBCR_Table2";
 			}
 			// extract CBCR_Table3
 			if (trimedLine.substring(0, 11).equals("CBCR_Table3")) {
-			
+
 				table3Data.add(trimedLine);
 				currentTarget = "CBCR_Table3";
 			}
 			// extract targetData
 			if (trimedLine.charAt(0) == ',' && trimedLine.charAt(1) != ',') {
-			
+
 				if (currentTarget == "CBCR_Header") {
 					headerData.add(trimedLine);
 				}
@@ -94,8 +97,8 @@ public class TaxDocParser {
 		handleCBCRTable2Data(table2Data, attachedDoc);
 		handleCBCRTable3Data(table3Data, attachedDoc);
 
-		System.out.println("What would return in currentTieMessage from tieMainPage : "+ attachedDoc.toString());
-		//tieMsg.getTieDocList().add(attachedDoc);
+		System.out.println("What would return in currentTieMessage from tieMainPage : " + attachedDoc.toString());
+		// tieMsg.getTieDocList().add(attachedDoc);
 		return attachedDoc;
 	}// end method parse()
 
@@ -144,27 +147,37 @@ public class TaxDocParser {
 		attachedDoc.setTaxEntityList(tieTaxEntityList);
 	}// end method handleCBCREntityData(..)
 
-	private void handleCBCRTable1Data(List<String> inputData, TieDoc attachedDoc) {
+	private void handleCBCRTable1Data(List<String> inputData, TieDoc attachedDoc)
+			throws NumberFormatException, ParseException {
 		List<CbcrTable1> cbcrTable1List = new ArrayList<CbcrTable1>();
 		int dataSize = inputData.size();
 		for (int i = 1; i < dataSize; i++) {
 			CbcrTable1 cbcrTable1 = new CbcrTable1();
 			String[] CbcrTable1RecordDataList = inputData.get(i).split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 			cbcrTable1.setTaxJurisdiction(CbcrTable1RecordDataList[1]);
-			cbcrTable1.setRevenueUnrelatedParty(Float.valueOf(CbcrTable1RecordDataList[2]));
-			cbcrTable1.setRevenueRelatedParty(Float.valueOf(CbcrTable1RecordDataList[3]));
-			cbcrTable1.setRevenueTotal(Float.valueOf(CbcrTable1RecordDataList[4]));
-			cbcrTable1.setPlBeforeIncomeTax(Float.valueOf(CbcrTable1RecordDataList[5]));
-			cbcrTable1.setIncomeTaxPaid(Float.valueOf(CbcrTable1RecordDataList[6]));
-			cbcrTable1.setIncomeTaxAccrued(Float.valueOf(CbcrTable1RecordDataList[7]));
-			cbcrTable1.setStatedCapital(Float.valueOf(CbcrTable1RecordDataList[8]));
-			cbcrTable1.setAccumulatedEarnings(Float.valueOf(CbcrTable1RecordDataList[9]));
-			cbcrTable1.setNumberOfEmployees(Integer.parseInt(CbcrTable1RecordDataList[10]));
-			cbcrTable1.setTangibleAssetsNonCash(Float.valueOf(CbcrTable1RecordDataList[11]));
+			cbcrTable1.setRevenueUnrelatedParty(Float.valueOf(formatVal(CbcrTable1RecordDataList[2])));
+			cbcrTable1.setRevenueRelatedParty(Float.valueOf(formatVal(CbcrTable1RecordDataList[3])));
+			cbcrTable1.setRevenueTotal(Float.valueOf(formatVal(CbcrTable1RecordDataList[4])));
+			cbcrTable1.setPlBeforeIncomeTax(Float.valueOf(formatVal(CbcrTable1RecordDataList[5])));
+			cbcrTable1.setIncomeTaxPaid(Float.valueOf(formatVal(CbcrTable1RecordDataList[6])));
+			cbcrTable1.setIncomeTaxAccrued(Float.valueOf(formatVal(CbcrTable1RecordDataList[7])));
+			cbcrTable1.setStatedCapital(Float.valueOf(formatVal(CbcrTable1RecordDataList[8])));
+			cbcrTable1.setAccumulatedEarnings(Float.valueOf(formatVal(CbcrTable1RecordDataList[9])));
+			cbcrTable1.setNumberOfEmployees(Integer.parseInt(formatVal(CbcrTable1RecordDataList[10])));
+			cbcrTable1.setTangibleAssetsNonCash(Float.valueOf(formatVal(CbcrTable1RecordDataList[11])));
 			cbcrTable1List.add(cbcrTable1);
 		}
 		attachedDoc.setCbcrTable1List(cbcrTable1List);
 	}// end method handleCBCRTable1Data(..)
+
+	private String formatVal(String s) throws ParseException {
+		String returnValue = "";
+		
+		returnValue = s.replaceAll(",", "");
+		returnValue = returnValue.replaceAll("^[\"']+|[\"']+$", "");
+		System.out.println("What is return value: " + returnValue);
+		return returnValue;
+	}
 
 	private void handleCBCRTable2Data(List<String> inputData, TieDoc attachedDoc) {
 		List<CbcrTable2> cbcrTable2List = new ArrayList<CbcrTable2>();

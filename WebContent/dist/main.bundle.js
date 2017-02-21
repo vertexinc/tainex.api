@@ -40986,13 +40986,13 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.emitSaveChangeAtBody = function (model) {
         var _this = this;
-        alert("emit applied!");
+        //alert("emit applied!");
         alert(JSON.stringify(model));
         this._tieappService.postSave(model)
             .subscribe(function (saveReturnData) {
             _this.tieapp.body.messageList.messageSumList = saveReturnData.msgList;
             _this.tieapp.body.messageDetail = saveReturnData.currentMsg;
-            _this.tieapp.body.currentDoc = saveReturnData.currentTieDoc;
+            _this.tieapp.body.currentDoc = { tieDocId: 0 };
         });
     };
     AppComponent.prototype.emitDeleteMsgAtBody = function () {
@@ -54214,7 +54214,7 @@ var BodyComponent = (function () {
         // this.body.messageList.push(object);
         this._tieappService.resetMsgandDoc()
             .subscribe(function (data) {
-            alert("Current Msg and Doc reset");
+            //alert("Current Msg and Doc reset")
         });
     };
     BodyComponent.prototype.emiteDelete = function () {
@@ -54224,6 +54224,20 @@ var BodyComponent = (function () {
     };
     BodyComponent.prototype.emitDeleteMsgAtMessageDetail = function () {
         this.emitDeleteMsgAtBody.emit();
+    };
+    BodyComponent.prototype.customerAlert = function () {
+        var winW = window.innerWidth;
+        var winH = window.innerHeight;
+        var dialogoverlay = document.getElementById('dialogoverlay');
+        var dialogbox = document.getElementById('dialogbox');
+        dialogoverlay.style.display = "block";
+        dialogoverlay.style.height = winH + "px";
+        dialogbox.style.left = (winW / 2) - (550 * .5) + "px";
+        dialogbox.style.top = "100px";
+        dialogbox.style.display = "block";
+        document.getElementById('dialogboxhead').innerHTML = "Acknowledge This Message";
+        document.getElementById('dialogboxbody').innerHTML = "dialog";
+        document.getElementById('dialogboxfoot').innerHTML = '<button onclick="Alert.ok()">OK</button>';
     };
     __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
@@ -54495,7 +54509,7 @@ var DoclistComponent = (function () {
                 // this.attachedFile = true;
                 // this.emitCheckMsgWhenAttach.emit(this.attachedFile);
                 //alert("docAttached: " + JSON.stringify(docData));
-            }, function (err) { return alert("failed to attach"); });
+            }, function (err) { return $('#errModalLong').modal('show'); });
         };
         reader.readAsText(this.file);
     };
@@ -58650,7 +58664,7 @@ module.exports = "<div *ngIf=\"currentDoc\">\r\n  <div style=\"text-align: cente
 /* 658 */
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"row\">\r\n  <div class=\"col-md-6\">Tax Documents In Message:</div>\r\n  <div id=\"docbuttons\" class=\"col-md-6\">\r\n    <!-- <button type=\"button\" class=\"btn btn-info\">Attach ...</button> -->\r\n    <input type=\"file\" name=\"file\" id=\"file\" class=\"inputfile\" (change)=\"onChange($event)\" (click)=\"onClick($event)\" />\r\n    <label for=\"file\">Attach ...</label>\r\n    <button type=\"button\" class=\"btn btn-info\" (click)=\"onDetach()\">Detach ...\r\n    </button>\r\n  </div>\r\n</div>\r\n\r\n\r\n<table>\r\n  <thead>\r\n    <tr>\r\n      <th></th>\r\n      <th>Code</th>\r\n      <th>Title</th>\r\n      <th>Doc Type</th>\r\n      <th>Reporting Entity</th>\r\n      <th>Currency</th>\r\n      <th>Resident Country</th>\r\n      <th>Accounting Standard</th>\r\n      <th>Reporting Period</th>\r\n    </tr>\r\n  </thead>\r\n  <tbody class=\"docbody\" *ngIf=\"messageDetail\">\r\n    <tr class=\"\" *ngFor=\"let doclistItem of messageDetail.tieDocList\" (click)=\"onSelect(doclistItem.tieDocId)\" [ngStyle]=\"isHighlight(doclistItem.tieDocId)\">\r\n      <td><input type=\"checkbox\"  value=\"{{doclistItem.tieDocId}}\"  (click)=\"onClickCheckBox($event)\"></td>\r\n      <td>{{doclistItem.code}}</td>\r\n      <td>{{doclistItem.name}}</td>\r\n      <td>{{doclistItem.tieDocTypeId|doctype}}</td>\r\n      <td>{{doclistItem.reportingEntityCode}}</td>\r\n      <td>{{doclistItem.currencyCode}}</td>\r\n      <td>{{doclistItem.resCountryCode}}</td>\r\n      <td>{{doclistItem.accountingStandard}}</td>\r\n      <td>{{doclistItem.reportingPeriod}}</td>\r\n    </tr>\r\n  </tbody>\r\n</table>\r\n<!-- <div class=\"\" *ngIf=\"detach\">\r\n  <button type=\"button\" class=\"btn btn-info\" (click)=\"onConfirm()\">Confirm\r\n  </button>\r\n  <button type=\"button\" class=\"btn btn-info\" (click)=\"onCancel()\">Cancel\r\n  </button>\r\n</div> -->\r\n"
+module.exports = "<div class=\"row\">\r\n  <div class=\"col-md-6\">Tax Documents In Message:</div>\r\n  <div id=\"docbuttons\" class=\"col-md-6\">\r\n    <!-- <button type=\"button\" class=\"btn btn-info\">Attach ...</button> -->\r\n    <input type=\"file\" name=\"file\" id=\"file\" class=\"inputfile\" (change)=\"onChange($event)\" (click)=\"onClick($event)\" />\r\n    <label for=\"file\">Attach ...</label>\r\n    <button type=\"button\" class=\"btn btn-info\" (click)=\"onDetach()\">Detach ...\r\n    </button>\r\n  </div>\r\n</div>\r\n\r\n\r\n<table>\r\n  <thead>\r\n    <tr>\r\n      <th></th>\r\n      <th>Code</th>\r\n      <th>Title</th>\r\n      <th>Doc Type</th>\r\n      <th>Reporting Entity</th>\r\n      <th>Currency</th>\r\n      <th>Resident Country</th>\r\n      <th>Accounting Standard</th>\r\n      <th>Reporting Period</th>\r\n    </tr>\r\n  </thead>\r\n  <tbody class=\"docbody\" *ngIf=\"messageDetail\">\r\n    <tr class=\"\" *ngFor=\"let doclistItem of messageDetail.tieDocList\" (click)=\"onSelect(doclistItem.tieDocId)\" [ngStyle]=\"isHighlight(doclistItem.tieDocId)\">\r\n      <td><input type=\"checkbox\"  value=\"{{doclistItem.tieDocId}}\"  (click)=\"onClickCheckBox($event)\"></td>\r\n      <td>{{doclistItem.code}}</td>\r\n      <td>{{doclistItem.name}}</td>\r\n      <td>{{doclistItem.tieDocTypeId|doctype}}</td>\r\n      <td>{{doclistItem.reportingEntityCode}}</td>\r\n      <td>{{doclistItem.currencyCode}}</td>\r\n      <td>{{doclistItem.resCountryCode}}</td>\r\n      <td>{{doclistItem.accountingStandard}}</td>\r\n      <td>{{doclistItem.reportingPeriod}}</td>\r\n    </tr>\r\n  </tbody>\r\n</table>\r\n<!-- <div class=\"\" *ngIf=\"detach\">\r\n  <button type=\"button\" class=\"btn btn-info\" (click)=\"onConfirm()\">Confirm\r\n  </button>\r\n  <button type=\"button\" class=\"btn btn-info\" (click)=\"onCancel()\">Cancel\r\n  </button>\r\n</div> -->\r\n<!-- Modal -->\r\n<div class=\"modal fade\" id=\"errModalLong\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"errModalLongTitle\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"errModalLongTitle\">Message Not Saved</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        Please save the message first!\r\n      </div>\r\n      <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">OK</button>\r\n        <!-- <button type=\"button\" class=\"btn btn-primary\">Save changes</button> -->\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ },
 /* 659 */

@@ -2,6 +2,7 @@
 package com.tie.app;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -425,7 +426,7 @@ public class TieSessionController extends TieControllerBase {
 
 	}
 
-	public TieDoc handleAttachDoc(String tieDocString, TieMsg currentMsg, String sessionId) {
+	public TieDoc handleAttachDoc(String tieDocString, TieMsg currentMsg, String sessionId) throws NumberFormatException, ParseException {
 		TieDoc returnDoc = new TieDoc();
 
 		CbcrTable1 returnTable1 = new CbcrTable1();
