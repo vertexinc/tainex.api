@@ -170,10 +170,10 @@ public class TaxDocParser {
 		attachedDoc.setCbcrTable1List(cbcrTable1List);
 	}// end method handleCBCRTable1Data(..)
 
-	private String formatVal(String s) throws ParseException {
+	private String formatVal(String input) throws ParseException {
 		String returnValue = "";
 		
-		returnValue = s.replaceAll(",", "");
+		returnValue = input.replaceAll(",", "");
 		returnValue = returnValue.replaceAll("^[\"']+|[\"']+$", "");
 		System.out.println("What is return value: " + returnValue);
 		return returnValue;

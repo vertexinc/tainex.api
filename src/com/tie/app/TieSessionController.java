@@ -24,6 +24,7 @@ import com.tie.model.TieMsgState;
 import com.tie.model.TieUser;
 import com.tie.model.TieTaxEntity;
 import com.tie.ui.Header;
+import com.tie.ui.ServletError;
 import com.tie.ui.TieMainPage;
 
 /**
@@ -426,7 +427,7 @@ public class TieSessionController extends TieControllerBase {
 
 	}
 
-	public TieDoc handleAttachDoc(String tieDocString, TieMsg currentMsg, String sessionId) throws NumberFormatException, ParseException {
+	public TieDoc handleAttachDoc(String tieDocString, TieMsg currentMsg, String sessionId) throws NumberFormatException {
 		TieDoc returnDoc = new TieDoc();
 
 		CbcrTable1 returnTable1 = new CbcrTable1();
@@ -437,7 +438,14 @@ public class TieSessionController extends TieControllerBase {
 		// Attache the doc to the current selected message
 		int currentMsgId = TieMainPage.getTieMainPage().getCurrentMsg().getTieMsgId();
 
-		TieDoc parsedDoc = taxDocParser.parse(tieDocString, currentMsg);
+		TieDoc parsedDoc = null;
+		try {
+			parsedDoc = taxDocParser.parse(tieDocString, currentMsg);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Failed to parse!");
+			e.printStackTrace();
+		}
 		TiePersister persister = TieController.getController().getPersister();
 
 		returnDoc = persister.getTieDocDao().saveAttachedDoc(parsedDoc, sessionId, currentMsgId);

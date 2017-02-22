@@ -47,6 +47,7 @@ import com.tie.model.TieDoc;
 import com.tie.model.TieMsg;
 import com.tie.ui.Header;
 import com.tie.ui.Param;
+import com.tie.ui.ServletError;
 import com.tie.ui.TieMainPage;
 import com.tie.dao.LoginDao;
 
@@ -118,11 +119,36 @@ public class LoginServlet extends HttpServlet {
 				System.out.println("======Directing to Doc saving function======");
 				System.out.println("docString " + docString);
 				TieMsg currentMsg = TieMainPage.getTieMainPage().getCurrentMsg();
-				try {
-					attachDoc(request, response, sessionController, docString, currentMsg);
-				} catch (NumberFormatException | ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				if (currentMsg == null) {
+					System.out.println("Current Message is null to parse");
+					ServletError servletError = new ServletError();
+					servletError.setErrorName("No Message found!");
+					servletError.setErrorDescription("Please save the message first!");
+					
+					ObjectMapper ma = new ObjectMapper();
+					String servletErrorJson = ma.writeValueAsString(servletError);
+					System.out.println("servletErrorJson" + servletErrorJson.toString());
+					response.setContentType("text/json");
+					response.setCharacterEncoding("UTF-8");
+					response.getWriter().write(servletErrorJson);
+				} else {
+					try {
+						attachDoc(request, response, sessionController, docString, currentMsg);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						System.out.println("Failed to parse");
+						ServletError servletError = new ServletError();
+						servletError.setErrorName("Doc Attachment Error");
+						servletError.setErrorDescription("Failed to attach the doc, please check if it is correct!");
+
+						ObjectMapper ma = new ObjectMapper();
+						String servletErrorJson = ma.writeValueAsString(servletError);
+						System.out.println("servletErrorJson" + servletErrorJson.toString());
+						response.setContentType("text/json");
+						response.setCharacterEncoding("UTF-8");
+						response.getWriter().write(servletErrorJson);
+					}
 				}
 			} else if (action.equals("detachDoc")) {
 				System.out.println("======Directing to Doc detachment======");
@@ -131,12 +157,13 @@ public class LoginServlet extends HttpServlet {
 				detachDoc(request, response, sessionController, docIdListArray, messageId);
 			} else if (action.equals("deleteMsg")) {
 				System.out.println("======Directing to Msg delete======");
-				deleteMsg(request, response, sessionController, TieMainPage.getTieMainPage().getCurrentMsg().getTieMsgId());
+				deleteMsg(request, response, sessionController,
+						TieMainPage.getTieMainPage().getCurrentMsg().getTieMsgId());
 				initPage(request, response, sessionController);
 			} else if (action.equals("reset")) {
 				System.out.println("======Directing to Reset======");
 				reset(request, response, sessionController);
-				
+
 			} else {
 				RequestDispatcher rd = request.getRequestDispatcher("dist/index.html");
 				rd.forward(request, response);
@@ -180,18 +207,15 @@ public class LoginServlet extends HttpServlet {
 		out.close();
 	}// end doPost(..)
 
-	private void reset(HttpServletRequest request, HttpServletResponse response,
-			TieSessionController sessionController) throws IOException {
+	private void reset(HttpServletRequest request, HttpServletResponse response, TieSessionController sessionController)
+			throws IOException {
 		// TODO Auto-generated method stub
-		
-		
 
 		TieMainPage retval = null;
 		sessionController.handleMsgList();
 		TieMainPage.getTieMainPage().setCurrentMsg(null);
 		TieMainPage.getTieMainPage().setCurrentTieDoc(null);
 		retval = TieMainPage.getTieMainPage();
-		
 
 		ObjectMapper ma = new ObjectMapper();
 		String saveMsgReturnJson = ma.writeValueAsString(retval);
@@ -208,18 +232,18 @@ public class LoginServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		sessionController.handleDeleteMsg(messageId);
 		System.out.println("The message to be deleted" + messageId);
-//		ObjectMapper ma = new ObjectMapper();
-//
-//		TieMainPage retval = null;
-//		retval = TieMainPage.getTieMainPage();
-//		ObjectMapper msgMap = new ObjectMapper();
-//
-//		String detachedReturnJson = msgMap.writeValueAsString(retval);
-//		// System.out.println("tieMsgReturnJson : " + savedReturnJson);
-//
-//		response.setContentType("text/json");
-//		response.setCharacterEncoding("UTF-8");
-//		response.getWriter().write(detachedReturnJson);
+		// ObjectMapper ma = new ObjectMapper();
+		//
+		// TieMainPage retval = null;
+		// retval = TieMainPage.getTieMainPage();
+		// ObjectMapper msgMap = new ObjectMapper();
+		//
+		// String detachedReturnJson = msgMap.writeValueAsString(retval);
+		// // System.out.println("tieMsgReturnJson : " + savedReturnJson);
+		//
+		// response.setContentType("text/json");
+		// response.setCharacterEncoding("UTF-8");
+		// response.getWriter().write(detachedReturnJson);
 	}
 
 	private void detachDoc(HttpServletRequest request, HttpServletResponse response,
@@ -244,11 +268,15 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	private void attachDoc(HttpServletRequest request, HttpServletResponse response,
-			TieSessionController sessionController, String docString, TieMsg tieMsg) throws IOException, NumberFormatException, ParseException {
+			TieSessionController sessionController, String docString, TieMsg tieMsg)
+			throws IOException, NumberFormatException, ParseException {
 		// TODO Auto-generated method stub
 		String sessionId = request.getSession().getId();
 		// TieMainPage retval = null;
-		TieDoc parsedDoc = sessionController.handleAttachDoc(docString, tieMsg, sessionId);
+		TieDoc parsedDoc = null;
+
+		parsedDoc = sessionController.handleAttachDoc(docString, tieMsg, sessionId);
+
 		// retval = TieMainPage.getTieMainPage();
 
 		ObjectMapper ma = new ObjectMapper();
@@ -280,7 +308,7 @@ public class LoginServlet extends HttpServlet {
 		sessionController.handleMsgList();
 		retval = TieMainPage.getTieMainPage();
 		retval.setCurrentMsg(returnSavedTieMsg);
-		//retval.setCurrentMsg(returnSavedTieMsg);
+		// retval.setCurrentMsg(returnSavedTieMsg);
 		retval.setCurrentTieDoc(null);
 
 		ObjectMapper ma = new ObjectMapper();
