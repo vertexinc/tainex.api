@@ -451,9 +451,7 @@ public class TieSessionController extends TieControllerBase {
 
 		returnDoc = persister.getTieDocDao().saveAttachedDoc(parsedDoc, sessionId, currentMsgId);
 		// handle duplicated document
-		if (returnDoc.getCode().equals(sessionId + "duplicatedDoc")) {
-			return returnDoc;
-		} else {
+	
 			List<TieTaxEntity> returnTaxEntityList = persister.getTieEntityDao().saveAttachedDocEntity(parsedDoc,
 					returnDoc.getTieDocId());
 			List<CbcrTable1> returnCbcrTable1 = persister.getCbcrTable1Dao().saveAttachedCbcrTable1(parsedDoc,
@@ -472,7 +470,7 @@ public class TieSessionController extends TieControllerBase {
 			System.out.println("What would return in currentTieMessage from tieMainPage : " + returnDoc.toString());
 			TieMainPage.getTieMainPage().setCurrentTieDoc(returnDoc);
 			return returnDoc;
-		}
+		
 	}
 
 	public void handleDetachDoc(List<String> docIdListArray) {

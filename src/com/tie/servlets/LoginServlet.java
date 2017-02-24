@@ -140,7 +140,9 @@ public class LoginServlet extends HttpServlet {
 						System.out.println("Failed to parse");
 						ServletError servletError = new ServletError();
 						servletError.setErrorName("Doc Attachment Error");
-						servletError.setErrorDescription("Failed to attach the doc, please check if it is correct!");
+						//"Failed to attach the doc, please check if it is correct!"
+						servletError.setErrorDescription(e.toString());
+					
 
 						ObjectMapper ma = new ObjectMapper();
 						String servletErrorJson = ma.writeValueAsString(servletError);
@@ -281,20 +283,7 @@ public class LoginServlet extends HttpServlet {
 		TieDoc parsedDoc = null;
 
 		parsedDoc = sessionController.handleAttachDoc(docString, tieMsg, sessionId);
-		if (parsedDoc.getCode().equals(sessionId + "duplicatedDoc")) {
-			System.out.println("Duplicated doc parse");
-			ServletError servletError = new ServletError();
-			servletError.setErrorName("Duplicate Document!");
-			servletError.setErrorDescription("This document has already been attached!");
-
-			ObjectMapper ma = new ObjectMapper();
-			String servletErrorJson = ma.writeValueAsString(servletError);
-			System.out.println("servletErrorJson" + servletErrorJson.toString());
-			response.setContentType("text/json");
-			response.setCharacterEncoding("UTF-8");
-			response.getWriter().write(servletErrorJson);
-
-		} else {
+	
 
 			// retval = TieMainPage.getTieMainPage();
 
@@ -313,7 +302,7 @@ public class LoginServlet extends HttpServlet {
 			response.setContentType("text/json");
 			response.setCharacterEncoding("UTF-8");
 			response.getWriter().write(savedReturnJson);
-		}
+		
 	}// end attachDoc(.....)
 
 	// Return saved message back in JSON format
