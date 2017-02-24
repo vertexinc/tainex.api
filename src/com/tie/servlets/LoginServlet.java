@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.sql.SQLException;
@@ -119,19 +120,19 @@ public class LoginServlet extends HttpServlet {
 				System.out.println("======Directing to Doc saving function======");
 				System.out.println("docString " + docString);
 				TieMsg currentMsg = TieMainPage.getTieMainPage().getCurrentMsg();
-				if (currentMsg == null) {
-					System.out.println("Current Message is null to parse");
-					ServletError servletError = new ServletError();
-					servletError.setErrorName("No Message found!");
-					servletError.setErrorDescription("Please save the message first!");
-
-					ObjectMapper ma = new ObjectMapper();
-					String servletErrorJson = ma.writeValueAsString(servletError);
-					System.out.println("servletErrorJson" + servletErrorJson.toString());
-					response.setContentType("text/json");
-					response.setCharacterEncoding("UTF-8");
-					response.getWriter().write(servletErrorJson);
-				} else {
+//				if (currentMsg == null) {
+//					System.out.println("Current Message is null to parse");
+//					ServletError servletError = new ServletError();
+//					servletError.setErrorName("No Message found!");
+//					servletError.setErrorDescription("Please save the message first!");
+//
+//					ObjectMapper ma = new ObjectMapper();
+//					String servletErrorJson = ma.writeValueAsString(servletError);
+//					System.out.println("servletErrorJson" + servletErrorJson.toString());
+//					response.setContentType("text/json");
+//					response.setCharacterEncoding("UTF-8");
+//					response.getWriter().write(servletErrorJson);
+//				} else {
 					try {
 						attachDoc(request, response, sessionController, docString, currentMsg);
 					} catch (Exception e) {
@@ -141,7 +142,10 @@ public class LoginServlet extends HttpServlet {
 						ServletError servletError = new ServletError();
 						servletError.setErrorName("Doc Attachment Error");
 						//"Failed to attach the doc, please check if it is correct!"
-						servletError.setErrorDescription(e.toString());
+						String errorMsg = getStackTrace(e);
+						
+						//servletError.setErrorDescription(e.toString());
+						servletError.setErrorDescription(errorMsg);
 					
 
 						ObjectMapper ma = new ObjectMapper();
@@ -151,7 +155,7 @@ public class LoginServlet extends HttpServlet {
 						response.setCharacterEncoding("UTF-8");
 						response.getWriter().write(servletErrorJson);
 					}
-				}
+				//}
 			} else if (action.equals("detachDoc")) {
 				System.out.println("======Directing to Doc detachment======");
 				System.out.println("detach Doc Id: " + detachDocIdList);
@@ -421,5 +425,11 @@ public class LoginServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(tieJson);
 	}// end selectCurrentDoc(....)
+	public static String getStackTrace(final Throwable throwable) {
+	     final StringWriter sw = new StringWriter();
+	     final PrintWriter pw = new PrintWriter(sw, true);
+	     throwable.printStackTrace(pw);
+	     return sw.getBuffer().toString();
+	}
 
 }// end class LoginService
