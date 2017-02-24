@@ -124,7 +124,7 @@ public class LoginServlet extends HttpServlet {
 					ServletError servletError = new ServletError();
 					servletError.setErrorName("No Message found!");
 					servletError.setErrorDescription("Please save the message first!");
-					
+
 					ObjectMapper ma = new ObjectMapper();
 					String servletErrorJson = ma.writeValueAsString(servletError);
 					System.out.println("servletErrorJson" + servletErrorJson.toString());
@@ -157,8 +157,12 @@ public class LoginServlet extends HttpServlet {
 				detachDoc(request, response, sessionController, docIdListArray, messageId);
 			} else if (action.equals("deleteMsg")) {
 				System.out.println("======Directing to Msg delete======");
-				deleteMsg(request, response, sessionController,
-						TieMainPage.getTieMainPage().getCurrentMsg().getTieMsgId());
+				if (TieMainPage.getTieMainPage().getCurrentMsg() == null) {
+					sessionController.resetMsg();
+				} else {
+					deleteMsg(request, response, sessionController,
+							TieMainPage.getTieMainPage().getCurrentMsg().getTieMsgId());
+				}
 				initPage(request, response, sessionController);
 			} else if (action.equals("reset")) {
 				System.out.println("======Directing to Reset======");
@@ -207,6 +211,7 @@ public class LoginServlet extends HttpServlet {
 		out.close();
 	}// end doPost(..)
 
+	// upon composing new, set current msg and current doc as null
 	private void reset(HttpServletRequest request, HttpServletResponse response, TieSessionController sessionController)
 			throws IOException {
 		// TODO Auto-generated method stub
@@ -276,25 +281,39 @@ public class LoginServlet extends HttpServlet {
 		TieDoc parsedDoc = null;
 
 		parsedDoc = sessionController.handleAttachDoc(docString, tieMsg, sessionId);
+		if (parsedDoc.getCode().equals(sessionId + "duplicatedDoc")) {
+			System.out.println("Duplicated doc parse");
+			ServletError servletError = new ServletError();
+			servletError.setErrorName("Duplicate Document!");
+			servletError.setErrorDescription("This document has already been attached!");
 
-		// retval = TieMainPage.getTieMainPage();
+			ObjectMapper ma = new ObjectMapper();
+			String servletErrorJson = ma.writeValueAsString(servletError);
+			System.out.println("servletErrorJson" + servletErrorJson.toString());
+			response.setContentType("text/json");
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().write(servletErrorJson);
 
-		ObjectMapper ma = new ObjectMapper();
-		String saveDocReturnJson = ma.writeValueAsString(parsedDoc);
+		} else {
 
-		System.out.println("docReturnJson : " + saveDocReturnJson);
+			// retval = TieMainPage.getTieMainPage();
 
-		TieMainPage retval = null;
-		retval = TieMainPage.getTieMainPage();
-		ObjectMapper msgMap = new ObjectMapper();
+			ObjectMapper ma = new ObjectMapper();
+			String saveDocReturnJson = ma.writeValueAsString(parsedDoc);
 
-		String savedReturnJson = msgMap.writeValueAsString(retval);
-		// System.out.println("tieMsgReturnJson : " + savedReturnJson);
+			System.out.println("docReturnJson : " + saveDocReturnJson);
 
-		response.setContentType("text/json");
-		response.setCharacterEncoding("UTF-8");
-		response.getWriter().write(savedReturnJson);
+			TieMainPage retval = null;
+			retval = TieMainPage.getTieMainPage();
+			ObjectMapper msgMap = new ObjectMapper();
 
+			String savedReturnJson = msgMap.writeValueAsString(retval);
+			// System.out.println("tieMsgReturnJson : " + savedReturnJson);
+
+			response.setContentType("text/json");
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().write(savedReturnJson);
+		}
 	}// end attachDoc(.....)
 
 	// Return saved message back in JSON format

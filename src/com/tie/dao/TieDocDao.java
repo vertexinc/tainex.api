@@ -190,6 +190,7 @@ public class TieDocDao extends BaseDao {
 		return 0;
 	}
 
+//	@SuppressWarnings("null")
 	private TieDoc insertTieDoc(TieDoc tieDoc, String sessionId, int currentMsgId) {
 		// TODO Auto-generated method stub
 		int newDocId = 0;
@@ -200,9 +201,13 @@ public class TieDocDao extends BaseDao {
 
 		// Handle duplicate doc file code
 		if (tieDocCodeExist(recoverCode, currentMsgId)) {
-			String existCodeCopy = recoverCode + "_";
-			int recoverCodeCount = RecoverCodeCount(existCodeCopy,currentMsgId) + 1;
-			recoverCode = existCodeCopy + Integer.toString(recoverCodeCount);
+//			String existCodeCopy = recoverCode + "_";
+//			int recoverCodeCount = RecoverCodeCount(existCodeCopy,currentMsgId) + 1;
+//			recoverCode = existCodeCopy + Integer.toString(recoverCodeCount);
+//			TieDoc duplicatedDoc = null;
+			String duplicatedCode = sessionId + "duplicatedDoc";
+			tieDoc.setCode(duplicatedCode);
+			return tieDoc;
 		}
 		getConnection();
 

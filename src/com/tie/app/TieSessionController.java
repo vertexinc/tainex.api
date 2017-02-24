@@ -283,7 +283,7 @@ public class TieSessionController extends TieControllerBase {
 		if (!tieMsg.getTieDocList().isEmpty()) {
 			int currenttieDocId = tieMsg.getTieDocList().get(0).getTieDocId();
 			handleSelectCurrentDoc(currenttieDocId);
-		}else{
+		} else {
 			TieMainPage.getTieMainPage().setCurrentTieDoc(null);
 		}
 		TieMainPage.getTieMainPage().setCurrentMsg(tieMsg);
@@ -427,7 +427,8 @@ public class TieSessionController extends TieControllerBase {
 
 	}
 
-	public TieDoc handleAttachDoc(String tieDocString, TieMsg currentMsg, String sessionId) throws NumberFormatException {
+	public TieDoc handleAttachDoc(String tieDocString, TieMsg currentMsg, String sessionId)
+			throws NumberFormatException {
 		TieDoc returnDoc = new TieDoc();
 
 		CbcrTable1 returnTable1 = new CbcrTable1();
@@ -449,24 +450,29 @@ public class TieSessionController extends TieControllerBase {
 		TiePersister persister = TieController.getController().getPersister();
 
 		returnDoc = persister.getTieDocDao().saveAttachedDoc(parsedDoc, sessionId, currentMsgId);
-		List<TieTaxEntity> returnTaxEntityList = persister.getTieEntityDao().saveAttachedDocEntity(parsedDoc,
-				returnDoc.getTieDocId());
-		List<CbcrTable1> returnCbcrTable1 = persister.getCbcrTable1Dao().saveAttachedCbcrTable1(parsedDoc,
-				returnDoc.getTieDocId());
-		List<CbcrTable2> returnCbcrTable2 = persister.getCbcrTable2Dao().saveAttachedCbcrTable2(parsedDoc,
-				returnDoc.getTieDocId());
-		List<CbcrTable3> returnCbcrTable3 = persister.getCbcrTable3Dao().saveAttachedCbcrTable3(parsedDoc,
-				returnDoc.getTieDocId());
+		// handle duplicated document
+		if (returnDoc.getCode().equals(sessionId + "duplicatedDoc")) {
+			return returnDoc;
+		} else {
+			List<TieTaxEntity> returnTaxEntityList = persister.getTieEntityDao().saveAttachedDocEntity(parsedDoc,
+					returnDoc.getTieDocId());
+			List<CbcrTable1> returnCbcrTable1 = persister.getCbcrTable1Dao().saveAttachedCbcrTable1(parsedDoc,
+					returnDoc.getTieDocId());
+			List<CbcrTable2> returnCbcrTable2 = persister.getCbcrTable2Dao().saveAttachedCbcrTable2(parsedDoc,
+					returnDoc.getTieDocId());
+			List<CbcrTable3> returnCbcrTable3 = persister.getCbcrTable3Dao().saveAttachedCbcrTable3(parsedDoc,
+					returnDoc.getTieDocId());
 
-		returnDoc.setTaxEntityList(returnTaxEntityList);
-		returnDoc.setCbcrTable1List(returnCbcrTable1);
-		returnDoc.setCbcrTable2List(returnCbcrTable2);
-		returnDoc.setCbcrTable3List(returnCbcrTable3);
+			returnDoc.setTaxEntityList(returnTaxEntityList);
+			returnDoc.setCbcrTable1List(returnCbcrTable1);
+			returnDoc.setCbcrTable2List(returnCbcrTable2);
+			returnDoc.setCbcrTable3List(returnCbcrTable3);
 
-		currentMsg.getTieDocList().add(returnDoc);
-		System.out.println("What would return in currentTieMessage from tieMainPage : " + returnDoc.toString());
-		TieMainPage.getTieMainPage().setCurrentTieDoc(returnDoc);
-		return returnDoc;
+			currentMsg.getTieDocList().add(returnDoc);
+			System.out.println("What would return in currentTieMessage from tieMainPage : " + returnDoc.toString());
+			TieMainPage.getTieMainPage().setCurrentTieDoc(returnDoc);
+			return returnDoc;
+		}
 	}
 
 	public void handleDetachDoc(List<String> docIdListArray) {
@@ -490,7 +496,7 @@ public class TieSessionController extends TieControllerBase {
 		if (!tieDocList.isEmpty()) {
 			int currentDocId = tieDocList.get(0).getTieDocId();
 			handleSelectCurrentDoc(currentDocId);
-		}else{
+		} else {
 			TieMainPage.getTieMainPage().setCurrentTieDoc(null);
 		}
 	}
@@ -513,6 +519,11 @@ public class TieSessionController extends TieControllerBase {
 		persister.getTieMsgDao().deleteMessageById(messageId);
 		handleMsgList();
 
+		resetMsg();
+	}
+
+	public void resetMsg() {
+		TiePersister persister = TieController.getController().getPersister();
 		// 4 Reset current message
 		int currentMsgId = msgList.get(0).getTieMsgId();
 		handleSelectCurrentMsg(currentMsgId);
