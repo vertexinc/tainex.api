@@ -120,31 +120,29 @@ public class LoginServlet extends HttpServlet {
 				System.out.println("======Directing to Doc saving function======");
 				System.out.println("docString " + docString);
 				TieMsg currentMsg = TieMainPage.getTieMainPage().getCurrentMsg();
-//				if (currentMsg == null) {
-//					System.out.println("Current Message is null to parse");
-//					ServletError servletError = new ServletError();
-//					servletError.setErrorName("No Message found!");
-//					servletError.setErrorDescription("Please save the message first!");
-//
-//					ObjectMapper ma = new ObjectMapper();
-//					String servletErrorJson = ma.writeValueAsString(servletError);
-//					System.out.println("servletErrorJson" + servletErrorJson.toString());
-//					response.setContentType("text/json");
-//					response.setCharacterEncoding("UTF-8");
-//					response.getWriter().write(servletErrorJson);
-//				} else {
+				if (currentMsg == null) {
+					System.out.println("Current Message is null to parse");
+					ServletError servletError = new ServletError();
+					servletError.setErrorName("No Message found!");
+					servletError.setErrorDescription("Please save the message first!");
+
+					ObjectMapper ma = new ObjectMapper();
+					String servletErrorJson = ma.writeValueAsString(servletError);
+					System.out.println("servletErrorJson" + servletErrorJson.toString());
+					response.setContentType("text/json");
+					response.setCharacterEncoding("UTF-8");
+					response.getWriter().write(servletErrorJson);
+				} else {
 					try {
 						attachDoc(request, response, sessionController, docString, currentMsg);
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+//						e.printStackTrace();
 						System.out.println("Failed to parse");
 						ServletError servletError = new ServletError();
 						servletError.setErrorName("Doc Attachment Error");
 						//"Failed to attach the doc, please check if it is correct!"
-						String errorMsg = getStackTrace(e);
-						
-						//servletError.setErrorDescription(e.toString());
+						String errorMsg = "Failed to attach this Doc!";
 						servletError.setErrorDescription(errorMsg);
 					
 
@@ -155,7 +153,7 @@ public class LoginServlet extends HttpServlet {
 						response.setCharacterEncoding("UTF-8");
 						response.getWriter().write(servletErrorJson);
 					}
-				//}
+				}
 			} else if (action.equals("detachDoc")) {
 				System.out.println("======Directing to Doc detachment======");
 				System.out.println("detach Doc Id: " + detachDocIdList);
