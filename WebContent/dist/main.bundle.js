@@ -40992,7 +40992,7 @@ var AppComponent = (function () {
             .subscribe(function (saveReturnData) {
             _this.tieapp.body.messageList.messageSumList = saveReturnData.msgList;
             _this.tieapp.body.messageDetail = saveReturnData.currentMsg;
-            _this.tieapp.body.currentDoc = { tieDocId: 0 };
+            _this.tieapp.body.currentDoc = saveReturnData.currentTieDoc;
         });
     };
     AppComponent.prototype.emitDeleteMsgAtBody = function () {

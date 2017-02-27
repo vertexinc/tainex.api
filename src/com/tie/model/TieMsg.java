@@ -33,8 +33,11 @@ public class TieMsg {
 	private String timestamp;
 	private String rawMsg;
 	private String msgReceiverList;
-	
+
 	private String userName;
+
+	private String msgState;
+
 	public String getUserName() {
 		return userName;
 	}
@@ -51,10 +54,8 @@ public class TieMsg {
 		this.msgState = msgState;
 	}
 
-	private String msgState;
-	
-	private List<TieTaxEntity> tieTaxEntity= new ArrayList<TieTaxEntity>();
-	
+	private List<TieTaxEntity> tieTaxEntity = new ArrayList<TieTaxEntity>();
+
 	private List<TieDoc> tieDocList = new ArrayList<TieDoc>();
 	// OECD Message Type indicator
 	public static String[] messageTypeIndi = { "CBC401", "CBC402", "CBC403" };
@@ -326,7 +327,5 @@ public class TieMsg {
 				+ ", msgReceiverList=" + msgReceiverList + ", userName=" + userName + ", msgState=" + msgState
 				+ ", tieTaxEntity=" + tieTaxEntity + ", tieDocList=" + tieDocList + "]";
 	}
-
-	
 
 }

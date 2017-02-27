@@ -22,6 +22,12 @@ public class TaxDocParser {
 	// the main function of the parser. The input objects are not changed.
 	// The caller may then choose to add doc to the msg object outside the
 	// parser
+	int lineCount = 0;
+
+	public int getLineCount() {
+		return lineCount;
+	}
+
 	public TieDoc parse(String docText, TieMsg tieMsg) throws NumberFormatException, ParseException {
 		List<String> headerData = new ArrayList<String>();
 		List<String> entityData = new ArrayList<String>();
@@ -32,6 +38,7 @@ public class TaxDocParser {
 
 		Scanner scanner = new Scanner(docText);
 		while (scanner.hasNextLine()) {
+			lineCount++;
 			String line = scanner.nextLine();
 			System.out.println("-> " + line);
 			// remove leading space
@@ -172,7 +179,7 @@ public class TaxDocParser {
 
 	private String formatVal(String input) throws ParseException {
 		String returnValue = "";
-		
+
 		returnValue = input.replaceAll(",", "");
 		returnValue = returnValue.replaceAll("^[\"']+|[\"']+$", "");
 		System.out.println("What is return value: " + returnValue);

@@ -41,7 +41,9 @@ public class TieSessionController extends TieControllerBase {
 	// The key to access session controller
 	public static String sesssionControllerName = "theSessionController";
 	public TieUser currUser;
+	String msgState = "";
 	public List<TieMsg> msgList = new ArrayList<TieMsg>();
+	
 
 	public void init() {
 
@@ -267,7 +269,7 @@ public class TieSessionController extends TieControllerBase {
 	 * @param msgId
 	 * @return
 	 */
-	public TieMsg handleSelectCurrentMsg(int msgId) {
+	public TieMsg handleUserAndState(int msgId){
 		TiePersister persister = TieController.getController().getPersister();
 		TieMsg tieMsg = persister.getTieMsgDao().findTieMsgByTieMsgId(msgId);
 
@@ -275,11 +277,27 @@ public class TieSessionController extends TieControllerBase {
 		int senderId = tieMsg.getSenderId();
 		int statusId = tieMsg.getTieMsgStateId();
 		TieMsgState tieMsgState = TieMsgState.findById(statusId);
-		String msgState = tieMsgState.getName();
+		msgState = tieMsgState.getName();
 		TieUser sender = persister.getTieUserDao().findTieUserById(senderId);
 		String userName = sender.getName();
 		tieMsg.setUserName(userName);
 		tieMsg.setMsgState(msgState);
+		return tieMsg;
+	}
+	public TieMsg handleSelectCurrentMsg(int msgId) {
+//		TiePersister persister = TieController.getController().getPersister();
+//		TieMsg tieMsg = persister.getTieMsgDao().findTieMsgByTieMsgId(msgId);
+//
+//		populateMsg(tieMsg);
+//		int senderId = tieMsg.getSenderId();
+//		int statusId = tieMsg.getTieMsgStateId();
+//		TieMsgState tieMsgState = TieMsgState.findById(statusId);
+//		msgState = tieMsgState.getName();
+//		TieUser sender = persister.getTieUserDao().findTieUserById(senderId);
+//		String userName = sender.getName();
+//		tieMsg.setUserName(userName);
+//		tieMsg.setMsgState(msgState);
+		TieMsg tieMsg = handleUserAndState(msgId);
 		if (!tieMsg.getTieDocList().isEmpty()) {
 			int currenttieDocId = tieMsg.getTieDocList().get(0).getTieDocId();
 			handleSelectCurrentDoc(currenttieDocId);
@@ -445,7 +463,7 @@ public class TieSessionController extends TieControllerBase {
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Failed to parse!");
-			e.printStackTrace();
+			e.printStackTrace();	
 		}
 		TiePersister persister = TieController.getController().getPersister();
 

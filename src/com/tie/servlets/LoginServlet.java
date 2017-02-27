@@ -139,10 +139,12 @@ public class LoginServlet extends HttpServlet {
 						// TODO Auto-generated catch block
 //						e.printStackTrace();
 						System.out.println("Failed to parse");
+						System.out.println(e.toString());
 						ServletError servletError = new ServletError();
-						servletError.setErrorName("Doc Attachment Error");
+						servletError.setErrorName("Failed to attach this Document!");
 						//"Failed to attach the doc, please check if it is correct!"
-						String errorMsg = "Failed to attach this Doc!";
+						String errorMsg = e.toString();
+					   
 						servletError.setErrorDescription(errorMsg);
 					
 
@@ -313,13 +315,15 @@ public class LoginServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String sessionId = request.getSession().getId();
 		TieMsg returnSavedTieMsg = sessionController.handleSaveMessage(tieMsg, sessionId);
-
+		
+		int returnSavedTieMsgId = returnSavedTieMsg.getTieMsgId();
+		returnSavedTieMsg = sessionController.handleUserAndState(returnSavedTieMsgId);
 		TieMainPage retval = null;
 		sessionController.handleMsgList();
 		retval = TieMainPage.getTieMainPage();
 		retval.setCurrentMsg(returnSavedTieMsg);
 		// retval.setCurrentMsg(returnSavedTieMsg);
-		retval.setCurrentTieDoc(null);
+//		retval.setCurrentTieDoc(null);
 
 		ObjectMapper ma = new ObjectMapper();
 		String saveMsgReturnJson = ma.writeValueAsString(retval);
@@ -423,11 +427,11 @@ public class LoginServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(tieJson);
 	}// end selectCurrentDoc(....)
-	public static String getStackTrace(final Throwable throwable) {
-	     final StringWriter sw = new StringWriter();
-	     final PrintWriter pw = new PrintWriter(sw, true);
-	     throwable.printStackTrace(pw);
-	     return sw.getBuffer().toString();
-	}
+//	public static String getStackTrace(final Throwable throwable) {
+//	     final StringWriter sw = new StringWriter();
+//	     final PrintWriter pw = new PrintWriter(sw, true);
+//	     throwable.printStackTrace(pw);
+//	     return sw.getBuffer().toString();
+//	}
 
 }// end class LoginService

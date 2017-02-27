@@ -13,7 +13,9 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.tie.model.TieDoc;
 import com.tie.model.TieMsg;
+import com.tie.ui.TieMainPage;
 
 public class TieMsgDao extends BaseDao {
 	// SELECT AUTO_INCREMENT
@@ -164,6 +166,9 @@ public class TieMsgDao extends BaseDao {
 	public TieMsg saveTieMessage(TieMsg tieMsg, String sessionId) {
 		// TODO : insert and update in separate methods
 		if (tieMsg.getTieMsgId() <= 0) {
+			TieDoc emptyDoc = new TieDoc();
+			emptyDoc.setTieDocId(0);
+			TieMainPage.getTieMainPage().setCurrentTieDoc(emptyDoc);
 			return insertTieMessage(tieMsg, sessionId);
 		} else {
 			return updateTieMessage(tieMsg);
@@ -189,7 +194,9 @@ public class TieMsgDao extends BaseDao {
 			saveStatement.setString(3, insersionCode);
 			saveStatement.setString(4, tieMsg.getDescription());
 			saveStatement.setString(5, tieMsg.getNotes());
-			saveStatement.setInt(6, 3);
+			saveStatement.setInt(6, 4); // CD This is hard coded as 4, will
+										// change to tieMsg.getSenderId()
+										// later
 			saveStatement.setInt(7, 4); // CD This is hard coded as 4, will
 										// change to tieMsg.getOwnerId()
 										// later
@@ -230,7 +237,7 @@ public class TieMsgDao extends BaseDao {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		//After saving, return the message from db
+		// After saving, return the message from db
 		return findTieMsgByTieMsgId(newMsgId);
 	}
 
@@ -263,7 +270,7 @@ public class TieMsgDao extends BaseDao {
 			sql = "update tiemsg set subject=?, description=?,notes=?,senderId=?,ownerid=?,tieMsgStateId=?,sendingEntityIdNum=?,transmittingCountry=?,receivingCountries=?,messageType=?,lauguage=?,warning=?,contact=?,messageRefId=?,messageTypeIndic=?,corrMessageRefIds=?,reportingPeriod=?,timestamp=?,rawMsg=? WHERE tieMsgId=?";
 			PreparedStatement saveStatement = conn.prepareStatement(sql);
 			saveStatement.setString(1, tieMsg.getSubject());
-//			saveStatement.setString(2, tieMsg.getCode());
+			// saveStatement.setString(2, tieMsg.getCode());
 			saveStatement.setString(2, tieMsg.getDescription());
 			saveStatement.setString(3, tieMsg.getNotes());
 			saveStatement.setInt(4, 3);
@@ -290,8 +297,8 @@ public class TieMsgDao extends BaseDao {
 		}
 		return findTieMsgByTieMsgId(currMsgId);
 	}
-	
-	public void deleteMessageById(int tieMsgId){
+
+	public void deleteMessageById(int tieMsgId) {
 		getConnection();
 		try {
 			String sql;// TODO : insert and update in separate methods
