@@ -92,15 +92,9 @@ public class LoginServlet extends HttpServlet {
 				json = br.readLine();
 			}
 
-			// 2. initiate jackson mapper
 			ObjectMapper mapper = new ObjectMapper();
-
-			// 3. Convert received JSON to Article
-
 			Param param = mapper.readValue(json, Param.class);
 
-			System.out.println(param.toString());
-			// 4. Set response type to JSON
 			String action = param.getAction();
 			int messageId = param.getMessageId();
 			int docId = param.getDocId();
@@ -108,96 +102,97 @@ public class LoginServlet extends HttpServlet {
 			String detachDocIdList = param.getDocIdListString();
 
 			System.out.println("param.getAction: " + param.getAction());
-			try {
-				if (action.equals("initPage")) {
 
-					initPage(request, response, sessionController);
-				} else if (action.equals("selectCurrentMsg")) {
-					selectCurrentMsg(request, response, sessionController, messageId);
+			if (action.equals("initPage")) {
 
-				} else if (action.equals("selectCurrentDoc")) {
-					selectCurrentDoc(request, response, sessionController, docId);
-				} else if (action.equals("save")) {
+				initPage(request, response, sessionController);
 
-					// Call session controller to save currentMessage into
-					// database
-					saveCurrentMessage(request, response, sessionController, param.getTieMsg());
+			} else if (action.equals("selectCurrentMsg")) {
 
-				} else if (action.equals("saveDoc")) {
-					// save the doc into database
+				selectCurrentMsg(request, response, sessionController, messageId);
 
+			} else if (action.equals("selectCurrentDoc")) {
+
+				selectCurrentDoc(request, response, sessionController, docId);
+
+			} else if (action.equals("save")) {
+
+				saveCurrentMessage(request, response, sessionController, param.getTieMsg());
+
+			} else if (action.equals("saveDoc")) {
+				try {
 					saveDoc(request, response, sessionController, docString);
-
-				} else if (action.equals("detachDoc")) {
-
-					List<String> docIdListArray = Arrays.asList(detachDocIdList.split(","));
-					detachDoc(request, response, sessionController, docIdListArray, messageId);
-				} else if (action.equals("deleteMsg")) {
-
-					if (TieMainPage.getTieMainPage().getCurrentMsg() == null) {
-						sessionController.resetMsg();
-					} else {
-						deleteMsg(request, response, sessionController,
-								TieMainPage.getTieMainPage().getCurrentMsg().getTieMsgId());
-					}
-					initPage(request, response, sessionController);
-				} else if (action.equals("reset")) {
-					System.out.println("======Directing to Reset======");
-					reset(request, response, sessionController);
-
-				} else {
-					RequestDispatcher rd = request.getRequestDispatcher("dist/index.html");
-					rd.forward(request, response);
+				} catch (Exception e) {
+					ServletError servletError = new ServletError();
+					servletError.setErrorName("Error!");
+					String errorMsg = e.getMessage();
+					servletError.setErrorDescription(" Got Exception : " + errorMsg);
+					ObjectMapper ma = new ObjectMapper();
+					String servletErrorJson = ma.writeValueAsString(servletError);
+					response.setContentType("text/json");
+					response.setCharacterEncoding("UTF-8");
+					response.getWriter().write(servletErrorJson);
 				}
-			} catch (Exception e) {
-				ServletError servletError = new ServletError();
-				servletError.setErrorName("Error!");
-				String errorMsg = e.getMessage();
-				servletError.setErrorDescription(" Got Exception : " + errorMsg);
-				ObjectMapper ma = new ObjectMapper();
-				String servletErrorJson = ma.writeValueAsString(servletError);
-				response.setContentType("text/json");
-				response.setCharacterEncoding("UTF-8");
-				response.getWriter().write(servletErrorJson);
+
+			} else if (action.equals("detachDoc")) {
+
+				detachDoc(request, response, sessionController, Arrays.asList(detachDocIdList.split(",")), messageId);
+
+			} else if (action.equals("deleteMsg")) {
+
+				deleteMsg(request, response, sessionController,
+						TieMainPage.getTieMainPage().getCurrentMsg().getTieMsgId());
+
+			} else if (action.equals("reset")) {
+
+				reset(request, response, sessionController);
+
+			} else {
+				RequestDispatcher rd = request.getRequestDispatcher("dist/index.html");
+				rd.forward(request, response);
 			}
 
-		} else {// else if session is not null
-
-			// TieController tieController = new TieController();
-			// user touch for the first time
-			TieSecurityManager securityManager = TieController.getController().getSecurityManager();
-			if (securityManager.authentiate(username, password)) {
-				sessionController = new TieSessionController();
-				String code = username;
-				// String code =
-				// TieController.getController().getPersister().getTieUserDao().findTieUserByName(username).getCode();
-				sessionController.setUserCode(code);
-				session.setAttribute(code, username);
-				// TieController.getController().getPersister().getLoginDao().setUsername(username);
-
-				// Save the session controller, since the user is authenticated
-				session.setAttribute(TieSessionController.sesssionControllerName, sessionController);
-
-				/*
-				 * Handle the login event for the user for the first time All
-				 * data on the main page is populated in the mainPage object of
-				 * the session controller.
-				 */
-				sessionController.handleLogin(username);
-
-				RequestDispatcher rd = request.getRequestDispatcher("dist/index.html");
-
-				rd.include(request, response);
-			} else {
-				out.print("<p style=\"color:red; text-align: center; \">Sorry username or password error</p>");
-				RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-				rd.include(request, response);
-			} // end if securityMgr.authenticate() else
+		} else {
+			authenticateUser(request, response, sessionController, session, username, password, out);
 		} // end if sessionController !=null else
 
 		out.flush();
 		out.close();
 	}// end doPost(..)
+
+	private void authenticateUser(HttpServletRequest request, HttpServletResponse response,
+			TieSessionController sessionController, HttpSession session, String username, String password,
+			PrintWriter out) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		TieSecurityManager securityManager = TieController.getController().getSecurityManager();
+		if (securityManager.authentiate(username, password)) {
+			sessionController = new TieSessionController();
+			String code = username;
+			// String code =
+			// TieController.getController().getPersister().getTieUserDao().findTieUserByName(username).getCode();
+			sessionController.setUserCode(code);
+			session.setAttribute(code, username);
+			// TieController.getController().getPersister().getLoginDao().setUsername(username);
+
+			// Save the session controller, since the user is authenticated
+			session.setAttribute(TieSessionController.sesssionControllerName, sessionController);
+
+			/*
+			 * Handle the login event for the user for the first time All data
+			 * on the main page is populated in the mainPage object of the
+			 * session controller.
+			 */
+			sessionController.handleLogin(username);
+
+			RequestDispatcher rd = request.getRequestDispatcher("dist/index.html");
+
+			rd.include(request, response);
+		} else {
+			out.print("<p style=\"color:red; text-align: center; \">Sorry username or password error</p>");
+			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+			rd.include(request, response);
+		}
+	}
 
 	private void saveDoc(HttpServletRequest request, HttpServletResponse response,
 			TieSessionController sessionController, String docString) throws IOException {
@@ -208,28 +203,7 @@ public class LoginServlet extends HttpServlet {
 		try {
 			attachDoc(request, response, sessionController, docString, currentMsg);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			// e.printStackTrace();
-			// System.out.println("Failed to parse");
-			// System.out.println(e.toString());
-			// ServletError servletError = new ServletError();
-			// servletError.setErrorName("Doc Attachment Error");
-			// // "Failed to attach the doc, please check if it is
-			// // correct!"
-			// String errorMsg = e.toString();
-			//
-			// servletError.setErrorDescription("Failed to attach this Document!
-			// Got Exception [" + errorMsg
-			// + "]. Doocument = [" + docString + "]. Please check the content
-			// is in right format.");
-			//
-			// ObjectMapper ma = new ObjectMapper();
-			// String servletErrorJson = ma.writeValueAsString(servletError);
-			// System.out.println("servletErrorJson" +
-			// servletErrorJson.toString());
-			// response.setContentType("text/json");
-			// response.setCharacterEncoding("UTF-8");
-			// response.getWriter().write(servletErrorJson);
+
 			String errorMsg = e.getMessage();
 			String errorDescription = "Failed to attach this Document! " + errorMsg;
 			throw new RuntimeException(errorDescription);
@@ -259,22 +233,18 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	private void deleteMsg(HttpServletRequest request, HttpServletResponse response,
-			TieSessionController sessionController, int messageId) throws IOException {
+			TieSessionController sessionController, int messageId) throws IOException, ServletException {
 		// TODO Auto-generated method stub
-		sessionController.handleDeleteMsg(messageId);
-		System.out.println("The message to be deleted" + messageId);
-		// ObjectMapper ma = new ObjectMapper();
-		//
-		// TieMainPage retval = null;
-		// retval = TieMainPage.getTieMainPage();
-		// ObjectMapper msgMap = new ObjectMapper();
-		//
-		// String detachedReturnJson = msgMap.writeValueAsString(retval);
-		// // System.out.println("tieMsgReturnJson : " + savedReturnJson);
-		//
-		// response.setContentType("text/json");
-		// response.setCharacterEncoding("UTF-8");
-		// response.getWriter().write(detachedReturnJson);
+		if (TieMainPage.getTieMainPage().getCurrentMsg() == null) {
+			sessionController.resetMsg();
+		} else {
+			sessionController.handleDeleteMsg(messageId);
+		}
+		try {
+			initPage(request, response, sessionController);
+		} catch (Exception e) {
+			throw new RuntimeException("Failed to refresh page!");
+		}
 	}
 
 	private void detachDoc(HttpServletRequest request, HttpServletResponse response,
