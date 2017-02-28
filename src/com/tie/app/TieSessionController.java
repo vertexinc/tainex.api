@@ -462,7 +462,7 @@ public class TieSessionController extends TieControllerBase {
 			parsedDoc = taxDocParser.parse(tieDocString, currentMsg);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
-			System.out.println("Failed to parse!");
+			System.out.println("Failed to parse at TiesessionController / handleAttachDoc()!");
 			e.printStackTrace();	
 		}
 		TiePersister persister = TieController.getController().getPersister();
