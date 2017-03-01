@@ -7267,11 +7267,11 @@ var TieappService = (function () {
             .map(function (res) { return res.json(); });
     };
     //Attach doc
-    TieappService.prototype.postDoc = function (docString) {
+    TieappService.prototype.postDoc = function (docString, fileName) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/json' });
         // let headers = new Headers({ 'Content-Type': 'text/plain; charset=UTF-8' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* RequestOptions */]({ headers: headers });
-        var param = JSON.stringify({ action: "saveDoc", docString: docString });
+        var param = JSON.stringify({ action: "saveDoc", docString: docString, fileName: fileName });
         // alert("ready to save doc: " + param)
         return this._http.post(this.currentUrl, param, options)
             .map(function (res) { return res.json(); });
@@ -54500,6 +54500,7 @@ var DoclistComponent = (function () {
         var target = eventObj.target;
         var files = target.files;
         this.file = files[0];
+        var fileName = this.file.name;
         var reader = new FileReader();
         reader.onload = function (file) {
             var contents = file.target;
@@ -54507,7 +54508,8 @@ var DoclistComponent = (function () {
             console.log(text);
             //let message know that there one file already attached and don't need to save the current message
             _this.loading = true;
-            _this._tieappService.postDoc(text)
+            // alert("fileName: " + fileName);
+            _this._tieappService.postDoc(text, fileName)
                 .subscribe(function (docData) {
                 if (docData.errorName != null) {
                     _this.errorName = docData.errorName;

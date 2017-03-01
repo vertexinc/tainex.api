@@ -47,6 +47,7 @@ import org.json.JSONObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.tie.app.TaxDocParser;
 import com.tie.app.TieController;
 import com.tie.app.TieSecurityManager;
 import com.tie.app.TieSessionController;
@@ -60,10 +61,14 @@ import com.tie.ui.ServletError;
 import com.tie.ui.TieMainPage;
 import com.tie.dao.LoginDao;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+	final Logger logger = LoggerFactory.getLogger(TaxDocParser.class);
 
 	// TODO: rewrite doPost for switch
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -91,7 +96,6 @@ public class LoginServlet extends HttpServlet {
 			if (br != null) {
 				json = br.readLine();
 			}
-
 			ObjectMapper mapper = new ObjectMapper();
 			Param param = mapper.readValue(json, Param.class);
 
@@ -99,10 +103,8 @@ public class LoginServlet extends HttpServlet {
 			int messageId = param.getMessageId();
 			int docId = param.getDocId();
 			String docString = param.getDocString();
+			String fileName = param.getFileName();
 			String detachDocIdList = param.getDocIdListString();
-
-			System.out.println("param.getAction: " + param.getAction());
-
 			if (action.equals("initPage")) {
 
 				initPage(request, response, sessionController);
@@ -120,19 +122,8 @@ public class LoginServlet extends HttpServlet {
 				saveCurrentMessage(request, response, sessionController, param.getTieMsg());
 
 			} else if (action.equals("saveDoc")) {
-				try {
-					saveDoc(request, response, sessionController, docString);
-				} catch (Exception e) {
-					ServletError servletError = new ServletError();
-					servletError.setErrorName("Error!");
-					String errorMsg = e.getMessage();
-					servletError.setErrorDescription(" Got Exception : " + errorMsg);
-					ObjectMapper ma = new ObjectMapper();
-					String servletErrorJson = ma.writeValueAsString(servletError);
-					response.setContentType("text/json");
-					response.setCharacterEncoding("UTF-8");
-					response.getWriter().write(servletErrorJson);
-				}
+
+				saveDoc(request, response, sessionController, docString, fileName);
 
 			} else if (action.equals("detachDoc")) {
 
@@ -140,8 +131,7 @@ public class LoginServlet extends HttpServlet {
 
 			} else if (action.equals("deleteMsg")) {
 
-				deleteMsg(request, response, sessionController,
-						TieMainPage.getTieMainPage().getCurrentMsg().getTieMsgId());
+				deleteMsg(request, response, sessionController,TieMainPage.getTieMainPage().getCurrentMsg().getTieMsgId());
 
 			} else if (action.equals("reset")) {
 
@@ -159,6 +149,22 @@ public class LoginServlet extends HttpServlet {
 		out.flush();
 		out.close();
 	}// end doPost(..)
+
+	private void sendExceptionToFrontEnd(HttpServletResponse response, String errorMsg, String fileName)
+			throws IOException {
+		// TODO Auto-generated method stub
+		ServletError servletError = new ServletError();
+		servletError.setErrorName("Error!");
+		// String errorMsg = e.getMessage();
+		servletError.setErrorDescription(" Got Exception : [" + errorMsg + "" + "] from document: [" + fileName
+				+ "], please check the format of the document");
+		ObjectMapper ma = new ObjectMapper();
+		String servletErrorJson = ma.writeValueAsString(servletError);
+		response.setContentType("text/json");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(servletErrorJson);
+
+	}
 
 	private void authenticateUser(HttpServletRequest request, HttpServletResponse response,
 			TieSessionController sessionController, HttpSession session, String username, String password,
@@ -195,18 +201,15 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	private void saveDoc(HttpServletRequest request, HttpServletResponse response,
-			TieSessionController sessionController, String docString) throws IOException {
+			TieSessionController sessionController, String docString, String fileName) throws IOException {
 		// TODO Auto-generated method stub
 
-		TieMsg currentMsg = TieMainPage.getTieMainPage().getCurrentMsg();
-
 		try {
+			TieMsg currentMsg = TieMainPage.getTieMainPage().getCurrentMsg();
 			attachDoc(request, response, sessionController, docString, currentMsg);
 		} catch (Exception e) {
-
-			String errorMsg = e.getMessage();
-			String errorDescription = "Failed to attach this Document! " + errorMsg;
-			throw new RuntimeException(errorDescription);
+			logger.error("Failed to attach this doc",new Exception("Doc Attachment Exception"));
+			sendExceptionToFrontEnd(response, e.getMessage(), fileName);
 		}
 
 	}
@@ -273,7 +276,7 @@ public class LoginServlet extends HttpServlet {
 			throws IOException, NumberFormatException, ParseException {
 		// TODO Auto-generated method stub
 		if (tieMsg == null) {
-			throw new RuntimeException("[Current Message is null], please save the message first");
+			throw new RuntimeException("Current Message is null, please save the message first");
 		}
 		String sessionId = request.getSession().getId();
 		// TieMainPage retval = null;
@@ -281,7 +284,7 @@ public class LoginServlet extends HttpServlet {
 		try {
 			parsedDoc = sessionController.handleAttachDoc(docString, tieMsg, sessionId);
 		} catch (Exception e) {
-			throw new RuntimeException("[Failed to parse the doc], please check the format of the doc");
+			throw new RuntimeException("Failed to parse the doc");
 		}
 
 		// retval = TieMainPage.getTieMainPage();

@@ -485,7 +485,6 @@ public class TieSessionController extends TieControllerBase {
 			returnDoc.setCbcrTable3List(returnCbcrTable3);
 
 			currentMsg.getTieDocList().add(returnDoc);
-			System.out.println("What would return in currentTieMessage from tieMainPage : " + returnDoc.toString());
 			TieMainPage.getTieMainPage().setCurrentTieDoc(returnDoc);
 			return returnDoc;
 		

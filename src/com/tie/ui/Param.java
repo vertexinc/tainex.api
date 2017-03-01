@@ -9,8 +9,10 @@ public class Param {
 	private TieMsg tieMsg;
 	private String docString;
 	private String docIdListString;
-	
-	public Param(String action, int messageId, int docId,TieMsg tieMsg,String docString,String docIdListString) {
+	private String fileName;
+
+	public Param(String action, int messageId, int docId, TieMsg tieMsg, String docString, String docIdListString,
+			String fileName) {
 		super();
 		this.action = action;
 		this.messageId = messageId;
@@ -18,8 +20,17 @@ public class Param {
 		this.tieMsg = tieMsg;
 		this.docString = docString;
 		this.docIdListString = docIdListString;
+		this.fileName = fileName;
 	}
-	
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
 	public String getDocIdListString() {
 		return docIdListString;
 	}
@@ -36,7 +47,6 @@ public class Param {
 		this.docString = docString;
 	}
 
-
 	public TieMsg getTieMsg() {
 		return tieMsg;
 	}
@@ -49,7 +59,7 @@ public class Param {
 		// super();
 		this.action = action;
 	}
-	
+
 	public Param() {
 		// super();
 		// TODO Auto-generated constructor stub
@@ -71,7 +81,6 @@ public class Param {
 		this.docId = docId;
 	}
 
-
 	public String getAction() {
 		return action;
 	}
@@ -84,5 +93,5 @@ public class Param {
 	public String toString() {
 		return "Param [action=" + action + ", messageId=" + messageId + ", docId=" + docId + ", tieMsg=" + tieMsg
 				+ ", docString=" + docString + ", docIdListString=" + docIdListString + "]";
-	}	
+	}
 }

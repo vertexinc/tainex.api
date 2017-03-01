@@ -6,11 +6,15 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.tie.model.TieDoc;
 import com.tie.model.TieMsg;
 import com.tie.model.TieTaxEntity;
 
 public class TieDocDao extends BaseDao {
+	final Logger logger = LoggerFactory.getLogger(TieDocDao.class);
 
 	public List<TieDoc> findTieDocByTieMsgId(int id) {
 		getConnection();
@@ -159,7 +163,7 @@ public class TieDocDao extends BaseDao {
 			rs = checkStatement.executeQuery();
 			while (rs.next()) {
 				int result = rs.getInt("1");
-				if(result >= 1){
+				if (result >= 1) {
 					return true;
 				}
 			}
@@ -177,11 +181,11 @@ public class TieDocDao extends BaseDao {
 			sql = "select count(*) as num from tiedoc where tiemsgId = ? and code like ?";
 			PreparedStatement checkStatement = conn.prepareStatement(sql);
 			checkStatement.setInt(1, currentMsgId);
-			checkStatement.setString(2, existCodeCopy+'%');
+			checkStatement.setString(2, existCodeCopy + '%');
 			rs = checkStatement.executeQuery();
 			while (rs.next()) {
 				int result = rs.getInt("num");
-				System.out.println("=======Num is" + result +"==========");
+
 				return result;
 			}
 		} catch (Exception e) {
@@ -201,13 +205,13 @@ public class TieDocDao extends BaseDao {
 		// Handle duplicate doc file code
 		if (tieDocCodeExist(recoverCode, currentMsgId)) {
 			String existCodeCopy = recoverCode + "_";
-			int recoverCodeCount = RecoverCodeCount(existCodeCopy,currentMsgId) + 1;
+			int recoverCodeCount = RecoverCodeCount(existCodeCopy, currentMsgId) + 1;
 			recoverCode = existCodeCopy + Integer.toString(recoverCodeCount);
 		}
 		getConnection();
 
 		try {
-			System.out.println("Started to insert");
+			
 			String sql;// TODO : insert and update in separate methods
 			sql = "insert into tieDoc values(?,?,?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement saveStatement = conn.prepareStatement(sql);
@@ -237,8 +241,7 @@ public class TieDocDao extends BaseDao {
 			while (rs.next()) {
 				newDocId = rs.getInt("tieDocId");
 			}
-			System.out.println("Done  insert: " + tieDoc);
-			System.out.println("new TieMSgId : " + newDocId);
+			logger.debug("Done  insert: {} into database",tieDoc);
 
 			String updateDocIdSql = "update tieDoc set code=tieDocId where tieDocId = ?";
 			PreparedStatement updateDocIdStatement = conn.prepareStatement(updateDocIdSql);

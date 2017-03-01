@@ -16,6 +16,9 @@ import com.tie.model.TieDoc;
 import com.tie.model.TieMsg;
 import com.tie.model.TieTaxEntity;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class TaxDocParser {
 	TieDoc attachedDoc = new TieDoc();
 
@@ -23,6 +26,7 @@ public class TaxDocParser {
 	// The caller may then choose to add doc to the msg object outside the
 	// parser
 	int lineCount = 0;
+	final Logger logger = LoggerFactory.getLogger(TaxDocParser.class);
 
 	public int getLineCount() {
 		return lineCount;
@@ -40,7 +44,7 @@ public class TaxDocParser {
 		while (scanner.hasNextLine()) {
 			lineCount++;
 			String line = scanner.nextLine();
-			System.out.println("-> " + line);
+			logger.debug("-> {} ",line);
 			// remove leading space
 			String trimedLine = line.replaceAll("^\\s+", "");
 
@@ -104,7 +108,8 @@ public class TaxDocParser {
 		handleCBCRTable2Data(table2Data, attachedDoc);
 		handleCBCRTable3Data(table3Data, attachedDoc);
 
-		System.out.println("What would return in currentTieMessage from tieMainPage : " + attachedDoc.toString());
+		logger.debug("File parsed successfully with {} lines",lineCount);
+
 		// tieMsg.getTieDocList().add(attachedDoc);
 		return attachedDoc;
 	}// end method parse()
@@ -182,7 +187,7 @@ public class TaxDocParser {
 
 		returnValue = input.replaceAll(",", "");
 		returnValue = returnValue.replaceAll("^[\"']+|[\"']+$", "");
-		System.out.println("What is return value: " + returnValue);
+		
 		return returnValue;
 	}
 
