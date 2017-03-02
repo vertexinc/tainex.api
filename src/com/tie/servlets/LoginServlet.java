@@ -75,7 +75,7 @@ public class LoginServlet extends HttpServlet {
 		response.setContentType("text/html");
 
 		HttpSession session = request.getSession(false);
-		System.out.println("SessionId is : " + session.getId());
+
 		PrintWriter out = response.getWriter();
 		// Get TieSessionController from the httpsession
 		TieSessionController sessionController = (TieSessionController) session
@@ -131,7 +131,8 @@ public class LoginServlet extends HttpServlet {
 
 			} else if (action.equals("deleteMsg")) {
 
-				deleteMsg(request, response, sessionController,TieMainPage.getTieMainPage().getCurrentMsg().getTieMsgId());
+				deleteMsg(request, response, sessionController,
+						TieMainPage.getTieMainPage().getCurrentMsg().getTieMsgId());
 
 			} else if (action.equals("reset")) {
 
@@ -156,8 +157,7 @@ public class LoginServlet extends HttpServlet {
 		ServletError servletError = new ServletError();
 		servletError.setErrorName("Error!");
 		// String errorMsg = e.getMessage();
-		servletError.setErrorDescription(" Got Exception : [" + errorMsg + "" + "] from document: [" + fileName
-				+ "], please check the format of the document");
+		servletError.setErrorDescription(errorMsg);
 		ObjectMapper ma = new ObjectMapper();
 		String servletErrorJson = ma.writeValueAsString(servletError);
 		response.setContentType("text/json");
@@ -206,9 +206,9 @@ public class LoginServlet extends HttpServlet {
 
 		try {
 			TieMsg currentMsg = TieMainPage.getTieMainPage().getCurrentMsg();
-			attachDoc(request, response, sessionController, docString, currentMsg);
+			attachDoc(request, response, sessionController, docString, currentMsg, fileName);
 		} catch (Exception e) {
-			logger.error("Failed to attach this doc",new Exception("Doc Attachment Exception"));
+			logger.error("Failed to attach this doc", new Exception("Doc Attachment Exception"));
 			sendExceptionToFrontEnd(response, e.getMessage(), fileName);
 		}
 
@@ -272,11 +272,13 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	private void attachDoc(HttpServletRequest request, HttpServletResponse response,
-			TieSessionController sessionController, String docString, TieMsg tieMsg)
+			TieSessionController sessionController, String docString, TieMsg tieMsg, String fileName)
 			throws IOException, NumberFormatException, ParseException {
 		// TODO Auto-generated method stub
 		if (tieMsg == null) {
-			throw new RuntimeException("Current Message is null, please save the message first");
+			throw new RuntimeException(
+					" Got Exception : [Current Message is null]! "+
+					"Failed to attach[" + fileName + "], please save the message first");
 		}
 		String sessionId = request.getSession().getId();
 		// TieMainPage retval = null;
@@ -284,7 +286,10 @@ public class LoginServlet extends HttpServlet {
 		try {
 			parsedDoc = sessionController.handleAttachDoc(docString, tieMsg, sessionId);
 		} catch (Exception e) {
-			throw new RuntimeException("Failed to parse the doc");
+			logger.error("Failed to attach this doc at class attachDoc",
+					new Exception("Doc Attachment Exception at class attachDoc"));
+			throw new RuntimeException(" Got Exception : [" + e.getMessage() + "" + "] from document: [" + fileName
+					+ "], please check the document");
 		}
 
 		// retval = TieMainPage.getTieMainPage();
@@ -348,7 +353,8 @@ public class LoginServlet extends HttpServlet {
 		String tieJson = ma2.writeValueAsString(retval);
 		String headerjson = ma.writeValueAsString(header);
 		// String serialized = ma.writeValueAsString(header);
-		System.out.println("init json string: " + tieJson);
+
+		logger.info("init json string: " + tieJson);
 		response.setContentType("text/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(tieJson);

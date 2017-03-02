@@ -27,10 +27,14 @@ import com.tie.ui.Header;
 import com.tie.ui.ServletError;
 import com.tie.ui.TieMainPage;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * @author awang Respond to requests from one user session
  */
 public class TieSessionController extends TieControllerBase {
+	final Logger logger = LoggerFactory.getLogger(TaxDocParser.class);
 
 	private String userCode;
 	// point to ui class
@@ -43,7 +47,6 @@ public class TieSessionController extends TieControllerBase {
 	public TieUser currUser;
 	String msgState = "";
 	public List<TieMsg> msgList = new ArrayList<TieMsg>();
-	
 
 	public void init() {
 
@@ -269,7 +272,7 @@ public class TieSessionController extends TieControllerBase {
 	 * @param msgId
 	 * @return
 	 */
-	public TieMsg handleUserAndState(int msgId){
+	public TieMsg handleUserAndState(int msgId) {
 		TiePersister persister = TieController.getController().getPersister();
 		TieMsg tieMsg = persister.getTieMsgDao().findTieMsgByTieMsgId(msgId);
 
@@ -284,19 +287,21 @@ public class TieSessionController extends TieControllerBase {
 		tieMsg.setMsgState(msgState);
 		return tieMsg;
 	}
+
 	public TieMsg handleSelectCurrentMsg(int msgId) {
-//		TiePersister persister = TieController.getController().getPersister();
-//		TieMsg tieMsg = persister.getTieMsgDao().findTieMsgByTieMsgId(msgId);
-//
-//		populateMsg(tieMsg);
-//		int senderId = tieMsg.getSenderId();
-//		int statusId = tieMsg.getTieMsgStateId();
-//		TieMsgState tieMsgState = TieMsgState.findById(statusId);
-//		msgState = tieMsgState.getName();
-//		TieUser sender = persister.getTieUserDao().findTieUserById(senderId);
-//		String userName = sender.getName();
-//		tieMsg.setUserName(userName);
-//		tieMsg.setMsgState(msgState);
+		// TiePersister persister =
+		// TieController.getController().getPersister();
+		// TieMsg tieMsg = persister.getTieMsgDao().findTieMsgByTieMsgId(msgId);
+		//
+		// populateMsg(tieMsg);
+		// int senderId = tieMsg.getSenderId();
+		// int statusId = tieMsg.getTieMsgStateId();
+		// TieMsgState tieMsgState = TieMsgState.findById(statusId);
+		// msgState = tieMsgState.getName();
+		// TieUser sender = persister.getTieUserDao().findTieUserById(senderId);
+		// String userName = sender.getName();
+		// tieMsg.setUserName(userName);
+		// tieMsg.setMsgState(msgState);
 		TieMsg tieMsg = handleUserAndState(msgId);
 		if (!tieMsg.getTieDocList().isEmpty()) {
 			int currenttieDocId = tieMsg.getTieDocList().get(0).getTieDocId();
@@ -447,8 +452,8 @@ public class TieSessionController extends TieControllerBase {
 
 	public TieDoc handleAttachDoc(String tieDocString, TieMsg currentMsg, String sessionId)
 			throws NumberFormatException {
-		TieDoc returnDoc = new TieDoc();
 
+		TieDoc returnDoc = new TieDoc();
 		CbcrTable1 returnTable1 = new CbcrTable1();
 		CbcrTable2 returnTable2 = new CbcrTable2();
 		CbcrTable3 returnTable3 = new CbcrTable3();
@@ -460,20 +465,40 @@ public class TieSessionController extends TieControllerBase {
 		TieDoc parsedDoc = null;
 		try {
 			parsedDoc = taxDocParser.parse(tieDocString, currentMsg);
-		} catch (ParseException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			System.out.println("Failed to parse at TiesessionController / handleAttachDoc()!");
-			e.printStackTrace();	
+			logger.error("Exception at TieSessionController",
+					new Exception("parser Exception at TieSessionController"));
+			throw new RuntimeException("Failed to parse the document");
 		}
-		TiePersister persister = TieController.getController().getPersister();
+		try {
+			returnDoc = insertDoc(returnDoc, parsedDoc, sessionId, currentMsgId, currentMsg);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			logger.error(e.getMessage());
+			throw new RuntimeException("Failed to insert into database " + e.getMessage());
+		}
+		return returnDoc;
 
-		returnDoc = persister.getTieDocDao().saveAttachedDoc(parsedDoc, sessionId, currentMsgId);
-		// handle duplicated document
-	
+	}
+
+	private TieDoc insertDoc(TieDoc returnDoc, TieDoc parsedDoc, String sessionId, int currentMsgId,
+			TieMsg currentMsg) {
+		// TODO Auto-generated method stub
+		try {
+			TiePersister persister = TieController.getController().getPersister();
+
+			returnDoc = persister.getTieDocDao().saveAttachedDoc(parsedDoc, sessionId, currentMsgId);
+
+			// handle duplicated document
+
 			List<TieTaxEntity> returnTaxEntityList = persister.getTieEntityDao().saveAttachedDocEntity(parsedDoc,
 					returnDoc.getTieDocId());
 			List<CbcrTable1> returnCbcrTable1 = persister.getCbcrTable1Dao().saveAttachedCbcrTable1(parsedDoc,
 					returnDoc.getTieDocId());
+//			if (true) {
+//				throw new RuntimeException(":at CbcrTable2");
+//			}
 			List<CbcrTable2> returnCbcrTable2 = persister.getCbcrTable2Dao().saveAttachedCbcrTable2(parsedDoc,
 					returnDoc.getTieDocId());
 			List<CbcrTable3> returnCbcrTable3 = persister.getCbcrTable3Dao().saveAttachedCbcrTable3(parsedDoc,
@@ -486,8 +511,10 @@ public class TieSessionController extends TieControllerBase {
 
 			currentMsg.getTieDocList().add(returnDoc);
 			TieMainPage.getTieMainPage().setCurrentTieDoc(returnDoc);
-			return returnDoc;
-		
+		} catch (Exception e) {
+			throw new RuntimeException(e.getMessage());
+		}
+		return returnDoc;
 	}
 
 	public void handleDetachDoc(List<String> docIdListArray) {
