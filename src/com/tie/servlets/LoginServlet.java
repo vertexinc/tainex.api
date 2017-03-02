@@ -7,14 +7,6 @@
  */
 package com.tie.servlets;
 
-//1 log4j
-//2 move big blocks into separate method, leave only one line for each swith statement
-//3 move currenmt msg determination into attchment doc func
-//try(  xx)if(curMsg == null){throw new RunTimeException(the exception messags)}
-//try(  yy){throw new RunTimeException(the exception messags)}
-//try(  zz)..
-//catch(exception){ do the response to front end}
-
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -370,24 +362,9 @@ public class LoginServlet extends HttpServlet {
 	 */
 	public void selectCurrentMsg(HttpServletRequest request, HttpServletResponse response,
 			TieSessionController sessionController, int messageId) throws ServletException, IOException {
-		// int msgid = 0;
-		// // if( id==null ) id =0;
-		// if (request.getParameter("msgid") == null) {
-		// msgid = 0;
-		// } else {
-		// msgid = Integer.parseInt(request.getParameter("msgid"));
-		//
-		// }
-		// String contextPath = request.getContextPath();
 
-		// -------Temp code, will clean later
-		// TiePersister persister =
-		// TieController.getController().getPersister();
 		System.out.println("Current Msg Id" + messageId);
 		TieMsg msg = sessionController.handleSelectCurrentMsg(messageId);
-		// sessionController.handleSelectCurrentMsg(msgid);
-		// persister.getTieMsgDao().findTieMsgByTieMsgId(msgid);
-		// System.out.println("MSG pojo :" + msg.toString());
 
 		TieMainPage retval = null;
 		retval = TieMainPage.getTieMainPage();
@@ -400,8 +377,6 @@ public class LoginServlet extends HttpServlet {
 		response.setContentType("text/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(tieJson);
-
-		// System.out.println(msgjson);
 
 	}// end selectCurrentMsg(....)
 
@@ -429,11 +404,5 @@ public class LoginServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(tieJson);
 	}// end selectCurrentDoc(....)
-		// public static String getStackTrace(final Throwable throwable) {
-		// final StringWriter sw = new StringWriter();
-		// final PrintWriter pw = new PrintWriter(sw, true);
-		// throwable.printStackTrace(pw);
-		// return sw.getBuffer().toString();
-		// }
 
 }// end class LoginService

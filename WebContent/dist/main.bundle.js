@@ -40987,12 +40987,13 @@ var AppComponent = (function () {
     AppComponent.prototype.emitSaveChangeAtBody = function (model) {
         var _this = this;
         //alert("emit applied!");
-        alert(JSON.stringify(model));
+        // alert(JSON.stringify(model));
         this._tieappService.postSave(model)
             .subscribe(function (saveReturnData) {
             _this.tieapp.body.messageList.messageSumList = saveReturnData.msgList;
             _this.tieapp.body.messageDetail = saveReturnData.currentMsg;
             _this.tieapp.body.currentDoc = saveReturnData.currentTieDoc;
+            alert("Message saved!");
         });
     };
     AppComponent.prototype.emitDeleteMsgAtBody = function () {
@@ -54518,6 +54519,7 @@ var DoclistComponent = (function () {
                     $('#errModalLong').modal('show');
                 }
                 else {
+                    alert("Document Attached!");
                     _this.emitAttachedFile.emit(docData);
                     _this.loading = false;
                 }
@@ -54552,7 +54554,7 @@ var DoclistComponent = (function () {
             this._tieappService.postDetachedDocId(idList)
                 .subscribe(function (docData) {
                 _this.emitDetachedDocIdList.emit(docData);
-                alert(JSON.stringify(docData));
+                alert("Document Detached!");
                 console.log("return value after detachment: " + JSON.stringify(docData));
             });
         }
@@ -58738,7 +58740,7 @@ module.exports = "<!-- <div *ngIf=\"isLoading\"><i class=\"fa fa-spinner fa-spin
 /* 667 */
 /***/ function(module, exports) {
 
-module.exports = "\r\n<div id='tieapp' *ngIf=\"tieapp\">\r\n  <!-- <div id='tieapp'> -->\r\n  <div id='tieapp-header'>\r\n    <tieapp-header [header]=\"tieapp.header\" (tieAppShowInfo)=\"tieAppShowInfo($event)\" (trainingShowInfo)=\"trainingShowInfo($event)\"></tieapp-header>\r\n\r\n  </div>\r\n  <div id='tieapp-body'>\r\n\r\n    <div *ngIf=\"showApp\">\r\n      <tieapp-body [body]=\"tieapp.body\" [language]=\"tieapp.header.language\" (emitSaveChangeAtBody) = \"emitSaveChangeAtBody($event)\" (emitDeleteMsgAtBody) = \"emitDeleteMsgAtBody($event)\"></tieapp-body>\r\n    </div>\r\n    <div *ngIf=\"showTraining\">\r\n      <tieapp-training></tieapp-training>\r\n    </div>\r\n  </div>\r\n\r\n  <div id='tieapp-footer'>\r\n    <!-- <tieapp-footer [footer]=\"tieapp.footer\"></tieapp-footer> -->\r\n    <tieapp-footer></tieapp-footer>\r\n  </div>\r\n</div>\r\n"
+module.exports = "\r\n<div id='tieapp' *ngIf=\"tieapp\">\r\n  <!-- <div id='tieapp'> -->\r\n  <div id='tieapp-header'>\r\n    <tieapp-header [header]=\"tieapp.header\" (tieAppShowInfo)=\"tieAppShowInfo($event)\" (trainingShowInfo)=\"trainingShowInfo($event)\"></tieapp-header>\r\n\r\n  </div>\r\n  <div id='tieapp-body'>\r\n\r\n    <div *ngIf=\"showApp\">\r\n      <tieapp-body [body]=\"tieapp.body\" [language]=\"tieapp.header.language\" (emitSaveChangeAtBody) = \"emitSaveChangeAtBody($event)\" (emitDeleteMsgAtBody) = \"emitDeleteMsgAtBody($event)\"></tieapp-body>\r\n    </div>\r\n    <div *ngIf=\"showTraining\">\r\n      <tieapp-training></tieapp-training>\r\n    </div>\r\n  </div>\r\n\r\n  <div id='tieapp-footer'>\r\n    <!-- <tieapp-footer [footer]=\"tieapp.footer\"></tieapp-footer> -->\r\n    <tieapp-footer></tieapp-footer>\r\n  </div>\r\n</div>\r\n\r\n<div class=\"modal fade\" id=\"msgModalLong\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"msgModalLongTitle\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"msgModalLongTitle\">{{windowTitleName}}</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        {{windowDescription}}\r\n      </div>\r\n      <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">OK</button>\r\n        <!-- <button type=\"button\" class=\"btn btn-primary\">Save changes</button> -->\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ },
 /* 668 */
