@@ -44,7 +44,7 @@ public class TaxDocParser {
 		while (scanner.hasNextLine()) {
 			lineCount++;
 			String line = scanner.nextLine();
-			logger.debug("-> {} ",line);
+			logger.debug("-> {} ", line);
 			// remove leading space
 			String trimedLine = line.replaceAll("^\\s+", "");
 
@@ -98,7 +98,6 @@ public class TaxDocParser {
 					table3Data.add(trimedLine);
 				}
 			}
-
 		}
 		scanner.close();
 		// assign extracted data to each target
@@ -108,7 +107,7 @@ public class TaxDocParser {
 		handleCBCRTable2Data(table2Data, attachedDoc);
 		handleCBCRTable3Data(table3Data, attachedDoc);
 
-		logger.debug("File parsed successfully with {} lines",lineCount);
+		logger.debug("File parsed successfully with {} lines", lineCount);
 
 		// tieMsg.getTieDocList().add(attachedDoc);
 		return attachedDoc;
@@ -187,7 +186,7 @@ public class TaxDocParser {
 
 		returnValue = input.replaceAll(",", "");
 		returnValue = returnValue.replaceAll("^[\"']+|[\"']+$", "");
-		
+
 		return returnValue;
 	}
 

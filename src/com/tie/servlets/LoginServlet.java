@@ -131,8 +131,7 @@ public class LoginServlet extends HttpServlet {
 
 			} else if (action.equals("deleteMsg")) {
 
-				deleteMsg(request, response, sessionController,
-						TieMainPage.getTieMainPage().getCurrentMsg().getTieMsgId());
+				deleteMsg(request, response, sessionController);
 
 			} else if (action.equals("reset")) {
 
@@ -236,11 +235,13 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	private void deleteMsg(HttpServletRequest request, HttpServletResponse response,
-			TieSessionController sessionController, int messageId) throws IOException, ServletException {
+			TieSessionController sessionController) throws IOException, ServletException {
 		// TODO Auto-generated method stub
+		int messageId = 0;
 		if (TieMainPage.getTieMainPage().getCurrentMsg() == null) {
 			sessionController.resetMsg();
 		} else {
+			messageId = TieMainPage.getTieMainPage().getCurrentMsg().getTieMsgId();
 			sessionController.handleDeleteMsg(messageId);
 		}
 		try {
@@ -276,9 +277,8 @@ public class LoginServlet extends HttpServlet {
 			throws IOException, NumberFormatException, ParseException {
 		// TODO Auto-generated method stub
 		if (tieMsg == null) {
-			throw new RuntimeException(
-					" Got Exception : [Current Message is null]! "+
-					"Failed to attach[" + fileName + "], please save the message first");
+			throw new RuntimeException(" Got Exception : [Current Message is null]! " + "Failed to attach[" + fileName
+					+ "], please save the message first");
 		}
 		String sessionId = request.getSession().getId();
 		// TieMainPage retval = null;

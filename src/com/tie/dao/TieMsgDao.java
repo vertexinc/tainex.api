@@ -273,7 +273,7 @@ public class TieMsgDao extends BaseDao {
 			// saveStatement.setString(2, tieMsg.getCode());
 			saveStatement.setString(2, tieMsg.getDescription());
 			saveStatement.setString(3, tieMsg.getNotes());
-			saveStatement.setInt(4, 3);
+			saveStatement.setInt(4, 4);
 			saveStatement.setInt(5, 4);
 			saveStatement.setInt(6, 1);
 			saveStatement.setString(7, tieMsg.getSendingEntityIdNum());
