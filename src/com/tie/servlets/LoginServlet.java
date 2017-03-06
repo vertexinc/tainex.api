@@ -43,6 +43,7 @@ import com.tie.app.TaxDocParser;
 import com.tie.app.TieController;
 import com.tie.app.TieSecurityManager;
 import com.tie.app.TieSessionController;
+import com.tie.app.UcControllerSendTieMsg;
 import com.tie.dao.TieAppDao;
 import com.tie.dao.TiePersister;
 import com.tie.model.TieDoc;
@@ -129,6 +130,10 @@ public class LoginServlet extends HttpServlet {
 
 				reset(request, response, sessionController);
 
+			}else if (action.equals("send")) {
+
+				sendMsg(request, response, sessionController,messageId);
+
 			} else {
 				RequestDispatcher rd = request.getRequestDispatcher("dist/index.html");
 				rd.forward(request, response);
@@ -141,6 +146,13 @@ public class LoginServlet extends HttpServlet {
 		out.flush();
 		out.close();
 	}// end doPost(..)
+
+	private void sendMsg(HttpServletRequest request, HttpServletResponse response,
+			TieSessionController sessionController, int messageId) {
+		// TODO Auto-generated method stub
+		UcControllerSendTieMsg ucControllerSendTieMsg = new UcControllerSendTieMsg();
+		ucControllerSendTieMsg.sendTieMsg(messageId);
+	}
 
 	private void sendExceptionToFrontEnd(HttpServletResponse response, String errorMsg, String fileName)
 			throws IOException {
