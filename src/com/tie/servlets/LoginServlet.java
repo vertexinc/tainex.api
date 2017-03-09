@@ -150,7 +150,7 @@ public class LoginServlet extends HttpServlet {
 	private void sendMsg(HttpServletRequest request, HttpServletResponse response,
 			TieSessionController sessionController, int messageId) {
 		// TODO Auto-generated method stub
-		UcControllerSendTieMsg ucControllerSendTieMsg = new UcControllerSendTieMsg();
+		UcControllerSendTieMsg ucControllerSendTieMsg = new UcControllerSendTieMsg(sessionController);
 		ucControllerSendTieMsg.sendTieMsg(messageId);
 	}
 

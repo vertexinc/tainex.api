@@ -1,7 +1,9 @@
 package com.tie.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TieMsg {
 	private int tieMsgId;
@@ -37,6 +39,7 @@ public class TieMsg {
 	private String userName;
 
 	private String msgState;
+	private Map<Long,TieMsgPackage> msgPackages;
 
 	public String getUserName() {
 		return userName;
@@ -312,6 +315,10 @@ public class TieMsg {
 
 	public void setRawMsg(String rawMsg) {
 		this.rawMsg = rawMsg;
+	}
+	
+	public void initPackages(){
+		
 	}
 
 	@Override
