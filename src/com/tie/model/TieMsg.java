@@ -40,6 +40,16 @@ public class TieMsg {
 
 	private String msgState;
 	private Map<Long,TieMsgPackage> msgPackages;
+	//TODO tieDocList
+	private CbcrDoc cbcrDoc;
+	
+	public CbcrDoc getCbcrDoc() {
+		return cbcrDoc;
+	}
+
+	public void setCbcrDoc(CbcrDoc cbcrDoc) {
+		this.cbcrDoc = cbcrDoc;
+	}
 
 	public String getUserName() {
 		return userName;

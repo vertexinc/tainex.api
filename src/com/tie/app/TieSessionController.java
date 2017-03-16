@@ -289,19 +289,6 @@ public class TieSessionController extends TieControllerBase {
 	}
 
 	public TieMsg handleSelectCurrentMsg(int msgId) {
-		// TiePersister persister =
-		// TieController.getController().getPersister();
-		// TieMsg tieMsg = persister.getTieMsgDao().findTieMsgByTieMsgId(msgId);
-		//
-		// populateMsg(tieMsg);
-		// int senderId = tieMsg.getSenderId();
-		// int statusId = tieMsg.getTieMsgStateId();
-		// TieMsgState tieMsgState = TieMsgState.findById(statusId);
-		// msgState = tieMsgState.getName();
-		// TieUser sender = persister.getTieUserDao().findTieUserById(senderId);
-		// String userName = sender.getName();
-		// tieMsg.setUserName(userName);
-		// tieMsg.setMsgState(msgState);
 		TieMsg tieMsg = handleUserAndState(msgId);
 		if (!tieMsg.getTieDocList().isEmpty()) {
 			int currenttieDocId = tieMsg.getTieDocList().get(0).getTieDocId();

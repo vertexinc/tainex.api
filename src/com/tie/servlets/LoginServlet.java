@@ -130,9 +130,9 @@ public class LoginServlet extends HttpServlet {
 
 				reset(request, response, sessionController);
 
-			}else if (action.equals("send")) {
+			} else if (action.equals("send")) {
 
-				sendMsg(request, response, sessionController,messageId);
+				sendMsg(request, response, sessionController, messageId);
 
 			} else {
 				RequestDispatcher rd = request.getRequestDispatcher("dist/index.html");
@@ -150,8 +150,13 @@ public class LoginServlet extends HttpServlet {
 	private void sendMsg(HttpServletRequest request, HttpServletResponse response,
 			TieSessionController sessionController, int messageId) {
 		// TODO Auto-generated method stub
-		UcControllerSendTieMsg ucControllerSendTieMsg = new UcControllerSendTieMsg(sessionController);
-		ucControllerSendTieMsg.sendTieMsg(messageId);
+		try {
+			UcControllerSendTieMsg ucControllerSendTieMsg = new UcControllerSendTieMsg(sessionController);
+			ucControllerSendTieMsg.sendTieMsg(messageId);
+		} catch (Exception e) {
+			logger.error("Failed to send this message", new Exception("Msg Send Exception"));
+			throw new RuntimeException("Failed to send this message");
+		}
 	}
 
 	private void sendExceptionToFrontEnd(HttpServletResponse response, String errorMsg, String fileName)
@@ -329,7 +334,11 @@ public class LoginServlet extends HttpServlet {
 		retval.setCurrentMsg(returnSavedTieMsg);
 		// retval.setCurrentMsg(returnSavedTieMsg);
 		// retval.setCurrentTieDoc(null);
-
+		if (TieMainPage.getTieMainPage().getCurrentTieDoc() == null) {
+			TieDoc emptyTieDoc = new TieDoc();
+			emptyTieDoc.setTieDocId(-1);
+			retval.setCurrentTieDoc(emptyTieDoc);
+		}
 		ObjectMapper ma = new ObjectMapper();
 		String saveMsgReturnJson = ma.writeValueAsString(retval);
 

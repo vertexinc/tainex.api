@@ -25,33 +25,49 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 
 	public void sendTieMsg(long msgId) {
 		prepareTieMsg(msgId);
-	}//sendTieMsg(.)
+	}// sendTieMsg(.)
 
 	// prepare one package for each intended recipient.
 	public List<TieMsgPackage> prepareTieMsg(long msgId) {
 		logger.debug("Message to be sent with ID {}.", msgId);
-		return null;
-	}//prepareTieMsg(.)
+		// loop through the recipient list to create the package list
 
-	/*TODO Delegate to the main persister, to read all records,
-	 * by invoking individual table persisters and assemble all the
-	 * resulting objects together.
-	 * */
+		return null;
+	}// prepareTieMsg(.)
+
+	/*
+	 * TODO Delegate to the main persister, to read all records, by invoking
+	 * individual table persisters and assemble all the resulting objects
+	 * together.
+	 */
 	public TieMsg buildTieMsg(long msgId) {
-		TieMsg currMsg = TieMainPage.getTieMainPage().getCurrentMsg();
-		return currMsg;
-	}//end buildTieMsg(.)
-
-	Byte[] packageMsg(TieMsgPackage tieMsgPkg) {
+		//TieMsg currMsg = TieMainPage.getTieMainPage().getCurrentMsg();
 		return null;
-	}//end packageMsg(.)
+	}// end buildTieMsg(.)
+
+	public Byte[] packageMsg(TieMsgPackage tieMsgPkg) {
+		return null;
+	}// end packageMsg(.)
 
 	public String sendTaxMsgPackage(TieMsgPackage tieMsgPkg) {
 		return null;
-	}//end sendTaxMsgPackage(.)
-	
-	public boolean recordTaxMsgStatus(){
+	}// end sendTaxMsgPackage(.)
+
+	public boolean recordTaxMsgStatus() {
 		return false;
-	}//end recordTaxMsgStatus()
+	}// end recordTaxMsgStatus()
+
+	/*
+	 * check the type of msg, it is CBCR (the initial target), delegate to the
+	 * method specific for composing CBCR msg.
+	 */
+	public String composeTieMsg(TieMsg tieMsg) {
+		return null;
+
+	}// end composeTieMsg(.)
+
+	public String composeCbcrMsg(TieMsg tieMsg) {
+		return null;
+	}// end composeCbcrMsg(.)
 
 }

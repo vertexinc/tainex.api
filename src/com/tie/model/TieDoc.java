@@ -19,7 +19,8 @@ public class TieDoc {
 	private String sourceDoc;
 	private String accountingStandard;
 	private String reportingPeriod;
-
+	
+	//TODO move to cbcrdoc class
 	private List<TieTaxEntity> taxEntityList = new ArrayList<TieTaxEntity>();
 	private List<CbcrTable1> cbcrTable1List = new ArrayList<CbcrTable1>();
 	private List<CbcrTable2> cbcrTable2List = new ArrayList<CbcrTable2>();
