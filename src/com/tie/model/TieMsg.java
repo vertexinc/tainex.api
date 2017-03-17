@@ -41,14 +41,38 @@ public class TieMsg {
 	private String msgState;
 	private Map<Long,TieMsgPackage> msgPackages;
 	//TODO tieDocList
-	private CbcrDoc cbcrDoc;
+	private  List<TieDoc> tieDocList = new ArrayList<TieDoc>();
 	
-	public CbcrDoc getCbcrDoc() {
-		return cbcrDoc;
+
+	
+
+	// OECD Message Type indicator
+	public static String[] messageTypeIndi = { "CBC401", "CBC402", "CBC403" };
+	
+
+
+	public List<TieDoc> getTieDocList() {
+		return tieDocList;
 	}
 
-	public void setCbcrDoc(CbcrDoc cbcrDoc) {
-		this.cbcrDoc = cbcrDoc;
+	public void setTieDocList(List<TieDoc> tieDocList) {
+		this.tieDocList = tieDocList;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	public Map<Long, TieMsgPackage> getMsgPackages() {
+		return msgPackages;
+	}
+
+	public void setMsgPackages(Map<Long, TieMsgPackage> msgPackages) {
+		this.msgPackages = msgPackages;
 	}
 
 	public String getUserName() {
@@ -67,19 +91,6 @@ public class TieMsg {
 		this.msgState = msgState;
 	}
 
-	private List<TieTaxEntity> tieTaxEntity = new ArrayList<TieTaxEntity>();
-
-	private List<TieDoc> tieDocList = new ArrayList<TieDoc>();
-	// OECD Message Type indicator
-	public static String[] messageTypeIndi = { "CBC401", "CBC402", "CBC403" };
-
-	public List<TieTaxEntity> getTieTaxEntity() {
-		return tieTaxEntity;
-	}
-
-	public void setTieTaxEntity(List<TieTaxEntity> tieTaxEntity) {
-		this.tieTaxEntity = tieTaxEntity;
-	}
 
 	public String getMsgReceiverList() {
 		return msgReceiverList;
@@ -115,13 +126,7 @@ public class TieMsg {
 
 	// List of docs in the msg to be sent out
 
-	public List<TieDoc> getTieDocList() {
-		return tieDocList;
-	}
 
-	public void setTieDocList(List<TieDoc> tieDocList) {
-		this.tieDocList = tieDocList;
-	}
 
 	public TieMsg() {
 
@@ -337,12 +342,15 @@ public class TieMsg {
 				+ description + ", notes=" + notes + ", senderId=" + senderId + ", sender=" + sender + ", ownerid="
 				+ ownerid + ", tieMsgStateId=" + tieMsgStateId + ", tieMsgState=" + tieMsgState
 				+ ", sendingEntityIdNum=" + sendingEntityIdNum + ", transmittingCountry=" + transmittingCountry
-				+ ", receivingCountries=" + receivingCountries + ", messageType=" + messageType + ", lauguage="
+				+ ", receivingCountries=" + receivingCountries + ", messageType=" + messageType + ", language="
 				+ language + ", warning=" + warning + ", contact=" + contact + ", messageRefId=" + messageRefId
 				+ ", messageTypeIndic=" + messageTypeIndic + ", corrMessageRefIds=" + corrMessageRefIds
 				+ ", reportingPeriod=" + reportingPeriod + ", timestamp=" + timestamp + ", rawMsg=" + rawMsg
 				+ ", msgReceiverList=" + msgReceiverList + ", userName=" + userName + ", msgState=" + msgState
-				+ ", tieTaxEntity=" + tieTaxEntity + ", tieDocList=" + tieDocList + "]";
+				+ ", msgPackages=" + msgPackages + ", tieDocList=" + tieDocList  + "]";
 	}
+
+
+
 
 }

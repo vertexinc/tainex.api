@@ -3,6 +3,8 @@ package com.tie.app;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.tie.dao.TiePersister;
 import com.tie.model.TieMsg;
 import com.tie.model.TieMsgPackage;
 import com.tie.ui.TieMainPage;
@@ -23,8 +25,9 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 		this.sessionController = sessionController;
 	}
 
-	public void sendTieMsg(long msgId) {
+	public void sendTieMsg(long msgId) throws JsonProcessingException {
 		prepareTieMsg(msgId);
+		buildTieMsg(msgId);
 	}// sendTieMsg(.)
 
 	// prepare one package for each intended recipient.
@@ -40,8 +43,10 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 	 * individual table persisters and assemble all the resulting objects
 	 * together.
 	 */
-	public TieMsg buildTieMsg(long msgId) {
+	public TieMsg buildTieMsg(long msgId) throws JsonProcessingException {
 		//TieMsg currMsg = TieMainPage.getTieMainPage().getCurrentMsg();
+		TiePersister persister = TieController.getController().getPersister();
+		persister.buildTieMsg(msgId);
 		return null;
 	}// end buildTieMsg(.)
 

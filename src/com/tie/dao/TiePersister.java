@@ -11,8 +11,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tie.app.TaxDocParser;
 import com.tie.model.CbcrDoc;
+import com.tie.model.CbcrTable1;
+import com.tie.model.CbcrTable2;
+import com.tie.model.CbcrTable3;
 import com.tie.model.TieDoc;
 import com.tie.model.TieMsg;
 import com.tie.model.TieTaxEntity;
@@ -38,8 +43,25 @@ public class TiePersister {
 	CbcrTable2Dao cbcrTable2Dao;
 	CbcrTable3Dao cbcrTable3Dao;
 
+	public TiePersister() {
+		init();
+	}
+
+	public void init() {
+		tieAppDao = new TieAppDao();
+		loginDao = new LoginDao();
+		tieMsgDao = new TieMsgDao();
+		tieUserDao = new TieUserDao();
+		tieDocDao = new TieDocDao();
+		tieMsgReceiverDao = new TieMsgReceiverDao();
+		tieEntityDao = new TieEntityDao();
+		cbcrTable1Dao = new CbcrTable1Dao();
+		cbcrTable2Dao = new CbcrTable2Dao();
+		cbcrTable3Dao = new CbcrTable3Dao();
+	}
+
 	// TieMsg buildTieMsg( long msgId )
-	public TieMsg buildTieMsg(long msgId) {
+	public TieMsg buildTieMsg(long msgId) throws JsonProcessingException {
 		// 1. find TieMsg
 		TieMsg tieMsg = tieMsgDao.findTieMsgByTieMsgId((int) msgId);
 		// * find all entity for the msg
@@ -57,13 +79,27 @@ public class TiePersister {
 		for (TieDoc tieDoc : tieDocList) {
 			TieDoc builtDoc = buildTieDoc(tieDoc);
 			// 4. add the TieDoc subclass object to msg
+			int docId = tieDoc.getTieDocId();
+			List<TieTaxEntity> tieTaxEntityList = tieEntityDao.findTieEntityByTieDocId(docId);
+			
+			
+			
+			for(TieTaxEntity tieTaxEntity : tieTaxEntityList){
+				
+				builtDoc.getTaxEntityList().add(tieTaxEntity);
+			}
+			
 			tieMsg.getTieDocList().add(builtDoc);
 		}
+		
+		ObjectMapper ma = new ObjectMapper();
+		String sentMsgJSON = ma.writeValueAsString(tieMsg);
 
+		logger.debug("The message ready to be sent {}",sentMsgJSON);
 		// * return msg
-
+		
 		return tieMsg;
-	}//end buildTieMsg(.)
+	}// end buildTieMsg(.)
 
 	// TODO Fully build out a TieDoc subclass based on the given TieDoc record
 	// TieDoc buildTieDoc( TieDoc tieDocRecord )
@@ -71,33 +107,50 @@ public class TiePersister {
 		// 1. switch based on type field of the record
 		// 2. if type id cbcr, build cbcr doc
 		TieDoc builtTieDoc = new TieDoc();
-		if (tieDocRecord.getTieDocTypeId() == 3) {
+		if (tieDocRecord.getTieDocTypeId() == 1) {
 			builtTieDoc = buildCbcrDoc(tieDocRecord);
 		} else if (tieDocRecord.getTieDocTypeId() == 2) {
-			logger.debug("Current Doc Type is {}",tieDocRecord.getTieDocTypeId());
+			logger.debug("Current Doc Type is {}", tieDocRecord.getTieDocTypeId());
 		} else {
-			logger.debug("Current Doc Type is {}",tieDocRecord.getTieDocTypeId());
+			logger.debug("Current Doc Type is {}", tieDocRecord.getTieDocTypeId());
 		}
 		return builtTieDoc;
-	}//end buildTieDoc(.)
+	}// end buildTieDoc(.)
 
 	// TODO fully build out a CbCrDoc
 	public CbcrDoc buildCbcrDoc(TieDoc tieDocRecord) {
-		if(tieDocRecord.getTieDocTypeId() != 3){
+		// 1. check to ensure that the type is cbcr, otherwise, throw run time
+				// exception
+		if (tieDocRecord.getTieDocTypeId() != 1) {
 			throw new RuntimeException("Not a CbCR doc");
 		}
-		//***********TODO finish cbcrDoc migration
+		
+		// ***********TODO finish cbcrDoc migration
+		// 2. create a new CbcrDoc to be returned, use constructor CbcrDoc(
+				// TieDoc
+				// tieDocRecord ), copying all fields of the input record
 		CbcrDoc cbcrDoc = new CbcrDoc(tieDocRecord);
+		
+		// 3. table1,2,3 persisters, find records of the cbcr doc, and add to
+				// the
+				// new CbcrDoc to be returned.
+		int tieDocId = tieDocRecord.getTieDocId();
+		
+		List<CbcrTable1> cbcrTable1List = cbcrTable1Dao.findCbcrTable1ByTieDocId(tieDocId);
+		cbcrDoc.setCbcrTable1List(cbcrTable1List);
+		
+		List<CbcrTable2> cbcrTable2List = cbcrTable2Dao.findCbcrTable2ByTieDocId(tieDocId);
+		cbcrDoc.setCbcrTable2List(cbcrTable2List);
+		
+		List<CbcrTable3> cbcrTable3List = cbcrTable3Dao.findCbcrTable3ByTieDocId(tieDocId);
+		cbcrDoc.setCbcrTable3List(cbcrTable3List);
+		
+//		logger.debug("Current cbcrDoc is {}", cbcrDoc.toString());
 		return cbcrDoc;
-	}//end buildCbcrDoc(.)
-	// 1. check to ensure that the type is cbcr, otherwise, throw run time
-	// exception
-	// 2. create a new CbcrDoc to be returned, use constructor CbcrDoc(
-	// TieDoc
-	// tieDocRecord ), copying all fields of the input record
-	// 3. table1,2,3 persisters, find records of the cbcr doc, and add to
-	// the
-	// new CbcrDoc to be returned.
+	}// end buildCbcrDoc(.)
+		
+		
+		
 
 	public CbcrTable3Dao getCbcrTable3Dao() {
 		return cbcrTable3Dao;
@@ -153,24 +206,6 @@ public class TiePersister {
 
 	public void setTieUserDao(TieUserDao tieUserDao) {
 		this.tieUserDao = tieUserDao;
-	}
-
-	public TiePersister() {
-		init();
-	}
-
-	public void init() {
-		// BaseDao basedao = new BaseDao();
-		tieAppDao = new TieAppDao();
-		loginDao = new LoginDao();
-		tieMsgDao = new TieMsgDao();
-		tieUserDao = new TieUserDao();
-		tieDocDao = new TieDocDao();
-		tieMsgReceiverDao = new TieMsgReceiverDao();
-		tieEntityDao = new TieEntityDao();
-		cbcrTable1Dao = new CbcrTable1Dao();
-		cbcrTable2Dao = new CbcrTable2Dao();
-		cbcrTable3Dao = new CbcrTable3Dao();
 	}
 
 	public void setTieAppDao(TieAppDao tieAppDao) {

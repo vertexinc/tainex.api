@@ -20,8 +20,8 @@ public class TieDoc {
 	private String accountingStandard;
 	private String reportingPeriod;
 	
-	//TODO move to cbcrdoc class
 	private List<TieTaxEntity> taxEntityList = new ArrayList<TieTaxEntity>();
+	//TODO move to cbcrdoc class
 	private List<CbcrTable1> cbcrTable1List = new ArrayList<CbcrTable1>();
 	private List<CbcrTable2> cbcrTable2List = new ArrayList<CbcrTable2>();
 	private List<CbcrTable3> cbcrTable3List = new ArrayList<CbcrTable3>();
@@ -197,8 +197,11 @@ public class TieDoc {
 	public String toString() {
 		return "TieDoc [tieDocId=" + tieDocId + ", name=" + name + ", code=" + code + ", description=" + description
 				+ ", tieDocTypeId=" + tieDocTypeId + ", tieMsgId=" + tieMsgId + ", reportingEntityCode="
-				+ reportingEntityCode + ", currencyCode=" + currencyCode + ", resCountryCode=" + resCountryCode
-				+ ", sourceDoc=" + sourceDoc + ", accountingStandard=" + accountingStandard + "]";
+				+ reportingEntityCode + ", reportingEntity=" + reportingEntity + ", currencyCode=" + currencyCode
+				+ ", resCountryCode=" + resCountryCode + ", sourceDoc=" + sourceDoc + ", accountingStandard="
+				+ accountingStandard + ", reportingPeriod=" + reportingPeriod + ", taxEntityList=" + taxEntityList
+				+ "]";
 	}
+	
 
 }
