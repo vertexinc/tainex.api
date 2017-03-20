@@ -25,7 +25,7 @@ public class TieDoc {
 	private List<CbcrTable1> cbcrTable1List = new ArrayList<CbcrTable1>();
 	private List<CbcrTable2> cbcrTable2List = new ArrayList<CbcrTable2>();
 	private List<CbcrTable3> cbcrTable3List = new ArrayList<CbcrTable3>();
-	private String table3String;
+//	private String table3String;
 
 	public TieDoc() {
 		// super();
@@ -49,13 +49,13 @@ public class TieDoc {
 		this.reportingPeriod = reportingPeriod;
 	}
 
-	public String getTable3String() {
-		return table3String;
-	}
-
-	public void setTable3String(String table3String) {
-		this.table3String = table3String;
-	}
+//	public String getTable3String() {
+//		return table3String;
+//	}
+//
+//	public void setTable3String(String table3String) {
+//		this.table3String = table3String;
+//	}
 
 	public TieTaxEntity getReportingEntity() {
 		return reportingEntity;

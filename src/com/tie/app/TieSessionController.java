@@ -385,7 +385,8 @@ public class TieSessionController extends TieControllerBase {
 			for (CbcrTable3 cbcrTable3 : cbcrTable3List) {
 				table3String.append(cbcrTable3.getAdditionalInfo()).append(";").append("\n");
 			}
-			currentDoc.setTable3String(table3String.toString());
+			// TODO placeWithCbcr
+			//currentDoc.setTable3String(table3String.toString());
 		} else {
 
 			TieDoc currentDoc = new TieDoc();
@@ -427,7 +428,8 @@ public class TieSessionController extends TieControllerBase {
 		for (CbcrTable3 cbcrTable3 : cbcrTable3List) {
 			table3String.append(cbcrTable3.getAdditionalInfo()).append(";").append("\n");
 		}
-		currentDoc.setTable3String(table3String.toString());
+		// TODO placeWithCbcr
+		//currentDoc.setTable3String(table3String.toString());
 
 	}// end populateDoc(.)
 

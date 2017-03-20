@@ -81,9 +81,7 @@ public class TiePersister {
 			// 4. add the TieDoc subclass object to msg
 			int docId = tieDoc.getTieDocId();
 			List<TieTaxEntity> tieTaxEntityList = tieEntityDao.findTieEntityByTieDocId(docId);
-			
-			
-			
+					
 			for(TieTaxEntity tieTaxEntity : tieTaxEntityList){
 				
 				builtDoc.getTaxEntityList().add(tieTaxEntity);
