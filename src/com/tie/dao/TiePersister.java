@@ -75,9 +75,18 @@ public class TiePersister {
 		List<TieDoc> tieDocList = new ArrayList<TieDoc>();
 		tieDocList = tieDocDao.findTieDocByTieMsgId((int) msgId);
 
+		
 		// 3. buildTieDoc for each TieDoc record
 		for (TieDoc tieDoc : tieDocList) {
+		
 			TieDoc builtDoc = buildTieDoc(tieDoc);
+			validateDoc(builtDoc,tieDoc);
+			
+			ObjectMapper mas = new ObjectMapper();
+			String builtJSON = mas.writeValueAsString(builtDoc);
+			// builtDoc return null value in main doc 
+			logger.debug("The doc after been built in json is {}", builtJSON);
+		
 			// 4. add the TieDoc subclass object to msg
 			int docId = tieDoc.getTieDocId();
 			List<TieTaxEntity> tieTaxEntityList = tieEntityDao.findTieEntityByTieDocId(docId);
@@ -86,22 +95,41 @@ public class TiePersister {
 				
 				builtDoc.getTaxEntityList().add(tieTaxEntity);
 			}
-			
+		
+			//logger.debug("Current doc ready to be added in msg in json is {}", sentdocJSON);
 			tieMsg.getTieDocList().add(builtDoc);
 		}
 		
 		ObjectMapper ma = new ObjectMapper();
 		String sentMsgJSON = ma.writeValueAsString(tieMsg);
 
-		logger.debug("The message ready to be sent {}",sentMsgJSON);
+	    logger.debug("The message ready to be sent {}",sentMsgJSON);
 		// * return msg
 		
 		return tieMsg;
 	}// end buildTieMsg(.)
 
+	private void validateDoc(TieDoc builtDoc, TieDoc tieDoc) {
+		// TODO Auto-generated method stub
+		builtDoc.setTieDocId(tieDoc.getTieDocId());
+		builtDoc.setName(tieDoc.getName());
+		builtDoc.setCode(tieDoc.getCode());
+		builtDoc.setDescription(tieDoc.getDescription());
+		builtDoc.setTieDocTypeId(tieDoc.getTieDocTypeId());
+		builtDoc.setTieMsgId(tieDoc.getTieMsgId());
+		builtDoc.setReportingEntityCode(tieDoc.getReportingEntityCode());
+		builtDoc.setReportingEntity(tieDoc.getReportingEntity());
+		builtDoc.setCurrencyCode(tieDoc.getCurrencyCode());
+		builtDoc.setResCountryCode(tieDoc.getResCountryCode());
+		builtDoc.setSourceDoc(tieDoc.getSourceDoc());
+		builtDoc.setAccountingStandard(tieDoc.getAccountingStandard());
+		builtDoc.setReportingPeriod(tieDoc.getReportingPeriod());
+		builtDoc.setTaxEntityList(tieDoc.getTaxEntityList());
+	}
+
 	// TODO Fully build out a TieDoc subclass based on the given TieDoc record
 	// TieDoc buildTieDoc( TieDoc tieDocRecord )
-	public TieDoc buildTieDoc(TieDoc tieDocRecord) {
+	public TieDoc buildTieDoc(TieDoc tieDocRecord) throws JsonProcessingException {
 		// 1. switch based on type field of the record
 		// 2. if type id cbcr, build cbcr doc
 		TieDoc builtTieDoc = new TieDoc();
@@ -116,17 +144,23 @@ public class TiePersister {
 	}// end buildTieDoc(.)
 
 	// TODO fully build out a CbCrDoc
-	public CbcrDoc buildCbcrDoc(TieDoc tieDocRecord) {
+	public CbcrDoc buildCbcrDoc(TieDoc tieDocRecord) throws JsonProcessingException {
 		// 1. check to ensure that the type is cbcr, otherwise, throw run time
 				// exception
 		if (tieDocRecord.getTieDocTypeId() != 1) {
 			throw new RuntimeException("Not a CbCR doc");
+		}else{
+			ObjectMapper ma = new ObjectMapper();
+			String tieDocRecordJSON = ma.writeValueAsString(tieDocRecord);
+
+			logger.info("Start to build cbcr doc !" + tieDocRecordJSON);
 		}
 		
 		// ***********TODO finish cbcrDoc migration
 		// 2. create a new CbcrDoc to be returned, use constructor CbcrDoc(
 				// TieDoc
 				// tieDocRecord ), copying all fields of the input record
+	
 		CbcrDoc cbcrDoc = new CbcrDoc(tieDocRecord);
 		
 		// 3. table1,2,3 persisters, find records of the cbcr doc, and add to
@@ -143,7 +177,6 @@ public class TiePersister {
 		List<CbcrTable3> cbcrTable3List = cbcrTable3Dao.findCbcrTable3ByTieDocId(tieDocId);
 		cbcrDoc.setCbcrTable3List(cbcrTable3List);
 		
-//		logger.debug("Current cbcrDoc is {}", cbcrDoc.toString());
 		return cbcrDoc;
 	}// end buildCbcrDoc(.)
 		

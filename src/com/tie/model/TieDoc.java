@@ -22,9 +22,9 @@ public class TieDoc {
 	
 	private List<TieTaxEntity> taxEntityList = new ArrayList<TieTaxEntity>();
 	//TODO move to cbcrdoc class
-	private List<CbcrTable1> cbcrTable1List = new ArrayList<CbcrTable1>();
-	private List<CbcrTable2> cbcrTable2List = new ArrayList<CbcrTable2>();
-	private List<CbcrTable3> cbcrTable3List = new ArrayList<CbcrTable3>();
+	protected List<CbcrTable1> cbcrTable1List = new ArrayList<CbcrTable1>();
+	protected List<CbcrTable2> cbcrTable2List = new ArrayList<CbcrTable2>();
+	protected List<CbcrTable3> cbcrTable3List = new ArrayList<CbcrTable3>();
 //	private String table3String;
 
 	public TieDoc() {

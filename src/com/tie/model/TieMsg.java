@@ -347,8 +347,9 @@ public class TieMsg {
 				+ ", messageTypeIndic=" + messageTypeIndic + ", corrMessageRefIds=" + corrMessageRefIds
 				+ ", reportingPeriod=" + reportingPeriod + ", timestamp=" + timestamp + ", rawMsg=" + rawMsg
 				+ ", msgReceiverList=" + msgReceiverList + ", userName=" + userName + ", msgState=" + msgState
-				+ ", msgPackages=" + msgPackages + ", tieDocList=" + tieDocList  + "]";
+				+ ", msgPackages=" + msgPackages + ", tieDocList=" + tieDocList + "]";
 	}
+
 
 
 
