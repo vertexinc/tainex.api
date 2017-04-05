@@ -80,13 +80,12 @@ public class TiePersister {
 		for (TieDoc tieDoc : tieDocList) {
 		
 			TieDoc builtDoc = buildTieDoc(tieDoc);
-			validateDoc(builtDoc,tieDoc);
 			
 			ObjectMapper mas = new ObjectMapper();
 			String builtJSON = mas.writeValueAsString(builtDoc);
 			// builtDoc return null value in main doc 
 			logger.debug("The doc after been built in json is {}", builtJSON);
-		
+			validateDoc(builtDoc,tieDoc);
 			// 4. add the TieDoc subclass object to msg
 			int docId = tieDoc.getTieDocId();
 			List<TieTaxEntity> tieTaxEntityList = tieEntityDao.findTieEntityByTieDocId(docId);
@@ -103,7 +102,7 @@ public class TiePersister {
 		ObjectMapper ma = new ObjectMapper();
 		String sentMsgJSON = ma.writeValueAsString(tieMsg);
 
-	    logger.debug("The message ready to be sent {}",sentMsgJSON);
+		// logger.debug("The message ready to be sent {}",sentMsgJSON);
 		// * return msg
 		
 		return tieMsg;
