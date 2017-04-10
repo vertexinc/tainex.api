@@ -40,6 +40,16 @@ public class TieMsg {
 
 	private String msgState;
 	private Map<Long,TieMsgPackage> msgPackages;
+	private int numOfDocs;
+	
+	public int getNumOfDocs() {
+		int numOfDocs = 0;
+		if(getTieDocList()!=null){
+			numOfDocs = getTieDocList().size();	
+		}
+		return numOfDocs;
+	}
+
 	//TODO tieDocList
 	private  List<TieDoc> tieDocList = new ArrayList<TieDoc>();
 	
