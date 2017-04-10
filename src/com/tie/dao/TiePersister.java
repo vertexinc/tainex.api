@@ -84,7 +84,7 @@ public class TiePersister {
 			ObjectMapper mas = new ObjectMapper();
 			String builtJSON = mas.writeValueAsString(builtDoc);
 			// builtDoc return null value in main doc 
-			logger.debug("The doc after been built in json is {}", builtJSON);
+//			logger.debug("The doc after been built in json is {}", builtJSON);
 			validateDoc(builtDoc,tieDoc);
 			// 4. add the TieDoc subclass object to msg
 			int docId = tieDoc.getTieDocId();
@@ -152,7 +152,7 @@ public class TiePersister {
 			ObjectMapper ma = new ObjectMapper();
 			String tieDocRecordJSON = ma.writeValueAsString(tieDocRecord);
 
-			logger.info("Start to build cbcr doc !" + tieDocRecordJSON);
+//			logger.info("Start to build cbcr doc !" + tieDocRecordJSON);
 		}
 		
 		// ***********TODO finish cbcrDoc migration

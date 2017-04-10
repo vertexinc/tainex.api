@@ -46,7 +46,12 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 	public TieMsg buildTieMsg(long msgId) throws JsonProcessingException {
 		//TieMsg currMsg = TieMainPage.getTieMainPage().getCurrentMsg();
 		TiePersister persister = TieController.getController().getPersister();
-		persister.buildTieMsg(msgId);
+		TieMsg tieMsg = persister.buildTieMsg(msgId);
+		
+		//XML processor
+		CbcrXmlProcessor cbcrXmlProcessor = new CbcrXmlProcessor();
+		cbcrXmlProcessor.composeTieMsg(tieMsg);
+		logger.info("Message built successfully");
 		return null;
 	}// end buildTieMsg(.)
 
