@@ -18,7 +18,6 @@ import javax.xml.validation.Validator;
 
 import org.xml.sax.SAXException;
 
-
 import com.tie.model.TieDoc;
 import com.tie.model.TieMsg;
 import com.tie.xmlprocessor.cbcrxmlprocessor.cbcrxmljaxb.*;
@@ -32,26 +31,6 @@ import com.tie.xmlprocessor.cbcrxmlprocessor.cbcrxmljaxb.*;
 // Likely to call many private methods to set attributes on jaxb objects,
 // one method for each jaxb class.
 public class CbcrXmlProcessor {
-	public JAXBContext createJaxbObjectsFrom(TieMsg tieMsg) {
-		ObjectFactory factory = new ObjectFactory();
-		JAXBContext context = null;
-		CBCOECD cbcoecd = null;
-		try {
-			// File file = new File("src/main/xml/file.xml");
-			if (tieMsg != null) {
-				handleMessageSpec(factory, tieMsg);
-			}
-			if (tieMsg.getTieDocList() != null) {
-				handleCbcBody(factory, tieMsg.getTieDocList());
-			}
-
-			context = JAXBContext.newInstance(ObjectFactory.class);
-		} catch (JAXBException e) {
-			e.printStackTrace();
-		}
-		return context;
-
-	}
 
 	/**
 	 * Compose the xml string from the given TIE message object
@@ -102,15 +81,15 @@ public class CbcrXmlProcessor {
 		// add msgSpec to CBCOECD retval object
 		retval.setMessageSpec(msgSpec);
 
-		
 		List<CbcBodyType> cbcBodyList = composeCbcBodyList(objFactory, tieMsg);
-		
-		// add body list to retval		
-		// Check documentation in CBCOECD.java, the set func was removed purposely
+
+		// add body list to retval
+		// Check documentation in CBCOECD.java, the set func was removed
+		// purposely
 		for (CbcBodyType CbcBody : cbcBodyList) {
 			retval.getCbcBody().add(CbcBody);
 		}
-		
+
 		return retval;
 	}
 
@@ -127,16 +106,17 @@ public class CbcrXmlProcessor {
 		// 1. Need how many element?
 		// only one is necessary, as specified in xsd
 		retval = objFactory.createMessageSpecType();
-		
+
 		String sendingEntityIdNum = tieMsg.getSendingEntityIdNum();
 		retval.setSendingEntityIN(sendingEntityIdNum);
-		
+
 		CountryCodeType transmittingCountry = CountryCodeType.fromValue(tieMsg.getTransmittingCountry());
 		retval.setTransmittingCountry(transmittingCountry);
-		
+
+		handleReceivingCountry(tieMsg, retval);
+
 		// 2. Populate all its attributes and simple sub element
-		
-		
+
 		// 3. Compose all child sub elements
 		// no sub element found
 
@@ -194,21 +174,26 @@ public class CbcrXmlProcessor {
 
 	}
 
-	private void handleMessageSpec(ObjectFactory factory, TieMsg tieMsg) {
-		// TODO Auto-generated method stub
-		CBCOECD cbcoecd = factory.createCBCOECD();
-		cbcoecd.setVersion("1.0");
-		MessageSpecType messageSpecType = new MessageSpecType();
-		messageSpecType.setSendingEntityIN(tieMsg.getSendingEntityIdNum());
-		handleTransmittingCountry(tieMsg, messageSpecType);
-		handleReceivingCountry(tieMsg, messageSpecType);
-	}
+	// private void handleMessageSpec(ObjectFactory factory, TieMsg tieMsg) {
+	// // TODO Auto-generated method stub
+	// CBCOECD cbcoecd = factory.createCBCOECD();
+	// cbcoecd.setVersion("1.0");
+	// MessageSpecType messageSpecType = new MessageSpecType();
+	// messageSpecType.setSendingEntityIN(tieMsg.getSendingEntityIdNum());
+	// handleTransmittingCountry(tieMsg, messageSpecType);
+	// handleReceivingCountry(tieMsg, messageSpecType);
+	// }
 
 	// Receiving countries should be a list
 	private void handleReceivingCountry(TieMsg tieMsg, MessageSpecType messageSpecType) {
 		// TODO Auto-generated method stub
 		if (tieMsg.getReceivingCountries() != null) {
-			messageSpecType.getReceivingCountry();
+			List<CountryCodeType> receivingCounty = messageSpecType.getReceivingCountry();
+			String recivingCountryString = tieMsg.getReceivingCountries();
+			String[] recivingCountryList = recivingCountryString.split("\\s*,\\s*");
+			for (String country : recivingCountryList) {
+				receivingCounty.add(CountryCodeType.fromValue(country));
+			}
 		}
 	}
 
