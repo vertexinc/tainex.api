@@ -3,7 +3,12 @@ package com.tie.xmlprocessor.cbcrxmlprocessor;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.xml.XMLConstants;
@@ -11,6 +16,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
@@ -18,6 +24,7 @@ import javax.xml.validation.Validator;
 
 import org.xml.sax.SAXException;
 
+//import com.test.rss.ObjectFactory;
 import com.tie.model.TieDoc;
 import com.tie.model.TieMsg;
 import com.tie.xmlprocessor.cbcrxmlprocessor.cbcrxmljaxb.*;
@@ -52,7 +59,7 @@ public class CbcrXmlProcessor {
 
 		// marshalling to string
 		java.io.StringWriter sw = new StringWriter();
-		JAXBContext context = null;
+		JAXBContext context = JAXBContext.newInstance(ObjectFactory.class);;
 		Marshaller marshaller = context.createMarshaller();
 		marshaller.setProperty("jaxb.formatted.output", Boolean.TRUE);
 		marshaller.marshal(cbcoecd, sw);
@@ -107,20 +114,74 @@ public class CbcrXmlProcessor {
 		// only one is necessary, as specified in xsd
 		retval = objFactory.createMessageSpecType();
 
+		// 2. Populate all its attributes and simple sub element
 		String sendingEntityIdNum = tieMsg.getSendingEntityIdNum();
 		retval.setSendingEntityIN(sendingEntityIdNum);
 
 		CountryCodeType transmittingCountry = CountryCodeType.fromValue(tieMsg.getTransmittingCountry());
 		retval.setTransmittingCountry(transmittingCountry);
 
-		handleReceivingCountry(tieMsg, retval);
-
-		// 2. Populate all its attributes and simple sub element
-
+		composeReceivingCountry(tieMsg, retval);
+		
+//		MessageTypeEnumType messageTypeEnum = MessageTypeEnumType.fromValue(tieMsg.getMessageType());
+//		retval.setMessageType(messageTypeEnum);
+//		
+//		LanguageCodeType languageCode = LanguageCodeType.fromValue(tieMsg.getLanguage());
+//		retval.setLanguage(languageCode);
+		
+		retval.setWarning(tieMsg.getWarning());
+		
+		retval.setWarning(tieMsg.getContact());
+		
+		retval.setMessageRefId(tieMsg.getMessageRefId());
+		
+//		CbcMessageTypeIndicEnumType cbcMessageTypeIndicEnum = CbcMessageTypeIndicEnumType.fromValue(tieMsg.getMessageTypeIndic());
+//		retval.setMessageTypeIndic(cbcMessageTypeIndicEnum);
+//		
+//		//CorrMessageRefId: Must point to 1 or more previous message
+//		composeCorrMessageRefId(tieMsg, retval);
+//		
+//		//The reporting YEAR
+//		retval.setReportingPeriod(XMLdate(tieMsg.getReportingPeriod(),"reportingPeriod"));
+//		
+//		retval.setTimestamp(XMLdate(tieMsg.getTimestamp(),"timestamp"));
 		// 3. Compose all child sub elements
 		// no sub element found
 
 		return retval;
+	}
+	
+	private XMLGregorianCalendar XMLdate(String dateString, String dateFormat){
+		Date dfDate=null;
+		DateFormat df = null;
+		XMLGregorianCalendar xmlDate = null;
+		if(dateFormat.equals("reportingPeriod")){
+			df = new SimpleDateFormat("yyyy");
+		}else if(dateFormat.equals("timestamp")){
+			df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		}
+		try {
+			dfDate = df.parse(dateString);
+			GregorianCalendar cal = new GregorianCalendar();
+			cal.setTime(dfDate);
+//			xmlDate = DatatypeFactory
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	private void composeCorrMessageRefId(TieMsg tieMsg, MessageSpecType retval) {
+		// TODO Auto-generated method stub
+		if (tieMsg.getCorrMessageRefIds() != null) {
+			List<String> CorrMessageRefIdList = retval.getCorrMessageRefId();
+			String corrMessageRefIdListString = tieMsg.getCorrMessageRefIds();
+			String[] corrMessageRefIdListStringSplit = corrMessageRefIdListString.split("\\s*,\\s*");
+			for (String CorrMessageRefId : corrMessageRefIdListStringSplit) {
+				CorrMessageRefIdList.add(CorrMessageRefId);
+			}
+		}
 	}
 
 	/**
@@ -185,7 +246,7 @@ public class CbcrXmlProcessor {
 	// }
 
 	// Receiving countries should be a list
-	private void handleReceivingCountry(TieMsg tieMsg, MessageSpecType messageSpecType) {
+	private void composeReceivingCountry(TieMsg tieMsg, MessageSpecType messageSpecType) {
 		// TODO Auto-generated method stub
 		if (tieMsg.getReceivingCountries() != null) {
 			List<CountryCodeType> receivingCounty = messageSpecType.getReceivingCountry();

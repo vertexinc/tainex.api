@@ -32,6 +32,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.bind.JAXBException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -132,7 +133,12 @@ public class LoginServlet extends HttpServlet {
 
 			} else if (action.equals("send")) {
 
-				sendMsg(request, response, sessionController, messageId);
+				try {
+					sendMsg(request, response, sessionController, messageId);
+				} catch (JAXBException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
 			} else {
 				RequestDispatcher rd = request.getRequestDispatcher("dist/index.html");
@@ -148,15 +154,15 @@ public class LoginServlet extends HttpServlet {
 	}// end doPost(..)
 
 	private void sendMsg(HttpServletRequest request, HttpServletResponse response,
-			TieSessionController sessionController, int messageId) {
+			TieSessionController sessionController, int messageId) throws JsonProcessingException, JAXBException {
 		// TODO Auto-generated method stub
-		try {
+//		try {
 			UcControllerSendTieMsg ucControllerSendTieMsg = new UcControllerSendTieMsg(sessionController);
 			ucControllerSendTieMsg.sendTieMsg(messageId);
-		} catch (Exception e) {
-			logger.error("Failed to send this message", new Exception("Msg Send Exception"));
-			throw new RuntimeException("Failed to send this message");
-		}
+//		} catch (Exception e) {
+//			logger.error("Failed to send this message", new Exception("Msg Send Exception"));
+//			throw new RuntimeException("Failed to send this message");
+//		}
 	}
 
 	private void sendExceptionToFrontEnd(HttpServletResponse response, String errorMsg, String fileName)

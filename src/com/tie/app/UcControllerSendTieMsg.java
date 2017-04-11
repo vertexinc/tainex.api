@@ -3,11 +3,14 @@ package com.tie.app;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.bind.JAXBException;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.tie.dao.TiePersister;
 import com.tie.model.TieMsg;
 import com.tie.model.TieMsgPackage;
 import com.tie.ui.TieMainPage;
+import com.tie.xmlprocessor.cbcrxmlprocessor.CbcrXmlProcessor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +28,7 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 		this.sessionController = sessionController;
 	}
 
-	public void sendTieMsg(long msgId) throws JsonProcessingException {
+	public void sendTieMsg(long msgId) throws JsonProcessingException, JAXBException {
 		prepareTieMsg(msgId);
 		buildTieMsg(msgId);
 	}// sendTieMsg(.)
@@ -43,15 +46,15 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 	 * individual table persisters and assemble all the resulting objects
 	 * together.
 	 */
-	public TieMsg buildTieMsg(long msgId) throws JsonProcessingException {
+	public TieMsg buildTieMsg(long msgId) throws JsonProcessingException, JAXBException {
 		//TieMsg currMsg = TieMainPage.getTieMainPage().getCurrentMsg();
 		TiePersister persister = TieController.getController().getPersister();
 		TieMsg tieMsg = persister.buildTieMsg(msgId);
 		
 		//XML processor
 		CbcrXmlProcessor cbcrXmlProcessor = new CbcrXmlProcessor();
-		cbcrXmlProcessor.composeTieMsg(tieMsg);
-		logger.info("Message built successfully");
+		String xmlString = cbcrXmlProcessor.composeXmlString(tieMsg);
+		logger.info("Message built successfully: {}",xmlString);
 		return null;
 	}// end buildTieMsg(.)
 
