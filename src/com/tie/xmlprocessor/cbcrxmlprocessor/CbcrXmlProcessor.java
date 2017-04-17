@@ -26,8 +26,13 @@ import org.xml.sax.SAXException;
 
 //import com.test.rss.ObjectFactory;
 import com.tie.model.TieDoc;
+import com.tie.model.TieDocType;
 import com.tie.model.TieMsg;
+import com.tie.model.TieTaxEntity;
 import com.tie.xmlprocessor.cbcrxmlprocessor.cbcrxmljaxb.*;
+
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
 
 // Determine whether root exist or not
 // explore sub content to generate more jaxb
@@ -59,7 +64,8 @@ public class CbcrXmlProcessor {
 
 		// marshalling to string
 		java.io.StringWriter sw = new StringWriter();
-		JAXBContext context = JAXBContext.newInstance(ObjectFactory.class);;
+		JAXBContext context = JAXBContext.newInstance(ObjectFactory.class);
+		;
 		Marshaller marshaller = context.createMarshaller();
 		marshaller.setProperty("jaxb.formatted.output", Boolean.TRUE);
 		marshaller.marshal(cbcoecd, sw);
@@ -88,15 +94,17 @@ public class CbcrXmlProcessor {
 		// add msgSpec to CBCOECD retval object
 		retval.setMessageSpec(msgSpec);
 
+		// Compose a list a CbcBody
 		List<CbcBodyType> cbcBodyList = composeCbcBodyList(objFactory, tieMsg);
 
 		// add body list to retval
 		// Check documentation in CBCOECD.java, the set func was removed
 		// purposely
-		for (CbcBodyType CbcBody : cbcBodyList) {
-			retval.getCbcBody().add(CbcBody);
+		if (!cbcBodyList.isEmpty()) {
+			for (CbcBodyType CbcBody : cbcBodyList) {
+				retval.getCbcBody().add(CbcBody);
+			}
 		}
-
 		return retval;
 	}
 
@@ -122,54 +130,57 @@ public class CbcrXmlProcessor {
 		retval.setTransmittingCountry(transmittingCountry);
 
 		composeReceivingCountry(tieMsg, retval);
-		
-//		MessageTypeEnumType messageTypeEnum = MessageTypeEnumType.fromValue(tieMsg.getMessageType());
-//		retval.setMessageType(messageTypeEnum);
-//		
-//		LanguageCodeType languageCode = LanguageCodeType.fromValue(tieMsg.getLanguage());
-//		retval.setLanguage(languageCode);
-		
+
+		MessageTypeEnumType messageTypeEnum = MessageTypeEnumType.fromValue("CBC");
+		retval.setMessageType(messageTypeEnum);
+		//
+		LanguageCodeType languageCode = LanguageCodeType.fromValue("EN");
+		retval.setLanguage(languageCode);
+
 		retval.setWarning(tieMsg.getWarning());
-		
-		retval.setWarning(tieMsg.getContact());
-		
+
+		retval.setContact(tieMsg.getContact());
+
 		retval.setMessageRefId(tieMsg.getMessageRefId());
-		
-//		CbcMessageTypeIndicEnumType cbcMessageTypeIndicEnum = CbcMessageTypeIndicEnumType.fromValue(tieMsg.getMessageTypeIndic());
-//		retval.setMessageTypeIndic(cbcMessageTypeIndicEnum);
-//		
-//		//CorrMessageRefId: Must point to 1 or more previous message
-//		composeCorrMessageRefId(tieMsg, retval);
-//		
-//		//The reporting YEAR
-//		retval.setReportingPeriod(XMLdate(tieMsg.getReportingPeriod(),"reportingPeriod"));
-//		
-//		retval.setTimestamp(XMLdate(tieMsg.getTimestamp(),"timestamp"));
+
+		CbcMessageTypeIndicEnumType cbcMessageTypeIndicEnum = CbcMessageTypeIndicEnumType
+				.fromValue(tieMsg.getMessageTypeIndic());
+		retval.setMessageTypeIndic(cbcMessageTypeIndicEnum);
+		//
+		// CorrMessageRefId: Must point to 1 or more previous message
+		composeCorrMessageRefId(tieMsg, retval);
+		//
+		// The reporting YEAR
+		retval.setReportingPeriod(XMLdate(tieMsg.getReportingPeriod(), "reportingPeriod"));
+		//
+		retval.setTimestamp(XMLdate(tieMsg.getTimestamp(), "timestamp"));
+		System.out.println(tieMsg.getReportingPeriod() + " & " + tieMsg.getTimestamp());
 		// 3. Compose all child sub elements
 		// no sub element found
 
 		return retval;
 	}
-	
-	private XMLGregorianCalendar XMLdate(String dateString, String dateFormat){
-		Date dfDate=null;
+
+	private XMLGregorianCalendar XMLdate(String dateString, String dateFormat) {
+		Date dfDate = null;
 		DateFormat df = null;
 		XMLGregorianCalendar xmlDate = null;
-		if(dateFormat.equals("reportingPeriod")){
+		if (dateFormat.equals("reportingPeriod")) {
+			System.out.println("Directing to reporting period");
 			df = new SimpleDateFormat("yyyy");
-		}else if(dateFormat.equals("timestamp")){
-			df = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		} else if (dateFormat.equals("timestamp")) {
+			df = new SimpleDateFormat("MM/dd/yyyy, HH:mm a");
 		}
 		try {
 			dfDate = df.parse(dateString);
 			GregorianCalendar cal = new GregorianCalendar();
 			cal.setTime(dfDate);
-//			xmlDate = DatatypeFactory
-		} catch (ParseException e) {
+			xmlDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(cal);
+		} catch (ParseException | DatatypeConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return xmlDate;
 	}
 
 	private void composeCorrMessageRefId(TieMsg tieMsg, MessageSpecType retval) {
@@ -197,13 +208,19 @@ public class CbcrXmlProcessor {
 		// 1. Need how many element?
 		// same as # of docs in tieMsg
 		int numOfDocs = tieMsg.getNumOfDocs();
+		// The doc defined in xsd shows its quantity has to be greater than 0
+		if (numOfDocs > 0) {
+			retval = new ArrayList<CbcBodyType>();
 
-		retval = new ArrayList<CbcBodyType>();
+			// 2. Populate all its attributes and simple sub element
+			// loop over each doc in tie message
+			for (TieDoc doc : tieMsg.getTieDocList()) {
 
-		// 2. Populate all its attributes and simple sub element
-		// loop over each doc in tie message
-		// CbcBodyType cbcBody = composeCbcBody( objFactory, tieMsg, doc )
-		// add cbcBody to retval.add( cbcBody )
+				CbcBodyType cbcBody = composeCbcBody(objFactory, tieMsg, doc);
+				// add cbcBody to retval.add( cbcBody )
+				retval.add(cbcBody);
+			}
+		}
 
 		// 3. Compose all child sub elements
 		// No need for element list
@@ -216,23 +233,127 @@ public class CbcrXmlProcessor {
 	 * 
 	 * @param objFactory
 	 * @param tieMsg
+	 * @param doc
 	 * @return
 	 */
-	private CbcBodyType composeCbcBody(ObjectFactory objFactory, TieMsg tieMsg, DocSpecType doc) {
-		CbcBodyType retval = null;
+	private CbcBodyType composeCbcBody(ObjectFactory objFactory, TieMsg tieMsg, TieDoc doc) {
 
+		CbcBodyType retval = null;
+		retval = objFactory.createCbcBodyType();
 		// 1. Need how many element?
 
 		// 2. Populate all its attributes and simple sub element
+		CorrectableReportingEntityType reportingEntity = composeReportingEntity(objFactory, tieMsg, doc);
 
+		List<CorrectableCbcReportType> cbcReportList = composeCbcReport(objFactory, tieMsg, doc);
+
+		List<CorrectableAdditionalInfoType> additionalInfoList = composeAdditionalInfo(objFactory, tieMsg, doc);
 		// 3. Compose all child sub elements
+		retval.setReportingEntity(reportingEntity);
 
 		return retval;
 	}
 
-	void handleCbcBody(ObjectFactory factory, List<TieDoc> tieDocList) {
+	private List<CorrectableAdditionalInfoType> composeAdditionalInfo(ObjectFactory objFactory, TieMsg tieMsg,
+			TieDoc doc) {
 		// TODO Auto-generated method stub
+		return null;
+	}
 
+	private List<CorrectableCbcReportType> composeCbcReport(ObjectFactory objFactory, TieMsg tieMsg, TieDoc doc) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private CorrectableReportingEntityType composeReportingEntity(ObjectFactory objFactory, TieMsg tieMsg, TieDoc doc) {
+		// TODO Auto-generated method stub
+		// 1. Need how many element?
+
+		// 2. Populate all its attributes and simple sub element
+		CorrectableReportingEntityType retval = null;
+		retval = objFactory.createCorrectableReportingEntityType();
+
+		OrganisationPartyType cbcEntity = composeEntity(objFactory, tieMsg, doc);
+		CbcReportingRoleEnumType reportingRole = composeReportingRole(objFactory, tieMsg, doc);
+		DocSpecType docSpec = composeDocSpec(objFactory, tieMsg, doc);
+
+		// 3. Compose all child sub elements
+		retval.setEntity(cbcEntity);
+		retval.setReportingRole(reportingRole);
+		retval.setDocSpec(docSpec);
+
+		return retval;
+	}
+
+	private DocSpecType composeDocSpec(ObjectFactory objFactory, TieMsg tieMsg, TieDoc doc) {
+		// TODO Auto-generated method stub
+		// 1. Need how many element?
+		DocSpecType retval = null;
+		retval = objFactory.createDocSpecType();
+		//Set DocType
+		//Set docRefId, i.e.,sender Id
+		String senderId = new Integer(tieMsg.getSenderId()).toString();
+		retval.setDocRefId(senderId);
+		
+		//CorrMsgRefId
+		//CorrDocRefId
+		
+		// 2. Populate all its attributes and simple sub element
+		
+		// 3. Compose all child sub elements
+		return retval;
+	}
+
+	private CbcReportingRoleEnumType composeReportingRole(ObjectFactory objFactory, TieMsg tieMsg, TieDoc doc) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private OrganisationPartyType composeEntity(ObjectFactory objFactory, TieMsg tieMsg, TieDoc doc) {
+		// TODO Auto-generated method stub
+		// 1. Need how many element?
+
+		// 2. Populate all its attributes and simple sub element
+		OrganisationPartyType retval = null;
+		retval = objFactory.createOrganisationPartyType();
+
+		// 3. Compose all child sub elements
+		// Set ResCountyCode
+		if (tieMsg.getReceivingCountries() != null) {
+			List<CountryCodeType> receivingCounty = retval.getResCountryCode();// messageSpecType.getReceivingCountry();
+			String recivingCountryString = tieMsg.getReceivingCountries();
+			String[] recivingCountryList = recivingCountryString.split("\\s*,\\s*");
+			for (String country : recivingCountryList) {
+				receivingCounty.add(CountryCodeType.fromValue(country));
+			}
+		}
+		// Set tax Entity
+		// Set TIN
+		TINType TIN = objFactory.createTINType();
+		// TODO:fix this
+		String tin = "xyz";
+		if (tin != null) {
+			TIN.setValue(tin);
+			retval.setTIN(TIN);
+		}
+
+		// Set tax EntityList
+		for (TieTaxEntity taxEntity : doc.getTaxEntityList()) {
+			OrganisationINType IN = objFactory.createOrganisationINType();
+			String in = taxEntity.getTaxIdNum();
+			if (in != null) {
+				IN.setValue(in);
+				retval.getIN().add(IN);
+				
+				NameOrganisationType name = objFactory.createNameOrganisationType();
+				name.setValue(taxEntity.getName());
+				retval.getName().add(name);
+//				AddressType address = objFactory.createAddressType();
+				
+			}
+		}
+
+		return retval;
 	}
 
 	// private void handleMessageSpec(ObjectFactory factory, TieMsg tieMsg) {
@@ -284,9 +405,7 @@ public class CbcrXmlProcessor {
 			System.out.println("SAX Exception: " + e1.getMessage());
 			return false;
 		}
-
 		return true;
-
 	}
 }
 

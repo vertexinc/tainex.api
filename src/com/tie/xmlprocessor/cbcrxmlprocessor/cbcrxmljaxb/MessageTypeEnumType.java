@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlType;
 public enum MessageTypeEnumType {
 
     CBC;
+	
 
     public String value() {
         return name();
