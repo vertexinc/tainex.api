@@ -3,6 +3,8 @@ package com.tie.xmlprocessor.cbcrxmlprocessor;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,12 +26,15 @@ import javax.xml.validation.Validator;
 
 import org.xml.sax.SAXException;
 
+import com.tie.model.CbcrTable1;
 //import com.test.rss.ObjectFactory;
 import com.tie.model.TieDoc;
 import com.tie.model.TieDocType;
 import com.tie.model.TieMsg;
 import com.tie.model.TieTaxEntity;
 import com.tie.xmlprocessor.cbcrxmlprocessor.cbcrxmljaxb.*;
+import com.tie.xmlprocessor.cbcrxmlprocessor.cbcrxmljaxb.CorrectableCbcReportType.Summary;
+import com.tie.xmlprocessor.cbcrxmlprocessor.cbcrxmljaxb.CorrectableCbcReportType.Summary.Revenues;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -251,6 +256,14 @@ public class CbcrXmlProcessor {
 		// 3. Compose all child sub elements
 		retval.setReportingEntity(reportingEntity);
 
+		for (CorrectableCbcReportType cbcreport : cbcReportList) {
+			retval.getCbcReports().add(cbcreport);
+		}
+		//
+		// for(CorrectableAdditionalInfoType additionalInfo:additionalInfoList){
+		// retval.getAdditionalInfo().add(additionalInfo);
+		// }
+
 		return retval;
 	}
 
@@ -260,9 +273,64 @@ public class CbcrXmlProcessor {
 		return null;
 	}
 
+	// Right now we only have cbcrDoc, this list should contain only one doc
+	@SuppressWarnings("null")
 	private List<CorrectableCbcReportType> composeCbcReport(ObjectFactory objFactory, TieMsg tieMsg, TieDoc doc) {
 		// TODO Auto-generated method stub
-		return null;
+		// 1. Need how many element?
+		List<CorrectableCbcReportType> retval = null;
+
+		// 2. Populate all its attributes and simple sub element
+		for (CbcrTable1 table1 : doc.getCbcrTable1List()) {
+			CorrectableCbcReportType cbcReport = objFactory.createCorrectableCbcReportType();
+			DocSpecType docSpec = composeDocSpec(objFactory, tieMsg, doc);
+
+			// set ResCountryCode
+			String resCountryCode = doc.getResCountryCode();
+			CountryCodeType resCtyCode = CountryCodeType.fromValue(resCountryCode);
+
+			// set cbc:summary
+			Summary summary = composeSummary(objFactory, tieMsg, doc, table1);
+
+			// 3. Compose all child sub elements
+			cbcReport.setDocSpec(docSpec);
+			cbcReport.setResCountryCode(resCtyCode);
+			cbcReport.setSummary(summary);
+
+			retval.add(cbcReport);
+		}
+		return retval;
+	}
+
+	private Summary composeSummary(ObjectFactory objFactory, TieMsg tieMsg, TieDoc doc, CbcrTable1 table1) {
+		// TODO Auto-generated method stub
+		Summary retval = null;
+		// set revenues
+		Revenues revenues = null;
+		MonAmntType unrelated = null;
+		unrelated.setValue(new BigDecimal(table1.getRevenueUnrelatedParty()).toBigInteger());
+		unrelated.setCurrCode(CurrCodeType.fromValue(doc.getCurrencyCode()));
+		
+		MonAmntType related = null;
+		related.setValue(new BigDecimal(table1.getRevenueRelatedParty()).toBigInteger());
+		related.setCurrCode(CurrCodeType.fromValue(doc.getCurrencyCode()));
+		
+		MonAmntType total = null;
+		total.setValue(new BigDecimal(table1.getRevenueTotal()).toBigInteger());
+		total.setCurrCode(CurrCodeType.fromValue(doc.getCurrencyCode()));
+		
+		revenues.setUnrelated(unrelated);
+		revenues.setRelated(related);
+		revenues.setTotal(total);
+		
+		MonAmntType profitOrLoss = null;
+		profitOrLoss.setValue(new BigDecimal(table1.getPlBeforeIncomeTax()).toBigInteger());
+		
+		
+		
+		retval.setRevenues(revenues);
+		retval.setProfitOrLoss(profitOrLoss);
+		return retval;
 	}
 
 	private CorrectableReportingEntityType composeReportingEntity(ObjectFactory objFactory, TieMsg tieMsg, TieDoc doc) {
@@ -290,16 +358,16 @@ public class CbcrXmlProcessor {
 		// 1. Need how many element?
 		DocSpecType retval = null;
 		retval = objFactory.createDocSpecType();
-		//Set DocType
-		//Set docRefId, i.e.,sender Id
+		// Set DocType
+		// Set docRefId, i.e.,sender Id
 		String senderId = new Integer(tieMsg.getSenderId()).toString();
 		retval.setDocRefId(senderId);
-		
-		//CorrMsgRefId
-		//CorrDocRefId
-		
+
+		// CorrMsgRefId
+		// CorrDocRefId
+
 		// 2. Populate all its attributes and simple sub element
-		
+
 		// 3. Compose all child sub elements
 		return retval;
 	}
@@ -344,27 +412,17 @@ public class CbcrXmlProcessor {
 			if (in != null) {
 				IN.setValue(in);
 				retval.getIN().add(IN);
-				
+
 				NameOrganisationType name = objFactory.createNameOrganisationType();
 				name.setValue(taxEntity.getName());
 				retval.getName().add(name);
-//				AddressType address = objFactory.createAddressType();
-				
+				// AddressType address = objFactory.createAddressType();
+
 			}
 		}
 
 		return retval;
 	}
-
-	// private void handleMessageSpec(ObjectFactory factory, TieMsg tieMsg) {
-	// // TODO Auto-generated method stub
-	// CBCOECD cbcoecd = factory.createCBCOECD();
-	// cbcoecd.setVersion("1.0");
-	// MessageSpecType messageSpecType = new MessageSpecType();
-	// messageSpecType.setSendingEntityIN(tieMsg.getSendingEntityIdNum());
-	// handleTransmittingCountry(tieMsg, messageSpecType);
-	// handleReceivingCountry(tieMsg, messageSpecType);
-	// }
 
 	// Receiving countries should be a list
 	private void composeReceivingCountry(TieMsg tieMsg, MessageSpecType messageSpecType) {
