@@ -325,11 +325,38 @@ public class CbcrXmlProcessor {
 		
 		MonAmntType profitOrLoss = null;
 		profitOrLoss.setValue(new BigDecimal(table1.getPlBeforeIncomeTax()).toBigInteger());
+		profitOrLoss.setCurrCode(CurrCodeType.fromValue(doc.getCurrencyCode()));
 		
+		MonAmntType taxPaid = null;
+		taxPaid.setValue(new BigDecimal(table1.getIncomeTaxPaid()).toBigInteger());
+		taxPaid.setCurrCode(CurrCodeType.fromValue(doc.getCurrencyCode()));
 		
+		MonAmntType taxAccrued = null;
+		taxAccrued.setValue(new BigDecimal(table1.getIncomeTaxAccrued()).toBigInteger());
+		taxAccrued.setCurrCode(CurrCodeType.fromValue(doc.getCurrencyCode()));
+		
+		MonAmntType capital = null;
+		capital.setValue(new BigDecimal(table1.getStatedCapital()).toBigInteger());
+		capital.setCurrCode(CurrCodeType.fromValue(doc.getCurrencyCode()));
+		
+		MonAmntType earnings = null;
+		earnings.setValue(new BigDecimal(table1.getAccumulatedEarnings()).toBigInteger());
+		earnings.setCurrCode(CurrCodeType.fromValue(doc.getCurrencyCode()));
+		
+		BigInteger NbEmployees = BigInteger.valueOf(table1.getNumberOfEmployees());
+		
+		MonAmntType assets = null;
+		assets.setValue(new BigDecimal(table1.getTangibleAssetsNonCash()).toBigInteger());
+		assets.setCurrCode(CurrCodeType.fromValue(doc.getCurrencyCode()));
 		
 		retval.setRevenues(revenues);
 		retval.setProfitOrLoss(profitOrLoss);
+		retval.setTaxPaid(taxPaid);
+		retval.setTaxAccrued(taxAccrued);
+		retval.setCapital(capital);
+		retval.setEarnings(earnings);
+		retval.setNbEmployees(NbEmployees);
+		retval.setAssets(assets);
 		return retval;
 	}
 
