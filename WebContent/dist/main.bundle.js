@@ -54178,7 +54178,7 @@ var BodyComponent = (function () {
             var dp = new __WEBPACK_IMPORTED_MODULE_2__angular_common__["DatePipe"]('en-US' /* locale .. */);
             _this.timename = dp.transform(new Date(), 'yMdjm');
             _this.body.messageDetail.timestamp = _this.timename;
-            _this.body.messageDetail.reportingPeriod = "new";
+            _this.body.messageDetail.reportingPeriod = "2014";
             _this.showTable = false;
         });
     };

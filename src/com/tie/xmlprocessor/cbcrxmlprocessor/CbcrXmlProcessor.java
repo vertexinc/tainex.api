@@ -278,7 +278,7 @@ public class CbcrXmlProcessor {
 	private List<CorrectableCbcReportType> composeCbcReport(ObjectFactory objFactory, TieMsg tieMsg, TieDoc doc) {
 		// TODO Auto-generated method stub
 		// 1. Need how many element?
-		List<CorrectableCbcReportType> retval = null;
+		List<CorrectableCbcReportType> retval = new ArrayList<CorrectableCbcReportType>();
 
 		// 2. Populate all its attributes and simple sub element
 		for (CbcrTable1 table1 : doc.getCbcrTable1List()) {
@@ -290,65 +290,68 @@ public class CbcrXmlProcessor {
 			CountryCodeType resCtyCode = CountryCodeType.fromValue(resCountryCode);
 
 			// set cbc:summary
-			Summary summary = composeSummary(objFactory, tieMsg, doc, table1);
+			 Summary summary = composeSummary(objFactory, tieMsg, doc,
+			 table1);
 
 			// 3. Compose all child sub elements
 			cbcReport.setDocSpec(docSpec);
 			cbcReport.setResCountryCode(resCtyCode);
-			cbcReport.setSummary(summary);
+		    cbcReport.setSummary(summary);
 
-			retval.add(cbcReport);
+			if (cbcReport != null) {
+				retval.add(cbcReport);
+			}
 		}
 		return retval;
 	}
 
 	private Summary composeSummary(ObjectFactory objFactory, TieMsg tieMsg, TieDoc doc, CbcrTable1 table1) {
 		// TODO Auto-generated method stub
-		Summary retval = null;
+		Summary retval = new Summary();
 		// set revenues
-		Revenues revenues = null;
-		MonAmntType unrelated = null;
+		Revenues revenues = new Revenues();
+		MonAmntType unrelated = new MonAmntType();
 		unrelated.setValue(new BigDecimal(table1.getRevenueUnrelatedParty()).toBigInteger());
 		unrelated.setCurrCode(CurrCodeType.fromValue(doc.getCurrencyCode()));
-		
-		MonAmntType related = null;
+
+		MonAmntType related = new MonAmntType();
 		related.setValue(new BigDecimal(table1.getRevenueRelatedParty()).toBigInteger());
 		related.setCurrCode(CurrCodeType.fromValue(doc.getCurrencyCode()));
-		
-		MonAmntType total = null;
+
+		MonAmntType total = new MonAmntType();
 		total.setValue(new BigDecimal(table1.getRevenueTotal()).toBigInteger());
 		total.setCurrCode(CurrCodeType.fromValue(doc.getCurrencyCode()));
-		
+
 		revenues.setUnrelated(unrelated);
 		revenues.setRelated(related);
 		revenues.setTotal(total);
-		
-		MonAmntType profitOrLoss = null;
+
+		MonAmntType profitOrLoss = new MonAmntType();
 		profitOrLoss.setValue(new BigDecimal(table1.getPlBeforeIncomeTax()).toBigInteger());
 		profitOrLoss.setCurrCode(CurrCodeType.fromValue(doc.getCurrencyCode()));
-		
-		MonAmntType taxPaid = null;
+
+		MonAmntType taxPaid = new MonAmntType();
 		taxPaid.setValue(new BigDecimal(table1.getIncomeTaxPaid()).toBigInteger());
 		taxPaid.setCurrCode(CurrCodeType.fromValue(doc.getCurrencyCode()));
-		
-		MonAmntType taxAccrued = null;
+
+		MonAmntType taxAccrued = new MonAmntType();
 		taxAccrued.setValue(new BigDecimal(table1.getIncomeTaxAccrued()).toBigInteger());
 		taxAccrued.setCurrCode(CurrCodeType.fromValue(doc.getCurrencyCode()));
-		
-		MonAmntType capital = null;
+
+		MonAmntType capital = new MonAmntType();
 		capital.setValue(new BigDecimal(table1.getStatedCapital()).toBigInteger());
 		capital.setCurrCode(CurrCodeType.fromValue(doc.getCurrencyCode()));
-		
-		MonAmntType earnings = null;
+
+		MonAmntType earnings = new MonAmntType();
 		earnings.setValue(new BigDecimal(table1.getAccumulatedEarnings()).toBigInteger());
 		earnings.setCurrCode(CurrCodeType.fromValue(doc.getCurrencyCode()));
-		
+
 		BigInteger NbEmployees = BigInteger.valueOf(table1.getNumberOfEmployees());
-		
-		MonAmntType assets = null;
+
+		MonAmntType assets = new MonAmntType();
 		assets.setValue(new BigDecimal(table1.getTangibleAssetsNonCash()).toBigInteger());
 		assets.setCurrCode(CurrCodeType.fromValue(doc.getCurrencyCode()));
-		
+
 		retval.setRevenues(revenues);
 		retval.setProfitOrLoss(profitOrLoss);
 		retval.setTaxPaid(taxPaid);
@@ -365,7 +368,7 @@ public class CbcrXmlProcessor {
 		// 1. Need how many element?
 
 		// 2. Populate all its attributes and simple sub element
-		CorrectableReportingEntityType retval = null;
+		CorrectableReportingEntityType retval = new CorrectableReportingEntityType();
 		retval = objFactory.createCorrectableReportingEntityType();
 
 		OrganisationPartyType cbcEntity = composeEntity(objFactory, tieMsg, doc);
@@ -383,7 +386,7 @@ public class CbcrXmlProcessor {
 	private DocSpecType composeDocSpec(ObjectFactory objFactory, TieMsg tieMsg, TieDoc doc) {
 		// TODO Auto-generated method stub
 		// 1. Need how many element?
-		DocSpecType retval = null;
+		DocSpecType retval = new DocSpecType();
 		retval = objFactory.createDocSpecType();
 		// Set DocType
 		// Set docRefId, i.e.,sender Id
@@ -409,7 +412,7 @@ public class CbcrXmlProcessor {
 		// 1. Need how many element?
 
 		// 2. Populate all its attributes and simple sub element
-		OrganisationPartyType retval = null;
+		OrganisationPartyType retval = new OrganisationPartyType();
 		retval = objFactory.createOrganisationPartyType();
 
 		// 3. Compose all child sub elements
