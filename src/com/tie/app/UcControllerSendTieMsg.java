@@ -55,6 +55,7 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 		CbcrXmlProcessor cbcrXmlProcessor = new CbcrXmlProcessor();
 		String xmlString = cbcrXmlProcessor.composeXmlString(tieMsg);
 		logger.info("Message built successfully: {}",xmlString);
+		cbcrXmlProcessor.validateXML(tieMsg);
 		return null;
 	}// end buildTieMsg(.)
 

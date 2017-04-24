@@ -19,6 +19,7 @@ public class TieDoc {
 	private String sourceDoc;
 	private String accountingStandard;
 	private String reportingPeriod;
+	private String reportingEntityRole;
 	
 	private List<TieTaxEntity> taxEntityList = new ArrayList<TieTaxEntity>();
 	//TODO move to cbcrdoc class
@@ -33,7 +34,7 @@ public class TieDoc {
 
 	public TieDoc(int tieDocId, String name, String code, String description, int tieDocTypeId, int tieMsgId,
 			String reportingEntityCode, String currencyCode, String resCountryCode, String sourceDoc,
-			String accountingStandard, String reportingPeriod) {
+			String accountingStandard, String reportingPeriod,String reportingEntityRole) {
 		super();
 		this.tieDocId = tieDocId;
 		this.name = name;
@@ -47,6 +48,7 @@ public class TieDoc {
 		this.sourceDoc = sourceDoc;
 		this.accountingStandard = accountingStandard;
 		this.reportingPeriod = reportingPeriod;
+		this.reportingEntityRole = reportingEntityRole;
 	}
 
 //	public String getTable3String() {
@@ -59,6 +61,14 @@ public class TieDoc {
 
 	public TieTaxEntity getReportingEntity() {
 		return reportingEntity;
+	}
+
+	public String getReportingEntityRole() {
+		return reportingEntityRole;
+	}
+
+	public void setReportingEntityRole(String reportingEntityRole) {
+		this.reportingEntityRole = reportingEntityRole;
 	}
 
 	public void setReportingEntity(TieTaxEntity reportingEntity) {

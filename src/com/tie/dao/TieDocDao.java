@@ -44,9 +44,10 @@ public class TieDocDao extends BaseDao {
 				String sourceDoc = rs.getString("sourceDoc");
 				String accountingStandard = rs.getString("accountingStandard");
 				String reportingPeriod = rs.getString("reportingPeriod");
+				String reportingEntityRole = rs.getString("reportingEntityRole");
 
 				tieDoc = new TieDoc(tieDocId, name, code, description, tieDocTypeId, tieMsgId, reportingEntityCode,
-						currencyCode, resCountryCode, sourceDoc, accountingStandard, reportingPeriod);
+						currencyCode, resCountryCode, sourceDoc, accountingStandard, reportingPeriod,reportingEntityRole);
 				// tieapp = new TieApp(name,description);
 				tieDocList.add(tieDoc);
 			}
@@ -105,9 +106,10 @@ public class TieDocDao extends BaseDao {
 				String sourceDoc = rs.getString("sourceDoc");
 				String accountingStandard = rs.getString("accountingStandard");
 				String reportingPeriod = rs.getString("reportingPeriod");
-
+				String reportingEntityRole = rs.getString("reportingEntityRole");
+				
 				tieDoc = new TieDoc(tieDocId, name, code, description, tieDocTypeId, tieMsgId, reportingEntityCode,
-						currencyCode, resCountryCode, sourceDoc, accountingStandard, reportingPeriod);
+						currencyCode, resCountryCode, sourceDoc, accountingStandard, reportingPeriod,reportingEntityRole);
 				// tieapp = new TieApp(name,description);
 
 			}
@@ -213,7 +215,7 @@ public class TieDocDao extends BaseDao {
 		try {
 			
 			String sql;// TODO : insert and update in separate methods
-			sql = "insert into tieDoc values(?,?,?,?,?,?,?,?,?,?,?,?)";
+			sql = "insert into tieDoc values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement saveStatement = conn.prepareStatement(sql);
 			saveStatement.setString(1, null);
 			saveStatement.setString(2, tieDoc.getName());
@@ -230,6 +232,7 @@ public class TieDocDao extends BaseDao {
 			saveStatement.setString(10, tieDoc.getSourceDoc());
 			saveStatement.setString(11, tieDoc.getAccountingStandard());
 			saveStatement.setString(12, tieDoc.getReportingPeriod());
+			saveStatement.setString(13, tieDoc.getReportingEntityRole());
 
 			saveStatement.executeUpdate();
 

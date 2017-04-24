@@ -27,6 +27,7 @@ import javax.xml.validation.Validator;
 import org.xml.sax.SAXException;
 
 import com.tie.model.CbcrTable1;
+import com.tie.model.CbcrTable2;
 //import com.test.rss.ObjectFactory;
 import com.tie.model.TieDoc;
 import com.tie.model.TieDocType;
@@ -70,12 +71,37 @@ public class CbcrXmlProcessor {
 		// marshalling to string
 		java.io.StringWriter sw = new StringWriter();
 		JAXBContext context = JAXBContext.newInstance(ObjectFactory.class);
-		;
+		
 		Marshaller marshaller = context.createMarshaller();
 		marshaller.setProperty("jaxb.formatted.output", Boolean.TRUE);
 		marshaller.marshal(cbcoecd, sw);
 		retval = sw.toString();
+
+		// validation
+		File file = new File("file.xml");
+		marshaller.marshal(cbcoecd, file);
+
+		boolean valid = validateXMLSchema("CbcXML_v1.0.xsd", "file.xml");
+		System.out.println();
+		System.out.println("========Validation result========");
+		System.out.println(valid);
 		return retval;
+	}
+	
+	public void validateXML(TieMsg tieMsg) throws JAXBException {
+		JAXBContext context = JAXBContext.newInstance(ObjectFactory.class);
+		Marshaller marshaller = context.createMarshaller();
+		ObjectFactory factory = new ObjectFactory();
+		CBCOECD cbcoecd = composeCBCOECD(factory, tieMsg);
+		// validation
+		File file = new File("file.xml");
+		marshaller.marshal(cbcoecd, file);
+
+		boolean valid = validateXMLSchema("CbcXML_v1.0.xsd", "file.xml");
+		System.out.println();
+		System.out.println("========Validation result========");
+		System.out.println(valid);
+	
 	}
 
 	/**
@@ -290,18 +316,83 @@ public class CbcrXmlProcessor {
 			CountryCodeType resCtyCode = CountryCodeType.fromValue(resCountryCode);
 
 			// set cbc:summary
-			 Summary summary = composeSummary(objFactory, tieMsg, doc,
-			 table1);
+			Summary summary = composeSummary(objFactory, tieMsg, doc, table1);
 
+			// set table2
+			List<ConstituentEntityType> constEntities = new ArrayList<ConstituentEntityType>();
+			List<CbcrTable2> table2List = doc.getCbcrTable2List();
+			for (CbcrTable2 table2 : table2List) {
+				if (table1.getTaxJurisdiction().equals(table2.getTaxJurisdiction())) {
+					ConstituentEntityType constEntitiy = composeConstEntities(objFactory, tieMsg, table2);
+					constEntities.add(constEntitiy);
+				}
+			}
+
+			// TODO: Need to figure out the business role of table2 MNE group
+			// List<ConstituentEntityType> constEntityList =
+			// composeEntityList(objFactory, tieMsg, doc,);
 			// 3. Compose all child sub elements
 			cbcReport.setDocSpec(docSpec);
 			cbcReport.setResCountryCode(resCtyCode);
-		    cbcReport.setSummary(summary);
+			cbcReport.setSummary(summary);
+			for (ConstituentEntityType constEntitiy : constEntities) {
+				cbcReport.getConstEntities().add(constEntitiy);
+			}
 
 			if (cbcReport != null) {
 				retval.add(cbcReport);
 			}
 		}
+		return retval;
+	}
+
+	private ConstituentEntityType composeConstEntities(ObjectFactory objFactory, TieMsg tieMsg, CbcrTable2 table2) {
+		// TODO Auto-generated method stub
+		ConstituentEntityType retval = objFactory.createConstituentEntityType();
+		// Set ConstEntity
+		// Set IncorpCountryCode
+		// Set BizActivities
+		List<CbcBizActivityTypeEnumType> cbcBizActivityList = retval.getBizActivities();
+		if(table2.getMainBusRAndD() == 1){
+			cbcBizActivityList.add(CbcBizActivityTypeEnumType.fromValue("CBC501"));
+		}
+		if(table2.getMainBusHoldingIp() == 1){
+			cbcBizActivityList.add(CbcBizActivityTypeEnumType.fromValue("CBC502"));
+		}
+		if(table2.getMainBusPurchasing() == 1){
+			cbcBizActivityList.add(CbcBizActivityTypeEnumType.fromValue("CBC503"));
+		}
+		if(table2.getMainBusMfctOrPrdn() == 1){
+			cbcBizActivityList.add(CbcBizActivityTypeEnumType.fromValue("CBC504"));
+		}
+		if(table2.getMainBusSaleMktDistr() == 1){
+			cbcBizActivityList.add(CbcBizActivityTypeEnumType.fromValue("CBC505"));
+		}
+		
+		if(table2.getMainBusAdminMgmtSupportSvc() == 1){
+			cbcBizActivityList.add(CbcBizActivityTypeEnumType.fromValue("CBC506"));
+		}
+		if(table2.getMainBusProvSvcToUnrelatedParti() == 1){
+			cbcBizActivityList.add(CbcBizActivityTypeEnumType.fromValue("CBC507"));
+		}
+		if(table2.getMainBusInternalGroupFinance() == 1){
+			cbcBizActivityList.add(CbcBizActivityTypeEnumType.fromValue("CBC508"));
+		}
+		if(table2.getMainBusRegulatedFinSvc() == 1){
+			cbcBizActivityList.add(CbcBizActivityTypeEnumType.fromValue("CBC509"));
+		}
+		if(table2.getMainBusInsurance() == 1){
+			cbcBizActivityList.add(CbcBizActivityTypeEnumType.fromValue("CBC510"));
+		}
+		if(table2.getMainBusHoldingEquityInstrument() == 1){
+			cbcBizActivityList.add(CbcBizActivityTypeEnumType.fromValue("CBC511"));
+		}		
+		if(table2.getMainBusDormant() == 1){
+			cbcBizActivityList.add(CbcBizActivityTypeEnumType.fromValue("CBC512"));
+		}
+		cbcBizActivityList.add(CbcBizActivityTypeEnumType.fromValue("CBC513"));
+		// Set OtherEntityInfo
+		
 		return retval;
 	}
 
