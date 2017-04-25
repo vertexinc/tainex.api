@@ -28,6 +28,7 @@ import org.xml.sax.SAXException;
 
 import com.tie.model.CbcrTable1;
 import com.tie.model.CbcrTable2;
+import com.tie.model.CbcrTable3;
 //import com.test.rss.ObjectFactory;
 import com.tie.model.TieDoc;
 import com.tie.model.TieDocType;
@@ -71,7 +72,7 @@ public class CbcrXmlProcessor {
 		// marshalling to string
 		java.io.StringWriter sw = new StringWriter();
 		JAXBContext context = JAXBContext.newInstance(ObjectFactory.class);
-		
+
 		Marshaller marshaller = context.createMarshaller();
 		marshaller.setProperty("jaxb.formatted.output", Boolean.TRUE);
 		marshaller.marshal(cbcoecd, sw);
@@ -87,7 +88,7 @@ public class CbcrXmlProcessor {
 		System.out.println(valid);
 		return retval;
 	}
-	
+
 	public void validateXML(TieMsg tieMsg) throws JAXBException {
 		JAXBContext context = JAXBContext.newInstance(ObjectFactory.class);
 		Marshaller marshaller = context.createMarshaller();
@@ -101,7 +102,7 @@ public class CbcrXmlProcessor {
 		System.out.println();
 		System.out.println("========Validation result========");
 		System.out.println(valid);
-	
+
 	}
 
 	/**
@@ -278,7 +279,6 @@ public class CbcrXmlProcessor {
 
 		List<CorrectableCbcReportType> cbcReportList = composeCbcReport(objFactory, tieMsg, doc);
 
-		List<CorrectableAdditionalInfoType> additionalInfoList = composeAdditionalInfo(objFactory, tieMsg, doc);
 		// 3. Compose all child sub elements
 		retval.setReportingEntity(reportingEntity);
 
@@ -286,17 +286,23 @@ public class CbcrXmlProcessor {
 			retval.getCbcReports().add(cbcreport);
 		}
 		//
-		// for(CorrectableAdditionalInfoType additionalInfo:additionalInfoList){
-		// retval.getAdditionalInfo().add(additionalInfo);
-		// }
+		for (CbcrTable3 cbcrTable3 : doc.getCbcrTable3List()) {
+			CorrectableAdditionalInfoType additionalInfo = composeAdditionalInfo(objFactory, tieMsg, doc, cbcrTable3);
+			retval.getAdditionalInfo().add(additionalInfo);
+		}
 
 		return retval;
 	}
 
-	private List<CorrectableAdditionalInfoType> composeAdditionalInfo(ObjectFactory objFactory, TieMsg tieMsg,
-			TieDoc doc) {
+	private CorrectableAdditionalInfoType composeAdditionalInfo(ObjectFactory objFactory, TieMsg tieMsg, TieDoc doc,
+			CbcrTable3 cbcrTable3) {
 		// TODO Auto-generated method stub
-		return null;
+		CorrectableAdditionalInfoType retval = objFactory.createCorrectableAdditionalInfoType();
+		DocSpecType docSpec = composeDocSpec(objFactory, tieMsg, doc);
+		String otherInfo = cbcrTable3.getAdditionalInfo();
+		retval.setOtherInfo(otherInfo);
+		retval.setDocSpec(docSpec);
+		return retval;
 	}
 
 	// Right now we only have cbcrDoc, this list should contain only one doc
@@ -323,7 +329,7 @@ public class CbcrXmlProcessor {
 			List<CbcrTable2> table2List = doc.getCbcrTable2List();
 			for (CbcrTable2 table2 : table2List) {
 				if (table1.getTaxJurisdiction().equals(table2.getTaxJurisdiction())) {
-					ConstituentEntityType constEntitiy = composeConstEntities(objFactory, tieMsg, table2,doc);
+					ConstituentEntityType constEntitiy = composeConstEntities(objFactory, tieMsg, table2, doc);
 					constEntities.add(constEntitiy);
 				}
 			}
@@ -346,63 +352,62 @@ public class CbcrXmlProcessor {
 		return retval;
 	}
 
-	private ConstituentEntityType composeConstEntities(ObjectFactory objFactory, TieMsg tieMsg, CbcrTable2 table2, TieDoc doc) {
+	private ConstituentEntityType composeConstEntities(ObjectFactory objFactory, TieMsg tieMsg, CbcrTable2 table2,
+			TieDoc doc) {
 		// TODO Auto-generated method stub
 		ConstituentEntityType retval = objFactory.createConstituentEntityType();
 		// Set ConstEntity
-		OrganisationPartyType constEntity = composeEntity(objFactory,tieMsg,doc);
+		OrganisationPartyType constEntity = composeEntity(objFactory, tieMsg, doc);
 		retval.setConstEntity(constEntity);
-		
+
 		// Set IncorpCountryCode
 		retval.setIncorpCountryCode(CountryCodeType.fromValue(table2.getTaxJurisOfIncorporation()));
-		
+
 		// Set BizActivities
 		List<CbcBizActivityTypeEnumType> cbcBizActivityList = retval.getBizActivities();
-		if(table2.getMainBusRAndD() == 1){
+		if (table2.getMainBusRAndD() == 1) {
 			cbcBizActivityList.add(CbcBizActivityTypeEnumType.fromValue("CBC501"));
 		}
-		if(table2.getMainBusHoldingIp() == 1){
+		if (table2.getMainBusHoldingIp() == 1) {
 			cbcBizActivityList.add(CbcBizActivityTypeEnumType.fromValue("CBC502"));
 		}
-		if(table2.getMainBusPurchasing() == 1){
+		if (table2.getMainBusPurchasing() == 1) {
 			cbcBizActivityList.add(CbcBizActivityTypeEnumType.fromValue("CBC503"));
 		}
-		if(table2.getMainBusMfctOrPrdn() == 1){
+		if (table2.getMainBusMfctOrPrdn() == 1) {
 			cbcBizActivityList.add(CbcBizActivityTypeEnumType.fromValue("CBC504"));
 		}
-		if(table2.getMainBusSaleMktDistr() == 1){
+		if (table2.getMainBusSaleMktDistr() == 1) {
 			cbcBizActivityList.add(CbcBizActivityTypeEnumType.fromValue("CBC505"));
 		}
-		
-		if(table2.getMainBusAdminMgmtSupportSvc() == 1){
+
+		if (table2.getMainBusAdminMgmtSupportSvc() == 1) {
 			cbcBizActivityList.add(CbcBizActivityTypeEnumType.fromValue("CBC506"));
 		}
-		if(table2.getMainBusProvSvcToUnrelatedParti() == 1){
+		if (table2.getMainBusProvSvcToUnrelatedParti() == 1) {
 			cbcBizActivityList.add(CbcBizActivityTypeEnumType.fromValue("CBC507"));
 		}
-		if(table2.getMainBusInternalGroupFinance() == 1){
+		if (table2.getMainBusInternalGroupFinance() == 1) {
 			cbcBizActivityList.add(CbcBizActivityTypeEnumType.fromValue("CBC508"));
 		}
-		if(table2.getMainBusRegulatedFinSvc() == 1){
+		if (table2.getMainBusRegulatedFinSvc() == 1) {
 			cbcBizActivityList.add(CbcBizActivityTypeEnumType.fromValue("CBC509"));
 		}
-		if(table2.getMainBusInsurance() == 1){
+		if (table2.getMainBusInsurance() == 1) {
 			cbcBizActivityList.add(CbcBizActivityTypeEnumType.fromValue("CBC510"));
 		}
-		if(table2.getMainBusHoldingEquityInstrument() == 1){
+		if (table2.getMainBusHoldingEquityInstrument() == 1) {
 			cbcBizActivityList.add(CbcBizActivityTypeEnumType.fromValue("CBC511"));
-		}		
-		if(table2.getMainBusDormant() == 1){
+		}
+		if (table2.getMainBusDormant() == 1) {
 			cbcBizActivityList.add(CbcBizActivityTypeEnumType.fromValue("CBC512"));
 		}
 		cbcBizActivityList.add(CbcBizActivityTypeEnumType.fromValue("CBC513"));
 		// Set OtherEntityInfo
-		
+
 		retval.setOtherEntityInfo(table2.getMainBusOtherNotes());
 		return retval;
 	}
-
-
 
 	private Summary composeSummary(ObjectFactory objFactory, TieMsg tieMsg, TieDoc doc, CbcrTable1 table1) {
 		// TODO Auto-generated method stub
@@ -471,8 +476,10 @@ public class CbcrXmlProcessor {
 		retval = objFactory.createCorrectableReportingEntityType();
 
 		OrganisationPartyType cbcEntity = composeEntity(objFactory, tieMsg, doc);
-		CbcReportingRoleEnumType reportingRole = CbcReportingRoleEnumType.fromValue("CBC701");//composeReportingRole(objFactory, tieMsg, doc);
-		
+		CbcReportingRoleEnumType reportingRole = CbcReportingRoleEnumType.fromValue("CBC701");// composeReportingRole(objFactory,
+																								// tieMsg,
+																								// doc);
+
 		DocSpecType docSpec = composeDocSpec(objFactory, tieMsg, doc);
 
 		// 3. Compose all child sub elements
@@ -490,15 +497,15 @@ public class CbcrXmlProcessor {
 		retval = objFactory.createDocSpecType();
 		// Set DocType
 		int docTypeId = doc.getTieDocTypeId();
-		TieDocType tieDocType  = new TieDocType();
+		TieDocType tieDocType = new TieDocType();
 		String docTypeString = tieDocType.findDocTypeById(docTypeId);
 		// Set OECDDocType
 		retval.setDocTypeIndic(OECDDocTypeIndicEnumType.fromValue(docTypeString));
 		// Set docRefId, i.e.,sender Id
 		String senderId = new Integer(tieMsg.getSenderId()).toString();
 		retval.setDocRefId(senderId);
-		
-		//**********Made blank space as default value here***********
+
+		// **********Made blank space as default value here***********
 		// CorrMsgRefId
 		retval.setCorrMessageRefId(" ");
 		// CorrDocRefId
