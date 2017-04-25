@@ -456,7 +456,7 @@ public class TieSessionController extends TieControllerBase {
 			parsedDoc = taxDocParser.parse(tieDocString, currentMsg);
 			
 			//Set reporting eneityRole as default
-			parsedDoc.setReportingEntityRole("CBC 701");
+			parsedDoc.setReportingEntityRole("CBC701");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			logger.error("Exception at TieSessionController",

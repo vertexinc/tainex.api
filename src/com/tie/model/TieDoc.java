@@ -209,9 +209,12 @@ public class TieDoc {
 				+ ", tieDocTypeId=" + tieDocTypeId + ", tieMsgId=" + tieMsgId + ", reportingEntityCode="
 				+ reportingEntityCode + ", reportingEntity=" + reportingEntity + ", currencyCode=" + currencyCode
 				+ ", resCountryCode=" + resCountryCode + ", sourceDoc=" + sourceDoc + ", accountingStandard="
-				+ accountingStandard + ", reportingPeriod=" + reportingPeriod + ", taxEntityList=" + taxEntityList
-				+ "]";
+				+ accountingStandard + ", reportingPeriod=" + reportingPeriod + ", reportingEntityRole="
+				+ reportingEntityRole + ", taxEntityList=" + taxEntityList + ", cbcrTable1List=" + cbcrTable1List
+				+ ", cbcrTable2List=" + cbcrTable2List + ", cbcrTable3List=" + cbcrTable3List + "]";
 	}
+
+	
 	
 
 }

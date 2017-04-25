@@ -45,6 +45,7 @@ public class TieDocDao extends BaseDao {
 				String accountingStandard = rs.getString("accountingStandard");
 				String reportingPeriod = rs.getString("reportingPeriod");
 				String reportingEntityRole = rs.getString("reportingEntityRole");
+														   
 
 				tieDoc = new TieDoc(tieDocId, name, code, description, tieDocTypeId, tieMsgId, reportingEntityCode,
 						currencyCode, resCountryCode, sourceDoc, accountingStandard, reportingPeriod,reportingEntityRole);

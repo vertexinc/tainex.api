@@ -323,7 +323,7 @@ public class CbcrXmlProcessor {
 			List<CbcrTable2> table2List = doc.getCbcrTable2List();
 			for (CbcrTable2 table2 : table2List) {
 				if (table1.getTaxJurisdiction().equals(table2.getTaxJurisdiction())) {
-					ConstituentEntityType constEntitiy = composeConstEntities(objFactory, tieMsg, table2);
+					ConstituentEntityType constEntitiy = composeConstEntities(objFactory, tieMsg, table2,doc);
 					constEntities.add(constEntitiy);
 				}
 			}
@@ -346,11 +346,16 @@ public class CbcrXmlProcessor {
 		return retval;
 	}
 
-	private ConstituentEntityType composeConstEntities(ObjectFactory objFactory, TieMsg tieMsg, CbcrTable2 table2) {
+	private ConstituentEntityType composeConstEntities(ObjectFactory objFactory, TieMsg tieMsg, CbcrTable2 table2, TieDoc doc) {
 		// TODO Auto-generated method stub
 		ConstituentEntityType retval = objFactory.createConstituentEntityType();
 		// Set ConstEntity
+		OrganisationPartyType constEntity = composeEntity(objFactory,tieMsg,doc);
+		retval.setConstEntity(constEntity);
+		
 		// Set IncorpCountryCode
+		retval.setIncorpCountryCode(CountryCodeType.fromValue(table2.getTaxJurisOfIncorporation()));
+		
 		// Set BizActivities
 		List<CbcBizActivityTypeEnumType> cbcBizActivityList = retval.getBizActivities();
 		if(table2.getMainBusRAndD() == 1){
@@ -393,8 +398,11 @@ public class CbcrXmlProcessor {
 		cbcBizActivityList.add(CbcBizActivityTypeEnumType.fromValue("CBC513"));
 		// Set OtherEntityInfo
 		
+		retval.setOtherEntityInfo(table2.getMainBusOtherNotes());
 		return retval;
 	}
+
+
 
 	private Summary composeSummary(ObjectFactory objFactory, TieMsg tieMsg, TieDoc doc, CbcrTable1 table1) {
 		// TODO Auto-generated method stub
@@ -463,7 +471,8 @@ public class CbcrXmlProcessor {
 		retval = objFactory.createCorrectableReportingEntityType();
 
 		OrganisationPartyType cbcEntity = composeEntity(objFactory, tieMsg, doc);
-		CbcReportingRoleEnumType reportingRole = composeReportingRole(objFactory, tieMsg, doc);
+		CbcReportingRoleEnumType reportingRole = CbcReportingRoleEnumType.fromValue("CBC701");//composeReportingRole(objFactory, tieMsg, doc);
+		
 		DocSpecType docSpec = composeDocSpec(objFactory, tieMsg, doc);
 
 		// 3. Compose all child sub elements
@@ -480,13 +489,20 @@ public class CbcrXmlProcessor {
 		DocSpecType retval = new DocSpecType();
 		retval = objFactory.createDocSpecType();
 		// Set DocType
+		int docTypeId = doc.getTieDocTypeId();
+		TieDocType tieDocType  = new TieDocType();
+		String docTypeString = tieDocType.findDocTypeById(docTypeId);
+		// Set OECDDocType
+		retval.setDocTypeIndic(OECDDocTypeIndicEnumType.fromValue(docTypeString));
 		// Set docRefId, i.e.,sender Id
 		String senderId = new Integer(tieMsg.getSenderId()).toString();
 		retval.setDocRefId(senderId);
-
+		
+		//**********Made blank space as default value here***********
 		// CorrMsgRefId
+		retval.setCorrMessageRefId(" ");
 		// CorrDocRefId
-
+		retval.setCorrDocRefId(" ");
 		// 2. Populate all its attributes and simple sub element
 
 		// 3. Compose all child sub elements
