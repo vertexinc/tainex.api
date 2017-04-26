@@ -144,7 +144,7 @@ public class TieMsg {
 
 	public TieMsg(int tieMsgId, String subject, String code, String description, String notes, int senderId,
 			int ownerid, int tieMsgStateId, String sendingEntityIdNum, String transmittingCountry,
-			String receivingCountries, String messageType, String lauguage, String warning, String contact,
+			String receivingCountries, String messageType, String language, String warning, String contact,
 			String messageRefId, String messageTypeIndic, String corrMessageRefIds, String reportingPeriod,
 			String timestamp, String rawMsg) {
 
@@ -270,13 +270,6 @@ public class TieMsg {
 		this.messageType = messageType;
 	}
 
-	public String getLauguage() {
-		return language;
-	}
-
-	public void setLauguage(String lauguage) {
-		this.language = lauguage;
-	}
 
 	public String getWarning() {
 		return warning;

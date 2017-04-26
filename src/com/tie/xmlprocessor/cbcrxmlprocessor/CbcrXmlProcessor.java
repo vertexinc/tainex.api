@@ -156,7 +156,8 @@ public class CbcrXmlProcessor {
 
 		// 2. Populate all its attributes and simple sub element
 		String sendingEntityIdNum = tieMsg.getSendingEntityIdNum();
-		retval.setSendingEntityIN(sendingEntityIdNum);
+		// Set as a blank space here
+		retval.setSendingEntityIN(" ");
 
 		CountryCodeType transmittingCountry = CountryCodeType.fromValue(tieMsg.getTransmittingCountry());
 		retval.setTransmittingCountry(transmittingCountry);
@@ -166,7 +167,7 @@ public class CbcrXmlProcessor {
 		MessageTypeEnumType messageTypeEnum = MessageTypeEnumType.fromValue("CBC");
 		retval.setMessageType(messageTypeEnum);
 		//
-		LanguageCodeType languageCode = LanguageCodeType.fromValue("EN");
+		LanguageCodeType languageCode = LanguageCodeType.fromValue(tieMsg.getLanguage().toUpperCase());
 		retval.setLanguage(languageCode);
 
 		retval.setWarning(tieMsg.getWarning());
@@ -476,10 +477,8 @@ public class CbcrXmlProcessor {
 		retval = objFactory.createCorrectableReportingEntityType();
 
 		OrganisationPartyType cbcEntity = composeEntity(objFactory, tieMsg, doc);
-		CbcReportingRoleEnumType reportingRole = CbcReportingRoleEnumType.fromValue("CBC701");// composeReportingRole(objFactory,
-																								// tieMsg,
-																								// doc);
-
+		String reportingEntityRoleString = doc.getReportingEntityRole();
+		CbcReportingRoleEnumType reportingRole = CbcReportingRoleEnumType.fromValue(reportingEntityRoleString);
 		DocSpecType docSpec = composeDocSpec(objFactory, tieMsg, doc);
 
 		// 3. Compose all child sub elements
@@ -514,11 +513,6 @@ public class CbcrXmlProcessor {
 
 		// 3. Compose all child sub elements
 		return retval;
-	}
-
-	private CbcReportingRoleEnumType composeReportingRole(ObjectFactory objFactory, TieMsg tieMsg, TieDoc doc) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	private OrganisationPartyType composeEntity(ObjectFactory objFactory, TieMsg tieMsg, TieDoc doc) {
@@ -560,8 +554,8 @@ public class CbcrXmlProcessor {
 				NameOrganisationType name = objFactory.createNameOrganisationType();
 				name.setValue(taxEntity.getName());
 				retval.getName().add(name);
-				// AddressType address = objFactory.createAddressType();
-
+				//address left black here
+				AddressType address = objFactory.createAddressType();			
 			}
 		}
 
@@ -581,13 +575,6 @@ public class CbcrXmlProcessor {
 		}
 	}
 
-	// TransmittingCountry should be only one country
-	private void handleTransmittingCountry(TieMsg tieMsg, MessageSpecType messageSpecType) {
-		// TODO Auto-generated method stub
-		if (tieMsg.getTransmittingCountry() != null) {
-			messageSpecType.setTransmittingCountry(handleCountryCode(tieMsg.getTransmittingCountry()));
-		}
-	}
 
 	public CountryCodeType handleCountryCode(String country) {
 		CountryCodeType countryCodeType = CountryCodeType.fromValue(country);

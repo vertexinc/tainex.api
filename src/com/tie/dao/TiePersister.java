@@ -124,6 +124,7 @@ public class TiePersister {
 		builtDoc.setAccountingStandard(tieDoc.getAccountingStandard());
 		builtDoc.setReportingPeriod(tieDoc.getReportingPeriod());
 		builtDoc.setTaxEntityList(tieDoc.getTaxEntityList());
+		builtDoc.setReportingEntityRole(tieDoc.getReportingEntityRole());
 	}
 
 	// TODO Fully build out a TieDoc subclass based on the given TieDoc record

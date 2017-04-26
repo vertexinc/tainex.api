@@ -205,7 +205,7 @@ public class TieMsgDao extends BaseDao {
 			saveStatement.setString(10, tieMsg.getTransmittingCountry());
 			saveStatement.setString(11, tieMsg.getReceivingCountries());
 			saveStatement.setString(12, tieMsg.getMessageType());
-			saveStatement.setString(13, tieMsg.getLauguage());
+			saveStatement.setString(13, tieMsg.getLanguage());
 			saveStatement.setString(14, tieMsg.getWarning());
 			saveStatement.setString(15, tieMsg.getContact());
 			saveStatement.setString(16, tieMsg.getMessageRefId());
@@ -280,7 +280,7 @@ public class TieMsgDao extends BaseDao {
 			saveStatement.setString(8, tieMsg.getTransmittingCountry());
 			saveStatement.setString(9, tieMsg.getReceivingCountries());
 			saveStatement.setString(10, tieMsg.getMessageType());
-			saveStatement.setString(11, tieMsg.getLauguage());
+			saveStatement.setString(11, tieMsg.getLanguage());
 			saveStatement.setString(12, tieMsg.getWarning());
 			saveStatement.setString(13, tieMsg.getContact());
 			saveStatement.setString(14, tieMsg.getMessageRefId());

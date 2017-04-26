@@ -435,6 +435,7 @@ public class TieSessionController extends TieControllerBase {
 
 	public TieMsg handleSaveMessage(TieMsg msg, String sessionId) {
 		TiePersister persister = TieController.getController().getPersister();
+		
 		return persister.getTieMsgDao().saveTieMessage(msg, sessionId);
 
 	}
