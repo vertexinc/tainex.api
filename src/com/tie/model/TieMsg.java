@@ -77,14 +77,6 @@ public class TieMsg {
 		this.language = language;
 	}
 
-	public Map<Long, TieMsgPackage> getMsgPackages() {
-		return msgPackages;
-	}
-
-	public void setMsgPackages(Map<Long, TieMsgPackage> msgPackages) {
-		this.msgPackages = msgPackages;
-	}
-
 	public String getUserName() {
 		return userName;
 	}
@@ -335,6 +327,16 @@ public class TieMsg {
 		this.rawMsg = rawMsg;
 	}
 	
+	public Map<Long, TieMsgPackage> getMsgPackages() {
+		return msgPackages;
+	}
+
+	public void setMsgPackages(Map<Long, TieMsgPackage> msgPackages) {
+		this.msgPackages = msgPackages;
+	}
+	
+	//The UcController uses this method to start a blank packages, 
+	//which are to be populated with details according CTS specific requirements.
 	public void initPackages(){
 		
 	}

@@ -1,5 +1,6 @@
 package com.tie.app;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,7 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 	final Logger logger = LoggerFactory.getLogger(TaxDocParser.class);
 	TieSessionController sessionController;
 	private Map<Long, TieMsgPackage> msgPackages;
+	String xmlString;
 
 	public UcControllerSendTieMsg() {
 
@@ -29,16 +31,22 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 	}
 
 	public void sendTieMsg(long msgId) throws JsonProcessingException, JAXBException {
-		prepareTieMsg(msgId);
-		buildTieMsg(msgId);
+		List<TieMsgPackage>packageList = prepareTieMsg(msgId);
+		TieMsg tiemsg = buildTieMsg(msgId);
+		//TODO:get each package
+		encryptMsgBody(xmlString,packageList.get(0));
 	}// sendTieMsg(.)
 
 	// prepare one package for each intended recipient.
 	public List<TieMsgPackage> prepareTieMsg(long msgId) {
 		logger.debug("Message to be sent with ID {}.", msgId);
 		// loop through the recipient list to create the package list
+		//TODO: recipient list unknown for now
+		List<TieMsgPackage> packageList = new ArrayList<TieMsgPackage>();
+		TieMsgPackage tieMsgPackage = new TieMsgPackage();
+		packageList.add(tieMsgPackage);
 
-		return null;
+		return packageList;
 	}// prepareTieMsg(.)
 
 	/*
@@ -47,17 +55,27 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 	 * together.
 	 */
 	public TieMsg buildTieMsg(long msgId) throws JsonProcessingException, JAXBException {
-		//TieMsg currMsg = TieMainPage.getTieMainPage().getCurrentMsg();
+		// TieMsg currMsg = TieMainPage.getTieMainPage().getCurrentMsg();
 		TiePersister persister = TieController.getController().getPersister();
 		TieMsg tieMsg = persister.buildTieMsg(msgId);
-		
-		//XML processor
+
+		// XML processor
 		CbcrXmlProcessor cbcrXmlProcessor = new CbcrXmlProcessor();
-		String xmlString = cbcrXmlProcessor.composeXmlString(tieMsg);
-		logger.info("Message built successfully: {}",xmlString);
+		xmlString = cbcrXmlProcessor.composeXmlString(tieMsg);
+		logger.info("Message built successfully: {}", xmlString);
 		cbcrXmlProcessor.validateXML(tieMsg);
-		return null;
+		
+		return tieMsg;
 	}// end buildTieMsg(.)
+
+	/*
+	 * Encrypt and set the encrypted byte[] into the given package The
+	 * encryption will delegate to TieSecurityManager class, which will further
+	 * use ICts for key management functionality
+	 */
+	public void encryptMsgBody(String msgBody, TieMsgPackage tieMsgPkg) {
+
+	}// ebd encryptMsgBody(..)
 
 	public Byte[] packageMsg(TieMsgPackage tieMsgPkg) {
 		return null;

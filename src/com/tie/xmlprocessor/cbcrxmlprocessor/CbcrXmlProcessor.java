@@ -79,7 +79,7 @@ public class CbcrXmlProcessor {
 		retval = sw.toString();
 
 		// validation
-		File file = new File("file.xml");
+		File file = new File("simpleFile.xml");
 		marshaller.marshal(cbcoecd, file);
 
 		boolean valid = validateXMLSchema("CbcXML_v1.0.xsd", "file.xml");
@@ -554,11 +554,10 @@ public class CbcrXmlProcessor {
 				NameOrganisationType name = objFactory.createNameOrganisationType();
 				name.setValue(taxEntity.getName());
 				retval.getName().add(name);
-				//address left black here
-				AddressType address = objFactory.createAddressType();			
+				// address left black here
+				AddressType address = objFactory.createAddressType();
 			}
 		}
-
 		return retval;
 	}
 
@@ -574,7 +573,6 @@ public class CbcrXmlProcessor {
 			}
 		}
 	}
-
 
 	public CountryCodeType handleCountryCode(String country) {
 		CountryCodeType countryCodeType = CountryCodeType.fromValue(country);

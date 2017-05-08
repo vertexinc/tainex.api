@@ -18,5 +18,41 @@ public class TieMsgPackage {
 		this.tiemsg = tiemsg;
 		logger.debug("Message in the package {}.", tiemsg.toString());
 	}
+
+	public TieMsg getTiemsg() {
+		return tiemsg;
+	}
+
+	public void setTiemsg(TieMsg tiemsg) {
+		this.tiemsg = tiemsg;
+	}
+
+	public byte[] getPackageBytes() {
+		return packageBytes;
+	}
+
+	public void setPackageBytes(byte[] packageBytes) {
+		this.packageBytes = packageBytes;
+	}
+
+	public String getPayload() {
+		return payload;
+	}
+
+	public void setPayload(String payload) {
+		this.payload = payload;
+	}
+
+	public byte[] getPayloadEncrypted() {
+		return payloadEncrypted;
+	}
+
+	public void setPayloadEncrypted(byte[] payloadEncrypted) {
+		this.payloadEncrypted = payloadEncrypted;
+	}
+
+	public Logger getLogger() {
+		return logger;
+	}
 	
 }//end class TieMsgPackage
