@@ -1,9 +1,15 @@
 package com.tie.app;
 
+import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.xml.bind.JAXBException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -30,9 +36,10 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 		this.sessionController = sessionController;
 	}
 
-	public void sendTieMsg(long msgId) throws JsonProcessingException, JAXBException {
+	public void sendTieMsg(long msgId) throws JAXBException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException, IOException {
 		List<TieMsgPackage>packageList = prepareTieMsg(msgId);
 		TieMsg tiemsg = buildTieMsg(msgId);
+		packageList.get(0).setTiemsg(tiemsg);
 		//TODO:get each package
 		encryptMsgBody(xmlString,packageList.get(0));
 	}// sendTieMsg(.)
@@ -65,6 +72,8 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 		logger.info("Message built successfully: {}", xmlString);
 		cbcrXmlProcessor.validateXML(tieMsg);
 		
+		//TODO 
+		
 		return tieMsg;
 	}// end buildTieMsg(.)
 
@@ -73,8 +82,9 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 	 * encryption will delegate to TieSecurityManager class, which will further
 	 * use ICts for key management functionality
 	 */
-	public void encryptMsgBody(String msgBody, TieMsgPackage tieMsgPkg) {
-
+	public void encryptMsgBody(String msgBody, TieMsgPackage tieMsgPkg) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException, IOException {
+		TieSecurityManager tieSecurityManager = new TieSecurityManager();
+		tieSecurityManager.encryptMsgBody(msgBody, tieMsgPkg);
 	}// ebd encryptMsgBody(..)
 
 	public Byte[] packageMsg(TieMsgPackage tieMsgPkg) {
