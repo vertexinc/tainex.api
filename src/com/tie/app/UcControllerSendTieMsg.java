@@ -74,6 +74,7 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 	// loop through the recipient list to create a blank package list
 	public List<TieMsgPackage> prepareTieMsgPackage(TieMsg tieMsg) {
 		List<TieMsgPackage> retval = new ArrayList<TieMsgPackage>();
+		//start a blank package for each recipient
 		tieMsg.initPackages();
 		Map<Long, TieMsgPackage> msgPackagesMap = tieMsg.getMsgPackages();
 		for (Object Key : msgPackagesMap.keySet()) {
