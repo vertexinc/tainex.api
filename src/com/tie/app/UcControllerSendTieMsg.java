@@ -38,11 +38,6 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 	public void sendTieMsg(long msgId) throws JAXBException, InvalidKeyException, IllegalBlockSizeException,
 			BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException, IOException {
 		List<TieMsgPackage> packageList = prepareTieMsg(msgId);
-		// TieMsg tiemsg = buildTieMsg(msgId);
-		// packageList.get(0).setTiemsg(tiemsg);
-		// //TODO:get each package
-		// encryptMsgBody(xmlString,packageList.get(0));
-
 	}// sendTieMsg(.)
 
 	// prepare one blank package for each intended recipient.
@@ -74,8 +69,9 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 	// loop through the recipient list to create a blank package list
 	public List<TieMsgPackage> prepareTieMsgPackage(TieMsg tieMsg) {
 		List<TieMsgPackage> retval = new ArrayList<TieMsgPackage>();
-		//start a blank package for each recipient
+		// start a blank package for each recipient
 		tieMsg.initPackages();
+		
 		Map<Long, TieMsgPackage> msgPackagesMap = tieMsg.getMsgPackages();
 		for (Object Key : msgPackagesMap.keySet()) {
 			System.out.println("Handle package with key: " + Key);
@@ -93,11 +89,8 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 	 */
 	public String composeTieMsg(TieMsg tieMsg) throws JAXBException {
 		String CbcrMsgPayload = null;
-
 		CbcrMsgPayload = composeCbcrMsg(tieMsg);
-
 		return CbcrMsgPayload;
-
 	}// end composeTieMsg(.)
 
 	public String composeCbcrMsg(TieMsg tieMsg) throws JAXBException {
