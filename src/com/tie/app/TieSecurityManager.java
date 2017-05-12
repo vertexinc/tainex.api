@@ -53,11 +53,11 @@ public class TieSecurityManager extends TieControllerBase {
 	
 	byte[] encryptMsgBody( String msgBody, TieMsgPackage tieMsgPkg ) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, IOException, NoSuchAlgorithmException, NoSuchPaddingException{
 		String key = fecthcEncryptionKey(tieMsgPkg.getTiemsg().getSender());
-		byte[] encryptedText = excryptText(key,msgBody);
+		byte[] encryptedText = encryptText(key,msgBody);
 		return encryptedText;	
 	}
 	
-	byte[] excryptText(String key, String plainText)
+	byte[] encryptText(String key, String plainText)
 			throws InvalidKeyException, IOException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException{
 		byte[] encryptedText = null;
 		int length = 16;

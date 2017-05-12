@@ -35,31 +35,37 @@ public class TieMsg {
 	private String timestamp;
 	private String rawMsg;
 	private String msgReceiverList;
+	private List<TieMsgReceiver> TieMsgReceiverList;
+
+
+
+	public List<TieMsgReceiver> getTieMsgReceiverList() {
+		return TieMsgReceiverList;
+	}
+
+	public void setTieMsgReceiverList(List<TieMsgReceiver> tieMsgReceiverList) {
+		TieMsgReceiverList = tieMsgReceiverList;
+	}
 
 	private String userName;
 
 	private String msgState;
-	private Map<Long,TieMsgPackage> msgPackages;
+	private HashMap<Long, TieMsgPackage> msgPackages = new HashMap<Long, TieMsgPackage>();
 	private int numOfDocs;
-	
+
 	public int getNumOfDocs() {
 		int numOfDocs = 0;
-		if(getTieDocList()!=null){
-			numOfDocs = getTieDocList().size();	
+		if (getTieDocList() != null) {
+			numOfDocs = getTieDocList().size();
 		}
 		return numOfDocs;
 	}
 
-	//TODO tieDocList
-	private  List<TieDoc> tieDocList = new ArrayList<TieDoc>();
-	
-
-	
+	// TODO tieDocList
+	private List<TieDoc> tieDocList = new ArrayList<TieDoc>();
 
 	// OECD Message Type indicator
 	public static String[] messageTypeIndi = { "CBC401", "CBC402", "CBC403" };
-	
-
 
 	public List<TieDoc> getTieDocList() {
 		return tieDocList;
@@ -92,7 +98,6 @@ public class TieMsg {
 	public void setMsgState(String msgState) {
 		this.msgState = msgState;
 	}
-
 
 	public String getMsgReceiverList() {
 		return msgReceiverList;
@@ -128,8 +133,6 @@ public class TieMsg {
 
 	// List of docs in the msg to be sent out
 
-
-
 	public TieMsg() {
 
 	}
@@ -138,7 +141,7 @@ public class TieMsg {
 			int ownerid, int tieMsgStateId, String sendingEntityIdNum, String transmittingCountry,
 			String receivingCountries, String messageType, String language, String warning, String contact,
 			String messageRefId, String messageTypeIndic, String corrMessageRefIds, String reportingPeriod,
-			String timestamp, String rawMsg) {
+			String timestamp, String rawMsg, String msgReceiverList) {
 
 		this.tieMsgId = tieMsgId;
 		this.subject = subject;
@@ -161,6 +164,7 @@ public class TieMsg {
 		this.reportingPeriod = reportingPeriod;
 		this.timestamp = timestamp;
 		this.rawMsg = rawMsg;
+		this.msgReceiverList = msgReceiverList;
 	}
 
 	public int getTieMsgId() {
@@ -262,7 +266,6 @@ public class TieMsg {
 		this.messageType = messageType;
 	}
 
-
 	public String getWarning() {
 		return warning;
 	}
@@ -326,19 +329,31 @@ public class TieMsg {
 	public void setRawMsg(String rawMsg) {
 		this.rawMsg = rawMsg;
 	}
-	
-	public Map<Long, TieMsgPackage> getMsgPackages() {
+
+	public HashMap<Long, TieMsgPackage> getMsgPackages() {
 		return msgPackages;
 	}
 
-	public void setMsgPackages(Map<Long, TieMsgPackage> msgPackages) {
+	public void setMsgPackages(HashMap<Long, TieMsgPackage> msgPackages) {
 		this.msgPackages = msgPackages;
 	}
-	
-	//The UcController uses this method to start a blank packages, 
-	//which are to be populated with details according CTS specific requirements.
-	public void initPackages(){
+
+	// The UcController uses this method to start a blank packages,
+	// which are to be populated with details according CTS specific
+	// requirements.
+	public void initPackages() {
+		//Hard coded recipient ID list 
+		//Need to determin how to get recipient Id later
 		
+		List<Integer> recipientIdList = new ArrayList<Integer>();
+		recipientIdList.add(1);
+		recipientIdList.add(2);
+		
+		for (long key : recipientIdList) {			
+			TieMsgPackage tieMsgPackage = new TieMsgPackage();
+			tieMsgPackage.setPayload("empty payload");
+			msgPackages.put(key, tieMsgPackage);
+		}
 	}
 
 	@Override
@@ -354,9 +369,5 @@ public class TieMsg {
 				+ ", msgReceiverList=" + msgReceiverList + ", userName=" + userName + ", msgState=" + msgState
 				+ ", msgPackages=" + msgPackages + ", tieDocList=" + tieDocList + "]";
 	}
-
-
-
-
 
 }

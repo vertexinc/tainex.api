@@ -61,10 +61,10 @@ public class TieMsgDao extends BaseDao {
 				String reportingPeriod = rs.getString("reportingPeriod");
 				String timestamp = rs.getString("timestamp");
 				String rawMsg = rs.getString("rawMsg");
-
+				String msgReceiverList = rs.getString("msgReceiverList");
 				tieMsg = new TieMsg(tieMsgId, subject, code, description, notes, senderId, ownerid, tieMsgStateId,
 						sendingEntityIdNum, transmittingCountry, receivingCountries, messageType, lauguage, warning,
-						contact, messageRefId, messageTypeIndic, corrMessageRefIds, reportingPeriod, timestamp, rawMsg);
+						contact, messageRefId, messageTypeIndic, corrMessageRefIds, reportingPeriod, timestamp, rawMsg,msgReceiverList);
 				// tieapp = new TieApp(name,description);
 				msgList.add(tieMsg);
 			}
@@ -129,10 +129,10 @@ public class TieMsgDao extends BaseDao {
 				String reportingPeriod = rs.getString("reportingPeriod");
 				String timestamp = rs.getString("timestamp");
 				String rawMsg = rs.getString("rawMsg");
-
+				String msgReceiverList = rs.getString("msgReceiverList");
 				msg = new TieMsg(tieMsgId, subject, code, description, notes, senderId, ownerid, tieMsgStateId,
 						sendingEntityIdNum, transmittingCountry, receivingCountries, messageType, lauguage, warning,
-						contact, messageRefId, messageTypeIndic, corrMessageRefIds, reportingPeriod, timestamp, rawMsg);
+						contact, messageRefId, messageTypeIndic, corrMessageRefIds, reportingPeriod, timestamp, rawMsg,msgReceiverList);
 				// tieapp = new TieApp(name,description);
 
 			}
@@ -214,6 +214,7 @@ public class TieMsgDao extends BaseDao {
 			saveStatement.setString(19, tieMsg.getReportingPeriod());
 			saveStatement.setString(20, tieMsg.getTimestamp());
 			saveStatement.setString(21, tieMsg.getRawMsg());
+			saveStatement.setString(22, tieMsg.getMsgReceiverList());
 			saveStatement.executeUpdate();
 
 			// separate method to handle the Id
@@ -289,7 +290,8 @@ public class TieMsgDao extends BaseDao {
 			saveStatement.setString(17, tieMsg.getReportingPeriod());
 			saveStatement.setString(18, tieMsg.getTimestamp());
 			saveStatement.setString(19, tieMsg.getRawMsg());
-			saveStatement.setInt(20, tieMsg.getTieMsgId());
+			saveStatement.setString(20, tieMsg.getMsgReceiverList());
+			saveStatement.setInt(21, tieMsg.getTieMsgId());
 			saveStatement.executeUpdate();
 			System.out.println("Done  update: " + tieMsg);
 		} catch (Exception e) {

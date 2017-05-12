@@ -161,13 +161,8 @@ public class LoginServlet extends HttpServlet {
 	private void sendMsg(HttpServletRequest request, HttpServletResponse response,
 			TieSessionController sessionController, int messageId) throws JAXBException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException, IOException {
 		// TODO Auto-generated method stub
-//		try {
 			UcControllerSendTieMsg ucControllerSendTieMsg = new UcControllerSendTieMsg(sessionController);
 			ucControllerSendTieMsg.sendTieMsg(messageId);
-//		} catch (Exception e) {
-//			logger.error("Failed to send this message", new Exception("Msg Send Exception"));
-//			throw new RuntimeException("Failed to send this message");
-//		}
 	}
 
 	private void sendExceptionToFrontEnd(HttpServletResponse response, String errorMsg, String fileName)

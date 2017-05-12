@@ -40986,7 +40986,6 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.emitSaveChangeAtBody = function (model) {
         var _this = this;
-        console.log("model language to be sent" + model.language + "warniing: " + model.warning);
         //alert("emit applied!");
         // alert(JSON.stringify(model));
         this._tieappService.postSave(model)
