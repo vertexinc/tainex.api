@@ -15,6 +15,7 @@ import javax.xml.bind.JAXBException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.tie.dao.TiePersister;
 import com.tie.model.TieMsg;
+import com.tie.model.TieMsgEnvelope;
 import com.tie.model.TieMsgPackage;
 import com.tie.ui.TieMainPage;
 import com.tie.xmlprocessor.cbcrxmlprocessor.CbcrXmlProcessor;
@@ -75,7 +76,7 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 		Map<Long, TieMsgPackage> msgPackagesMap = tieMsg.getMsgPackages();
 		for (Object Key : msgPackagesMap.keySet()) {
 			System.out.println("Handle package with key: " + Key);
-			TieMsgPackage tieMsgPackage = new TieMsgPackage();
+			TieMsgPackage tieMsgPackage = msgPackagesMap.get(Key);
 			tieMsgPackage.setTiemsg(tieMsg);
 			retval.add(tieMsgPackage);
 		}
@@ -124,7 +125,7 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 		TieSecurityManager tieSecurityManager = new TieSecurityManager();
 		byte[] encryptedMsgBody = tieSecurityManager.encryptMsgBody(msgBody, tieMsgPkg);
 		return encryptedMsgBody;
-	}// ebd encryptMsgBody(..)
+	}// end encryptMsgBody(..)
 
 	public Byte[] packageMsg(TieMsgPackage tieMsgPkg) {
 		return null;
@@ -137,5 +138,19 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 	public boolean recordTaxMsgStatus() {
 		return false;
 	}// end recordTaxMsgStatus()
+	
+	public void composeMsgEnvelop(byte[] msg){
+		
+	}//end composeMsgEnvelop(.)
+	
+	public TieMsgEnvelope createEnvelopeForPackage( String recipient, TieMsgPackage msgPkg ){
+		TieMsgEnvelope tieMsgEnvelope = new TieMsgEnvelope();
+		String msgPayLoad = msgPkg.getPayload();
+		byte[] packageBytes = msgPkg.getPackageBytes();
+		byte[] encryptedMsg = msgPkg.getPayloadEncrypted();
+		
+		//Set tieMsgEnvelope properties
+		return tieMsgEnvelope;		
+	};//end createEnvelopeForPackage(..)
 
 }

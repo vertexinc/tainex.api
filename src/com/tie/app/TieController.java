@@ -58,7 +58,6 @@ public class TieController extends TieControllerBase {
 	// Create all the controllers
 
 	public void init() {
-
 		persister = new TiePersister();
 		securityManager = new TieSecurityManager();
 		sessionController = new TieSessionController();

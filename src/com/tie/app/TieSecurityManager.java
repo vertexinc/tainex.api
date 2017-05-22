@@ -31,15 +31,17 @@ public class TieSecurityManager extends TieControllerBase {
 	/**
 	 * Authenticate the given user name and password.
 	 */
-	//reference to cts
+	// reference to cts
 	TieCtsStub tieCtsStub = null;
-	public TieSecurityManager(){
-		
+
+	public TieSecurityManager() {
+
 	}
-	public TieSecurityManager(TieCtsStub tieCtsStub){
+
+	public TieSecurityManager(TieCtsStub tieCtsStub) {
 		this.tieCtsStub = tieCtsStub;
 	}
-	
+
 	public boolean authentiate(String name, String pass) {
 		boolean retval = false;
 		LoginDao loginDao = new LoginDao();
@@ -50,29 +52,32 @@ public class TieSecurityManager extends TieControllerBase {
 	String fecthcEncryptionKey(TieUser user) {
 		return "!@#$MySecr3tPassw0rd";
 	}
-	
-	byte[] encryptMsgBody( String msgBody, TieMsgPackage tieMsgPkg ) throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, IOException, NoSuchAlgorithmException, NoSuchPaddingException{
+
+	byte[] encryptMsgBody(String msgBody, TieMsgPackage tieMsgPkg)
+			throws InvalidKeyException, IllegalBlockSizeException, BadPaddingException, IOException,
+			NoSuchAlgorithmException, NoSuchPaddingException {
 		String key = fecthcEncryptionKey(tieMsgPkg.getTiemsg().getSender());
-		byte[] encryptedText = encryptText(key,msgBody);
-		return encryptedText;	
+		byte[] encryptedText = encryptText(key, msgBody);
+		return encryptedText;
 	}
-	
-	byte[] encryptText(String key, String plainText)
-			throws InvalidKeyException, IOException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException{
+
+	byte[] encryptText(String key, String plainText) throws InvalidKeyException, IOException, IllegalBlockSizeException,
+			BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException {
 		byte[] encryptedText = null;
 		int length = 16;
 		byte[] keyByte = new byte[length];
 		keyByte = fixSecret(key, length);
-		
+
 		SecretKeySpec secretKey = new SecretKeySpec(keyByte, "AES");
 		Cipher cipher = Cipher.getInstance("AES");
-		
+
 		cipher.init(Cipher.ENCRYPT_MODE, secretKey);
 		encryptedText = cipher.doFinal(plainText.getBytes("UTF-8"));
 		System.out.println(Arrays.toString(encryptedText));
 		return encryptedText;
 	}
-	private byte[] fixSecret(String key, int length)throws UnsupportedEncodingException {
+
+	private byte[] fixSecret(String key, int length) throws UnsupportedEncodingException {
 		if (key.length() < length) {
 			int missingLength = length - key.length();
 			for (int i = 0; i < missingLength; i++) {
@@ -81,5 +86,5 @@ public class TieSecurityManager extends TieControllerBase {
 		}
 		return key.substring(0, length).getBytes("UTF-8");
 	}
-	
+
 }
