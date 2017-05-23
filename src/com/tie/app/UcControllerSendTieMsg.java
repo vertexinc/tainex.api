@@ -1,9 +1,14 @@
 package com.tie.app;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +22,7 @@ import com.tie.dao.TiePersister;
 import com.tie.model.TieMsg;
 import com.tie.model.TieMsgEnvelope;
 import com.tie.model.TieMsgPackage;
+import com.tie.model.TieUser;
 import com.tie.ui.TieMainPage;
 import com.tie.xmlprocessor.cbcrxmlprocessor.CbcrXmlProcessor;
 
@@ -62,7 +68,11 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 
 			tieMsgPackage.setPayload(xmlString);
 			tieMsgPackage.setPayloadEncrypted(encryptMsgBody(xmlString, tieMsgPackage));
+			
+			//compose Envelop
+			composeMsgEnvelop(tieMsgPackage);
 		}
+		
 
 		return packageList;
 	}// prepareTieMsg(.)
@@ -139,18 +149,62 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 		return false;
 	}// end recordTaxMsgStatus()
 	
-	public void composeMsgEnvelop(byte[] msg){
-		
+	//Set msgEnvelop (byte[]) to TieMsgPackage object
+	public void composeMsgEnvelop(TieMsgPackage msgPkg) throws IOException{
+		//TODO: recipient String
+		String recipientString = msgPkg.getSingleRecipient();
+		TieMsgEnvelope tieMsgEnvelope = createEnvelopeForPackage(recipientString,msgPkg);
+		byte[] envelopeByte = byteEnvelope(tieMsgEnvelope);
+		msgPkg.setPackageBytes(envelopeByte);
 	}//end composeMsgEnvelop(.)
 	
 	public TieMsgEnvelope createEnvelopeForPackage( String recipient, TieMsgPackage msgPkg ){
 		TieMsgEnvelope tieMsgEnvelope = new TieMsgEnvelope();
-		String msgPayLoad = msgPkg.getPayload();
-		byte[] packageBytes = msgPkg.getPackageBytes();
-		byte[] encryptedMsg = msgPkg.getPayloadEncrypted();
-		
+		TiePersister persister = TieController.getController().getPersister();
 		//Set tieMsgEnvelope properties
+		
+		//Set Sender
+		int senderId = msgPkg.getTiemsg().getSenderId();
+		TieUser sender = persister.getTieUserDao().findTieUserById(senderId);
+		tieMsgEnvelope.setSender(sender);
+		
+		//Set Receiver
+		String[] recipientString = recipient.split("@", -1);
+		String userCode = recipientString[0];
+		TieUser receiver = persister.getTieUserDao().findTieUserByCode(userCode);
+		tieMsgEnvelope.setReceiver(receiver);
+		
+		//Set Time
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.HOUR_OF_DAY,17);
+		cal.set(Calendar.MINUTE,30);
+		cal.set(Calendar.SECOND,0);
+		cal.set(Calendar.MILLISECOND,0);
+		Date date = cal.getTime();
+		tieMsgEnvelope.setSendTime(date);
+		
 		return tieMsgEnvelope;		
 	};//end createEnvelopeForPackage(..)
+	
+	//convert TieMsgEnvelope into Byte[]
+	//TODO: obj to byte problem
+	public byte[] byteEnvelope(TieMsgEnvelope tieMsgEnvelope) throws IOException{
+//		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+//		ObjectOutput out = null;
+		 byte[] byteEnvelope = null;
+//		try {
+//		  out = new ObjectOutputStream(bos);   
+//		  out.writeObject(tieMsgEnvelope);
+//		  out.flush();
+//		  byteEnvelope = bos.toByteArray();
+//		} finally {
+//		  try {
+//		    bos.close();
+//		  } catch (IOException ex) {
+//		  }
+//		}
+		return byteEnvelope;
+		
+	}
 
 }

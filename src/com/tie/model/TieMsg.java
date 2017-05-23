@@ -1,6 +1,7 @@
 package com.tie.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,8 +37,6 @@ public class TieMsg {
 	private String rawMsg;
 	private String msgReceiverList;
 	private List<TieMsgReceiver> TieMsgReceiverList;
-
-
 
 	public List<TieMsgReceiver> getTieMsgReceiverList() {
 		return TieMsgReceiverList;
@@ -342,17 +341,19 @@ public class TieMsg {
 	// which are to be populated with details according CTS specific
 	// requirements.
 	public void initPackages() {
-		//Hard coded recipient ID list 
-		//Need to determin how to get recipient Id later
-		
-		List<Integer> recipientIdList = new ArrayList<Integer>();
-		recipientIdList.add(1);
-		recipientIdList.add(2);
-		
-		for (long key : recipientIdList) {			
-			TieMsgPackage tieMsgPackage = new TieMsgPackage();
-			tieMsgPackage.setPayload("empty payload");
-			msgPackages.put(key, tieMsgPackage);
+		// List<String> recipientList = new ArrayList<String>();
+		String msgReceiverList = getMsgReceiverList();
+		if (msgReceiverList != null) {
+			String[] recipientStringList = getMsgReceiverList().split(";", -1);
+			
+			for (int i = 0; i < recipientStringList.length; i++) {
+				TieMsgPackage tieMsgPackage = new TieMsgPackage();
+				long receipientId = i;
+				if (recipientStringList[i].indexOf("@")!=-1) {
+					tieMsgPackage.setSingleRecipient(recipientStringList[i]);
+					msgPackages.put(receipientId, tieMsgPackage);
+				}
+			}
 		}
 	}
 

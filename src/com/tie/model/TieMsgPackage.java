@@ -7,9 +7,18 @@ import com.tie.app.TaxDocParser;
 
 public class TieMsgPackage {
 	TieMsg tiemsg;// A backpointer towards the tiemsg class
-	byte[] packageBytes;// The whole package to be sent
+	byte[] packageBytes;// The whole package to be sent.i.e.,TieMsgEnvelope
 	String payload;// The message body for the receipient
 	byte[] payloadEncrypted;
+	String singleRecipient;
+	public String getSingleRecipient() {
+		return singleRecipient;
+	}
+
+	public void setSingleRecipient(String singleRecipient) {
+		this.singleRecipient = singleRecipient;
+	}
+
 	final Logger logger = LoggerFactory.getLogger(TaxDocParser.class);
 
 	public TieMsgPackage() {
