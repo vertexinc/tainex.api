@@ -1,12 +1,15 @@
 package com.tie.app;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -155,6 +158,7 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 		String recipientString = msgPkg.getSingleRecipient();
 		TieMsgEnvelope tieMsgEnvelope = createEnvelopeForPackage(recipientString,msgPkg);
 		byte[] envelopeByte = byteEnvelope(tieMsgEnvelope);
+		System.out.println("tieMsgEnvelope in byte: " + Arrays.toString(envelopeByte));
 		msgPkg.setPackageBytes(envelopeByte);
 	}//end composeMsgEnvelop(.)
 	
@@ -189,22 +193,19 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 	//convert TieMsgEnvelope into Byte[]
 	//TODO: obj to byte problem
 	public byte[] byteEnvelope(TieMsgEnvelope tieMsgEnvelope) throws IOException{
-//		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-//		ObjectOutput out = null;
-		 byte[] byteEnvelope = null;
-//		try {
-//		  out = new ObjectOutputStream(bos);   
-//		  out.writeObject(tieMsgEnvelope);
-//		  out.flush();
-//		  byteEnvelope = bos.toByteArray();
-//		} finally {
-//		  try {
-//		    bos.close();
-//		  } catch (IOException ex) {
-//		  }
-//		}
-		return byteEnvelope;
-		
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		ObjectOutputStream os = new ObjectOutputStream(out);
+		System.out.println("tieMsgEnvelope: " + tieMsgEnvelope.toString());
+		os.writeObject(tieMsgEnvelope);	
+		return out.toByteArray();
+//		return null;
+	}
+	
+	//byte to obj
+	public  Object deserialize(byte[] data) throws IOException, ClassNotFoundException {
+	    ByteArrayInputStream in = new ByteArrayInputStream(data);
+	    ObjectInputStream is = new ObjectInputStream(in);
+	    return is.readObject();
 	}
 
 }

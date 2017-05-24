@@ -2,7 +2,7 @@ package com.tie.model;
 
 import java.util.Date;
 
-public class TieMsgEnvelope {
+public class TieMsgEnvelope implements java.io.Serializable{
 	TieUser sender;
 	TieUser receiver;
 	Date sendTime;
@@ -40,6 +40,11 @@ public class TieMsgEnvelope {
 
 	public void setSendTime(Date sendTime) {
 		this.sendTime = sendTime;
+	}
+
+	@Override
+	public String toString() {
+		return "TieMsgEnvelope [sender=" + sender + ", receiver=" + receiver + ", sendTime=" + sendTime + "]";
 	}
 
 }
