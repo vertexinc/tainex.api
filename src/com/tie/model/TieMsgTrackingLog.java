@@ -1,19 +1,21 @@
 package com.tie.model;
 
-public class TieMsgReceiver {
+//Former TieMsgReceiver
+public class TieMsgTrackingLog {
 	private int tieMsgId;
 	private String senderCode;
 	private String receiverCode;
 	private int tieMsgTrackingStatusId;
 	private String trackingNote;
 	private String receivingCountry;
+	private String ctsTrackingId;
 
-	public TieMsgReceiver() {
+	public TieMsgTrackingLog() {
 		// super();
 	}
 
-	public TieMsgReceiver(int tieMsgId, String senderCode, String receiverCode, int tieMsgTrackingStatusId,
-			String trackingNote, String receivingCountry) {
+	public TieMsgTrackingLog(int tieMsgId, String senderCode, String receiverCode, int tieMsgTrackingStatusId,
+			String trackingNote, String receivingCountry,String ctsTrackingId) {
 		super();
 		this.tieMsgId = tieMsgId;
 		this.senderCode = senderCode;
@@ -21,6 +23,16 @@ public class TieMsgReceiver {
 		this.tieMsgTrackingStatusId = tieMsgTrackingStatusId;
 		this.trackingNote = trackingNote;
 		this.receivingCountry = receivingCountry;
+		this.ctsTrackingId = ctsTrackingId;
+	}
+
+	
+	public String getCtsTrackingId() {
+		return ctsTrackingId;
+	}
+
+	public void setCtsTrackingId(String ctsTrackingId) {
+		this.ctsTrackingId = ctsTrackingId;
 	}
 
 	public int getTieMsgId() {

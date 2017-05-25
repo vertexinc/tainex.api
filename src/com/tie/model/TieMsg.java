@@ -36,13 +36,13 @@ public class TieMsg {
 	private String timestamp;
 	private String rawMsg;
 	private String msgReceiverList;
-	private List<TieMsgReceiver> TieMsgReceiverList;
+	private List<TieMsgTrackingLog> TieMsgReceiverList;
 
-	public List<TieMsgReceiver> getTieMsgReceiverList() {
+	public List<TieMsgTrackingLog> getTieMsgReceiverList() {
 		return TieMsgReceiverList;
 	}
 
-	public void setTieMsgReceiverList(List<TieMsgReceiver> tieMsgReceiverList) {
+	public void setTieMsgReceiverList(List<TieMsgTrackingLog> tieMsgReceiverList) {
 		TieMsgReceiverList = tieMsgReceiverList;
 	}
 

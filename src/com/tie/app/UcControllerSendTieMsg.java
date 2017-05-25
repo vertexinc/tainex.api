@@ -116,7 +116,7 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 	}// end composeCbcrMsg(.)
 
 	/*
-	 * TODO Delegate to the main persister, to read all records, by invoking
+	 * Delegate to the main persister, to read all records, by invoking
 	 * individual table persisters and assemble all the resulting objects
 	 * together.
 	 */
@@ -191,7 +191,6 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 	};//end createEnvelopeForPackage(..)
 	
 	//convert TieMsgEnvelope into Byte[]
-	//TODO: obj to byte problem
 	public byte[] byteEnvelope(TieMsgEnvelope tieMsgEnvelope) throws IOException{
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		ObjectOutputStream os = new ObjectOutputStream(out);

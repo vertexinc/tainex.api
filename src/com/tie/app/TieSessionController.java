@@ -19,7 +19,7 @@ import com.tie.model.CbcrTable2;
 import com.tie.model.CbcrTable3;
 import com.tie.model.TieDoc;
 import com.tie.model.TieMsg;
-import com.tie.model.TieMsgReceiver;
+import com.tie.model.TieMsgTrackingLog;
 import com.tie.model.TieMsgState;
 import com.tie.model.TieUser;
 import com.tie.model.TieTaxEntity;
@@ -87,12 +87,12 @@ public class TieSessionController extends TieControllerBase {
 			String msgState = tieMsgState.getName();
 			TieUser sender = persister.getTieUserDao().findTieUserById(senderId);
 			String userName = sender.getName();
-			List<TieMsgReceiver> tiemsgReceiverList = new ArrayList<TieMsgReceiver>();
+			List<TieMsgTrackingLog> tiemsgReceiverList = new ArrayList<TieMsgTrackingLog>();
 			tiemsgReceiverList = persister.getTieMsgReceiverDao().findTieMsgReceiverById(msgId);
 
 			// Populate toListString
 			StringBuilder toListString = new StringBuilder("");
-			for (TieMsgReceiver tieMsgReceiver : tiemsgReceiverList) {
+			for (TieMsgTrackingLog tieMsgReceiver : tiemsgReceiverList) {
 				toListString.append(tieMsgReceiver.getSenderCode()).append("@")
 						.append(tieMsgReceiver.getReceivingCountry()).append(";");
 			}
@@ -148,12 +148,12 @@ public class TieSessionController extends TieControllerBase {
 			String msgState = tieMsgState.getName();
 			TieUser sender = persister.getTieUserDao().findTieUserById(senderId);
 			String userName = sender.getName();
-			List<TieMsgReceiver> tiemsgReceiverList = new ArrayList<TieMsgReceiver>();
+			List<TieMsgTrackingLog> tiemsgReceiverList = new ArrayList<TieMsgTrackingLog>();
 			tiemsgReceiverList = persister.getTieMsgReceiverDao().findTieMsgReceiverById(msgId);
 
 			// Populate toListString
 			StringBuilder toListString = new StringBuilder("");
-			for (TieMsgReceiver tieMsgReceiver : tiemsgReceiverList) {
+			for (TieMsgTrackingLog tieMsgReceiver : tiemsgReceiverList) {
 				toListString.append(tieMsgReceiver.getSenderCode()).append("@")
 						.append(tieMsgReceiver.getReceivingCountry()).append(";");
 			}
@@ -181,13 +181,13 @@ public class TieSessionController extends TieControllerBase {
 		currentmsg.setSender(sender);
 		// Populate receivers of the current msg
 		int currentTieMsgId = currentmsg.getTieMsgId();
-		List<TieMsgReceiver> tiemsgReceiverList = new ArrayList<TieMsgReceiver>();
+		List<TieMsgTrackingLog> tiemsgReceiverList = new ArrayList<TieMsgTrackingLog>();
 		tiemsgReceiverList = persister.getTieMsgReceiverDao().findTieMsgReceiverById(currentTieMsgId);
 		TieMainPage.getTieMainPage().setTiemsgReceiverList(tiemsgReceiverList);
 
 		// Populate toListString
 		StringBuilder toListString = new StringBuilder("");
-		for (TieMsgReceiver tieMsgReceiver : tiemsgReceiverList) {
+		for (TieMsgTrackingLog tieMsgReceiver : tiemsgReceiverList) {
 			toListString.append(tieMsgReceiver.getSenderCode()).append("@").append(tieMsgReceiver.getReceivingCountry())
 					.append(";");
 		}
@@ -331,10 +331,10 @@ public class TieSessionController extends TieControllerBase {
 
 		// Populate receivers of the current msg
 		int currentTieMsgId = currentmsg.getTieMsgId();
-		List<TieMsgReceiver> tiemsgReceiverList = new ArrayList<TieMsgReceiver>();
+		List<TieMsgTrackingLog> tiemsgReceiverList = new ArrayList<TieMsgTrackingLog>();
 		tiemsgReceiverList = persister.getTieMsgReceiverDao().findTieMsgReceiverById(currentTieMsgId);
 		StringBuilder toListString = new StringBuilder("");
-		for (TieMsgReceiver tieMsgReceiver : tiemsgReceiverList) {
+		for (TieMsgTrackingLog tieMsgReceiver : tiemsgReceiverList) {
 			toListString.append(tieMsgReceiver.getSenderCode()).append("@").append(tieMsgReceiver.getReceivingCountry())
 					.append(";");
 		}

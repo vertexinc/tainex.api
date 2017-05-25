@@ -10,7 +10,7 @@ import com.tie.model.CbcrTable1;
 import com.tie.model.CbcrTable2;
 import com.tie.model.TieDoc;
 import com.tie.model.TieMsg;
-import com.tie.model.TieMsgReceiver;
+import com.tie.model.TieMsgTrackingLog;
 import com.tie.model.TieMsgState;
 import com.tie.model.TieTaxEntity;
 
@@ -28,7 +28,7 @@ public class TieMainPage {
 	private static TieMainPage tieMainPage = new TieMainPage();
 	//list of all the msg
 	public List<TieMsg> msgList = new ArrayList<TieMsg>();
-	public List<TieMsgReceiver> tiemsgReceiverList = new ArrayList<TieMsgReceiver>();
+	public List<TieMsgTrackingLog> tiemsgReceiverList = new ArrayList<TieMsgTrackingLog>();
 	public TieMsgState tieMsgState = new TieMsgState();
 	public List<TieTaxEntity> taxEntitylist = new ArrayList<TieTaxEntity>();
 	public String toListString;
@@ -96,11 +96,11 @@ public class TieMainPage {
 		this.tieMsgState = tieMsgState;
 	}
 
-	public List<TieMsgReceiver> getTiemsgReceiverList() {
+	public List<TieMsgTrackingLog> getTiemsgReceiverList() {
 		return tiemsgReceiverList;
 	}
 
-	public void setTiemsgReceiverList(List<TieMsgReceiver> tiemsgReceiverList) {
+	public void setTiemsgReceiverList(List<TieMsgTrackingLog> tiemsgReceiverList) {
 		this.tiemsgReceiverList = tiemsgReceiverList;
 	}
 

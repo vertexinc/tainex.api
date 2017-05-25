@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.tie.model.TieDoc;
 import com.tie.model.TieMsg;
-import com.tie.model.TieMsgReceiver;
+import com.tie.model.TieMsgTrackingLog;
 import com.tie.model.TieUser;
 import com.tie.ui.TieMainPage;
 
@@ -15,13 +15,13 @@ public class TieMsgReceiverDao extends BaseDao {
 	// find out the user record by the given usercode
 
 	// ToDo: findTieMsgReceiverByTieMsgId
-	public List<TieMsgReceiver> findTieMsgReceiverById(int id) {
+	public List<TieMsgTrackingLog> findTieMsgReceiverById(int id) {
 		getConnection();
 
-		List<TieMsgReceiver> tieMsgReceiverList = new ArrayList<TieMsgReceiver>();
+		List<TieMsgTrackingLog> tieMsgReceiverList = new ArrayList<TieMsgTrackingLog>();
 		try {
-			TieMsgReceiver tieMsgReceiver = new TieMsgReceiver();
-			String sql = "select * from tiemsgreceiver where tiemsgid = ?";
+			TieMsgTrackingLog tieMsgReceiver = new TieMsgTrackingLog();
+			String sql = "select * from tiemsgtrackinglog where tiemsgid = ?";
 
 			PreparedStatement selectStatement = conn.prepareStatement(sql);
 			selectStatement.setInt(1, id);
@@ -35,9 +35,10 @@ public class TieMsgReceiverDao extends BaseDao {
 				int tieMsgTrackingStatusId = rs.getInt("tieMsgTrackingStatusId");
 				String trackingNote = rs.getString("trackingNote");
 				String receivingCountry = rs.getString("receivingCountry");
+				String ctsTrackingId = rs.getString("ctsTrackingId");
 
-				tieMsgReceiver = new TieMsgReceiver(tieMsgId, senderCode, receiverCode, tieMsgTrackingStatusId,
-						trackingNote, receivingCountry);
+				tieMsgReceiver = new TieMsgTrackingLog(tieMsgId, senderCode, receiverCode, tieMsgTrackingStatusId,
+						trackingNote, receivingCountry,ctsTrackingId);
 				// tieapp = new TieApp(name,description);
 				tieMsgReceiverList.add(tieMsgReceiver);
 			}
