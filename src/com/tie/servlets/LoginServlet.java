@@ -158,12 +158,7 @@ public class LoginServlet extends HttpServlet {
 		out.close();
 	}// end doPost(..)
 
-	private void sendMsg(HttpServletRequest request, HttpServletResponse response,
-			TieSessionController sessionController, int messageId) throws JAXBException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException, IOException {
-		// TODO Auto-generated method stub
-			UcControllerSendTieMsg ucControllerSendTieMsg = new UcControllerSendTieMsg(sessionController);
-			ucControllerSendTieMsg.sendTieMsg(messageId);
-	}
+
 
 	private void sendExceptionToFrontEnd(HttpServletResponse response, String errorMsg, String fileName)
 			throws IOException {
@@ -171,7 +166,7 @@ public class LoginServlet extends HttpServlet {
 		ServletError servletError = new ServletError();
 		servletError.setErrorName("Error!");
 		// String errorMsg = e.getMessage();
-		servletError.setErrorDescription(errorMsg);
+		servletError.setErrorDescription("Error sending msg to[receiverCode] - [trackingNotes]");
 		ObjectMapper ma = new ObjectMapper();
 		String servletErrorJson = ma.writeValueAsString(servletError);
 		response.setContentType("text/json");
@@ -214,6 +209,17 @@ public class LoginServlet extends HttpServlet {
 		}
 	}
 
+	private void sendMsg(HttpServletRequest request, HttpServletResponse response,
+			TieSessionController sessionController, int messageId) throws JAXBException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException, IOException {
+		// TODO Auto-generated method stub
+		try{
+			UcControllerSendTieMsg ucControllerSendTieMsg = new UcControllerSendTieMsg(sessionController,request, response);
+			ucControllerSendTieMsg.sendTieMsg(messageId);
+		}catch (Exception e){
+			logger.error("Failed to send this Msg", new Exception("CTS error!"));
+			sendExceptionToFrontEnd(response, e.getMessage(), "");
+		}
+	}
 	private void saveDoc(HttpServletRequest request, HttpServletResponse response,
 			TieSessionController sessionController, String docString, String fileName) throws IOException {
 		// TODO Auto-generated method stub

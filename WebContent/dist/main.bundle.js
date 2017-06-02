@@ -54699,6 +54699,8 @@ var MessageComponent = (function () {
         this.OECDMessageTypeList = ['CbC'];
         this.OECDMessageTypeIndicList = ['CBC401', 'CBC402'];
         this.lanList = ['en', 'es', 'fr', 'zh', 'gb'];
+        this.errorName = "";
+        this.errorDescription = "";
     }
     MessageComponent.prototype.ngOnChanges = function () {
         this.model.tieMsgId = this.messageDetail.tieMsgId;
@@ -54743,9 +54745,17 @@ var MessageComponent = (function () {
         this.emitDeleteMsgAtMessage.emit();
     };
     MessageComponent.prototype.onSendMsg = function () {
+        var _this = this;
         this._tieappService.sendMessage(this.messageDetail.tieMsgId)
-            .subscribe(function (currentDocData) {
-            alert("Message sent");
+            .subscribe(function (sendReturnData) {
+            if (sendReturnData.errorName != null) {
+                _this.errorName = sendReturnData.errorName;
+                _this.errorDescription = sendReturnData.errorDescription;
+                $('#errModalLong').modal('show');
+            }
+            else {
+                alert("Message sent");
+            }
         })
             ,
                 function (error) {
@@ -54783,6 +54793,30 @@ var MessageComponent = (function () {
     return MessageComponent;
     var _a;
 }());
+//this._tieappService.postDoc(text,fileName)
+// .subscribe(docData => {
+//   if (docData.errorName != null) {
+//     this.errorName = docData.errorName;
+//     this.errorDescription = docData.errorDescription;
+//     this.loading = false;
+//     $('#errModalLong').modal('show')
+//   } else {
+//     alert("Document Attached!");
+//     this.emitAttachedFile.emit(docData);
+//     this.loading = false;
+//   }
+//
+//   // this.attachedFile = true;
+//   // this.emitCheckMsgWhenAttach.emit(this.attachedFile);
+//   //alert("docAttached: " + JSON.stringify(docData));
+// },
+// err => {
+//   this.loading = false;
+//   this.errorName = "Error!"
+//   this.errorDescription = err;
+//   $('#errModalLong').modal('show')
+//
+// });
 
 
 /***/ },
@@ -58608,7 +58642,7 @@ process.umask = function() { return 0; };
 /* 637 */
 /***/ function(module, exports) {
 
-module.exports = "#bodyContainer {\r\n  display: flex;\r\n  flex-direction: row;\r\n  overflow: hidden;\r\n}\r\n\r\n/*#bodyContainer>div {\r\n  display: inline-block;\r\n  padding: 1em;\r\n  border: 2px solid #fff;\r\n}*/\r\n\r\n#tieapp-searchcriteria {\r\n  min-height: 480px;\r\n  min-width: 250px;\r\n  background-color: #34393d;\r\n  color: #fff;\r\n  padding: 10px 10px 10px 10px\r\n}\r\n#rightpanel {\r\n  min-height: 500px;\r\n  min-width: 100px;\r\n  padding: 10px 10px 10px 10px\r\n}\r\n#rightpanelflex {\r\n  display: flex;\r\n  flex-direction: column;\r\n  overflow: hidden;\r\n}\r\n\r\n/*rightpanelflex */\r\n\r\n.splitter-horizontal {\r\n  flex: 0 0 auto;\r\n  height: 3px;\r\n  text-align: center;\r\n  color: #000;\r\n  background: #44c4e7;\r\n  /*background: url(https://raw.githubusercontent.com/RickStrahl/jquery-resizable/master/assets/hsizegrip.png) center center no-repeat #535353;*/\r\n  cursor: row-resize;\r\n}\r\n\r\n#tieapp-messagelist {\r\n    height: 200px;\r\n    min-height: 10px;\r\n}\r\n\r\n#tieapp-messagedetail{\r\n  min-height: 10px;\r\n}\r\n"
+module.exports = "#bodyContainer {\r\n  display: flex;\r\n  flex-direction: row;\r\n  overflow: hidden;\r\n}\r\n\r\n\r\n/*#bodyContainer>div {\r\n  display: inline-block;\r\n  padding: 1em;\r\n  border: 2px solid #fff;\r\n}*/\r\n\r\n#tieapp-searchcriteria {\r\n  min-height: 480px;\r\n  min-width: 250px;\r\n  background-color: #34393d;\r\n  color: #fff;\r\n  padding: 10px 10px 10px 10px\r\n}\r\n\r\n#rightpanel {\r\n  min-height: 500px;\r\n  min-width: 100px;\r\n  padding: 10px 10px 10px 10px\r\n}\r\n\r\n#rightpanelflex {\r\n  display: flex;\r\n  flex-direction: column;\r\n  overflow: hidden;\r\n}\r\n\r\n\r\n/*rightpanelflex */\r\n\r\n.splitter-horizontal {\r\n  flex: 0 0 auto;\r\n  height: 3px;\r\n  text-align: center;\r\n  color: #000;\r\n  background: #44c4e7;\r\n  cursor: row-resize;\r\n}\r\n\r\n#tieapp-messagelist {\r\n  height: 200px;\r\n  min-height: 10px;\r\n}\r\n\r\n#tieapp-messagedetail {\r\n  min-height: 10px;\r\n}\r\n"
 
 /***/ },
 /* 638 */
@@ -58620,19 +58654,19 @@ module.exports = ""
 /* 639 */
 /***/ function(module, exports) {
 
-module.exports = "/*62025F*/\r\n\r\n\r\n/*AE38AB*/\r\n\r\n\r\n/*7B2879*/\r\n\r\ntable {\r\n  border: 1px solid #fcfcfc;\r\n\r\n  width: 100%;\r\n}\r\n\r\n.headinfo {\r\n  text-align: center;\r\n  font-size: 12px;\r\n}\r\n"
+module.exports = "table {\r\n  border: 1px solid #fcfcfc;\r\n  width: 100%;\r\n}\r\n\r\n.headinfo {\r\n  text-align: center;\r\n  font-size: 12px;\r\n}\r\n"
 
 /***/ },
 /* 640 */
 /***/ function(module, exports) {
 
-module.exports = "table {\r\n  border: 1px solid #fcfcfc;\r\n\r\n  width: 100%;\r\n}\r\n\r\n#note {\r\n  text-align: center;\r\n  font-size: 9px;\r\n}\r\n\r\n.headinfo {\r\n  text-align: center;\r\n  font-size: 12px;\r\n}\r\n"
+module.exports = "table {\r\n  border: 1px solid #fcfcfc;\r\n  width: 100%;\r\n}\r\n\r\n#note {\r\n  text-align: center;\r\n  font-size: 9px;\r\n}\r\n\r\n.headinfo {\r\n  text-align: center;\r\n  font-size: 12px;\r\n}\r\n"
 
 /***/ },
 /* 641 */
 /***/ function(module, exports) {
 
-module.exports = "table {\r\n  border: 1px solid #fcfcfc;\r\n\r\n  width: 100%;\r\n}\r\n\r\n.headinfo {\r\n  text-align: center;\r\n  font-size: 12px;\r\n}\r\n"
+module.exports = "table {\r\n  border: 1px solid #fcfcfc;\r\n  width: 100%;\r\n}\r\n\r\n.headinfo {\r\n  text-align: center;\r\n  font-size: 12px;\r\n}\r\n"
 
 /***/ },
 /* 642 */
@@ -58644,7 +58678,7 @@ module.exports = ".docbody tr:hover {\r\n  background-color: #eff5dc;\r\n}\r\n\r
 /* 643 */
 /***/ function(module, exports) {
 
-module.exports = "table {\r\n  /*table-layout: fixed;*/\r\n  width: 100%;\r\n}\r\nth, td {\r\n\r\n    overflow: hidden;\r\n\r\n}\r\n\r\n#docrow{\r\n  margin-left: 2px;\r\n}\r\n.btn {\r\n  height: 30px;\r\n  font-size: 12px;\r\n  vertical-align: middle;\r\n}\r\n"
+module.exports = "table {\r\n  /*table-layout: fixed;*/\r\n  width: 100%;\r\n}\r\n\r\nth, td {\r\n  overflow: hidden;\r\n}\r\n\r\n#docrow {\r\n  margin-left: 2px;\r\n}\r\n\r\n.btn {\r\n  height: 30px;\r\n  font-size: 12px;\r\n  vertical-align: middle;\r\n}\r\n"
 
 /***/ },
 /* 644 */
@@ -58662,19 +58696,19 @@ module.exports = ".subinfo{\r\n  font-size: 7px;\r\n  text-align: center;\r\n}\r
 /* 646 */
 /***/ function(module, exports) {
 
-module.exports = ".msgbody tr:hover {\r\n  background-color: #eff5dc;\r\n}\r\ntable {\r\n  table-layout: fixed;\r\n  width: 800px;\r\n}\r\nth, td {\r\n\r\n    overflow: hidden;\r\n    width: 160px;\r\n}\r\n\r\ntbody tr:nth-child(odd) {\r\n  background: #fcfcfc;\r\n}\r\ntbody tr:nth-child(even) {\r\n  background: #fcfcfc;\r\n}\r\n"
+module.exports = ".msgbody tr:hover {\r\n  background-color: #eff5dc;\r\n}\r\n\r\ntable {\r\n  table-layout: fixed;\r\n  width: 800px;\r\n}\r\n\r\nth, td {\r\n  overflow: hidden;\r\n  width: 160px;\r\n}\r\n\r\ntbody tr:nth-child(odd) {\r\n  background: #fcfcfc;\r\n}\r\n\r\ntbody tr:nth-child(even) {\r\n  background: #fcfcfc;\r\n}\r\n"
 
 /***/ },
 /* 647 */
 /***/ function(module, exports) {
 
-module.exports = "#searchby {\r\n  text-align: center;\r\n  font-size: 12px;\r\n}\r\n.form-control {\r\n  height: 25px;\r\n  width: 100px;\r\n  padding-left: 10px;\r\n  font-size: 12px;\r\n  text-align: center;\r\n}\r\n.form-control.metrix {\r\n  width: 60px;\r\n}\r\n#sel1 {\r\n  height: 28px;\r\n  width: 100px;\r\n  font-size: 11px;\r\n  text-align: center;\r\n  padding-top: 5px;\r\n}\r\n#mnc {\r\n  text-align: center;\r\n  font-size: 12px;\r\n}\r\n#mnc>p {\r\n  text-align: center;\r\n  font-weight: bold;\r\n}\r\n.ax {\r\n  font-weight: bold;\r\n}\r\nth {\r\n  background: transparent;\r\n  color: black;\r\n}\r\ntd {\r\n  background: transparent;\r\n  color: black;\r\n}\r\n"
+module.exports = "#searchby {\r\n  text-align: center;\r\n  font-size: 12px;\r\n}\r\n\r\n.form-control {\r\n  height: 25px;\r\n  width: 100px;\r\n  padding-left: 10px;\r\n  font-size: 12px;\r\n  text-align: center;\r\n}\r\n\r\n.form-control.metrix {\r\n  width: 60px;\r\n}\r\n\r\n#sel1 {\r\n  height: 28px;\r\n  width: 100px;\r\n  font-size: 11px;\r\n  text-align: center;\r\n  padding-top: 5px;\r\n}\r\n\r\n#mnc {\r\n  text-align: center;\r\n  font-size: 12px;\r\n}\r\n\r\n#mnc>p {\r\n  text-align: center;\r\n  font-weight: bold;\r\n}\r\n\r\n.ax {\r\n  font-weight: bold;\r\n}\r\n\r\nth {\r\n  background: transparent;\r\n  color: black;\r\n}\r\n\r\ntd {\r\n  background: transparent;\r\n  color: black;\r\n}\r\n"
 
 /***/ },
 /* 648 */
 /***/ function(module, exports) {
 
-module.exports = ".zippy {\r\n  border: 1px solid #ccc;\r\n  border-radius: 2px;\r\n}\r\n.zippy .zippy-title {\r\n  padding: 20px;\r\n  font-weight: bold;\r\n}\r\n.zippy .zippy-title:hover {\r\n  background: #ccffcc;\r\n  color: #34393d;\r\n  cursor: pointer;\r\n}\r\n.zippy .zippy-content {\r\n  padding: 20px;\r\n}\r\n\r\n#inbox {\r\n  text-align: center;\r\n  border: 1px solid #fff;\r\n  height:130px;\r\n}\r\n\r\n/*ul {\r\n\tlist-style: none;\r\n\tmargin: 0;\r\n\tpadding: 0;\r\n}*/\r\n.searchButton {\r\n  margin-top: 5px;\r\n  margin-bottom: 5px;\r\n}\r\n\r\n.btn-md{\r\n  width: 100px;\r\n  height:35px;\r\n\r\n}\r\n\r\n\r\n\r\n#searchBy {\r\n  margin-left: 20px;\r\n}\r\n#expandIcon {\r\n  margin-left: 80px;\r\n}\r\n"
+module.exports = ".zippy {\r\n  border: 1px solid #ccc;\r\n  border-radius: 2px;\r\n}\r\n\r\n.zippy .zippy-title {\r\n  padding: 20px;\r\n  font-weight: bold;\r\n}\r\n\r\n.zippy .zippy-title:hover {\r\n  background: #ccffcc;\r\n  color: #34393d;\r\n  cursor: pointer;\r\n}\r\n\r\n.zippy .zippy-content {\r\n  padding: 20px;\r\n}\r\n\r\n#inbox {\r\n  text-align: center;\r\n  border: 1px solid #fff;\r\n  height: 130px;\r\n}\r\n\r\n\r\n/*ul {\r\n\tlist-style: none;\r\n\tmargin: 0;\r\n\tpadding: 0;\r\n}*/\r\n\r\n.searchButton {\r\n  margin-top: 5px;\r\n  margin-bottom: 5px;\r\n}\r\n\r\n.btn-md {\r\n  width: 100px;\r\n  height: 35px;\r\n}\r\n\r\n#searchBy {\r\n  margin-left: 20px;\r\n}\r\n\r\n#expandIcon {\r\n  margin-left: 80px;\r\n}\r\n"
 
 /***/ },
 /* 649 */
@@ -58686,7 +58720,7 @@ module.exports = ".footer{\r\n  margin-left: 20px;\r\n  font-size: 9px;\r\n  col
 /* 650 */
 /***/ function(module, exports) {
 
-module.exports = ".logo {\r\n  margin-top: 0;\r\n  color: white;\r\n}\r\n.logo:hover {\r\n  color:lightgreen;\r\n}\r\n#headercenter {\r\n  text-align: center;\r\n  padding-top: 12px;\r\n}\r\n#headerright {\r\n  text-align: right;\r\n}\r\n.btn-success {\r\n  background-color: #ccffcc;\r\n  color: #34393d;\r\n}\r\n#language {\r\n  color: white;\r\n  font-size: 11px;\r\n}\r\n#user {\r\n    color: white;\r\n    font-size:11px;\r\n\r\n}\r\n.styled-select {\r\n  float: right;\r\n  height: 7px;\r\n  width: 50px;\r\n  margin-right: 20px;\r\n}\r\n.styled-select select {\r\n  background: white;\r\n  border: none;\r\n  font-size: 10px;\r\n  height: 25px;\r\n  width: 68px;\r\n  padding-top: 5px;\r\n}\r\n"
+module.exports = ".logo {\r\n  margin-top: 0;\r\n  color: white;\r\n}\r\n\r\n.logo:hover {\r\n  color: lightgreen;\r\n}\r\n\r\n#headercenter {\r\n  text-align: center;\r\n  padding-top: 12px;\r\n}\r\n\r\n#headerright {\r\n  text-align: right;\r\n}\r\n\r\n.btn-success {\r\n  background-color: #ccffcc;\r\n  color: #34393d;\r\n}\r\n\r\n#language {\r\n  color: white;\r\n  font-size: 11px;\r\n}\r\n\r\n#user {\r\n  color: white;\r\n  font-size: 11px;\r\n}\r\n\r\n.styled-select {\r\n  float: right;\r\n  height: 7px;\r\n  width: 50px;\r\n  margin-right: 20px;\r\n}\r\n\r\n.styled-select select {\r\n  background: white;\r\n  border: none;\r\n  font-size: 10px;\r\n  height: 25px;\r\n  width: 68px;\r\n  padding-top: 5px;\r\n}\r\n"
 
 /***/ },
 /* 651 */
@@ -58747,7 +58781,7 @@ module.exports = "<div *ngIf=\"currentDoc\">\r\n  <div class=\"row\" id=\"docrow
 /* 661 */
 /***/ function(module, exports) {
 
-module.exports = "<div id=\"currentMsgBody\" *ngIf=\"messageDetail\">\r\n  <form (ngSubmit)=\"onSubmit()\" #heroForm=\"ngForm\">\r\n    <!-- Items in this form {{diagnostic}} -->\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3\">\r\n        <p>\r\n          From:<span id=\"from\"> {{messageDetail.userName}}</span>\r\n        </p>\r\n      </div>\r\n\r\n\r\n      <div class=\"col-md-3\">\r\n        <p>\r\n          Date: <span id=\"date\">{{messageDetail.timestamp}}</span>\r\n        </p>\r\n      </div>\r\n\r\n      <div class=\"col-md-3\">\r\n        <p>\r\n          Reporting Period: <span id=\"reportingPeriod\"> {{messageDetail.reportingPeriod}}</span>\r\n        </p>\r\n      </div>\r\n\r\n      <div class=\"col-md-3\">\r\n        <p>\r\n          Status: <span id=tieMsgState> {{messageDetail.msgState}} </span>\r\n        </p>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3\">\r\n        <div>To:</div>\r\n      </div>\r\n      <div class=\"col-md-9\">\r\n        <!-- <textarea style=\"overflow:auto\" class=\"textarea\" rows=\"0\">{{messageDetail.msgReceiverList}}</textarea> -->\r\n        <input type=\"text\" class=\"form-control\" id=\"msgReceiverList\"  [(ngModel)]=\"model.msgReceiverList\" name=\"msgReceiverList\" #name=\"ngModel\">\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3\">\r\n        <div>Subject:</div>\r\n      </div>\r\n      <div class=\"col-md-9\">\r\n        <!-- <input type=\"text\" class=\"form-control\" id=\"Subject\" placeholder=\"{{messageDetail.subject}}\" [(ngModel)]=\"model.subject\" name=\"subject\"> -->\r\n        <input type=\"text\" class=\"form-control\" id=\"Subject\"  [(ngModel)]=\"model.subject\" name=\"subject\" #name=\"ngModel\">\r\n      </div>\r\n    </div>\r\n\r\n\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3\">\r\n        <div>Notes:</div>\r\n      </div>\r\n      <div class=\"col-md-9\">\r\n        <textarea style=\"overflow:auto\" class=\"notestextarea\" rows=\"3\" [(ngModel)]=\"model.notes\" name=\"notes\">{{messageDetail.notes}}</textarea>\r\n        <!-- <textarea rows=\"4\" cols=\"95\" id=\"notes\" [(ngModel)]=\"model.notes\" name=\"notes\">wheres note {{messageDetail.notes}}</textarea> -->\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3\">\r\n        <div>Warning:</div>\r\n      </div>\r\n      <div class=\"col-md-9\">\r\n        <input type=\"text\" class=\"form-control\" id=\"warning\"  [(ngModel)]=\"model.warning\" name=\"warning\" #name=\"ngModel\">\r\n        <!-- <input type=\"text\" class=\"form-control\" id=\"Warning\" placeholder=\"{{messageDetail.warning}}\" [(ngModel)]=\"model.warning\" name=\"warning\"> -->\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3\">\r\n        <div>Contact:</div>\r\n      </div>\r\n      <div class=\"col-md-9\">\r\n        <!-- <textarea style=\"overflow:auto\" class=\"textarea\" rows=\"0\">{{messageDetail.contact}}</textarea> -->\r\n        <input type=\"text\" class=\"form-control\" id=\"contact\"  [(ngModel)]=\"model.contact\" name=\"contact\" #name=\"ngModel\">\r\n        <!-- <input type=\"text\" class=\"form-control\" id=\"Contact\" placeholder=\"{{messageDetail.contact}}\" [(ngModel)]=\"model.contact\" name=\"contact\"> -->\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3\">\r\n\r\n        <div>\r\n          OECD Message Ref ID:\r\n        </div>\r\n\r\n        <div>\r\n          OECD Message Type:\r\n        </div>\r\n        <div>\r\n          Sending Country:\r\n        </div>\r\n        <div>Language:</div>\r\n\r\n      </div>\r\n      <div class=\"col-md-3\">\r\n        <div>\r\n          {{messageDetail.messageRefId}}\r\n        </div>\r\n        <div class=\"styled-select\">\r\n          <select class=\"form-control\" id=\"sel1\"  [(ngModel)]=\"model.messageType\" name=\"messageType\" #messageType=\"ngModel\">\r\n          <!-- <option *ngFor=\"let OECDMessageTypeItem of messageDetail.OECDMessageType\">{{OECDMessageTypeItem}}</option> -->\r\n           <option *ngFor=\"let messageType of OECDMessageTypeList\" [value]=\"messageType\">{{messageType}}</option>\r\n        </select>\r\n        </div>\r\n        <div>\r\n          {{messageDetail.transmittingCountry}}\r\n        </div>\r\n        <div class=\"styled-select\">\r\n          <!-- <select class=\"form-control\" id=\"sel1\" required [(ngModel)]=\"model.language\" name=\"messageType\" #messageType=\"ngModel\">\r\n          <option *ngFor = \"let language of languageList\" [value]=\"language\">{{language}}</option> -->\r\n          <select class=\"form-control\" id=\"sel2\" [(ngModel)] = \"model.language\" name=\"language\" #language=\"ngModel\">\r\n          <option *ngFor = \"let language of lanList\" [value]=\"language\">{{language | cap}}</option>\r\n\r\n        </select>\r\n        </div>\r\n\n        \n\n\r\n      </div>\r\n      <div class=\"col-md-3\">\r\n        <div>\r\n          Reporting Period:\r\n        </div>\r\n        <div>\r\n          OECD Message Type Indic:\r\n        </div>\r\n        <div>\r\n          Receiving Country:\r\n        </div>\r\n\r\n      </div>\r\n      <div class=\"col-md-3\">\r\n        <div>\r\n\r\n          {{messageDetail.reportingPeriod}}\r\n        </div>\r\n        <div class=\"styled-select\">\r\n          <!-- <select class=\"form-control\" id=\"sel1\">\r\n\r\n          <option>CBC401</option>\r\n          <option>CBC402</option> -->\r\n          <select class=\"form-control\" id=\"sel1\"  [(ngModel)]=\"model.messageTypeIndic\" name=\"messageTypeIndic\" #messageTypeIndic=\"ngModel\">\r\n\r\n           <option *ngFor=\"let messageTypeIndic of OECDMessageTypeIndicList\" [value]=\"messageTypeIndic\">{{messageTypeIndic}}</option>\r\n        </select>\r\n        </div>\r\n        <div>\r\n\r\n          {{messageDetail.receivingCountries}}\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <button type=\"button\" type=\"submit\" class=\"btn btn-primary\">Save</button>\r\n    <button type=\"button\" class=\"btn btn-primary\" (click) = \"onDeleteMsg()\">Delete</button>\r\n    <button type=\"button\" class=\"btn btn-primary\" (click) = \"onSendMsg()\">Send</button>\r\n  </form>\r\n</div>\r\n"
+module.exports = "<div id=\"currentMsgBody\" *ngIf=\"messageDetail\">\r\n  <form (ngSubmit)=\"onSubmit()\" #heroForm=\"ngForm\">\r\n    <!-- Items in this form {{diagnostic}} -->\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3\">\r\n        <p>\r\n          From:<span id=\"from\"> {{messageDetail.userName}}</span>\r\n        </p>\r\n      </div>\r\n\r\n\r\n      <div class=\"col-md-3\">\r\n        <p>\r\n          Date: <span id=\"date\">{{messageDetail.timestamp}}</span>\r\n        </p>\r\n      </div>\r\n\r\n      <div class=\"col-md-3\">\r\n        <p>\r\n          Reporting Period: <span id=\"reportingPeriod\"> {{messageDetail.reportingPeriod}}</span>\r\n        </p>\r\n      </div>\r\n\r\n      <div class=\"col-md-3\">\r\n        <p>\r\n          Status: <span id=tieMsgState> {{messageDetail.msgState}} </span>\r\n        </p>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3\">\r\n        <div>To:</div>\r\n      </div>\r\n      <div class=\"col-md-9\">\r\n        <!-- <textarea style=\"overflow:auto\" class=\"textarea\" rows=\"0\">{{messageDetail.msgReceiverList}}</textarea> -->\r\n        <input type=\"text\" class=\"form-control\" id=\"msgReceiverList\"  [(ngModel)]=\"model.msgReceiverList\" name=\"msgReceiverList\" #name=\"ngModel\">\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3\">\r\n        <div>Subject:</div>\r\n      </div>\r\n      <div class=\"col-md-9\">\r\n        <!-- <input type=\"text\" class=\"form-control\" id=\"Subject\" placeholder=\"{{messageDetail.subject}}\" [(ngModel)]=\"model.subject\" name=\"subject\"> -->\r\n        <input type=\"text\" class=\"form-control\" id=\"Subject\"  [(ngModel)]=\"model.subject\" name=\"subject\" #name=\"ngModel\">\r\n      </div>\r\n    </div>\r\n\r\n\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3\">\r\n        <div>Notes:</div>\r\n      </div>\r\n      <div class=\"col-md-9\">\r\n        <textarea style=\"overflow:auto\" class=\"notestextarea\" rows=\"3\" [(ngModel)]=\"model.notes\" name=\"notes\">{{messageDetail.notes}}</textarea>\r\n        <!-- <textarea rows=\"4\" cols=\"95\" id=\"notes\" [(ngModel)]=\"model.notes\" name=\"notes\">wheres note {{messageDetail.notes}}</textarea> -->\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3\">\r\n        <div>Warning:</div>\r\n      </div>\r\n      <div class=\"col-md-9\">\r\n        <input type=\"text\" class=\"form-control\" id=\"warning\"  [(ngModel)]=\"model.warning\" name=\"warning\" #name=\"ngModel\">\r\n        <!-- <input type=\"text\" class=\"form-control\" id=\"Warning\" placeholder=\"{{messageDetail.warning}}\" [(ngModel)]=\"model.warning\" name=\"warning\"> -->\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3\">\r\n        <div>Contact:</div>\r\n      </div>\r\n      <div class=\"col-md-9\">\r\n        <!-- <textarea style=\"overflow:auto\" class=\"textarea\" rows=\"0\">{{messageDetail.contact}}</textarea> -->\r\n        <input type=\"text\" class=\"form-control\" id=\"contact\"  [(ngModel)]=\"model.contact\" name=\"contact\" #name=\"ngModel\">\r\n        <!-- <input type=\"text\" class=\"form-control\" id=\"Contact\" placeholder=\"{{messageDetail.contact}}\" [(ngModel)]=\"model.contact\" name=\"contact\"> -->\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"row\">\r\n      <div class=\"col-md-3\">\r\n\r\n        <div>\r\n          OECD Message Ref ID:\r\n        </div>\r\n\r\n        <div>\r\n          OECD Message Type:\r\n        </div>\r\n        <div>\r\n          Sending Country:\r\n        </div>\r\n        <div>Language:</div>\r\n\r\n      </div>\r\n      <div class=\"col-md-3\">\r\n        <div>\r\n          {{messageDetail.messageRefId}}\r\n        </div>\r\n        <div class=\"styled-select\">\r\n          <select class=\"form-control\" id=\"sel1\"  [(ngModel)]=\"model.messageType\" name=\"messageType\" #messageType=\"ngModel\">\r\n          <!-- <option *ngFor=\"let OECDMessageTypeItem of messageDetail.OECDMessageType\">{{OECDMessageTypeItem}}</option> -->\r\n           <option *ngFor=\"let messageType of OECDMessageTypeList\" [value]=\"messageType\">{{messageType}}</option>\r\n        </select>\r\n        </div>\r\n        <div>\r\n          {{messageDetail.transmittingCountry}}\r\n        </div>\r\n        <div class=\"styled-select\">\r\n          <!-- <select class=\"form-control\" id=\"sel1\" required [(ngModel)]=\"model.language\" name=\"messageType\" #messageType=\"ngModel\">\r\n          <option *ngFor = \"let language of languageList\" [value]=\"language\">{{language}}</option> -->\r\n          <select class=\"form-control\" id=\"sel2\" [(ngModel)] = \"model.language\" name=\"language\" #language=\"ngModel\">\r\n          <option *ngFor = \"let language of lanList\" [value]=\"language\">{{language | cap}}</option>\r\n\r\n        </select>\r\n        </div>\r\n\n\n\n\r\n      </div>\r\n      <div class=\"col-md-3\">\r\n        <div>\r\n          Reporting Period:\r\n        </div>\r\n        <div>\r\n          OECD Message Type Indic:\r\n        </div>\r\n        <div>\r\n          Receiving Country:\r\n        </div>\r\n\r\n      </div>\r\n      <div class=\"col-md-3\">\r\n        <div>\r\n\r\n          {{messageDetail.reportingPeriod}}\r\n        </div>\r\n        <div class=\"styled-select\">\r\n          <!-- <select class=\"form-control\" id=\"sel1\">\r\n\r\n          <option>CBC401</option>\r\n          <option>CBC402</option> -->\r\n          <select class=\"form-control\" id=\"sel1\"  [(ngModel)]=\"model.messageTypeIndic\" name=\"messageTypeIndic\" #messageTypeIndic=\"ngModel\">\r\n\r\n           <option *ngFor=\"let messageTypeIndic of OECDMessageTypeIndicList\" [value]=\"messageTypeIndic\">{{messageTypeIndic}}</option>\r\n        </select>\r\n        </div>\r\n        <div>\r\n\r\n          {{messageDetail.receivingCountries}}\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <button type=\"button\" type=\"submit\" class=\"btn btn-primary\">Save</button>\r\n    <button type=\"button\" class=\"btn btn-primary\" (click) = \"onDeleteMsg()\">Delete</button>\r\n    <button type=\"button\" class=\"btn btn-primary\" (click) = \"onSendMsg()\">Send</button>\r\n  </form>\r\n</div>\r\n\r\n<!-- Modal -->\r\n<div class=\"modal fade\" id=\"errModalLong\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"errModalLongTitle\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"errModalLongTitle\">{{errorName}}</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        {{errorDescription}}\r\n      </div>\r\n      <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">OK</button>\r\n        <!-- <button type=\"button\" class=\"btn btn-primary\">Save changes</button> -->\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ },
 /* 662 */

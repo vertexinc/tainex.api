@@ -37,6 +37,12 @@ public class TieMsg {
 	private String rawMsg;
 	private String msgReceiverList;
 	private List<TieMsgTrackingLog> TieMsgReceiverList;
+	
+	private String userName;
+	private String msgState;
+	private HashMap<Long, TieMsgPackage> msgPackages = new HashMap<Long, TieMsgPackage>();
+	private int numOfDocs;
+
 
 	public List<TieMsgTrackingLog> getTieMsgReceiverList() {
 		return TieMsgReceiverList;
@@ -45,13 +51,6 @@ public class TieMsg {
 	public void setTieMsgReceiverList(List<TieMsgTrackingLog> tieMsgReceiverList) {
 		TieMsgReceiverList = tieMsgReceiverList;
 	}
-
-	private String userName;
-
-	private String msgState;
-	private HashMap<Long, TieMsgPackage> msgPackages = new HashMap<Long, TieMsgPackage>();
-	private int numOfDocs;
-
 	public int getNumOfDocs() {
 		int numOfDocs = 0;
 		if (getTieDocList() != null) {

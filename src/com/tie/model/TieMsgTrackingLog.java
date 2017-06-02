@@ -9,6 +9,7 @@ public class TieMsgTrackingLog {
 	private String trackingNote;
 	private String receivingCountry;
 	private String ctsTrackingId;
+	private String timeStamp;
 
 	public TieMsgTrackingLog() {
 		// super();

@@ -18,6 +18,8 @@ import java.util.Map;
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.JAXBException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -35,19 +37,24 @@ import org.slf4j.LoggerFactory;
 public class UcControllerSendTieMsg extends TieControllerBase {
 	final Logger logger = LoggerFactory.getLogger(TaxDocParser.class);
 	TieSessionController sessionController;
+	HttpServletRequest request;
+	HttpServletResponse response;
 	private Map<Long, TieMsgPackage> msgPackages;
 
-	public UcControllerSendTieMsg() {
-
-	}
-
-	public UcControllerSendTieMsg(TieSessionController sessionController) {
+	public UcControllerSendTieMsg(TieSessionController sessionController, HttpServletRequest request,
+			HttpServletResponse response) {
 		this.sessionController = sessionController;
+		this.request = request;
+		this.response = response;
 	}
 
 	public void sendTieMsg(long msgId) throws JAXBException, InvalidKeyException, IllegalBlockSizeException,
 			BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException, IOException {
 		List<TieMsgPackage> packageList = prepareTieMsg(msgId);
+
+		throw new RuntimeException("Error sending msg to[receiverCode] - [trackingNotes]");
+		// test sending error from CTS
+
 	}// sendTieMsg(.)
 
 	// prepare one blank package for each intended recipient.
@@ -71,11 +78,10 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 
 			tieMsgPackage.setPayload(xmlString);
 			tieMsgPackage.setPayloadEncrypted(encryptMsgBody(xmlString, tieMsgPackage));
-			
-			//compose Envelop
+
+			// compose Envelop
 			composeMsgEnvelop(tieMsgPackage);
 		}
-		
 
 		return packageList;
 	}// prepareTieMsg(.)
@@ -85,7 +91,7 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 		List<TieMsgPackage> retval = new ArrayList<TieMsgPackage>();
 		// start a blank package for each recipient
 		tieMsg.initPackages();
-		
+
 		Map<Long, TieMsgPackage> msgPackagesMap = tieMsg.getMsgPackages();
 		for (Object Key : msgPackagesMap.keySet()) {
 			System.out.println("Handle package with key: " + Key);
@@ -151,60 +157,60 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 	public boolean recordTaxMsgStatus() {
 		return false;
 	}// end recordTaxMsgStatus()
-	
-	//Set msgEnvelop (byte[]) to TieMsgPackage object
-	public void composeMsgEnvelop(TieMsgPackage msgPkg) throws IOException{
-		//TODO: recipient String
+
+	// Set msgEnvelop (byte[]) to TieMsgPackage object
+	public void composeMsgEnvelop(TieMsgPackage msgPkg) throws IOException {
+		// TODO: recipient String
 		String recipientString = msgPkg.getSingleRecipient();
-		TieMsgEnvelope tieMsgEnvelope = createEnvelopeForPackage(recipientString,msgPkg);
+		TieMsgEnvelope tieMsgEnvelope = createEnvelopeForPackage(recipientString, msgPkg);
 		byte[] envelopeByte = byteEnvelope(tieMsgEnvelope);
 		System.out.println("tieMsgEnvelope in byte: " + Arrays.toString(envelopeByte));
 		msgPkg.setPackageBytes(envelopeByte);
-	}//end composeMsgEnvelop(.)
-	
-	public TieMsgEnvelope createEnvelopeForPackage( String recipient, TieMsgPackage msgPkg ){
+	}// end composeMsgEnvelop(.)
+
+	public TieMsgEnvelope createEnvelopeForPackage(String recipient, TieMsgPackage msgPkg) {
 		TieMsgEnvelope tieMsgEnvelope = new TieMsgEnvelope();
 		TiePersister persister = TieController.getController().getPersister();
-		//Set tieMsgEnvelope properties
-		
-		//Set Sender
+		// Set tieMsgEnvelope properties
+
+		// Set Sender
 		int senderId = msgPkg.getTiemsg().getSenderId();
 		TieUser sender = persister.getTieUserDao().findTieUserById(senderId);
 		tieMsgEnvelope.setSender(sender);
-		
-		//Set Receiver
+
+		// Set Receiver
 		String[] recipientString = recipient.split("@", -1);
 		String userCode = recipientString[0];
 		TieUser receiver = persister.getTieUserDao().findTieUserByCode(userCode);
 		tieMsgEnvelope.setReceiver(receiver);
-		
-		//Set Time
+
+		// Set Time
 		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.HOUR_OF_DAY,17);
-		cal.set(Calendar.MINUTE,30);
-		cal.set(Calendar.SECOND,0);
-		cal.set(Calendar.MILLISECOND,0);
+		cal.set(Calendar.HOUR_OF_DAY, 17);
+		cal.set(Calendar.MINUTE, 30);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
 		Date date = cal.getTime();
 		tieMsgEnvelope.setSendTime(date);
-		
-		return tieMsgEnvelope;		
-	};//end createEnvelopeForPackage(..)
-	
-	//convert TieMsgEnvelope into Byte[]
-	public byte[] byteEnvelope(TieMsgEnvelope tieMsgEnvelope) throws IOException{
+
+		return tieMsgEnvelope;
+	};// end createEnvelopeForPackage(..)
+
+	// convert TieMsgEnvelope into Byte[]
+	public byte[] byteEnvelope(TieMsgEnvelope tieMsgEnvelope) throws IOException {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		ObjectOutputStream os = new ObjectOutputStream(out);
 		System.out.println("tieMsgEnvelope: " + tieMsgEnvelope.toString());
-		os.writeObject(tieMsgEnvelope);	
+		os.writeObject(tieMsgEnvelope);
 		return out.toByteArray();
-//		return null;
+		// return null;
 	}
-	
-	//byte to obj
-	public  Object deserialize(byte[] data) throws IOException, ClassNotFoundException {
-	    ByteArrayInputStream in = new ByteArrayInputStream(data);
-	    ObjectInputStream is = new ObjectInputStream(in);
-	    return is.readObject();
+
+	// byte to obj
+	public Object deserialize(byte[] data) throws IOException, ClassNotFoundException {
+		ByteArrayInputStream in = new ByteArrayInputStream(data);
+		ObjectInputStream is = new ObjectInputStream(in);
+		return is.readObject();
 	}
 
 }
