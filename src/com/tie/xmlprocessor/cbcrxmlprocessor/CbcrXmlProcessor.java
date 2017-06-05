@@ -79,7 +79,7 @@ public class CbcrXmlProcessor {
 		retval = sw.toString();
 
 		// validation
-		File file = new File("simpleFile.xml");
+		File file = new File("C:/CBCR_Files/simpleFile.xml");
 		marshaller.marshal(cbcoecd, file);
 
 		boolean valid = validateXMLSchema("CbcXML_v1.0.xsd", "file.xml");
@@ -95,7 +95,7 @@ public class CbcrXmlProcessor {
 		ObjectFactory factory = new ObjectFactory();
 		CBCOECD cbcoecd = composeCBCOECD(factory, tieMsg);
 		// validation
-		File file = new File("file.xml");
+		File file = new File("C:/CBCR_Files/file.xml");
 		marshaller.marshal(cbcoecd, file);
 
 		boolean valid = validateXMLSchema("CbcXML_v1.0.xsd", "file.xml");

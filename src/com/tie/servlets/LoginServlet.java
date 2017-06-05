@@ -212,13 +212,13 @@ public class LoginServlet extends HttpServlet {
 	private void sendMsg(HttpServletRequest request, HttpServletResponse response,
 			TieSessionController sessionController, int messageId) throws JAXBException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException, IOException {
 		// TODO Auto-generated method stub
-		try{
+		//try{
 			UcControllerSendTieMsg ucControllerSendTieMsg = new UcControllerSendTieMsg(sessionController,request, response);
 			ucControllerSendTieMsg.sendTieMsg(messageId);
-		}catch (Exception e){
-			logger.error("Failed to send this Msg", new Exception("CTS error!"));
-			sendExceptionToFrontEnd(response, e.getMessage(), "");
-		}
+		//}catch (Exception e){
+		//	logger.error("Failed to send this Msg", new Exception("CTS error!"));
+		//	sendExceptionToFrontEnd(response, e.getMessage(), "");
+		//}
 	}
 	private void saveDoc(HttpServletRequest request, HttpServletResponse response,
 			TieSessionController sessionController, String docString, String fileName) throws IOException {
