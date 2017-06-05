@@ -82,7 +82,7 @@ public class CbcrXmlProcessor {
 		File file = new File("C:/CBCR_Files/simpleFile.xml");
 		marshaller.marshal(cbcoecd, file);
 
-		boolean valid = validateXMLSchema("CbcXML_v1.0.xsd", "file.xml");
+		boolean valid = validateXMLSchema("C:/CBCR_Files/CbcXML_v1.0.xsd", "C:/CBCR_Files/file.xml");
 		System.out.println();
 		System.out.println("========Validation result========");
 		System.out.println(valid);
@@ -98,7 +98,7 @@ public class CbcrXmlProcessor {
 		File file = new File("C:/CBCR_Files/file.xml");
 		marshaller.marshal(cbcoecd, file);
 
-		boolean valid = validateXMLSchema("CbcXML_v1.0.xsd", "file.xml");
+		boolean valid = validateXMLSchema("C:/CBCR_Files/CbcXML_v1.0.xsd", "C:/CBCR_Files/file.xml");
 		System.out.println();
 		System.out.println("========Validation result========");
 		System.out.println(valid);

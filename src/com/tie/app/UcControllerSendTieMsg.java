@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.JAXBException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.tie.app.cts.TieCtsStub;
 import com.tie.dao.TiePersister;
 import com.tie.model.TieMsg;
 import com.tie.model.TieMsgEnvelope;
@@ -55,6 +56,8 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 			BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException, IOException {
 		//List<TieMsgPackage> packageList = prepareTieMsg(msgId);
 		TieMsg preparedTieMsg = prepareTieMsg(msgId);
+		TieCtsStub tieCtsStub = new TieCtsStub();
+		tieCtsStub.sendTieMsg(preparedTieMsg);
 		//throw new RuntimeException("Error sending msg to[receiverCode] - [trackingNotes]");
 		//test sending error from CTS
 		
