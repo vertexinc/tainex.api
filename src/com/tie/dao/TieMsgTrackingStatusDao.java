@@ -2,15 +2,19 @@ package com.tie.dao;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
-import com.tie.model.TieMsgTrackingStateus;
+import com.tie.model.TieDoc;
+import com.tie.model.TieMsg;
+import com.tie.model.TieMsgState;
+import com.tie.model.TieMsgTrackingStatus;
 import com.tie.model.TieUser;
 
 public class TieMsgTrackingStatusDao extends BaseDao{
-	public TieMsgTrackingStateus findTieMsgTrackingStatusById(int id) {
+	public TieMsgTrackingStatus findTieMsgTrackingStatusById(int id) {
 		getConnection();
 
-		TieMsgTrackingStateus tieMsgTrackingStateus = null;
+		TieMsgTrackingStatus tieMsgTrackingStateus = null;
 		try {
 			String sql = "select * from tiemsgtrackingstateus where tieMsgTrackingStatusId = ?";
 
@@ -25,7 +29,7 @@ public class TieMsgTrackingStatusDao extends BaseDao{
 				String code = rs.getString("code");
 				String description = rs.getString("description");
 				
-				tieMsgTrackingStateus = new TieMsgTrackingStateus(tieMsgTrackingStatusId,
+				tieMsgTrackingStateus = new TieMsgTrackingStatus(tieMsgTrackingStatusId,
 						name,code,description);
 				// tieapp = new TieApp(name,description);
 			}
@@ -59,4 +63,19 @@ public class TieMsgTrackingStatusDao extends BaseDao{
 
 		return tieMsgTrackingStateus;
 	}
+	
+	public void recordTieMsgStatus(TieMsg tieMsg, String msg, TieMsgState msgState) {
+		int tieMsgId = tieMsg.getTieMsgId();
+		int tieMsgStateId = msgState.getTieMsgStateId();
+		getConnection();
+		try {		
+			String sql = "update tiemsg set tieMsgStateId = ? where tieMsgId = ?";
+			PreparedStatement updateStatement = conn.prepareStatement(sql);
+			updateStatement.setInt(1, tieMsgStateId);
+			updateStatement.setInt(2, tieMsgId);
+			updateStatement.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}// end recordTieMsgStatus(...)
 }

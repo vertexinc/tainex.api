@@ -28,6 +28,9 @@ import com.tie.dao.TiePersister;
 import com.tie.model.TieMsg;
 import com.tie.model.TieMsgEnvelope;
 import com.tie.model.TieMsgPackage;
+import com.tie.model.TieMsgState;
+import com.tie.model.TieMsgTrackingLog;
+import com.tie.model.TieMsgTrackingStatus;
 import com.tie.model.TieUser;
 import com.tie.ui.TieMainPage;
 import com.tie.xmlprocessor.cbcrxmlprocessor.CbcrXmlProcessor;
@@ -42,11 +45,13 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 	HttpServletResponse response;
 	private Map<Long, TieMsgPackage> msgPackages;
 
-//	public UcControllerSendTieMsg(TieSessionController sessionController, HttpServletRequest request, HttpServletResponse response) {
-//
-//	}
+	// public UcControllerSendTieMsg(TieSessionController sessionController,
+	// HttpServletRequest request, HttpServletResponse response) {
+	//
+	// }
 
-	public UcControllerSendTieMsg(TieSessionController sessionController,HttpServletRequest request, HttpServletResponse response) {
+	public UcControllerSendTieMsg(TieSessionController sessionController, HttpServletRequest request,
+			HttpServletResponse response) {
 		this.sessionController = sessionController;
 		this.request = request;
 		this.response = response;
@@ -54,22 +59,32 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 
 	public void sendTieMsg(long msgId) throws JAXBException, InvalidKeyException, IllegalBlockSizeException,
 			BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException, IOException {
-		//List<TieMsgPackage> packageList = prepareTieMsg(msgId);
+		// List<TieMsgPackage> packageList = prepareTieMsg(msgId);
 		TieMsg preparedTieMsg = prepareTieMsg(msgId);
-		TieCtsStub tieCtsStub = new TieCtsStub();
-		tieCtsStub.sendTieMsg(preparedTieMsg);
-		//throw new RuntimeException("Error sending msg to[receiverCode] - [trackingNotes]");
-		//test sending error from CTS
-		
-		
+		try {
+			TieCtsStub tieCtsStub = new TieCtsStub();
+			tieCtsStub.sendTieMsg(preparedTieMsg);
+			
+			String msgString = "";
+			TieMsgState tieMsgState = new TieMsgState(2,"name",msgString,"","");
+			recordMsgState(preparedTieMsg, msgString, tieMsgState);
+			// Record sending as success
+		} catch (Exception e) {
+			// Record sending as fail
+			String msgString = "";
+			TieMsgState tieMsgState = new TieMsgState(6,"name",msgString,"","");
+			recordMsgState(preparedTieMsg, msgString, tieMsgState);
+		}
+		// throw new RuntimeException("Error sending msg to[receiverCode] -
+		// [trackingNotes]");
+		// test sending error from CTS
 	}// sendTieMsg(.)
 
 	// prepare one blank package for each intended recipient.
 	// Logic going through initPackages inside tieMsg class
-	//public List<TieMsgPackage> prepareTieMsg(long msgId)
-	public TieMsg prepareTieMsg(long msgId)
-			throws JAXBException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException,
-			NoSuchAlgorithmException, NoSuchPaddingException, IOException {
+	// public List<TieMsgPackage> prepareTieMsg(long msgId)
+	public TieMsg prepareTieMsg(long msgId) throws JAXBException, InvalidKeyException, IllegalBlockSizeException,
+			BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException, IOException {
 		logger.debug("Message to be sent with ID {}.", msgId);
 
 		// Build TIE message
@@ -80,34 +95,33 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 
 		// loop through the recipient list to create a blank package list
 		tieMsg = prepareTieMsgPackage(tieMsg);
-		
+
 		Map<Long, TieMsgPackage> msgPackagesMap = tieMsg.getMsgPackages();
 		// loop through packageList to generate each indivial package
 		for (Object Key : msgPackagesMap.keySet()) {
 			TieMsgPackage tieMsgPackage = msgPackagesMap.get(Key);
 			tieMsgPackage.setPayload(xmlString);
 			tieMsgPackage.setPayloadEncrypted(encryptMsgBody(xmlString, tieMsgPackage));
-			
-			//compose Envelop
+
+			// compose Envelop
 			composeMsgEnvelop(tieMsgPackage);
 		}
-		
 
 		return tieMsg;
 	}// prepareTieMsg(.)
 
 	// loop through the recipient list to create a blank package list
 	public TieMsg prepareTieMsgPackage(TieMsg tieMsg) {
-		//List<TieMsgPackage> retval = new ArrayList<TieMsgPackage>();
+		// List<TieMsgPackage> retval = new ArrayList<TieMsgPackage>();
 		// start a blank package for each recipient
 		tieMsg.initPackages();
-		
+
 		Map<Long, TieMsgPackage> msgPackagesMap = tieMsg.getMsgPackages();
 		for (Object Key : msgPackagesMap.keySet()) {
 			System.out.println("Handle package with key: " + Key);
 			TieMsgPackage tieMsgPackage = msgPackagesMap.get(Key);
 			tieMsgPackage.setTiemsg(tieMsg);
-			//retval.add(tieMsgPackage);
+			// retval.add(tieMsgPackage);
 		}
 		return tieMsg;
 
@@ -167,60 +181,75 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 	public boolean recordTaxMsgStatus() {
 		return false;
 	}// end recordTaxMsgStatus()
-	
-	//Set msgEnvelop (byte[]) to TieMsgPackage object
-	public void composeMsgEnvelop(TieMsgPackage msgPkg) throws IOException{
-		//TODO: recipient String
+
+	// Set msgEnvelop (byte[]) to TieMsgPackage object
+	public void composeMsgEnvelop(TieMsgPackage msgPkg) throws IOException {
+		// TODO: recipient String
 		String recipientString = msgPkg.getSingleRecipient();
-		TieMsgEnvelope tieMsgEnvelope = createEnvelopeForPackage(recipientString,msgPkg);
+		TieMsgEnvelope tieMsgEnvelope = createEnvelopeForPackage(recipientString, msgPkg);
 		byte[] envelopeByte = byteEnvelope(tieMsgEnvelope);
 		System.out.println("tieMsgEnvelope in byte: " + Arrays.toString(envelopeByte));
 		msgPkg.setPackageBytes(envelopeByte);
-	}//end composeMsgEnvelop(.)
-	
-	public TieMsgEnvelope createEnvelopeForPackage( String recipient, TieMsgPackage msgPkg ){
+	}// end composeMsgEnvelop(.)
+
+	public TieMsgEnvelope createEnvelopeForPackage(String recipient, TieMsgPackage msgPkg) {
 		TieMsgEnvelope tieMsgEnvelope = new TieMsgEnvelope();
 		TiePersister persister = TieController.getController().getPersister();
-		//Set tieMsgEnvelope properties
-		
-		//Set Sender
+		// Set tieMsgEnvelope properties
+
+		// Set Sender
 		int senderId = msgPkg.getTiemsg().getSenderId();
 		TieUser sender = persister.getTieUserDao().findTieUserById(senderId);
 		tieMsgEnvelope.setSender(sender);
-		
-		//Set Receiver
+
+		// Set Receiver
 		String[] recipientString = recipient.split("@", -1);
 		String userCode = recipientString[0];
 		TieUser receiver = persister.getTieUserDao().findTieUserByCode(userCode);
 		tieMsgEnvelope.setReceiver(receiver);
-		
-		//Set Time
+
+		// Set Time
 		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.HOUR_OF_DAY,17);
-		cal.set(Calendar.MINUTE,30);
-		cal.set(Calendar.SECOND,0);
-		cal.set(Calendar.MILLISECOND,0);
+		cal.set(Calendar.HOUR_OF_DAY, 17);
+		cal.set(Calendar.MINUTE, 30);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
 		Date date = cal.getTime();
 		tieMsgEnvelope.setSendTime(date);
-		
-		return tieMsgEnvelope;		
-	};//end createEnvelopeForPackage(..)
-	
-	//convert TieMsgEnvelope into Byte[]
-	public byte[] byteEnvelope(TieMsgEnvelope tieMsgEnvelope) throws IOException{
+
+		return tieMsgEnvelope;
+	};// end createEnvelopeForPackage(..)
+
+	// convert TieMsgEnvelope into Byte[]
+	public byte[] byteEnvelope(TieMsgEnvelope tieMsgEnvelope) throws IOException {
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		ObjectOutputStream os = new ObjectOutputStream(out);
 		System.out.println("tieMsgEnvelope: " + tieMsgEnvelope.toString());
-		os.writeObject(tieMsgEnvelope);	
+		os.writeObject(tieMsgEnvelope);
 		return out.toByteArray();
-//		return null;
+		// return null;
 	}
-	
-	//byte to obj
-	public  Object deserialize(byte[] data) throws IOException, ClassNotFoundException {
-	    ByteArrayInputStream in = new ByteArrayInputStream(data);
-	    ObjectInputStream is = new ObjectInputStream(in);
-	    return is.readObject();
+
+	// byte to obj
+	public Object deserialize(byte[] data) throws IOException, ClassNotFoundException {
+		ByteArrayInputStream in = new ByteArrayInputStream(data);
+		ObjectInputStream is = new ObjectInputStream(in);
+		return is.readObject();
+	}
+
+	// Track the message status
+	public void recordPackageStatus(TieMsgPackage msgPkg, String msg, TieMsgTrackingStatus trkStatus) {
+		TieMsgTrackingLog tieMsgTrackingLog = new TieMsgTrackingLog();
+		// Call persister to save the message status
+	}
+
+	// Update the message status at the message level
+	// If all are successful, then the msg state is set to "Send".
+	// If any pkg is error, then "Error".
+	public void recordMsgState(TieMsg tieMsg, String msg, TieMsgState msgState) {
+		// Update in the database
+		TiePersister persister = TieController.getController().getPersister();
+		
 	}
 
 }

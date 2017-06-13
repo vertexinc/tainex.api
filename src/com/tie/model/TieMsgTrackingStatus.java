@@ -1,16 +1,16 @@
 package com.tie.model;
 
-public class TieMsgTrackingStateus {
+public class TieMsgTrackingStatus {
 	private int tieMsgTrackingStatusId;
 	private String name;
 	private String code;
 	private String description;
 
-	public TieMsgTrackingStateus() {
+	public TieMsgTrackingStatus() {
 		// super();
 	}
 
-	public TieMsgTrackingStateus(int tieMsgTrackingStatusId, String name, String code, String description) {
+	public TieMsgTrackingStatus(int tieMsgTrackingStatusId, String name, String code, String description) {
 		super();
 		this.tieMsgTrackingStatusId = tieMsgTrackingStatusId;
 		this.name = name;

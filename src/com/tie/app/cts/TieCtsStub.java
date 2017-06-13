@@ -54,10 +54,10 @@ public class TieCtsStub implements ICts {
 		try {
 			TieMsgEnvelope tieMsgEnvelope = deserialize(tieMsgPackage.getPackageBytes());
 			sender = tieMsgEnvelope.getSender().getName();
-			receiver = "x";
+			receiver = tieMsgEnvelope.getReceiver().getName();
 			ctsTrackingId = Integer.toString(tieMsgPackage.getTiemsg().getTieMsgId());
-			timeStamp = tieMsgEnvelope.getSendTime().toString();
-			fileName = sender + receiver + ctsTrackingId + "_" + "1" + ".txt";
+			timeStamp = tieMsgEnvelope.getSendTime().toString().replaceAll("\\s+", "").replaceAll(":", "");
+			fileName = sender + receiver + ctsTrackingId + "_" + timeStamp + ".txt";
 			writeToFile(tieMsgPackage.getPackageBytes(), fileName);
 		} catch (ClassNotFoundException | IOException e) {
 			// TODO Auto-generated catch block
@@ -65,14 +65,14 @@ public class TieCtsStub implements ICts {
 		}
 	}
 
-	// Save the package
+	// Save the package to local disk
 	public void writeToFile(byte[] bs, String fileName) {
 		String root = "C:/CBCR_sendTieMsgPackage/";
 		byte[] data = bs;
 		try {
-		    Files.write(Paths.get(root+fileName), data);
+			Files.write(Paths.get(root + fileName), data);
 		} catch (IOException e) {
-		    e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 
