@@ -37,7 +37,7 @@ public class TiePersister {
 	TieMsgDao tieMsgDao;
 	TieUserDao tieUserDao;
 	TieDocDao tieDocDao;
-	TieMsgReceiverDao tieMsgReceiverDao;
+	TieMsgTrackingLogDao tieMsgReceiverDao;
 	TieEntityDao tieEntityDao;
 	CbcrTable1Dao cbcrTable1Dao;
 	CbcrTable2Dao cbcrTable2Dao;
@@ -53,7 +53,7 @@ public class TiePersister {
 		tieMsgDao = new TieMsgDao();
 		tieUserDao = new TieUserDao();
 		tieDocDao = new TieDocDao();
-		tieMsgReceiverDao = new TieMsgReceiverDao();
+		tieMsgReceiverDao = new TieMsgTrackingLogDao();
 		tieEntityDao = new TieEntityDao();
 		cbcrTable1Dao = new CbcrTable1Dao();
 		cbcrTable2Dao = new CbcrTable2Dao();
@@ -207,11 +207,11 @@ public class TiePersister {
 		this.cbcrTable1Dao = cbcrTable1Dao;
 	}
 
-	public TieMsgReceiverDao getTieMsgReceiverDao() {
+	public TieMsgTrackingLogDao getTieMsgReceiverDao() {
 		return tieMsgReceiverDao;
 	}
 
-	public void setTieMsgReceiverDao(TieMsgReceiverDao tieMsgReceiverDao) {
+	public void setTieMsgReceiverDao(TieMsgTrackingLogDao tieMsgReceiverDao) {
 		this.tieMsgReceiverDao = tieMsgReceiverDao;
 	}
 

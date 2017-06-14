@@ -15,6 +15,7 @@ import java.util.List;
 
 import com.tie.model.TieDoc;
 import com.tie.model.TieMsg;
+import com.tie.model.TieMsgState;
 import com.tie.ui.TieMainPage;
 
 public class TieMsgDao extends BaseDao {
@@ -311,5 +312,20 @@ public class TieMsgDao extends BaseDao {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-	}
+	}// end deleteMessageById(.)
+	
+	public void recordTieMsgStatus(TieMsg tieMsg, String msg, TieMsgState msgState) {
+		int tieMsgId = tieMsg.getTieMsgId();
+		int tieMsgStateId = msgState.getTieMsgStateId();
+		getConnection();
+		try {
+			String sql = "update tiemsg set tieMsgStateId = ? where tieMsgId = ?";
+			PreparedStatement updateStatement = conn.prepareStatement(sql);
+			updateStatement.setInt(1, tieMsgStateId);
+			updateStatement.setInt(2, tieMsgId);
+			updateStatement.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}// end recordTieMsgStatus(...)
 }

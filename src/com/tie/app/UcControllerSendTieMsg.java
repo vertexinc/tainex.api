@@ -61,24 +61,41 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 			BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException, IOException {
 		// List<TieMsgPackage> packageList = prepareTieMsg(msgId);
 		TieMsg preparedTieMsg = prepareTieMsg(msgId);
+
 		try {
 			TieCtsStub tieCtsStub = new TieCtsStub();
 			tieCtsStub.sendTieMsg(preparedTieMsg);
-			
 			String msgString = "";
-			TieMsgState tieMsgState = new TieMsgState(2,"name",msgString,"","");
+			TieMsgState tieMsgState = new TieMsgState(2, "name", msgString, "", "");
 			recordMsgState(preparedTieMsg, msgString, tieMsgState);
+			recordAllPackageStatus(preparedTieMsg);
 			// Record sending as success
 		} catch (Exception e) {
 			// Record sending as fail
 			String msgString = "";
-			TieMsgState tieMsgState = new TieMsgState(6,"name",msgString,"","");
+			TieMsgState tieMsgState = new TieMsgState(6, "name", msgString, "", "");
 			recordMsgState(preparedTieMsg, msgString, tieMsgState);
 		}
-		// throw new RuntimeException("Error sending msg to[receiverCode] -
-		// [trackingNotes]");
-		// test sending error from CTS
+		forwardToFront();
 	}// sendTieMsg(.)
+
+	private void recordAllPackageStatus(TieMsg tieMsg) {
+		// TODO Auto-generated method stub
+		Map<Long, TieMsgPackage> msgPackagesMap = tieMsg.getMsgPackages();
+		for (Object Key : msgPackagesMap.keySet()) {
+			TieMsgPackage tieMsgPackage = msgPackagesMap.get(Key);
+			String msgString = "";
+			// Create TieMsgTrackingStatus log at package level
+			 TieMsgTrackingStatus trkStatus = new TieMsgTrackingStatus();
+			// Record message status at package level
+			recordPackageStatus(tieMsgPackage, msgString, trkStatus);
+		}
+	}
+
+	private void forwardToFront() {
+		// TODO Auto-generated method stub
+
+	}
 
 	// prepare one blank package for each intended recipient.
 	// Logic going through initPackages inside tieMsg class
@@ -89,24 +106,19 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 
 		// Build TIE message
 		TieMsg tieMsg = buildTieMsg(msgId);
-
 		// Process XML
 		String xmlString = composeTieMsg(tieMsg);
-
 		// loop through the recipient list to create a blank package list
 		tieMsg = prepareTieMsgPackage(tieMsg);
-
 		Map<Long, TieMsgPackage> msgPackagesMap = tieMsg.getMsgPackages();
 		// loop through packageList to generate each indivial package
 		for (Object Key : msgPackagesMap.keySet()) {
 			TieMsgPackage tieMsgPackage = msgPackagesMap.get(Key);
 			tieMsgPackage.setPayload(xmlString);
 			tieMsgPackage.setPayloadEncrypted(encryptMsgBody(xmlString, tieMsgPackage));
-
 			// compose Envelop
 			composeMsgEnvelop(tieMsgPackage);
 		}
-
 		return tieMsg;
 	}// prepareTieMsg(.)
 
@@ -115,7 +127,6 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 		// List<TieMsgPackage> retval = new ArrayList<TieMsgPackage>();
 		// start a blank package for each recipient
 		tieMsg.initPackages();
-
 		Map<Long, TieMsgPackage> msgPackagesMap = tieMsg.getMsgPackages();
 		for (Object Key : msgPackagesMap.keySet()) {
 			System.out.println("Handle package with key: " + Key);
@@ -240,7 +251,17 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 	// Track the message status
 	public void recordPackageStatus(TieMsgPackage msgPkg, String msg, TieMsgTrackingStatus trkStatus) {
 		TieMsgTrackingLog tieMsgTrackingLog = new TieMsgTrackingLog();
+		String TRACKING_NOTE = "Tracking note at current package.";
+		String CTS_TRACKING_ID = "ctsId";
+		tieMsgTrackingLog.setCtsTrackingId(CTS_TRACKING_ID);
+		tieMsgTrackingLog.setReceiverCode(msgPkg.getSingleRecipient());
+		tieMsgTrackingLog.setReceivingCountry(msgPkg.getSingleRecipient());
+		tieMsgTrackingLog.setSenderCode(msgPkg.getTiemsg().getSender().getCode());
+		tieMsgTrackingLog.setTieMsgId(msgPkg.getTiemsg().getTieMsgId());
+		tieMsgTrackingLog.setTieMsgTrackingStatusId(2);
+		tieMsgTrackingLog.setTrackingNote(TRACKING_NOTE);
 		// Call persister to save the message status
+		
 	}
 
 	// Update the message status at the message level
@@ -249,7 +270,7 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 	public void recordMsgState(TieMsg tieMsg, String msg, TieMsgState msgState) {
 		// Update in the database
 		TiePersister persister = TieController.getController().getPersister();
-		
+		persister.getTieMsgDao().recordTieMsgStatus(tieMsg, msg, msgState);
 	}
 
 }
