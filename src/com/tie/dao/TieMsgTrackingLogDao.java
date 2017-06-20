@@ -40,7 +40,7 @@ public class TieMsgTrackingLogDao extends BaseDao {
 				String timeStamp = rs.getString("timeStamp");
 
 				tieMsgReceiver = new TieMsgTrackingLog(tieMsgId, senderCode, receiverCode, tieMsgTrackingStatusId,
-						trackingNote, receivingCountry, timeStamp,ctsTrackingId);
+						trackingNote, receivingCountry, timeStamp, ctsTrackingId);
 				// tieapp = new TieApp(name,description);
 				tieMsgReceiverList.add(tieMsgReceiver);
 			}
@@ -71,86 +71,109 @@ public class TieMsgTrackingLogDao extends BaseDao {
 		return tieMsgReceiverList;
 	}
 
+	public void updateTieMsgTrackingLog(TieMsgTrackingLog tieMsgTrackingLog) {
+		getConnection();
+		try {
+			String sql = "update tiemsgtrackinglog set senderCode=?,receiverCode=?,tieMsgTrackingStatusId=?,trackingNote=?,receivingCountry=?,timeStamp=?,ctsTrackingId=? where tiemsgid = ?";
+			PreparedStatement sqlStatement = conn.prepareStatement(sql);
+			sqlStatement.setString(1, tieMsgTrackingLog.getSenderCode());
+			sqlStatement.setString(2, tieMsgTrackingLog.getReceiverCode());
+			sqlStatement.setInt(3, tieMsgTrackingLog.getTieMsgTrackingStatusId());
+			sqlStatement.setString(4, tieMsgTrackingLog.getTrackingNote());
+			sqlStatement.setString(5, tieMsgTrackingLog.getReceivingCountry());
+			sqlStatement.setString(6, tieMsgTrackingLog.getTimeStamp());
+			sqlStatement.setString(7, tieMsgTrackingLog.getCtsTrackingId());
+			sqlStatement.setInt(8, tieMsgTrackingLog.getTieMsgId());
+			sqlStatement.executeUpdate();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+	}// end recordTieMsgStatus(.)
+
 	public void recordTieMsgTrackingLog(TieMsgTrackingLog tieMsgTrackingLog) {
 		getConnection();
 		try {
 			String sql = "insert into tiemsgtrackinglog values (?,?,?,?,?,?,?,?)";
 			PreparedStatement sqlStatement = conn.prepareStatement(sql);
 			sqlStatement.setInt(1, tieMsgTrackingLog.getTieMsgId());
-			sqlStatement.setString(2,tieMsgTrackingLog.getSenderCode());
-			sqlStatement.setString(3,tieMsgTrackingLog.getReceiverCode());
-			sqlStatement.setInt(4,tieMsgTrackingLog.getTieMsgTrackingStatusId());
-			sqlStatement.setString(5,tieMsgTrackingLog.getTrackingNote());
-			sqlStatement.setString(6,tieMsgTrackingLog.getReceivingCountry());
-			sqlStatement.setString(7,tieMsgTrackingLog.getTimeStamp());
-			sqlStatement.setString(8,tieMsgTrackingLog.getCtsTrackingId());
-			rs = sqlStatement.executeQuery();
+			sqlStatement.setString(2, tieMsgTrackingLog.getSenderCode());
+			sqlStatement.setString(3, tieMsgTrackingLog.getReceiverCode());
+			sqlStatement.setInt(4, tieMsgTrackingLog.getTieMsgTrackingStatusId());
+			sqlStatement.setString(5, tieMsgTrackingLog.getTrackingNote());
+			sqlStatement.setString(6, tieMsgTrackingLog.getReceivingCountry());
+			sqlStatement.setString(7, tieMsgTrackingLog.getTimeStamp());
+			sqlStatement.setString(8, tieMsgTrackingLog.getCtsTrackingId());
+			sqlStatement.executeUpdate();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-//		if (tieDoc.getTieDocId() <= 0) {
-//			return insertTieDoc(tieDoc, sessionId, currentMsgId);
-//		} else {
-//			return updateTieDoc(tieDoc);
-//		}
-//
-//		try {
-//			String sql = "update tiemsg set tieMsgStateId = ? where tieMsgId = ?";
-//			PreparedStatement updateStatement = conn.prepareStatement(sql);
-//			updateStatement.setInt(1, tieMsgStateId);
-//			updateStatement.setInt(2, tieMsgId);
-//			updateStatement.executeUpdate();
-//		} catch (Exception e) {
-//			System.out.println(e);
-//		}
+
 	}// end recordTieMsgStatus(...)
-	//
-	// //preprocess raw tieMsgReceive String and then hand over to db
-	// public void saveTieMsgReceiver(TieMsg tieMsg, String sessionId) {
-	// // TODO : insert and update in separate methods
-	// String tieMsgReceiverList = null;
-	// if (tieMsg.getMsgReceiverList() != null &&
-	// tieMsg.getMsgReceiverList().length() > 0) {
-	// tieMsgReceiverList = tieMsg.getMsgReceiverList();
-	// String[] tieMsgReceiverListItemList = tieMsgReceiverList.split(";");
-	// for (String tieMsgReceiverListItem : tieMsgReceiverListItemList) {
-	// parseTieMsgReceiver(tieMsg, sessionId, tieMsgReceiverListItem);
-	// }
-	// }
-	// }//end saveTieMsgReceiver(..)
-	//
-	// // Split the receiver list with @
-	// private void parseTieMsgReceiver(TieMsg tieMsg, String sessionId, String
-	// tieMsgReceiverList) {
-	// // TODO Auto-generated method stub
-	// String[] tieMsgReceiverStringSet = tieMsgReceiverList.split("@");
-	// if (tieMsgReceiverStringSet.length == 2) {
-	// String receiverCode = tieMsgReceiverStringSet[0];
-	// String receivingCountry = tieMsgReceiverStringSet[1];
-	// saveTieMsgReceiverToDB(tieMsg,sessionId,receiverCode,receivingCountry);
-	// }
-	// }//end parseTieMsgReceiver(...)
-	//
-	// private void saveTieMsgReceiverToDB(TieMsg tieMsg, String sessionId,
-	// String receiverCode, String receivingCountry) {
-	// // TODO Auto-generated method stub
-	// int msgId = tieMsg.getTieMsgId();
-	// getConnection();
-	// try {
-	// String sql;// TODO : insert and update in separate methods
-	// sql = "update tiemsg set senderCode=?,
-	// receiverCode=?,tieMsgTrackingStatusId=?,trackingNote=?,receivingCountry=?
-	// WHERE tiemsgid=?";
-	// PreparedStatement saveStatement = conn.prepareStatement(sql);
-	// saveStatement.setString(1, tieMsg.getSender().getCode());
-	// saveStatement.setString(2, receiverCode);
-	// saveStatement.setString(3, receivingCountry);
-	// saveStatement.setInt(4, 4);
-	// saveStatement.setInt(5, 4);
-	// saveStatement.setInt(6, 1);
-	// System.out.println("Done update tieMsgReceiver");
-	// } catch (Exception e) {
-	// System.out.println(e);
-	// }
-	// }//end saveTieMsgReceiverToDB(....)
+		//
+		// if (tieDoc.getTieDocId() <= 0) {
+		// return insertTieDoc(tieDoc, sessionId, currentMsgId);
+		// } else {
+		// return updateTieDoc(tieDoc);
+		// }
+		//
+		// try {
+		// String sql = "update tiemsg set tieMsgStateId = ? where tieMsgId =
+		// ?";
+		// PreparedStatement updateStatement = conn.prepareStatement(sql);
+		// updateStatement.setInt(1, tieMsgStateId);
+		// updateStatement.setInt(2, tieMsgId);
+		// updateStatement.executeUpdate();
+		// } catch (Exception e) {
+		// System.out.println(e);
+		// }
+		// //preprocess raw tieMsgReceive String and then hand over to db
+		// public void saveTieMsgReceiver(TieMsg tieMsg, String sessionId) {
+		// // TODO : insert and update in separate methods
+		// String tieMsgReceiverList = null;
+		// if (tieMsg.getMsgReceiverList() != null &&
+		// tieMsg.getMsgReceiverList().length() > 0) {
+		// tieMsgReceiverList = tieMsg.getMsgReceiverList();
+		// String[] tieMsgReceiverListItemList = tieMsgReceiverList.split(";");
+		// for (String tieMsgReceiverListItem : tieMsgReceiverListItemList) {
+		// parseTieMsgReceiver(tieMsg, sessionId, tieMsgReceiverListItem);
+		// }
+		// }
+		// }//end saveTieMsgReceiver(..)
+		//
+		// // Split the receiver list with @
+		// private void parseTieMsgReceiver(TieMsg tieMsg, String sessionId,
+		// String
+		// tieMsgReceiverList) {
+		// // TODO Auto-generated method stub
+		// String[] tieMsgReceiverStringSet = tieMsgReceiverList.split("@");
+		// if (tieMsgReceiverStringSet.length == 2) {
+		// String receiverCode = tieMsgReceiverStringSet[0];
+		// String receivingCountry = tieMsgReceiverStringSet[1];
+		// saveTieMsgReceiverToDB(tieMsg,sessionId,receiverCode,receivingCountry);
+		// }
+		// }//end parseTieMsgReceiver(...)
+		//
+		// private void saveTieMsgReceiverToDB(TieMsg tieMsg, String sessionId,
+		// String receiverCode, String receivingCountry) {
+		// // TODO Auto-generated method stub
+		// int msgId = tieMsg.getTieMsgId();
+		// getConnection();
+		// try {
+		// String sql;// TODO : insert and update in separate methods
+		// sql = "update tiemsg set senderCode=?,
+		// receiverCode=?,tieMsgTrackingStatusId=?,trackingNote=?,receivingCountry=?
+		// WHERE tiemsgid=?";
+		// PreparedStatement saveStatement = conn.prepareStatement(sql);
+		// saveStatement.setString(1, tieMsg.getSender().getCode());
+		// saveStatement.setString(2, receiverCode);
+		// saveStatement.setString(3, receivingCountry);
+		// saveStatement.setInt(4, 4);
+		// saveStatement.setInt(5, 4);
+		// saveStatement.setInt(6, 1);
+		// System.out.println("Done update tieMsgReceiver");
+		// } catch (Exception e) {
+		// System.out.println(e);
+		// }
+		// }//end saveTieMsgReceiverToDB(....)
 }

@@ -93,7 +93,7 @@ public class TieSessionController extends TieControllerBase {
 			// Populate toListString
 			StringBuilder toListString = new StringBuilder("");
 			for (TieMsgTrackingLog tieMsgReceiver : tiemsgReceiverList) {
-				toListString.append(tieMsgReceiver.getSenderCode()).append("@")
+				toListString.append(tieMsgReceiver.getReceiverCode()).append("@")
 						.append(tieMsgReceiver.getReceivingCountry()).append(";");
 			}
 			msg.setMsgReceiverList(toListString.toString());

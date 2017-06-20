@@ -10,12 +10,15 @@ package com.tie.dao;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.tie.model.TieDoc;
 import com.tie.model.TieMsg;
+import com.tie.model.TieMsgPackage;
 import com.tie.model.TieMsgState;
+import com.tie.model.TieMsgTrackingLog;
 import com.tie.ui.TieMainPage;
 
 public class TieMsgDao extends BaseDao {
@@ -65,7 +68,8 @@ public class TieMsgDao extends BaseDao {
 				String msgReceiverList = rs.getString("msgReceiverList");
 				tieMsg = new TieMsg(tieMsgId, subject, code, description, notes, senderId, ownerid, tieMsgStateId,
 						sendingEntityIdNum, transmittingCountry, receivingCountries, messageType, lauguage, warning,
-						contact, messageRefId, messageTypeIndic, corrMessageRefIds, reportingPeriod, timestamp, rawMsg,msgReceiverList);
+						contact, messageRefId, messageTypeIndic, corrMessageRefIds, reportingPeriod, timestamp, rawMsg,
+						msgReceiverList);
 				// tieapp = new TieApp(name,description);
 				msgList.add(tieMsg);
 			}
@@ -133,7 +137,8 @@ public class TieMsgDao extends BaseDao {
 				String msgReceiverList = rs.getString("msgReceiverList");
 				msg = new TieMsg(tieMsgId, subject, code, description, notes, senderId, ownerid, tieMsgStateId,
 						sendingEntityIdNum, transmittingCountry, receivingCountries, messageType, lauguage, warning,
-						contact, messageRefId, messageTypeIndic, corrMessageRefIds, reportingPeriod, timestamp, rawMsg,msgReceiverList);
+						contact, messageRefId, messageTypeIndic, corrMessageRefIds, reportingPeriod, timestamp, rawMsg,
+						msgReceiverList);
 				// tieapp = new TieApp(name,description);
 
 			}
@@ -170,8 +175,10 @@ public class TieMsgDao extends BaseDao {
 			TieDoc emptyDoc = new TieDoc();
 			emptyDoc.setTieDocId(0);
 			TieMainPage.getTieMainPage().setCurrentTieDoc(emptyDoc);
+			savemessageTiemsgReceiverList(tieMsg);
 			return insertTieMessage(tieMsg, sessionId);
 		} else {
+			savemessageTiemsgReceiverList(tieMsg);
 			return updateTieMessage(tieMsg);
 		}
 
@@ -223,6 +230,7 @@ public class TieMsgDao extends BaseDao {
 			PreparedStatement newMsgIdSqlStatement = conn.prepareStatement(newMsgIdSql);
 			newMsgIdSqlStatement.setString(1, insersionCode);
 			rs = newMsgIdSqlStatement.executeQuery();
+
 			while (rs.next()) {
 				newMsgId = rs.getInt("tieMsgId");
 			}
@@ -243,25 +251,57 @@ public class TieMsgDao extends BaseDao {
 		return findTieMsgByTieMsgId(newMsgId);
 	}
 
-	// public void updateCode() throws SQLException {
-	// int newMsgId = 0;
-	// getConnection();
-	//
-	// String newMsgIdSql = "select * from mx.tiemsg where code IS NULL";
-	// PreparedStatement newMsgIdSqlStatement =
-	// conn.prepareStatement(newMsgIdSql);
-	// rs = newMsgIdSqlStatement.executeQuery();
-	//
-	// newMsgId = rs.getInt("tieMsgId");
-	// System.out.println(newMsgId);
-	//
-	// String updateMsgIdSql = "update mx.tiemsg set code=tieMsgId where
-	// tieMsgId = ?";
-	// PreparedStatement updateMsgIdStatement =
-	// conn.prepareStatement(updateMsgIdSql);
-	// updateMsgIdStatement.setInt(1, newMsgId);
-	// updateMsgIdStatement.executeUpdate();
-	// }
+	public void savemessageTiemsgReceiverList(TieMsg tieMsg) {
+		// Parse the receiverList into each object
+		ArrayList<String> receiverList = parseReceiverListString(tieMsg.getMsgReceiverList());
+		// loop through each receipient to store the recepient info
+		for (String receipientString : receiverList) {
+			TieMsgTrackingLog tieMsgTrackingLog = new TieMsgTrackingLog();
+			tieMsgTrackingLog.setTieMsgId(tieMsg.getTieMsgId());
+			parseReceipientString(tieMsgTrackingLog, receipientString);
+			// hardcode sendercode
+			tieMsgTrackingLog.setSenderCode("Marisol");
+			tieMsgTrackingLog.setTrackingNote("Tracking Note");
+			tieMsgTrackingLog.setCtsTrackingId("2");
+			tieMsgTrackingLog.setTieMsgTrackingStatusId(2);
+			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+			String instant = timestamp.toInstant().toString();
+			tieMsgTrackingLog.setTimeStamp(instant);
+			insertTiemsgReceiverList(tieMsgTrackingLog);
+		}
+	}
+
+	private void insertTiemsgReceiverList(TieMsgTrackingLog tieMsgTrackingLog) {
+		TieMsgTrackingLogDao tieMsgTrackingLogDao = new TieMsgTrackingLogDao();
+		tieMsgTrackingLogDao.recordTieMsgTrackingLog(tieMsgTrackingLog);
+	}
+
+	private void updateTiemsgReceiverList(TieMsgTrackingLog tieMsgTrackingLog) {
+		// TODO Auto-generated method stub
+		TieMsgTrackingLogDao tieMsgTrackingLogDao = new TieMsgTrackingLogDao();
+		tieMsgTrackingLogDao.updateTieMsgTrackingLog(tieMsgTrackingLog);
+	}
+
+	private void parseReceipientString(TieMsgTrackingLog tieMsgTrackingLog, String receipientString) {
+		// TODO Auto-generated method stub
+		String[] tieMsgReceiverStringSet = receipientString.split("@");
+		if (tieMsgReceiverStringSet.length == 2) {
+			tieMsgTrackingLog.setReceiverCode(tieMsgReceiverStringSet[0]);
+			tieMsgTrackingLog.setReceivingCountry(tieMsgReceiverStringSet[1]);
+		}
+
+	}
+
+	private ArrayList<String> parseReceiverListString(String msgReceiverList) {
+		ArrayList<String> receiverList = new ArrayList<String>();
+		String[] recipientStringList = msgReceiverList.split(";", -1);
+		for (int i = 0; i < recipientStringList.length; i++) {
+			if (recipientStringList[i].indexOf("@") != -1) {
+				receiverList.add(recipientStringList[i]);
+			}
+		}
+		return receiverList;
+	}
 
 	public TieMsg updateTieMessage(TieMsg tieMsg) {
 		int currMsgId = tieMsg.getTieMsgId();
@@ -292,7 +332,7 @@ public class TieMsgDao extends BaseDao {
 			saveStatement.setString(18, tieMsg.getTimestamp());
 			saveStatement.setString(19, tieMsg.getRawMsg());
 			saveStatement.setString(20, tieMsg.getMsgReceiverList());
-			System.out.println("tieMsg.getMsgReceiverList()"+tieMsg.getMsgReceiverList());
+			System.out.println("tieMsg.getMsgReceiverList()" + tieMsg.getMsgReceiverList());
 			saveStatement.setInt(21, tieMsg.getTieMsgId());
 			saveStatement.executeUpdate();
 			System.out.println("Done  update: " + tieMsg);
@@ -314,7 +354,7 @@ public class TieMsgDao extends BaseDao {
 			System.out.println(e);
 		}
 	}// end deleteMessageById(.)
-	
+
 	public TieMsg recordTieMsgStatus(TieMsg tieMsg, String msg, TieMsgState msgState) {
 		int tieMsgId = tieMsg.getTieMsgId();
 		int tieMsgStateId = msgState.getTieMsgStateId();
@@ -328,7 +368,6 @@ public class TieMsgDao extends BaseDao {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		
 		return findTieMsgByTieMsgId(tieMsgId);
 	}// end recordTieMsgStatus(...)
 }
