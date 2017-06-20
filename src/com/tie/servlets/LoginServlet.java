@@ -248,7 +248,7 @@ public class LoginServlet extends HttpServlet {
 		ObjectMapper ma = new ObjectMapper();
 		String saveMsgReturnJson = ma.writeValueAsString(retval);
 
-		System.out.println("saveMsgReturnJson" + saveMsgReturnJson);
+		//System.out.println("saveMsgReturnJson" + saveMsgReturnJson);
 
 		response.setContentType("text/json");
 		response.setCharacterEncoding("UTF-8");
@@ -354,7 +354,7 @@ public class LoginServlet extends HttpServlet {
 		ObjectMapper ma = new ObjectMapper();
 		String saveMsgReturnJson = ma.writeValueAsString(retval);
 
-		System.out.println("saveMsgReturnJson" + saveMsgReturnJson);
+		//System.out.println("saveMsgReturnJson" + saveMsgReturnJson);
 
 		response.setContentType("text/json");
 		response.setCharacterEncoding("UTF-8");

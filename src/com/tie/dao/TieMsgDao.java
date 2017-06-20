@@ -188,7 +188,7 @@ public class TieMsgDao extends BaseDao {
 		try {
 			System.out.println("Started to insert");
 			String sql;// TODO : insert and update in separate methods
-			sql = "insert into tiemsg values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			sql = "insert into tiemsg values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement saveStatement = conn.prepareStatement(sql);
 			saveStatement.setString(1, null);
 			saveStatement.setString(2, tieMsg.getSubject());
@@ -269,7 +269,7 @@ public class TieMsgDao extends BaseDao {
 		try {
 			System.out.println("Started to updateTieMessage");
 			String sql;// TODO : insert and update in separate methods
-			sql = "update tiemsg set subject=?, description=?,notes=?,senderId=?,ownerid=?,tieMsgStateId=?,sendingEntityIdNum=?,transmittingCountry=?,receivingCountries=?,messageType=?,lauguage=?,warning=?,contact=?,messageRefId=?,messageTypeIndic=?,corrMessageRefIds=?,reportingPeriod=?,timestamp=?,rawMsg=? WHERE tieMsgId=?";
+			sql = "update tiemsg set subject=?, description=?,notes=?,senderId=?,ownerid=?,tieMsgStateId=?,sendingEntityIdNum=?,transmittingCountry=?,receivingCountries=?,messageType=?,lauguage=?,warning=?,contact=?,messageRefId=?,messageTypeIndic=?,corrMessageRefIds=?,reportingPeriod=?,timestamp=?,rawMsg=?,msgReceiverList=? WHERE tieMsgId=?";
 			PreparedStatement saveStatement = conn.prepareStatement(sql);
 			saveStatement.setString(1, tieMsg.getSubject());
 			// saveStatement.setString(2, tieMsg.getCode());
@@ -292,6 +292,7 @@ public class TieMsgDao extends BaseDao {
 			saveStatement.setString(18, tieMsg.getTimestamp());
 			saveStatement.setString(19, tieMsg.getRawMsg());
 			saveStatement.setString(20, tieMsg.getMsgReceiverList());
+			System.out.println("tieMsg.getMsgReceiverList()"+tieMsg.getMsgReceiverList());
 			saveStatement.setInt(21, tieMsg.getTieMsgId());
 			saveStatement.executeUpdate();
 			System.out.println("Done  update: " + tieMsg);
@@ -314,7 +315,7 @@ public class TieMsgDao extends BaseDao {
 		}
 	}// end deleteMessageById(.)
 	
-	public void recordTieMsgStatus(TieMsg tieMsg, String msg, TieMsgState msgState) {
+	public TieMsg recordTieMsgStatus(TieMsg tieMsg, String msg, TieMsgState msgState) {
 		int tieMsgId = tieMsg.getTieMsgId();
 		int tieMsgStateId = msgState.getTieMsgStateId();
 		getConnection();
@@ -327,5 +328,7 @@ public class TieMsgDao extends BaseDao {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+		
+		return findTieMsgByTieMsgId(tieMsgId);
 	}// end recordTieMsgStatus(...)
 }

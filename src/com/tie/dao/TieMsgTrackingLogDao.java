@@ -37,9 +37,10 @@ public class TieMsgTrackingLogDao extends BaseDao {
 				String trackingNote = rs.getString("trackingNote");
 				String receivingCountry = rs.getString("receivingCountry");
 				String ctsTrackingId = rs.getString("ctsTrackingId");
+				String timeStamp = rs.getString("timeStamp");
 
 				tieMsgReceiver = new TieMsgTrackingLog(tieMsgId, senderCode, receiverCode, tieMsgTrackingStatusId,
-						trackingNote, receivingCountry, ctsTrackingId);
+						trackingNote, receivingCountry, timeStamp,ctsTrackingId);
 				// tieapp = new TieApp(name,description);
 				tieMsgReceiverList.add(tieMsgReceiver);
 			}
@@ -73,9 +74,16 @@ public class TieMsgTrackingLogDao extends BaseDao {
 	public void recordTieMsgTrackingLog(TieMsgTrackingLog tieMsgTrackingLog) {
 		getConnection();
 		try {
-			String sql = "select tiemsgid from mx.tiemsgtrackinglog where tiemsgid = ?";
+			String sql = "insert into tiemsgtrackinglog values (?,?,?,?,?,?,?,?)";
 			PreparedStatement sqlStatement = conn.prepareStatement(sql);
 			sqlStatement.setInt(1, tieMsgTrackingLog.getTieMsgId());
+			sqlStatement.setString(2,tieMsgTrackingLog.getSenderCode());
+			sqlStatement.setString(3,tieMsgTrackingLog.getReceiverCode());
+			sqlStatement.setInt(4,tieMsgTrackingLog.getTieMsgTrackingStatusId());
+			sqlStatement.setString(5,tieMsgTrackingLog.getTrackingNote());
+			sqlStatement.setString(6,tieMsgTrackingLog.getReceivingCountry());
+			sqlStatement.setString(7,tieMsgTrackingLog.getTimeStamp());
+			sqlStatement.setString(8,tieMsgTrackingLog.getCtsTrackingId());
 			rs = sqlStatement.executeQuery();
 		} catch (Exception e) {
 			System.out.println(e);

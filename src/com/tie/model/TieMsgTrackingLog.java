@@ -15,8 +15,11 @@ public class TieMsgTrackingLog {
 		// super();
 	}
 
+
+
+	
 	public TieMsgTrackingLog(int tieMsgId, String senderCode, String receiverCode, int tieMsgTrackingStatusId,
-			String trackingNote, String receivingCountry,String ctsTrackingId) {
+			String trackingNote, String receivingCountry, String ctsTrackingId, String timeStamp) {
 		super();
 		this.tieMsgId = tieMsgId;
 		this.senderCode = senderCode;
@@ -25,9 +28,26 @@ public class TieMsgTrackingLog {
 		this.trackingNote = trackingNote;
 		this.receivingCountry = receivingCountry;
 		this.ctsTrackingId = ctsTrackingId;
+		this.timeStamp = timeStamp;
 	}
 
-	
+
+
+
+	public String getTimeStamp() {
+		return timeStamp;
+	}
+
+
+
+
+	public void setTimeStamp(String timeStamp) {
+		this.timeStamp = timeStamp;
+	}
+
+
+
+
 	public String getCtsTrackingId() {
 		return ctsTrackingId;
 	}

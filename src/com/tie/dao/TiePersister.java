@@ -37,7 +37,7 @@ public class TiePersister {
 	TieMsgDao tieMsgDao;
 	TieUserDao tieUserDao;
 	TieDocDao tieDocDao;
-	TieMsgTrackingLogDao tieMsgReceiverDao;
+	TieMsgTrackingLogDao tieMsgTrackingLogDao;
 	TieEntityDao tieEntityDao;
 	CbcrTable1Dao cbcrTable1Dao;
 	CbcrTable2Dao cbcrTable2Dao;
@@ -53,7 +53,7 @@ public class TiePersister {
 		tieMsgDao = new TieMsgDao();
 		tieUserDao = new TieUserDao();
 		tieDocDao = new TieDocDao();
-		tieMsgReceiverDao = new TieMsgTrackingLogDao();
+		tieMsgTrackingLogDao = new TieMsgTrackingLogDao();
 		tieEntityDao = new TieEntityDao();
 		cbcrTable1Dao = new CbcrTable1Dao();
 		cbcrTable2Dao = new CbcrTable2Dao();
@@ -75,36 +75,37 @@ public class TiePersister {
 		List<TieDoc> tieDocList = new ArrayList<TieDoc>();
 		tieDocList = tieDocDao.findTieDocByTieMsgId((int) msgId);
 
-		
 		// 3. buildTieDoc for each TieDoc record
 		for (TieDoc tieDoc : tieDocList) {
-		
+
 			TieDoc builtDoc = buildTieDoc(tieDoc);
-			
+
 			ObjectMapper mas = new ObjectMapper();
 			String builtJSON = mas.writeValueAsString(builtDoc);
-			// builtDoc return null value in main doc 
-//			logger.debug("The doc after been built in json is {}", builtJSON);
-			validateDoc(builtDoc,tieDoc);
+			// builtDoc return null value in main doc
+			// logger.debug("The doc after been built in json is {}",
+			// builtJSON);
+			validateDoc(builtDoc, tieDoc);
 			// 4. add the TieDoc subclass object to msg
 			int docId = tieDoc.getTieDocId();
 			List<TieTaxEntity> tieTaxEntityList = tieEntityDao.findTieEntityByTieDocId(docId);
-					
-			for(TieTaxEntity tieTaxEntity : tieTaxEntityList){
-				
+
+			for (TieTaxEntity tieTaxEntity : tieTaxEntityList) {
+
 				builtDoc.getTaxEntityList().add(tieTaxEntity);
 			}
-		
-			//logger.debug("Current doc ready to be added in msg in json is {}", sentdocJSON);
+
+			// logger.debug("Current doc ready to be added in msg in json is
+			// {}", sentdocJSON);
 			tieMsg.getTieDocList().add(builtDoc);
 		}
-		
+
 		ObjectMapper ma = new ObjectMapper();
 		String sentMsgJSON = ma.writeValueAsString(tieMsg);
 
 		// logger.debug("The message ready to be sent {}",sentMsgJSON);
 		// * return msg
-		
+
 		return tieMsg;
 	}// end buildTieMsg(.)
 
@@ -146,42 +147,34 @@ public class TiePersister {
 	// TODO fully build out a CbCrDoc
 	public CbcrDoc buildCbcrDoc(TieDoc tieDocRecord) throws JsonProcessingException {
 		// 1. check to ensure that the type is cbcr, otherwise, throw run time
-				// exception
+		// exception
 		if (tieDocRecord.getTieDocTypeId() != 1) {
 			throw new RuntimeException("Not a CbCR doc");
-		}else{
+		} else {
 			ObjectMapper ma = new ObjectMapper();
 			String tieDocRecordJSON = ma.writeValueAsString(tieDocRecord);
 
-//			logger.info("Start to build cbcr doc !" + tieDocRecordJSON);
+			// logger.info("Start to build cbcr doc !" + tieDocRecordJSON);
 		}
-		
-		// ***********TODO finish cbcrDoc migration
-		// 2. create a new CbcrDoc to be returned, use constructor CbcrDoc(
-				// TieDoc
-				// tieDocRecord ), copying all fields of the input record
-	
+
 		CbcrDoc cbcrDoc = new CbcrDoc(tieDocRecord);
-		
+
 		// 3. table1,2,3 persisters, find records of the cbcr doc, and add to
-				// the
-				// new CbcrDoc to be returned.
+		// the
+		// new CbcrDoc to be returned.
 		int tieDocId = tieDocRecord.getTieDocId();
-		
+
 		List<CbcrTable1> cbcrTable1List = cbcrTable1Dao.findCbcrTable1ByTieDocId(tieDocId);
 		cbcrDoc.setCbcrTable1List(cbcrTable1List);
-		
+
 		List<CbcrTable2> cbcrTable2List = cbcrTable2Dao.findCbcrTable2ByTieDocId(tieDocId);
 		cbcrDoc.setCbcrTable2List(cbcrTable2List);
-		
+
 		List<CbcrTable3> cbcrTable3List = cbcrTable3Dao.findCbcrTable3ByTieDocId(tieDocId);
 		cbcrDoc.setCbcrTable3List(cbcrTable3List);
-		
+
 		return cbcrDoc;
 	}// end buildCbcrDoc(.)
-		
-		
-		
 
 	public CbcrTable3Dao getCbcrTable3Dao() {
 		return cbcrTable3Dao;
@@ -207,12 +200,12 @@ public class TiePersister {
 		this.cbcrTable1Dao = cbcrTable1Dao;
 	}
 
-	public TieMsgTrackingLogDao getTieMsgReceiverDao() {
-		return tieMsgReceiverDao;
+	public TieMsgTrackingLogDao getTieMsgTrackingLogDao() {
+		return tieMsgTrackingLogDao;
 	}
 
-	public void setTieMsgReceiverDao(TieMsgTrackingLogDao tieMsgReceiverDao) {
-		this.tieMsgReceiverDao = tieMsgReceiverDao;
+	public void setTieMsgTrackingLogDao(TieMsgTrackingLogDao tieMsgTrackingLogDao) {
+		this.tieMsgTrackingLogDao = tieMsgTrackingLogDao;
 	}
 
 	public TieDocDao getTieDocDao() {

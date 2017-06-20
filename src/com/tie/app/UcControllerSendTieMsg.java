@@ -8,6 +8,7 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.JAXBException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tie.app.cts.TieCtsStub;
 import com.tie.dao.TiePersister;
 import com.tie.model.TieMsg;
@@ -86,7 +88,7 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 			TieMsgPackage tieMsgPackage = msgPackagesMap.get(Key);
 			String msgString = "";
 			// Create TieMsgTrackingStatus log at package level
-			 TieMsgTrackingStatus trkStatus = new TieMsgTrackingStatus();
+			TieMsgTrackingStatus trkStatus = new TieMsgTrackingStatus();
 			// Record message status at package level
 			recordPackageStatus(tieMsgPackage, msgString, trkStatus);
 		}
@@ -259,18 +261,46 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 		tieMsgTrackingLog.setSenderCode(msgPkg.getTiemsg().getSender().getCode());
 		tieMsgTrackingLog.setTieMsgId(msgPkg.getTiemsg().getTieMsgId());
 		tieMsgTrackingLog.setTieMsgTrackingStatusId(2);
+		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+		tieMsgTrackingLog.setTimeStamp(timeStamp);
 		tieMsgTrackingLog.setTrackingNote(TRACKING_NOTE);
+		TiePersister persister = TieController.getController().getPersister();
+		persister.getTieMsgTrackingLogDao().recordTieMsgTrackingLog(tieMsgTrackingLog);
 		// Call persister to save the message status
-		
+
 	}
 
 	// Update the message status at the message level
 	// If all are successful, then the msg state is set to "Send".
 	// If any pkg is error, then "Error".
-	public void recordMsgState(TieMsg tieMsg, String msg, TieMsgState msgState) {
+	public void recordMsgState(TieMsg tieMsg, String msg, TieMsgState msgState) throws IOException {
 		// Update in the database
 		TiePersister persister = TieController.getController().getPersister();
-		persister.getTieMsgDao().recordTieMsgStatus(tieMsg, msg, msgState);
+		TieMsg retTieMsg = persister.getTieMsgDao().recordTieMsgStatus(tieMsg, msg, msgState);
+		TieMainPage.getTieMainPage().setCurrentMsg(retTieMsg);
+		//Update the status in the message list
+		sessionController.handleMsgList();
+		//Forward to the front end
+		System.out.println("Message Sent");
+		updateFrontEnd();
 	}
+
+	private void updateFrontEnd() throws IOException {
+		// TODO Auto-generated method stub
+
+		TieMainPage retval = null;
+		
+		retval = TieMainPage.getTieMainPage();
+
+		ObjectMapper ma = new ObjectMapper();
+		String sentMsgReturnJson = ma.writeValueAsString(retval);
+
+		System.out.println("saveMsgReturnJson" + sentMsgReturnJson);
+
+		response.setContentType("text/json");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(sentMsgReturnJson);
+	}
+	
 
 }
