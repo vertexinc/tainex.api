@@ -154,7 +154,7 @@ public class TieSessionController extends TieControllerBase {
 			// Populate toListString
 			StringBuilder toListString = new StringBuilder("");
 			for (TieMsgTrackingLog tieMsgReceiver : tiemsgReceiverList) {
-				toListString.append(tieMsgReceiver.getSenderCode()).append("@")
+				toListString.append(tieMsgReceiver.getReceiverCode()).append("@")
 						.append(tieMsgReceiver.getReceivingCountry()).append(";");
 			}
 			msg.setMsgReceiverList(toListString.toString());
@@ -188,7 +188,7 @@ public class TieSessionController extends TieControllerBase {
 		// Populate toListString
 		StringBuilder toListString = new StringBuilder("");
 		for (TieMsgTrackingLog tieMsgReceiver : tiemsgReceiverList) {
-			toListString.append(tieMsgReceiver.getSenderCode()).append("@").append(tieMsgReceiver.getReceivingCountry())
+			toListString.append(tieMsgReceiver.getReceiverCode()).append("@").append(tieMsgReceiver.getReceivingCountry())
 					.append(";");
 		}
 		TieMainPage.getTieMainPage().setToListString(toListString.toString());
@@ -335,7 +335,7 @@ public class TieSessionController extends TieControllerBase {
 		tiemsgReceiverList = persister.getTieMsgTrackingLogDao().findTieMsgReceiverById(currentTieMsgId);
 		StringBuilder toListString = new StringBuilder("");
 		for (TieMsgTrackingLog tieMsgReceiver : tiemsgReceiverList) {
-			toListString.append(tieMsgReceiver.getSenderCode()).append("@").append(tieMsgReceiver.getReceivingCountry())
+			toListString.append(tieMsgReceiver.getReceiverCode()).append("@").append(tieMsgReceiver.getReceivingCountry())
 					.append(";");
 		}
 		currentmsg.setMsgReceiverList(toListString.toString());
