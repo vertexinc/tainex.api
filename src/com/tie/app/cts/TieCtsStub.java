@@ -54,7 +54,8 @@ public class TieCtsStub implements ICts {
 		try {
 			TieMsgEnvelope tieMsgEnvelope = deserialize(tieMsgPackage.getPackageBytes());
 			sender = tieMsgEnvelope.getSender().getName();
-			receiver = tieMsgEnvelope.getReceiver().getName();
+			//receiver = tieMsgEnvelope.getReceiver().getName();
+			receiver = tieMsgPackage.getSingleRecipient();
 			ctsTrackingId = Integer.toString(tieMsgPackage.getTiemsg().getTieMsgId());
 			timeStamp = tieMsgEnvelope.getSendTime().toString().replaceAll("\\s+", "").replaceAll(":", "");
 			fileName = sender + receiver + ctsTrackingId + "_" + timeStamp + ".txt";

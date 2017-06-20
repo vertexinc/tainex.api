@@ -74,15 +74,18 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 			// Record sending as success
 		} catch (Exception e) {
 			// Record sending as fail
+			System.out.println(e.toString());
+			e.printStackTrace();
 			String msgString = "";
 			TieMsgState tieMsgState = new TieMsgState(6, "name", msgString, "", "");
 			recordMsgState(preparedTieMsg, msgString, tieMsgState);
 		}
-		forwardToFront();
+		//forwardToFront();
 	}// sendTieMsg(.)
 
 	private void recordAllPackageStatus(TieMsg tieMsg) {
 		// TODO Auto-generated method stub
+		System.out.println("Started to record sending status!");
 		Map<Long, TieMsgPackage> msgPackagesMap = tieMsg.getMsgPackages();
 		for (Object Key : msgPackagesMap.keySet()) {
 			TieMsgPackage tieMsgPackage = msgPackagesMap.get(Key);
@@ -258,7 +261,8 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 		tieMsgTrackingLog.setCtsTrackingId(CTS_TRACKING_ID);
 		tieMsgTrackingLog.setReceiverCode(msgPkg.getSingleRecipient());
 		tieMsgTrackingLog.setReceivingCountry(msgPkg.getSingleRecipient());
-		tieMsgTrackingLog.setSenderCode(msgPkg.getTiemsg().getSender().getCode());
+		//tieMsgTrackingLog.setSenderCode(msgPkg.getTiemsg().getSender().getCode());
+		tieMsgTrackingLog.setSenderCode(msgPkg.getSingleRecipient());
 		tieMsgTrackingLog.setTieMsgId(msgPkg.getTiemsg().getTieMsgId());
 		tieMsgTrackingLog.setTieMsgTrackingStatusId(2);
 		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
@@ -278,18 +282,18 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 		TiePersister persister = TieController.getController().getPersister();
 		TieMsg retTieMsg = persister.getTieMsgDao().recordTieMsgStatus(tieMsg, msg, msgState);
 		TieMainPage.getTieMainPage().setCurrentMsg(retTieMsg);
-		//Update the status in the message list
+		// Update the status in the message list
 		sessionController.handleMsgList();
-		//Forward to the front end
+		// Forward to the front end
 		System.out.println("Message Sent");
-		updateFrontEnd();
+		//updateFrontEnd();
 	}
 
 	private void updateFrontEnd() throws IOException {
 		// TODO Auto-generated method stub
 
 		TieMainPage retval = null;
-		
+
 		retval = TieMainPage.getTieMainPage();
 
 		ObjectMapper ma = new ObjectMapper();
@@ -301,6 +305,5 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(sentMsgReturnJson);
 	}
-	
 
 }
