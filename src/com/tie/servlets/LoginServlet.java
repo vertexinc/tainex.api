@@ -50,6 +50,7 @@ import com.tie.app.TieController;
 import com.tie.app.TieSecurityManager;
 import com.tie.app.TieSessionController;
 import com.tie.app.UcControllerSendTieMsg;
+import com.tie.app.cts.ICtsException;
 import com.tie.dao.TieAppDao;
 import com.tie.dao.TiePersister;
 import com.tie.model.TieDoc;
@@ -212,13 +213,33 @@ public class LoginServlet extends HttpServlet {
 	private void sendMsg(HttpServletRequest request, HttpServletResponse response,
 			TieSessionController sessionController, int messageId) throws JAXBException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException, IOException {
 		// TODO Auto-generated method stub
-		//try{
+		try{
+			// For CTS demo only, manually set a bad request
+//			if(messageId == 54){
+//				throw new ICtsException("CTS error!");
+//			}
 			UcControllerSendTieMsg ucControllerSendTieMsg = new UcControllerSendTieMsg(sessionController,request, response);
 			ucControllerSendTieMsg.sendTieMsg(messageId);
-		//}catch (Exception e){
-		//	logger.error("Failed to send this Msg", new Exception("CTS error!"));
-		//	sendExceptionToFrontEnd(response, e.getMessage(), "");
-		//}
+			
+			
+			TieMsg sentMsgReturnJson = sessionController.handleUserAndState(messageId);
+			TieMainPage retval = null;
+			sessionController.handleMsgList();
+			retval = TieMainPage.getTieMainPage();
+			retval.setCurrentMsg(sentMsgReturnJson);
+			
+			ObjectMapper ma = new ObjectMapper();
+			String saveMsgReturnJson = ma.writeValueAsString(retval);
+
+			System.out.println("SentMsgReturnJson:" + sentMsgReturnJson);
+
+			response.setContentType("text/json");
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().write(saveMsgReturnJson);
+		}catch (Exception e){
+			logger.error("Failed to send this Msg", new Exception("CTS error!"));
+			sendExceptionToFrontEnd(response, e.getMessage(), "");
+		}
 	}
 	private void saveDoc(HttpServletRequest request, HttpServletResponse response,
 			TieSessionController sessionController, String docString, String fileName) throws IOException {

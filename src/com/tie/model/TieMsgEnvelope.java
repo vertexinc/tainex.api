@@ -5,13 +5,13 @@ import java.util.Date;
 public class TieMsgEnvelope implements java.io.Serializable{
 	TieUser sender;
 	TieUser receiver;
-	Date sendTime;
+	String sendTime;
 
 	public TieMsgEnvelope() {
 		super();
 	}
 
-	public TieMsgEnvelope(TieUser sender, TieUser receiver, Date sendTime) {
+	public TieMsgEnvelope(TieUser sender, TieUser receiver, String sendTime) {
 		super();
 		this.sender = sender;
 		this.receiver = receiver;
@@ -34,11 +34,11 @@ public class TieMsgEnvelope implements java.io.Serializable{
 		this.receiver = receiver;
 	}
 
-	public Date getSendTime() {
+	public String getSendTime() {
 		return sendTime;
 	}
 
-	public void setSendTime(Date sendTime) {
+	public void setSendTime(String sendTime) {
 		this.sendTime = sendTime;
 	}
 

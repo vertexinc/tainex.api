@@ -183,15 +183,19 @@ public class TieSessionController extends TieControllerBase {
 		int currentTieMsgId = currentmsg.getTieMsgId();
 		List<TieMsgTrackingLog> tiemsgReceiverList = new ArrayList<TieMsgTrackingLog>();
 		tiemsgReceiverList = persister.getTieMsgTrackingLogDao().findTieMsgReceiverById(currentTieMsgId);
-		TieMainPage.getTieMainPage().setTiemsgReceiverList(tiemsgReceiverList);
+		//TieMainPage.getTieMainPage().setTiemsgReceiverList(tiemsgReceiverList);
+		
 
 		// Populate toListString
 		StringBuilder toListString = new StringBuilder("");
-		for (TieMsgTrackingLog tieMsgReceiver : tiemsgReceiverList) {
-			toListString.append(tieMsgReceiver.getReceiverCode()).append("@").append(tieMsgReceiver.getReceivingCountry())
-					.append(";");
-		}
+//		for (TieMsgTrackingLog tieMsgReceiver : tiemsgReceiverList) {
+//			toListString.append(tieMsgReceiver.getReceiverCode()).append("@").append(tieMsgReceiver.getReceivingCountry())
+//					.append(";");
+//		}
+		toListString.append(currentmsg.getMsgReceiverList());
+		//Replaced with tieMessage toListString;
 		TieMainPage.getTieMainPage().setToListString(toListString.toString());
+		
 		// Populate the state of current msg
 		TieMsgState tieMsgState = TieMsgState.findById(currentmsg.getTieMsgStateId());
 		TieMainPage.getTieMainPage().setTieMsgState(tieMsgState);
@@ -331,14 +335,14 @@ public class TieSessionController extends TieControllerBase {
 
 		// Populate receivers of the current msg
 		int currentTieMsgId = currentmsg.getTieMsgId();
-		List<TieMsgTrackingLog> tiemsgReceiverList = new ArrayList<TieMsgTrackingLog>();
-		tiemsgReceiverList = persister.getTieMsgTrackingLogDao().findTieMsgReceiverById(currentTieMsgId);
-		StringBuilder toListString = new StringBuilder("");
-		for (TieMsgTrackingLog tieMsgReceiver : tiemsgReceiverList) {
-			toListString.append(tieMsgReceiver.getReceiverCode()).append("@").append(tieMsgReceiver.getReceivingCountry())
-					.append(";");
-		}
-		currentmsg.setMsgReceiverList(toListString.toString());
+//		List<TieMsgTrackingLog> tiemsgReceiverList = new ArrayList<TieMsgTrackingLog>();
+//		tiemsgReceiverList = persister.getTieMsgTrackingLogDao().findTieMsgReceiverById(currentTieMsgId);
+//		StringBuilder toListString = new StringBuilder("");
+//		for (TieMsgTrackingLog tieMsgReceiver : tiemsgReceiverList) {
+//			toListString.append(tieMsgReceiver.getReceiverCode()).append("@").append(tieMsgReceiver.getReceivingCountry())
+//					.append(";");
+//		}
+		currentmsg.setMsgReceiverList(currentmsg.getMsgReceiverList());
 
 		// Populate the state of current msg
 		TieMsgState tieMsgState = TieMsgState.findById(currentmsg.getTieMsgStateId());
@@ -534,7 +538,7 @@ public class TieSessionController extends TieControllerBase {
 		} else {
 			TieMainPage.getTieMainPage().setCurrentTieDoc(null);
 		}
-	}
+	}//end handleDetachDoc
 
 	public void handleDeleteMsg(int messageId) {
 		// TODO Auto-generated method stub

@@ -25,6 +25,7 @@ import javax.xml.bind.JAXBException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tie.app.cts.ICtsException;
 import com.tie.app.cts.TieCtsStub;
 import com.tie.dao.TiePersister;
 import com.tie.model.TieMsg;
@@ -65,12 +66,15 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 		TieMsg preparedTieMsg = prepareTieMsg(msgId);
 
 		try {
+			// For CTS demo only, manually set a bad request
+
 			TieCtsStub tieCtsStub = new TieCtsStub();
 			tieCtsStub.sendTieMsg(preparedTieMsg);
 			String msgString = "";
 			TieMsgState tieMsgState = new TieMsgState(2, "name", msgString, "", "");
 			recordMsgState(preparedTieMsg, msgString, tieMsgState);
-			recordAllPackageStatus(preparedTieMsg);
+			//recordAllPackageStatus(preparedTieMsg);
+
 			// Record sending as success
 		} catch (Exception e) {
 			// Record sending as fail
@@ -78,26 +82,34 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 			e.printStackTrace();
 			String msgString = "";
 			TieMsgState tieMsgState = new TieMsgState(6, "name", msgString, "", "");
+			// Need to handle error status, but could only send the errorUI body
 			recordMsgState(preparedTieMsg, msgString, tieMsgState);
 		}
-		//forwardToFront();
+		// forwardToFront();
 	}// sendTieMsg(.)
 
-	private void recordAllPackageStatus(TieMsg tieMsg) {
+	private void recordAllPackageStatus(TieMsg tieMsg) throws ICtsException {
 		// TODO Auto-generated method stub
+
 		System.out.println("Started to record sending status!");
 		Map<Long, TieMsgPackage> msgPackagesMap = tieMsg.getMsgPackages();
 		for (Object Key : msgPackagesMap.keySet()) {
+
 			TieMsgPackage tieMsgPackage = msgPackagesMap.get(Key);
-			String msgString = "";
-			// Create TieMsgTrackingStatus log at package level
-			TieMsgTrackingStatus trkStatus = new TieMsgTrackingStatus();
-			// Record message status at package level
-			recordPackageStatus(tieMsgPackage, msgString, trkStatus);
+			try {
+				String msgString = "";
+				// Create TieMsgTrackingStatus log at package level
+				TieMsgTrackingStatus trkStatus = new TieMsgTrackingStatus();
+				// Record message status at package level
+				recordPackageStatus(tieMsgPackage, msgString, trkStatus);
+			} catch (Exception e) {
+				throw new ICtsException(tieMsgPackage.getSingleRecipient() + " - ");
+			}
 		}
 	}
 
-	private void forwardToFront() {
+	// Create a dialog box at front end showing the message sending status
+	private void createFrontEndDialog() {
 		// TODO Auto-generated method stub
 
 	}
@@ -225,13 +237,8 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 		tieMsgEnvelope.setReceiver(receiver);
 
 		// Set Time
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.HOUR_OF_DAY, 17);
-		cal.set(Calendar.MINUTE, 30);
-		cal.set(Calendar.SECOND, 0);
-		cal.set(Calendar.MILLISECOND, 0);
-		Date date = cal.getTime();
-		tieMsgEnvelope.setSendTime(date);
+		String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+		tieMsgEnvelope.setSendTime(timeStamp);
 
 		return tieMsgEnvelope;
 	};// end createEnvelopeForPackage(..)
@@ -261,7 +268,7 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 		tieMsgTrackingLog.setCtsTrackingId(CTS_TRACKING_ID);
 		tieMsgTrackingLog.setReceiverCode(msgPkg.getSingleRecipient());
 		tieMsgTrackingLog.setReceivingCountry(msgPkg.getSingleRecipient());
-		//tieMsgTrackingLog.setSenderCode(msgPkg.getTiemsg().getSender().getCode());
+		// tieMsgTrackingLog.setSenderCode(msgPkg.getTiemsg().getSender().getCode());
 		tieMsgTrackingLog.setSenderCode(msgPkg.getSingleRecipient());
 		tieMsgTrackingLog.setTieMsgId(msgPkg.getTiemsg().getTieMsgId());
 		tieMsgTrackingLog.setTieMsgTrackingStatusId(2);
@@ -269,7 +276,7 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 		tieMsgTrackingLog.setTimeStamp(timeStamp);
 		tieMsgTrackingLog.setTrackingNote(TRACKING_NOTE);
 		TiePersister persister = TieController.getController().getPersister();
-		persister.getTieMsgTrackingLogDao().recordTieMsgTrackingLog(tieMsgTrackingLog);
+		persister.getTieMsgTrackingLogDao().updateTieMsgTrackingLog(tieMsgTrackingLog);
 		// Call persister to save the message status
 
 	}
