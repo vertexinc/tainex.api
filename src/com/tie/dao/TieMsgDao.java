@@ -10,6 +10,7 @@ package com.tie.dao;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -360,14 +361,22 @@ public class TieMsgDao extends BaseDao {
 		int tieMsgStateId = msgState.getTieMsgStateId();
 		getConnection();
 		try {
-			String sql = "update tiemsg set tieMsgStateId = ? where tieMsgId = ?";
+			String sql = "update tiemsg set tieMsgStateId = ?, timestamp = ? where tieMsgId = ?";
 			PreparedStatement updateStatement = conn.prepareStatement(sql);
 			updateStatement.setInt(1, tieMsgStateId);
-			updateStatement.setInt(2, tieMsgId);
+			String timeStamp = getTimeStamp();
+			updateStatement.setString(2, timeStamp);
+			updateStatement.setInt(3, tieMsgId);
 			updateStatement.executeUpdate();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
 		return findTieMsgByTieMsgId(tieMsgId);
 	}// end recordTieMsgStatus(...)
+
+	private String getTimeStamp() {
+		// TODO Auto-generated method stub
+		String timeStamp = new SimpleDateFormat("M/dd/yyyy, K:mm a").format(new java.util.Date());
+		return timeStamp;
+	}
 }
