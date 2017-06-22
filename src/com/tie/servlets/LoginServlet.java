@@ -167,7 +167,7 @@ public class LoginServlet extends HttpServlet {
 		ServletError servletError = new ServletError();
 		servletError.setErrorName("Error!");
 		// String errorMsg = e.getMessage();
-		servletError.setErrorDescription("Error sending msg to[receiverCode] - [trackingNotes]");
+		servletError.setErrorDescription(errorMsg);
 		ObjectMapper ma = new ObjectMapper();
 		String servletErrorJson = ma.writeValueAsString(servletError);
 		response.setContentType("text/json");

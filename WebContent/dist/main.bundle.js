@@ -40996,6 +40996,18 @@ var AppComponent = (function () {
             alert("Message saved!");
         });
     };
+    AppComponent.prototype.emitSendAtBody = function (msgId) {
+        var _this = this;
+        this._tieappService.sendMessage(msgId)
+            .subscribe(function (saveReturnData) {
+            _this.tieapp.body.messageList.messageSumList = saveReturnData.msgList;
+            _this.tieapp.body.messageDetail = saveReturnData.currentMsg;
+            _this.tieapp.body.currentDoc = saveReturnData.currentTieDoc;
+            alert("Message sent!");
+        }, function (error) {
+            alert("Message sending error!");
+        });
+    };
     AppComponent.prototype.emitDeleteMsgAtBody = function () {
         var _this = this;
         this._tieappService.deleteCurrentMsg()
@@ -54143,6 +54155,7 @@ var BodyComponent = (function () {
         this.showTable = true;
         this.emitSaveChangeAtBody = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         this.emitDeleteMsgAtBody = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+        this.emitSendAtBody = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         this.tempId = 0;
     }
     BodyComponent.prototype.ngOnInit = function () {
@@ -54223,6 +54236,9 @@ var BodyComponent = (function () {
     BodyComponent.prototype.emitSaveChangeAtMessageDetail = function (model) {
         this.emitSaveChangeAtBody.emit(model);
     };
+    BodyComponent.prototype.emitSendMsgAtMessageDetail = function (msgId) {
+        this.emitSendAtBody.emit(msgId);
+    };
     BodyComponent.prototype.emitDeleteMsgAtMessageDetail = function () {
         this.emitDeleteMsgAtBody.emit();
     };
@@ -54256,6 +54272,10 @@ var BodyComponent = (function () {
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(), 
         __metadata('design:type', Object)
     ], BodyComponent.prototype, "emitDeleteMsgAtBody", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(), 
+        __metadata('design:type', Object)
+    ], BodyComponent.prototype, "emitSendAtBody", void 0);
     BodyComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'tieapp-body',
@@ -54516,7 +54536,7 @@ var DoclistComponent = (function () {
                     _this.errorName = docData.errorName;
                     _this.errorDescription = docData.errorDescription;
                     _this.loading = false;
-                    $('#errModalLong').modal('show');
+                    alert("Document Attachment Failed!" + _this.errorDescription);
                 }
                 else {
                     alert("Document Attached!");
@@ -54692,6 +54712,7 @@ var MessageComponent = (function () {
         this._tieappService = _tieappService;
         this.emitSaveChangeAtMessage = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         this.emitDeleteMsgAtMessage = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+        this.emitSendMsgAtMessage = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         this.saveCurrentMessage = false;
         this.checkAttachedFile = false;
         this.msgSubmit = false;
@@ -54729,10 +54750,6 @@ var MessageComponent = (function () {
         configurable: true
     });
     MessageComponent.prototype.onSubmit = function () {
-        // this._tieappService.postSave(this.model)
-        //   .subscribe(saveReturnData => {
-        //     alert("returning: " + JSON.stringify(saveReturnData))
-        //   });
         this.msgSubmit = true;
         var dp = new __WEBPACK_IMPORTED_MODULE_3__angular_common__["DatePipe"]('en-US' /* locale .. */);
         this.timename = dp.transform(new Date(), 'yMdjm');
@@ -54745,22 +54762,21 @@ var MessageComponent = (function () {
         this.emitDeleteMsgAtMessage.emit();
     };
     MessageComponent.prototype.onSendMsg = function () {
-        var _this = this;
-        this._tieappService.sendMessage(this.messageDetail.tieMsgId)
-            .subscribe(function (sendReturnData) {
-            if (sendReturnData.errorName != null) {
-                _this.errorName = sendReturnData.errorName;
-                _this.errorDescription = sendReturnData.errorDescription;
-                $('#errModalLong').modal('show');
-            }
-            else {
-                alert("Message sent");
-            }
-        })
-            ,
-                function (error) {
-                    alert("No respond from server");
-                };
+        // this._tieappService.sendMessage(this.messageDetail.tieMsgId)
+        //   .subscribe(sendReturnData => {
+        //     if (sendReturnData.errorName != null) {
+        //       this.errorName = sendReturnData.errorName;
+        //       this.errorDescription = sendReturnData.errorDescription;
+        //       $('#errModalLong').modal('show');
+        //     } else {
+        //       alert("Message sent");
+        //     }
+        //   })
+        //   ,
+        //   error => {
+        //     alert("No respond from server")
+        //   }
+        this.emitSendMsgAtMessage.emit(this.messageDetail.tieMsgId);
     };
     __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
@@ -54779,6 +54795,10 @@ var MessageComponent = (function () {
         __metadata('design:type', Object)
     ], MessageComponent.prototype, "emitDeleteMsgAtMessage", void 0);
     __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(), 
+        __metadata('design:type', Object)
+    ], MessageComponent.prototype, "emitSendMsgAtMessage", void 0);
+    __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
         __metadata('design:type', Object)
     ], MessageComponent.prototype, "attachedFile", void 0);
@@ -54793,30 +54813,6 @@ var MessageComponent = (function () {
     return MessageComponent;
     var _a;
 }());
-//this._tieappService.postDoc(text,fileName)
-// .subscribe(docData => {
-//   if (docData.errorName != null) {
-//     this.errorName = docData.errorName;
-//     this.errorDescription = docData.errorDescription;
-//     this.loading = false;
-//     $('#errModalLong').modal('show')
-//   } else {
-//     alert("Document Attached!");
-//     this.emitAttachedFile.emit(docData);
-//     this.loading = false;
-//   }
-//
-//   // this.attachedFile = true;
-//   // this.emitCheckMsgWhenAttach.emit(this.attachedFile);
-//   //alert("docAttached: " + JSON.stringify(docData));
-// },
-// err => {
-//   this.loading = false;
-//   this.errorName = "Error!"
-//   this.errorDescription = err;
-//   $('#errModalLong').modal('show')
-//
-// });
 
 
 /***/ },
@@ -54846,6 +54842,7 @@ var MessagedetailComponent = (function () {
         this._tieappService = _tieappService;
         this.emitSaveChangeAtMessageDetail = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         this.emitDeleteMsgAtMessageDetail = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+        this.emitSendMsgAtMessageDetail = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         this.attachedFile = false;
         // this.currentMessageName = this.truncateInfo(this.messageDetail.subject);
         // this.currentDocName = this.truncateInfo(this.currentDoc.name)
@@ -54861,6 +54858,9 @@ var MessagedetailComponent = (function () {
     };
     MessagedetailComponent.prototype.emitSaveChangeAtMessage = function (model) {
         this.emitSaveChangeAtMessageDetail.emit(model);
+    };
+    MessagedetailComponent.prototype.emitSendMsgAtMessage = function (msgId) {
+        this.emitSendMsgAtMessageDetail.emit(msgId);
     };
     MessagedetailComponent.prototype.emitDeleteMsgAtMessage = function () {
         this.emitDeleteMsgAtMessageDetail.emit();
@@ -54908,6 +54908,10 @@ var MessagedetailComponent = (function () {
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(), 
         __metadata('design:type', Object)
     ], MessagedetailComponent.prototype, "emitDeleteMsgAtMessageDetail", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(), 
+        __metadata('design:type', Object)
+    ], MessagedetailComponent.prototype, "emitSendMsgAtMessageDetail", void 0);
     MessagedetailComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'tieapp-messagedetail',
@@ -58739,7 +58743,7 @@ module.exports = ""
 /* 654 */
 /***/ function(module, exports) {
 
-module.exports = "<div id='bodyContainer' *ngIf=\"body\">\r\n  <div *ngIf=\"showSearchCriteria\" id='tieapp-searchcriteria'>\r\n    <tieapp-searchcriteria title=\"Search By\" (emitCompose)=\"emitCompose($event)\">\r\n      <tieapp-search-detail></tieapp-search-detail>\r\n    </tieapp-searchcriteria>\r\n\r\n  </div>\r\n  <a (click)=\"showSearchCriteria = !showSearchCriteria\">\r\n    <div *ngIf=\"!showSearchCriteria\"><i class=\"fa fa-chevron-right\" aria-hidden=\"true\"></i></div>\r\n    <div *ngIf=\"showSearchCriteria\"><i class=\"fa fa-chevron-left\" aria-hidden=\"true\"></i></div>\r\n  </a>\r\n  <div id=\"rightpanel\">\r\n    <div id=\"rightpanelflex\">\r\n      <div id='tieapp-messagelist'>\r\n\r\n        <!-- <tieapp-messagelist  [tieMsgs]=\"body.messagelist\"></tieapp-messagelist> -->\r\n        <tieapp-messagelist [messageList]=\"body.messageList.messageSumList\" [currentSelectedMessageId]=\"body.messageDetail.tieMsgId\"  (emitMessageId)=\"emitMessageId($event)\"> </tieapp-messagelist>\r\n\r\n      </div>\r\n      <div class=\"splitter-horizontal\"></div>\r\n      <div id='tieapp-messagedetail'>\r\n        <tieapp-messagedetail [messageDetail]=\"body.messageDetail\" [language] = \"language\" [currentDoc]=\"body.currentDoc\" [showTable]=\"showTable\" (emitSaveChangeAtMessageDetail)=\"emitSaveChangeAtMessageDetail($event)\" (emitDeleteMsgAtMessageDetail)=\"emitDeleteMsgAtMessageDetail($event)\"></tieapp-messagedetail>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<div id='bodyContainer' *ngIf=\"body\">\r\n  <div *ngIf=\"showSearchCriteria\" id='tieapp-searchcriteria'>\r\n    <tieapp-searchcriteria title=\"Search By\" (emitCompose)=\"emitCompose($event)\">\r\n      <tieapp-search-detail></tieapp-search-detail>\r\n    </tieapp-searchcriteria>\r\n\r\n  </div>\r\n  <a (click)=\"showSearchCriteria = !showSearchCriteria\">\r\n    <div *ngIf=\"!showSearchCriteria\"><i class=\"fa fa-chevron-right\" aria-hidden=\"true\"></i></div>\r\n    <div *ngIf=\"showSearchCriteria\"><i class=\"fa fa-chevron-left\" aria-hidden=\"true\"></i></div>\r\n  </a>\r\n  <div id=\"rightpanel\">\r\n    <div id=\"rightpanelflex\">\r\n      <div id='tieapp-messagelist'>\r\n\r\n        <!-- <tieapp-messagelist  [tieMsgs]=\"body.messagelist\"></tieapp-messagelist> -->\r\n        <tieapp-messagelist [messageList]=\"body.messageList.messageSumList\" [currentSelectedMessageId]=\"body.messageDetail.tieMsgId\"  (emitMessageId)=\"emitMessageId($event)\"> </tieapp-messagelist>\r\n\r\n      </div>\r\n      <div class=\"splitter-horizontal\"></div>\r\n      <div id='tieapp-messagedetail'>\r\n        <tieapp-messagedetail [messageDetail]=\"body.messageDetail\" [language] = \"language\" [currentDoc]=\"body.currentDoc\" [showTable]=\"showTable\" (emitSaveChangeAtMessageDetail)=\"emitSaveChangeAtMessageDetail($event)\" (emitDeleteMsgAtMessageDetail)=\"emitDeleteMsgAtMessageDetail($event)\" (emitSendMsgAtMessageDetail)=\"emitSendMsgAtMessageDetail($event)\"></tieapp-messagedetail>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ },
 /* 655 */
@@ -58787,7 +58791,7 @@ module.exports = "<div id=\"currentMsgBody\" *ngIf=\"messageDetail\">\r\n  <form
 /* 662 */
 /***/ function(module, exports) {
 
-module.exports = "<ul class=\"nav nav-tabs\" role=\"tablist\">\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link active\" href=\"#message\" title=\"Message\" role=\"tab\" data-toggle=\"tab\">Message</a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#docs\" title=\"Current Message:{{messageDetail.subject}} \" role=\"tab\" data-toggle=\"tab\">Docs<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Message : {{messageDetail.subject | tabsum:10}}</div></a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#entity\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Entity<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name | tabsum:10}}</div></a>\r\n  </li>\r\n  <li *ngIf=\"showTable\" class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#table1\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Table1<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name | tabsum:10}}</div></a>\r\n  </li>\r\n  <li *ngIf=\"showTable\" class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#table2\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Table2<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name | tabsum:10}}</div></a>\r\n  </li>\r\n  <li *ngIf=\"showTable\" class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#table3\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Table3<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name | tabsum:10}}</div></a>\r\n  </li>\r\n</ul>\r\n\r\n<!-- Tab panes -->\r\n<div class=\"tab-content\">\r\n  <div role=\"tabpanel\" class=\"tab-pane fade in active\" id=\"message\">\r\n    <tieapp-message [messageDetail]=\"messageDetail\" [languageList]=\"language\" [attachedFile] = \"attachedFile\" (emitSaveChangeAtMessage)=\"emitSaveChangeAtMessage($event)\" (emitDeleteMsgAtMessage)=\"emitDeleteMsgAtMessage($event)\" ></tieapp-message>\r\n  </div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"docs\">\r\n      <tieapp-doclist [messageDetail]=\"messageDetail\" [currentDocId]=\"currentDoc.tieDocId\" (emitCurrentDocId)=\"emitCurrentDocId($event)\" (emitAttachedFile)=\"emitAttachedFile($event)\" (emitDetachedDocIdList)=\"emitDetachedDocIdList($event)\" ></tieapp-doclist>\r\n  </div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"entity\">\r\n    <tieapp-entitylist [currentDoc]=\"currentDoc\"></tieapp-entitylist>\r\n  </div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"table1\">\r\n    <tieapp-cbcrtable1 [currentDoc]=\"currentDoc\"></tieapp-cbcrtable1>\r\n  </div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"table2\">\r\n    <tieapp-cbcrtable2 [currentDoc]=\"currentDoc\"></tieapp-cbcrtable2>\r\n  </div>\r\n  <div role=\"tabpane1\" class=\"tab-pane fade\" id=\"table3\">\r\n    <tieapp-cbcrtable3 [currentDoc]=\"currentDoc\"></tieapp-cbcrtable3>\r\n  </div>\r\n</div>\r\n"
+module.exports = "<ul class=\"nav nav-tabs\" role=\"tablist\">\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link active\" href=\"#message\" title=\"Message\" role=\"tab\" data-toggle=\"tab\">Message</a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#docs\" title=\"Current Message:{{messageDetail.subject}} \" role=\"tab\" data-toggle=\"tab\">Docs<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Message : {{messageDetail.subject | tabsum:10}}</div></a>\r\n  </li>\r\n  <li class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#entity\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Entity<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name | tabsum:10}}</div></a>\r\n  </li>\r\n  <li *ngIf=\"showTable\" class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#table1\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Table1<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name | tabsum:10}}</div></a>\r\n  </li>\r\n  <li *ngIf=\"showTable\" class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#table2\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Table2<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name | tabsum:10}}</div></a>\r\n  </li>\r\n  <li *ngIf=\"showTable\" class=\"nav-item\">\r\n    <a class=\"nav-link\" href=\"#table3\" title=\"Current Doc: {{currentDoc.name}}\" role=\"tab\" data-toggle=\"tab\">Table3<div class=\"subinfo\">\r\n\t\t\t\t\t\t\t\tCurrent Doc : {{currentDoc.name | tabsum:10}}</div></a>\r\n  </li>\r\n</ul>\r\n\r\n<!-- Tab panes -->\r\n<div class=\"tab-content\">\r\n  <div role=\"tabpanel\" class=\"tab-pane fade in active\" id=\"message\">\r\n    <tieapp-message [messageDetail]=\"messageDetail\" [languageList]=\"language\" [attachedFile] = \"attachedFile\" (emitSaveChangeAtMessage)=\"emitSaveChangeAtMessage($event)\" (emitDeleteMsgAtMessage)=\"emitDeleteMsgAtMessage($event)\" (emitSendMsgAtMessage)= \"emitSendMsgAtMessage($event)\"></tieapp-message>\r\n  </div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"docs\">\r\n      <tieapp-doclist [messageDetail]=\"messageDetail\" [currentDocId]=\"currentDoc.tieDocId\" (emitCurrentDocId)=\"emitCurrentDocId($event)\" (emitAttachedFile)=\"emitAttachedFile($event)\" (emitDetachedDocIdList)=\"emitDetachedDocIdList($event)\" ></tieapp-doclist>\r\n  </div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"entity\">\r\n    <tieapp-entitylist [currentDoc]=\"currentDoc\"></tieapp-entitylist>\r\n  </div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"table1\">\r\n    <tieapp-cbcrtable1 [currentDoc]=\"currentDoc\"></tieapp-cbcrtable1>\r\n  </div>\r\n  <div role=\"tabpanel\" class=\"tab-pane fade\" id=\"table2\">\r\n    <tieapp-cbcrtable2 [currentDoc]=\"currentDoc\"></tieapp-cbcrtable2>\r\n  </div>\r\n  <div role=\"tabpane1\" class=\"tab-pane fade\" id=\"table3\">\r\n    <tieapp-cbcrtable3 [currentDoc]=\"currentDoc\"></tieapp-cbcrtable3>\r\n  </div>\r\n</div>\r\n"
 
 /***/ },
 /* 663 */
@@ -58823,7 +58827,7 @@ module.exports = "<!-- <div *ngIf=\"isLoading\"><i class=\"fa fa-spinner fa-spin
 /* 668 */
 /***/ function(module, exports) {
 
-module.exports = "\r\n<div id='tieapp' *ngIf=\"tieapp\">\r\n  <!-- <div id='tieapp'> -->\r\n  <div id='tieapp-header'>\r\n    <tieapp-header [header]=\"tieapp.header\" (tieAppShowInfo)=\"tieAppShowInfo($event)\" (trainingShowInfo)=\"trainingShowInfo($event)\"></tieapp-header>\r\n\r\n  </div>\r\n  <div id='tieapp-body'>\r\n\r\n    <div *ngIf=\"showApp\">\r\n      <tieapp-body [body]=\"tieapp.body\" [language]=\"tieapp.header.language\" (emitSaveChangeAtBody) = \"emitSaveChangeAtBody($event)\" (emitDeleteMsgAtBody) = \"emitDeleteMsgAtBody($event)\"></tieapp-body>\r\n    </div>\r\n    <div *ngIf=\"showTraining\">\r\n      <tieapp-training></tieapp-training>\r\n    </div>\r\n  </div>\r\n\r\n  <div id='tieapp-footer'>\r\n    <!-- <tieapp-footer [footer]=\"tieapp.footer\"></tieapp-footer> -->\r\n    <tieapp-footer></tieapp-footer>\r\n  </div>\r\n</div>\r\n\r\n<div class=\"modal fade\" id=\"msgModalLong\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"msgModalLongTitle\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"msgModalLongTitle\">{{windowTitleName}}</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        {{windowDescription}}\r\n      </div>\r\n      <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">OK</button>\r\n        <!-- <button type=\"button\" class=\"btn btn-primary\">Save changes</button> -->\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "\r\n<div id='tieapp' *ngIf=\"tieapp\">\r\n  <!-- <div id='tieapp'> -->\r\n  <div id='tieapp-header'>\r\n    <tieapp-header [header]=\"tieapp.header\" (tieAppShowInfo)=\"tieAppShowInfo($event)\" (trainingShowInfo)=\"trainingShowInfo($event)\"></tieapp-header>\r\n\r\n  </div>\r\n  <div id='tieapp-body'>\r\n\r\n    <div *ngIf=\"showApp\">\r\n      <tieapp-body [body]=\"tieapp.body\" [language]=\"tieapp.header.language\" (emitSaveChangeAtBody) = \"emitSaveChangeAtBody($event)\" (emitDeleteMsgAtBody) = \"emitDeleteMsgAtBody($event)\" (emitSendAtBody) = \"emitSendAtBody($event)\"></tieapp-body>\r\n    </div>\r\n    <div *ngIf=\"showTraining\">\r\n      <tieapp-training></tieapp-training>\r\n    </div>\r\n  </div>\r\n\r\n  <div id='tieapp-footer'>\r\n    <!-- <tieapp-footer [footer]=\"tieapp.footer\"></tieapp-footer> -->\r\n    <tieapp-footer></tieapp-footer>\r\n  </div>\r\n</div>\r\n\r\n<div class=\"modal fade\" id=\"msgModalLong\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"msgModalLongTitle\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"msgModalLongTitle\">{{windowTitleName}}</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        {{windowDescription}}\r\n      </div>\r\n      <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">OK</button>\r\n        <!-- <button type=\"button\" class=\"btn btn-primary\">Save changes</button> -->\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ },
 /* 669 */
