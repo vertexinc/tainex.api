@@ -85,18 +85,46 @@ public class LoginServlet extends HttpServlet {
 		// Get username and pwd from the session
 		String username = request.getParameter("username");
 		String password = request.getParameter("userpass");
-
+		
+//		if(username != null){
+//		 sessionController = null;
+//		}
+		
 		// ---- determine action to take after user logged in ------
 
 		// If user has already loggin in
 		if (sessionController != null) {
-
+			username = (String) session.getAttribute("code");
+			//password = (String) session.getAttribute("userpass");
+			System.out.println("Username=[" + username + "]");
+			//System.out.println("password=[" + password + "]");
+			
+			/**
+			 * A logged-in user may go back the login page and try to re-authenticate. The session controller 
+			 * would be existing in the session. But we still need to re-check un and pwd., if either is supplied 
+			 * non-blank. Invoke the reauthenticate method again.
+			 * If un is the same as before, the same user is re-authenticate, do the usual action-driven logic
+			 *      boolean isUserSameAsInSession( String un, String pwd );
+			 * else If un is not the same guy, a different user is trying to log in, use the existing authenticate logic
+			 * which would create a new session controller, or if the new user fails the check, re-direct to the 
+			 * login page with error msg.
+			 */
+			
+			
+			
+			
 			BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
 			String json = "";
 			if (br != null) {
 				json = br.readLine();
+				if(json == null){
+					json = "{\"action\":\"initPage\"}";
+				}
 			}
+			
 			ObjectMapper mapper = new ObjectMapper();
+			System.out.println("br=[" + br +"]");
+			System.out.println("json=[" + json +"]");
 			Param param = mapper.readValue(json, Param.class);
 
 			String action = param.getAction();
@@ -400,7 +428,7 @@ public class LoginServlet extends HttpServlet {
 		String headerjson = ma.writeValueAsString(header);
 		// String serialized = ma.writeValueAsString(header);
 
-		logger.info("init json string: " + tieJson);
+		//logger.info("init json string: " + tieJson);
 		response.setContentType("text/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(tieJson);
