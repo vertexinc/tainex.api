@@ -37,6 +37,7 @@ public class TieSessionController extends TieControllerBase {
 	final Logger logger = LoggerFactory.getLogger(TaxDocParser.class);
 
 	private String userCode;
+	private String pwd;
 	// point to ui class
 
 	// TieMainPage mainPage;
@@ -50,6 +51,14 @@ public class TieSessionController extends TieControllerBase {
 
 	public void init() {
 
+	}
+	
+	public String getPwd() {
+		return pwd;
+	}
+
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
 	}
 
 	public TieSessionController() {

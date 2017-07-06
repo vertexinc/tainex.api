@@ -85,46 +85,52 @@ public class LoginServlet extends HttpServlet {
 		// Get username and pwd from the session
 		String username = request.getParameter("username");
 		String password = request.getParameter("userpass");
-		
-//		if(username != null){
-//		 sessionController = null;
-//		}
-		
+
+		// if(username != null){
+		// sessionController = null;
+		// }
+
 		// ---- determine action to take after user logged in ------
 
 		// If user has already loggin in
 		if (sessionController != null) {
-			username = (String) session.getAttribute("code");
-			//password = (String) session.getAttribute("userpass");
 			System.out.println("Username=[" + username + "]");
-			//System.out.println("password=[" + password + "]");
-			
+			// System.out.println("password=[" + password + "]");
+
 			/**
-			 * A logged-in user may go back the login page and try to re-authenticate. The session controller 
-			 * would be existing in the session. But we still need to re-check un and pwd., if either is supplied 
-			 * non-blank. Invoke the reauthenticate method again.
-			 * If un is the same as before, the same user is re-authenticate, do the usual action-driven logic
-			 *      boolean isUserSameAsInSession( String un, String pwd );
-			 * else If un is not the same guy, a different user is trying to log in, use the existing authenticate logic
-			 * which would create a new session controller, or if the new user fails the check, re-direct to the 
-			 * login page with error msg.
+			 * A logged-in user may go back the login page and try to
+			 * re-authenticate. The session controller would be existing in the
+			 * session. But we still need to re-check un and pwd., if either is
+			 * supplied non-blank. Invoke the reauthenticate method again. If un
+			 * is the same as before, the same user is re-authenticate, do the
+			 * usual action-driven logic boolean isUserSameAsInSession( String
+			 * un, String pwd ); else If un is not the same guy, a different
+			 * user is trying to log in, use the existing authenticate logic
+			 * which would create a new session controller, or if the new user
+			 * fails the check, re-direct to the login page with error msg.
 			 */
-			
-			
-			
-			
+			if (username != null) {
+				if (isUserSameAsInSession(username, password,session)) {
+					RequestDispatcher rd = request.getRequestDispatcher("dist/index.html");
+
+					rd.include(request, response);
+				}else{
+					authenticateUser(request, response, sessionController, session, username, password, out);
+				}
+			}
+
 			BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
 			String json = "";
 			if (br != null) {
 				json = br.readLine();
-				if(json == null){
-					json = "{\"action\":\"initPage\"}";
-				}
+				// if(json == null){
+				// json = "{\"action\":\"initPage\"}";
+				// }
 			}
-			
+
 			ObjectMapper mapper = new ObjectMapper();
-			System.out.println("br=[" + br +"]");
-			System.out.println("json=[" + json +"]");
+			System.out.println("br=[" + br + "]");
+			System.out.println("json=[" + json + "]");
 			Param param = mapper.readValue(json, Param.class);
 
 			String action = param.getAction();
@@ -169,7 +175,8 @@ public class LoginServlet extends HttpServlet {
 
 				try {
 					sendMsg(request, response, sessionController, messageId);
-				} catch (JAXBException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException | NoSuchAlgorithmException | NoSuchPaddingException e) {
+				} catch (JAXBException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException
+						| NoSuchAlgorithmException | NoSuchPaddingException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -187,7 +194,17 @@ public class LoginServlet extends HttpServlet {
 		out.close();
 	}// end doPost(..)
 
-
+	boolean isUserSameAsInSession(String un, String pwd, HttpSession session) {
+		if (un == session.getAttribute("code")) {
+			if(pwd == session.getAttribute("pwd")){
+				return true;
+			}else{
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
 
 	private void sendExceptionToFrontEnd(HttpServletResponse response, String errorMsg, String fileName)
 			throws IOException {
@@ -212,10 +229,14 @@ public class LoginServlet extends HttpServlet {
 		if (securityManager.authentiate(username, password)) {
 			sessionController = new TieSessionController();
 			String code = username;
+			String pwd = password;
 			// String code =
 			// TieController.getController().getPersister().getTieUserDao().findTieUserByName(username).getCode();
 			sessionController.setUserCode(code);
+			sessionController.setPwd(password);
 			session.setAttribute(code, username);
+			session.setAttribute(pwd, password);
+			
 			// TieController.getController().getPersister().getLoginDao().setUsername(username);
 
 			// Save the session controller, since the user is authenticated
@@ -239,23 +260,25 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	private void sendMsg(HttpServletRequest request, HttpServletResponse response,
-			TieSessionController sessionController, int messageId) throws JAXBException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException, IOException {
+			TieSessionController sessionController, int messageId)
+			throws JAXBException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException,
+			NoSuchAlgorithmException, NoSuchPaddingException, IOException {
 		// TODO Auto-generated method stub
-		try{
+		try {
 			// For CTS demo only, manually set a bad request
-//			if(messageId == 54){
-//				throw new ICtsException("CTS error!");
-//			}
-			UcControllerSendTieMsg ucControllerSendTieMsg = new UcControllerSendTieMsg(sessionController,request, response);
+			// if(messageId == 54){
+			// throw new ICtsException("CTS error!");
+			// }
+			UcControllerSendTieMsg ucControllerSendTieMsg = new UcControllerSendTieMsg(sessionController, request,
+					response);
 			ucControllerSendTieMsg.sendTieMsg(messageId);
-			
-			
+
 			TieMsg sentMsgReturnJson = sessionController.handleUserAndState(messageId);
 			TieMainPage retval = null;
 			sessionController.handleMsgList();
 			retval = TieMainPage.getTieMainPage();
 			retval.setCurrentMsg(sentMsgReturnJson);
-			
+
 			ObjectMapper ma = new ObjectMapper();
 			String saveMsgReturnJson = ma.writeValueAsString(retval);
 
@@ -264,11 +287,12 @@ public class LoginServlet extends HttpServlet {
 			response.setContentType("text/json");
 			response.setCharacterEncoding("UTF-8");
 			response.getWriter().write(saveMsgReturnJson);
-		}catch (Exception e){
+		} catch (Exception e) {
 			logger.error("Failed to send this Msg", new Exception("CTS error!"));
 			sendExceptionToFrontEnd(response, e.getMessage(), "");
 		}
 	}
+
 	private void saveDoc(HttpServletRequest request, HttpServletResponse response,
 			TieSessionController sessionController, String docString, String fileName) throws IOException {
 		// TODO Auto-generated method stub
@@ -297,7 +321,7 @@ public class LoginServlet extends HttpServlet {
 		ObjectMapper ma = new ObjectMapper();
 		String saveMsgReturnJson = ma.writeValueAsString(retval);
 
-		//System.out.println("saveMsgReturnJson" + saveMsgReturnJson);
+		// System.out.println("saveMsgReturnJson" + saveMsgReturnJson);
 
 		response.setContentType("text/json");
 		response.setCharacterEncoding("UTF-8");
@@ -403,7 +427,7 @@ public class LoginServlet extends HttpServlet {
 		ObjectMapper ma = new ObjectMapper();
 		String saveMsgReturnJson = ma.writeValueAsString(retval);
 
-		//System.out.println("saveMsgReturnJson" + saveMsgReturnJson);
+		// System.out.println("saveMsgReturnJson" + saveMsgReturnJson);
 
 		response.setContentType("text/json");
 		response.setCharacterEncoding("UTF-8");
@@ -428,7 +452,7 @@ public class LoginServlet extends HttpServlet {
 		String headerjson = ma.writeValueAsString(header);
 		// String serialized = ma.writeValueAsString(header);
 
-		//logger.info("init json string: " + tieJson);
+		// logger.info("init json string: " + tieJson);
 		response.setContentType("text/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(tieJson);
