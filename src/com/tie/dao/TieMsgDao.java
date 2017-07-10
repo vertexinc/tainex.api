@@ -294,6 +294,9 @@ public class TieMsgDao extends BaseDao {
 	}
 
 	private ArrayList<String> parseReceiverListString(String msgReceiverList) {
+		if(msgReceiverList == null){
+			return null;
+		}
 		ArrayList<String> receiverList = new ArrayList<String>();
 		String[] recipientStringList = msgReceiverList.split(";", -1);
 		for (int i = 0; i < recipientStringList.length; i++) {

@@ -112,7 +112,6 @@ public class LoginServlet extends HttpServlet {
 			if (username != null) {
 				if (isUserSameAsInSession(username, password,session)) {
 					RequestDispatcher rd = request.getRequestDispatcher("dist/index.html");
-
 					rd.include(request, response);
 				}else{
 					authenticateUser(request, response, sessionController, session, username, password, out);
@@ -171,7 +170,11 @@ public class LoginServlet extends HttpServlet {
 
 				reset(request, response, sessionController);
 
-			} else if (action.equals("send")) {
+			} else if (action.equals("logout")) {
+				logout(request, response, sessionController);
+				System.out.println("logout action finished");
+
+			}else if (action.equals("send")) {
 
 				try {
 					sendMsg(request, response, sessionController, messageId);
@@ -193,6 +196,18 @@ public class LoginServlet extends HttpServlet {
 		out.flush();
 		out.close();
 	}// end doPost(..)
+
+	private void logout(HttpServletRequest request, HttpServletResponse response,
+			TieSessionController sessionController) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		sessionController = null;
+		request.getSession().invalidate();
+
+		String logout = "{\"logout\":\"true\"}";
+		response.setContentType("text/json");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(logout);
+	}
 
 	boolean isUserSameAsInSession(String un, String pwd, HttpSession session) {
 		if (un == session.getAttribute("code")) {
@@ -248,9 +263,7 @@ public class LoginServlet extends HttpServlet {
 			 * session controller.
 			 */
 			sessionController.handleLogin(username);
-
 			RequestDispatcher rd = request.getRequestDispatcher("dist/index.html");
-
 			rd.include(request, response);
 		} else {
 			out.print("<p style=\"color:red; text-align: center; \">Sorry username or password error</p>");

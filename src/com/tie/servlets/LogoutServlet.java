@@ -30,9 +30,10 @@ public class LogoutServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("Logout service called");
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		request.getRequestDispatcher("index.jsp").include(request, response);  
+		request.getRequestDispatcher("./index.jsp").include(request, response);  
         
         HttpSession session=request.getSession();  
         session.invalidate();  

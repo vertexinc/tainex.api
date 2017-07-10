@@ -7237,6 +7237,13 @@ var TieappService = (function () {
         return this._http.post(this.currentUrl, param, options)
             .map(function (res) { return res.json(); });
     };
+    TieappService.prototype.logOut = function () {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/json' });
+        var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* RequestOptions */]({ headers: headers });
+        var param = JSON.stringify({ action: "logout" });
+        return this._http.post(this.currentUrl, param, options)
+            .map(function (res) { return res.json(); });
+    };
     TieappService.prototype.sendMessage = function (messageId) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/json' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* RequestOptions */]({ headers: headers });
@@ -40984,6 +40991,15 @@ var AppComponent = (function () {
     AppComponent.prototype.trainingShowInfo = function (showTraining) {
         this.showTraining = showTraining;
     };
+    AppComponent.prototype.logoutAtHeader = function () {
+        this._tieappService.logOut()
+            .subscribe(function (logoutData) {
+            if (logoutData.logout != null) {
+                alert("Log out success!");
+                window.location.href = "/TIEapp/";
+            }
+        });
+    };
     AppComponent.prototype.emitSaveChangeAtBody = function (model) {
         var _this = this;
         //alert("emit applied!");
@@ -55271,6 +55287,7 @@ var HeaderComponent = (function () {
         this.translate = translate;
         this.tieAppShowInfo = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         this.trainingShowInfo = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+        this.logoutAtHeader = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         this.showTieapp = true;
         this.showTraining = false;
         translate.addLangs(["en", "es", "zh", "fr"]);
@@ -55292,6 +55309,9 @@ var HeaderComponent = (function () {
         this.tieAppShowInfo.emit(this.showTieapp);
         this.trainingShowInfo.emit(this.showTraining);
     };
+    HeaderComponent.prototype.logout = function () {
+        this.logoutAtHeader.emit();
+    };
     __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(), 
         __metadata('design:type', Object)
@@ -55304,6 +55324,10 @@ var HeaderComponent = (function () {
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(), 
         __metadata('design:type', Object)
     ], HeaderComponent.prototype, "trainingShowInfo", void 0);
+    __decorate([
+        __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(), 
+        __metadata('design:type', Object)
+    ], HeaderComponent.prototype, "logoutAtHeader", void 0);
     HeaderComponent = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'tieapp-header',
@@ -58734,7 +58758,7 @@ module.exports = ".footer{\r\n  margin-left: 20px;\r\n  font-size: 9px;\r\n  col
 /* 650 */
 /***/ function(module, exports) {
 
-module.exports = ".logo {\r\n  margin-top: 0;\r\n  color: white;\r\n}\r\n\r\n.logo:hover {\r\n  color: lightgreen;\r\n}\r\n\r\n#headercenter {\r\n  text-align: center;\r\n  padding-top: 12px;\r\n}\r\n\r\n#headerright {\r\n  text-align: right;\r\n}\r\n\r\n.btn-success {\r\n  background-color: #ccffcc;\r\n  color: #34393d;\r\n}\r\n\r\n#language {\r\n  color: white;\r\n  font-size: 11px;\r\n}\r\n\r\n#user {\r\n  color: white;\r\n  font-size: 11px;\r\n}\r\n\r\n.styled-select {\r\n  float: right;\r\n  height: 7px;\r\n  width: 50px;\r\n  margin-right: 20px;\r\n}\r\n\r\n.styled-select select {\r\n  background: white;\r\n  border: none;\r\n  font-size: 10px;\r\n  height: 25px;\r\n  width: 68px;\r\n  padding-top: 5px;\r\n}\r\n"
+module.exports = ".logo {\r\n  margin-top: 0;\r\n  color: white;\r\n}\r\n\r\n.logo:hover {\r\n  color: lightgreen;\r\n}\r\n\r\n#headercenter {\r\n  text-align: center;\r\n  padding-top: 12px;\r\n}\r\n\r\n#headerright {\r\n  text-align: right;\r\n}\r\n\r\n.btn-success {\r\n  background-color: #ccffcc;\r\n  color: #34393d;\r\n}\r\n\r\n#language {\r\n  color: white;\r\n  font-size: 11px;\r\n}\r\n\r\n#user {\r\n  color: white;\r\n  font-size: 11px;\r\n}\r\n#logout{\r\n  color: white;\r\n  font-size: 11px;\r\n}\r\n#logout:hover {\r\n  color: lightgreen;\r\n}\r\n\r\n.styled-select {\r\n  float: right;\r\n  height: 7px;\r\n  width: 50px;\r\n  margin-right: 20px;\r\n}\r\n\r\n.styled-select select {\r\n  background: white;\r\n  border: none;\r\n  font-size: 10px;\r\n  height: 25px;\r\n  width: 68px;\r\n  padding-top: 5px;\r\n}\r\n"
 
 /***/ },
 /* 651 */
@@ -58831,13 +58855,13 @@ module.exports = "<div class=\"footer\">\r\nCopyright@\r\n</div>\r\n"
 /* 667 */
 /***/ function(module, exports) {
 
-module.exports = "<!-- <div *ngIf=\"isLoading\"><i class=\"fa fa-spinner fa-spin\"></i></div> -->\r\n<!-- <div *ngIf=\"isLoading\"><i class=\"fa fa-cog fa-spin fa-3x fa-fw\"></i></div> -->\r\n<div class=\"row\" *ngIf=\"header\">\r\n\r\n  <div class=\"col-sm-4\">\r\n    <h2 class=\"logo\">\r\n\t\t\t\t<a (click)=\"tieAppOnlick()\">TIE<strong>APP</strong></a> <span>\r\n\t\t\t\t\t<h6>\r\n            {{ 'TRANSLATE.FOR' | translate }}  {{header.appName}}\r\n          </h6>\r\n\t\t\t\t</span>\r\n\t\t\t</h2></div>\r\n\r\n  <div class=\"col-sm-4\" id='headercenter'>\r\n    <button type=\"button\" class=\"btn btn-success\" (click)=\"trainingOnclick()\"> {{ 'TRANSLATE.TRAINING' | translate }}</button>\r\n  </div>\r\n\r\n  <div class=\"col-sm-4\" id='headerright'>\r\n    <div id=\"user\">  {{ 'TRANSLATE.WELCOME' | translate }} {{ header.userName }} !</div>\r\n    <div id=\"language\"> {{ 'TRANSLATE.LANGUAGE' | translate }}</div>\r\n    <div class=\"styled-select\">\r\n      <select class=\"form-control\" id=\"sel1\" #langSelect (change)=\"translate.use(langSelect.value)\">\r\n        <option *ngFor=\"let lang of translate.getLangs()\" [value]=\"lang\" [selected]=\"lang === translate.currentLang\">{{ lang | cap }}</option>\r\n      </select>\r\n    </div>\r\n  </div>\r\n\r\n</div>\r\n"
+module.exports = "<!-- <div *ngIf=\"isLoading\"><i class=\"fa fa-spinner fa-spin\"></i></div> -->\r\n<!-- <div *ngIf=\"isLoading\"><i class=\"fa fa-cog fa-spin fa-3x fa-fw\"></i></div> -->\r\n<div class=\"row\" *ngIf=\"header\">\r\n\r\n  <div class=\"col-sm-4\">\r\n    <h2 class=\"logo\">\r\n\t\t\t\t<a (click)=\"tieAppOnlick()\">TIE<strong>APP</strong></a> <span>\r\n\t\t\t\t\t<h6>\r\n            {{ 'TRANSLATE.FOR' | translate }}  {{header.appName}}\r\n          </h6>\r\n\t\t\t\t</span>\r\n\t\t\t</h2></div>\r\n\r\n  <div class=\"col-sm-4\" id='headercenter'>\r\n    <button type=\"button\" class=\"btn btn-success\" (click)=\"trainingOnclick()\"> {{ 'TRANSLATE.TRAINING' | translate }}</button>\r\n  </div>\r\n\r\n  <div class=\"col-sm-4\" id='headerright'>\r\n    <div id=\"user\">  {{ 'TRANSLATE.WELCOME' | translate }} {{ header.userName }} !  &nbsp; <a id=\"logout\"(click)=\"logout()\"> Log Out </a></div>\r\n    <div id=\"language\"> {{ 'TRANSLATE.LANGUAGE' | translate }}</div>\r\n    <div class=\"styled-select\">\r\n      <select class=\"form-control\" id=\"sel1\" #langSelect (change)=\"translate.use(langSelect.value)\">\r\n        <option *ngFor=\"let lang of translate.getLangs()\" [value]=\"lang\" [selected]=\"lang === translate.currentLang\">{{ lang | cap }}</option>\r\n      </select>\r\n    </div>\r\n  </div>\r\n\r\n</div>\r\n"
 
 /***/ },
 /* 668 */
 /***/ function(module, exports) {
 
-module.exports = "\r\n<div id='tieapp' *ngIf=\"tieapp\">\r\n  <!-- <div id='tieapp'> -->\r\n  <div id='tieapp-header'>\r\n    <tieapp-header [header]=\"tieapp.header\" (tieAppShowInfo)=\"tieAppShowInfo($event)\" (trainingShowInfo)=\"trainingShowInfo($event)\"></tieapp-header>\r\n\r\n  </div>\r\n  <div id='tieapp-body'>\r\n\r\n    <div *ngIf=\"showApp\">\r\n      <tieapp-body [body]=\"tieapp.body\" [language]=\"tieapp.header.language\" (emitSaveChangeAtBody) = \"emitSaveChangeAtBody($event)\" (emitDeleteMsgAtBody) = \"emitDeleteMsgAtBody($event)\" (emitSendAtBody) = \"emitSendAtBody($event)\"></tieapp-body>\r\n    </div>\r\n    <div *ngIf=\"showTraining\">\r\n      <tieapp-training></tieapp-training>\r\n    </div>\r\n  </div>\r\n\r\n  <div id='tieapp-footer'>\r\n    <!-- <tieapp-footer [footer]=\"tieapp.footer\"></tieapp-footer> -->\r\n    <tieapp-footer></tieapp-footer>\r\n  </div>\r\n</div>\r\n\r\n<div class=\"modal fade\" id=\"msgModalLong\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"msgModalLongTitle\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"msgModalLongTitle\">{{windowTitleName}}</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        {{windowDescription}}\r\n      </div>\r\n      <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">OK</button>\r\n        <!-- <button type=\"button\" class=\"btn btn-primary\">Save changes</button> -->\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
+module.exports = "\r\n<div id='tieapp' *ngIf=\"tieapp\">\r\n  <!-- <div id='tieapp'> -->\r\n  <div id='tieapp-header'>\r\n    <tieapp-header [header]=\"tieapp.header\" (tieAppShowInfo)=\"tieAppShowInfo($event)\" (trainingShowInfo)=\"trainingShowInfo($event)\" (logoutAtHeader)=\"logoutAtHeader($event)\"></tieapp-header>\r\n\r\n  </div>\r\n  <div id='tieapp-body'>\r\n\r\n    <div *ngIf=\"showApp\">\r\n      <tieapp-body [body]=\"tieapp.body\" [language]=\"tieapp.header.language\" (emitSaveChangeAtBody) = \"emitSaveChangeAtBody($event)\" (emitDeleteMsgAtBody) = \"emitDeleteMsgAtBody($event)\" (emitSendAtBody) = \"emitSendAtBody($event)\"></tieapp-body>\r\n    </div>\r\n    <div *ngIf=\"showTraining\">\r\n      <tieapp-training></tieapp-training>\r\n    </div>\r\n  </div>\r\n\r\n  <div id='tieapp-footer'>\r\n    <!-- <tieapp-footer [footer]=\"tieapp.footer\"></tieapp-footer> -->\r\n    <tieapp-footer></tieapp-footer>\r\n  </div>\r\n</div>\r\n\r\n<div class=\"modal fade\" id=\"msgModalLong\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"msgModalLongTitle\" aria-hidden=\"true\">\r\n  <div class=\"modal-dialog\" role=\"document\">\r\n    <div class=\"modal-content\">\r\n      <div class=\"modal-header\">\r\n        <h5 class=\"modal-title\" id=\"msgModalLongTitle\">{{windowTitleName}}</h5>\r\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">\r\n          <span aria-hidden=\"true\">&times;</span>\r\n        </button>\r\n      </div>\r\n      <div class=\"modal-body\">\r\n        {{windowDescription}}\r\n      </div>\r\n      <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-primary\" data-dismiss=\"modal\">OK</button>\r\n        <!-- <button type=\"button\" class=\"btn btn-primary\">Save changes</button> -->\r\n      </div>\r\n    </div>\r\n  </div>\r\n</div>\r\n"
 
 /***/ },
 /* 669 */
