@@ -201,8 +201,6 @@ public class LoginServlet extends HttpServlet {
 			TieSessionController sessionController) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		sessionController = null;
-		request.getSession().invalidate();
-
 		String logout = "{\"logout\":\"true\"}";
 		response.setContentType("text/json");
 		response.setCharacterEncoding("UTF-8");
