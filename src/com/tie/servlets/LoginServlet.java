@@ -49,12 +49,14 @@ import com.tie.app.TaxDocParser;
 import com.tie.app.TieController;
 import com.tie.app.TieSecurityManager;
 import com.tie.app.TieSessionController;
+import com.tie.app.UcControllerReceiveTieMsg;
 import com.tie.app.UcControllerSendTieMsg;
 import com.tie.app.cts.ICtsException;
 import com.tie.dao.TieAppDao;
 import com.tie.dao.TiePersister;
 import com.tie.model.TieDoc;
 import com.tie.model.TieMsg;
+import com.tie.model.TieUser;
 import com.tie.ui.Header;
 import com.tie.ui.Param;
 import com.tie.ui.ServletError;
@@ -490,6 +492,11 @@ public class LoginServlet extends HttpServlet {
 		String tieJson = ma.writeValueAsString(retval);
 		String msgjson = ma.writeValueAsString(msg);
 		System.out.println("msgJSON" + msgjson);
+		
+		//Test receive message
+		UcControllerReceiveTieMsg controllerReceiveTieMsg = new UcControllerReceiveTieMsg();
+		String username = msg.getUserName();
+		controllerReceiveTieMsg.checkForNewMessages(username);
 
 		response.setContentType("text/json");
 		response.setCharacterEncoding("UTF-8");

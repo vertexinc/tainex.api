@@ -4,6 +4,7 @@
 package com.tie.app.cts;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -11,6 +12,9 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import com.tie.model.TieMsg;
@@ -54,7 +58,7 @@ public class TieCtsStub implements ICts {
 		try {
 			TieMsgEnvelope tieMsgEnvelope = deserialize(tieMsgPackage.getPackageBytes());
 			sender = tieMsgEnvelope.getSender().getName();
-			//receiver = tieMsgEnvelope.getReceiver().getName();
+			// receiver = tieMsgEnvelope.getReceiver().getName();
 			receiver = tieMsgPackage.getSingleRecipient();
 			ctsTrackingId = Integer.toString(tieMsgPackage.getTiemsg().getTieMsgId());
 			timeStamp = tieMsgEnvelope.getSendTime().toString().replaceAll("\\s+", "").replaceAll(":", "");
@@ -83,5 +87,22 @@ public class TieCtsStub implements ICts {
 		ObjectInputStream is = new ObjectInputStream(in);
 		TieMsgEnvelope tieMsgEnvelope = (TieMsgEnvelope) is.readObject();
 		return tieMsgEnvelope;
+	}
+
+	public String[] checkForNewMessage(String receipientString) {
+		File folder = new File("C:/CBCR_sendTieMsgPackage");
+		File[] listOfFiles = folder.listFiles();
+		List<String> receivedFileName = new ArrayList<String>();
+		for (int i = 0; i < listOfFiles.length; i++) {
+			// Check String contains:
+			String fileName = listOfFiles[i].getName();
+			if (fileName.toLowerCase().contains(receipientString.toLowerCase())) {
+				receivedFileName.add(listOfFiles[i].getName());
+			}
+		}
+		String[] retVal = new String[receivedFileName.size()];
+		retVal = receivedFileName.toArray(retVal);
+		System.out.println("Received Message" + Arrays.toString(retVal));
+		return retVal;
 	}
 }

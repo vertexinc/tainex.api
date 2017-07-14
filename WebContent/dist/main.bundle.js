@@ -40995,7 +40995,6 @@ var AppComponent = (function () {
         this._tieappService.logOut()
             .subscribe(function (logoutData) {
             if (logoutData.logout != null) {
-                alert("Log out success!");
                 window.location.href = "/TIEapp/";
             }
         });
