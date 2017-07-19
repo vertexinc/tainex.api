@@ -1,6 +1,12 @@
 package com.tie.app;
 
 import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 import com.tie.app.cts.TieCtsStub;
 import com.tie.model.TieApp;
@@ -21,14 +27,15 @@ public class UcControllerReceiveTieMsg {
 
 	// Receive one new message:Processing the new message stored in the given
 	// file, decryt, parse xml to java objects, save to database, etc
-	public TieMsgPackage receiveNewMessage(String msgFileName) throws ClassNotFoundException, IOException {
+	public TieMsgPackage receiveNewMessage(String msgFileName) throws ClassNotFoundException, IOException, InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
 		// Read file
 		byte[] tieMsgPkgData = tieCtsStub.readFromFile(msgFileName);
+		TieMsgPackage tieMsgPkg =  tieCtsStub.receiveTieMsgPackage(tieMsgPkgData);
 		
 		// Decrypt
-		TieMsgPackage tieMsgPkg =  tieCtsStub.receiveTieMsgPackage(tieMsgPkgData);
+		TieSecurityManager tieSecurityManager = new TieSecurityManager();
+		tieSecurityManager.decryptMsgBody(tieMsgPkg);
 		// Parse into java obj
-		
 		// Save into database
 		return null; 
 	}

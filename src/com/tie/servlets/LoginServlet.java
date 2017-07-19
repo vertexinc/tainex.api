@@ -147,7 +147,13 @@ public class LoginServlet extends HttpServlet {
 
 			} else if (action.equals("selectCurrentMsg")) {
 
-				selectCurrentMsg(request, response, sessionController, messageId);
+				try {
+					selectCurrentMsg(request, response, sessionController, messageId);
+				} catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException
+						| IllegalBlockSizeException | BadPaddingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
 			} else if (action.equals("selectCurrentDoc")) {
 
@@ -474,9 +480,14 @@ public class LoginServlet extends HttpServlet {
 	 * @param response
 	 * @throws ServletException
 	 * @throws IOException
+	 * @throws BadPaddingException 
+	 * @throws IllegalBlockSizeException 
+	 * @throws NoSuchPaddingException 
+	 * @throws NoSuchAlgorithmException 
+	 * @throws InvalidKeyException 
 	 */
 	public void selectCurrentMsg(HttpServletRequest request, HttpServletResponse response,
-			TieSessionController sessionController, int messageId) throws ServletException, IOException {
+			TieSessionController sessionController, int messageId) throws ServletException, IOException, InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
 
 		System.out.println("Current Msg Id" + messageId);
 		TieMsg msg = sessionController.handleSelectCurrentMsg(messageId);
@@ -503,7 +514,7 @@ public class LoginServlet extends HttpServlet {
 
 	}// end selectCurrentMsg(....)
 	
-	public void receiveMessage(TieMsg msg) throws ClassNotFoundException, IOException{
+	public void receiveMessage(TieMsg msg) throws ClassNotFoundException, IOException, InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException{
 		UcControllerReceiveTieMsg controllerReceiveTieMsg = new UcControllerReceiveTieMsg();
 		String username = msg.getUserName();
 		String[] fileList = controllerReceiveTieMsg.checkForNewMessages(username);

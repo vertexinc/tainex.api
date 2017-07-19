@@ -3,6 +3,7 @@ package com.tie.app;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -10,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
+import java.util.Base64;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -59,6 +61,29 @@ public class TieSecurityManager extends TieControllerBase {
 		String key = fecthcEncryptionKey(tieMsgPkg.getTiemsg().getSender());
 		byte[] encryptedText = encryptText(key, msgBody);
 		return encryptedText;
+	}
+	
+	String decryptMsgBody( TieMsgPackage tieMsgPkg) throws UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException{
+		String key = fecthcEncryptionKey(tieMsgPkg.getTiemsg().getSender());
+		String tieMsgPayload = decryptText(key,tieMsgPkg.getPayloadEncrypted());
+		return key;
+	}
+
+	private String decryptText(String key, byte[] payloadEncrypted) throws UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+		// TODO Auto-generated method stub
+		String decryptedText = null;
+		int length = 16;
+		byte[] keyByte = new byte[length];
+		keyByte = fixSecret(key, length);
+		
+		SecretKeySpec secretKey = new SecretKeySpec(keyByte, "AES");
+		Cipher cipher = Cipher.getInstance("AES");
+		
+		cipher.init(Cipher.DECRYPT_MODE, secretKey);
+		String encryptedString  = new String(cipher.doFinal(payloadEncrypted));
+
+		System.out.println("After decryption: " + encryptedString);
+		return encryptedString;
 	}
 
 	byte[] encryptText(String key, String plainText) throws InvalidKeyException, IOException, IllegalBlockSizeException,

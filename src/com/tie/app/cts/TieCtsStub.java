@@ -88,8 +88,7 @@ public class TieCtsStub implements ICts {
 
 	public TieMsgPackage receiveTieMsgPackage(byte[] tieMsgPkgData) throws ClassNotFoundException, IOException {
 		TieMsgPackage tieMsgPackage = deserializePkg(tieMsgPkgData);
-		System.out.println("tieMsgpkg: " + tieMsgPackage.getPayload());
-		return null;
+		return tieMsgPackage;
 	}
 
 	/*
