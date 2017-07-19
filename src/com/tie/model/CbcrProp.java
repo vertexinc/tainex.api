@@ -1,6 +1,6 @@
 package com.tie.model;
 
-public class CbcrProp {
+public class CbcrProp implements java.io.Serializable{
 	private int tieDocId;
 	private String name;
 	private String value;

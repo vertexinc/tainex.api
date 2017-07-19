@@ -1,6 +1,6 @@
 package com.tie.model;
 
-public class CbcrTable2 {
+public class CbcrTable2 implements java.io.Serializable{
 	private int tieDocId;
 	private String taxJurisdiction;
 	private String entityCode;

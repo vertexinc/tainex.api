@@ -1,7 +1,7 @@
 package com.tie.model;
 
 //Former TieMsgReceiver
-public class TieMsgTrackingLog {
+public class TieMsgTrackingLog implements java.io.Serializable{
 	private int tieMsgId;
 	private String senderCode;
 	private String receiverCode;

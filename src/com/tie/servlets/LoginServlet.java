@@ -56,6 +56,7 @@ import com.tie.dao.TieAppDao;
 import com.tie.dao.TiePersister;
 import com.tie.model.TieDoc;
 import com.tie.model.TieMsg;
+import com.tie.model.TieMsgPackage;
 import com.tie.model.TieUser;
 import com.tie.ui.Header;
 import com.tie.ui.Param;
@@ -277,11 +278,7 @@ public class LoginServlet extends HttpServlet {
 			throws JAXBException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException,
 			NoSuchAlgorithmException, NoSuchPaddingException, IOException {
 		// TODO Auto-generated method stub
-		try {
-			// For CTS demo only, manually set a bad request
-			// if(messageId == 54){
-			// throw new ICtsException("CTS error!");
-			// }
+	
 			UcControllerSendTieMsg ucControllerSendTieMsg = new UcControllerSendTieMsg(sessionController, request,
 					response);
 			ucControllerSendTieMsg.sendTieMsg(messageId);
@@ -300,10 +297,7 @@ public class LoginServlet extends HttpServlet {
 			response.setContentType("text/json");
 			response.setCharacterEncoding("UTF-8");
 			response.getWriter().write(saveMsgReturnJson);
-		} catch (Exception e) {
-			logger.error("Failed to send this Msg", new Exception("CTS error!"));
-			sendExceptionToFrontEnd(response, e.getMessage(), "");
-		}
+		
 	}
 
 	private void saveDoc(HttpServletRequest request, HttpServletResponse response,
@@ -422,6 +416,8 @@ public class LoginServlet extends HttpServlet {
 			TieSessionController sessionController, TieMsg tieMsg) throws IOException {
 		// TODO Auto-generated method stub
 		String sessionId = request.getSession().getId();
+		//Handle Reporting Period
+		tieMsg.setReportingPeriod("2017");
 		TieMsg returnSavedTieMsg = sessionController.handleSaveMessage(tieMsg, sessionId);
 
 		int returnSavedTieMsgId = returnSavedTieMsg.getTieMsgId();
@@ -494,15 +490,27 @@ public class LoginServlet extends HttpServlet {
 		System.out.println("msgJSON" + msgjson);
 		
 		//Test receive message
-		UcControllerReceiveTieMsg controllerReceiveTieMsg = new UcControllerReceiveTieMsg();
-		String username = msg.getUserName();
-		controllerReceiveTieMsg.checkForNewMessages(username);
+		try {
+			receiveMessage(msg);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		response.setContentType("text/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().write(tieJson);
 
 	}// end selectCurrentMsg(....)
+	
+	public void receiveMessage(TieMsg msg) throws ClassNotFoundException, IOException{
+		UcControllerReceiveTieMsg controllerReceiveTieMsg = new UcControllerReceiveTieMsg();
+		String username = msg.getUserName();
+		String[] fileList = controllerReceiveTieMsg.checkForNewMessages(username);
+		for(String file:fileList){
+			TieMsgPackage tieMsgPkg = controllerReceiveTieMsg.receiveNewMessage(file);
+		}
+	}
 
 	public void selectCurrentDoc(HttpServletRequest request, HttpServletResponse response,
 			TieSessionController sessionController, int docId) throws ServletException, IOException {

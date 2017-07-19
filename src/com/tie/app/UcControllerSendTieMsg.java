@@ -38,6 +38,7 @@ import com.tie.model.TieUser;
 import com.tie.ui.TieMainPage;
 import com.tie.xmlprocessor.cbcrxmlprocessor.CbcrXmlProcessor;
 
+import org.apache.commons.lang3.SerializationUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,6 +48,7 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 	HttpServletRequest request;
 	HttpServletResponse response;
 	private Map<Long, TieMsgPackage> msgPackages;
+	TieCtsStub tieCtsStub = new TieCtsStub();
 
 	// public UcControllerSendTieMsg(TieSessionController sessionController,
 	// HttpServletRequest request, HttpServletResponse response) {
@@ -64,12 +66,9 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 			BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException, IOException {
 		// List<TieMsgPackage> packageList = prepareTieMsg(msgId);
 		TieMsg preparedTieMsg = prepareTieMsg(msgId);
-
 		try {
 			// For CTS demo only, manually set a bad request
-
-			TieCtsStub tieCtsStub = new TieCtsStub();
-			tieCtsStub.sendTieMsg(preparedTieMsg);
+			sendTieMsg(preparedTieMsg);
 			String msgString = "";
 			TieMsgState tieMsgState = new TieMsgState(2, "name", msgString, "", "");
 			recordMsgState(preparedTieMsg, msgString, tieMsgState);
@@ -88,6 +87,17 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 		// forwardToFront();
 	}// sendTieMsg(.)
 
+	// loop through each package and delegate to the send pkg method
+	public void sendTieMsg(TieMsg tieMsg) throws ClassNotFoundException, IOException {
+		// TODO Auto-generated method stub
+		Map<Long, TieMsgPackage> msgPackagesMap = tieMsg.getMsgPackages();
+		// loop through packageList to generate each indivial package
+		for (Object Key : msgPackagesMap.keySet()) {
+			TieMsgPackage tieMsgPackage = msgPackagesMap.get(Key);
+			byte[] tieMsgPackageByte = tieMsgPackageByte(tieMsgPackage);
+			tieCtsStub.sendTieMsgPackage(tieMsgPackageByte);
+		}
+	}
 	private void recordAllPackageStatus(TieMsg tieMsg) throws ICtsException {
 		// TODO Auto-generated method stub
 
@@ -132,7 +142,9 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 		for (Object Key : msgPackagesMap.keySet()) {
 			TieMsgPackage tieMsgPackage = msgPackagesMap.get(Key);
 			tieMsgPackage.setPayload(xmlString);
-			tieMsgPackage.setPayloadEncrypted(encryptMsgBody(xmlString, tieMsgPackage));
+			//tieMsgPackage.setPayloadEncrypted(encryptMsgBody(xmlString, tieMsgPackage));
+			byte[] payloadByte = encryptMsgBody(xmlString, tieMsgPackage);
+			tieMsgPackage.setPayloadEncrypted(payloadByte);
 			// compose Envelop
 			composeMsgEnvelop(tieMsgPackage);
 		}
@@ -198,8 +210,10 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 		return encryptedMsgBody;
 	}// end encryptMsgBody(..)
 
-	public Byte[] packageMsg(TieMsgPackage tieMsgPkg) {
-		return null;
+	//Serialize tieMsgPkg
+	public byte[] tieMsgPackageByte(TieMsgPackage tieMsgPkg) throws IOException {
+		byte[] msgPkgByte = SerializationUtils.serialize(tieMsgPkg);
+		return msgPkgByte;
 	}// end packageMsg(.)
 
 	public String sendTaxMsgPackage(TieMsgPackage tieMsgPkg) {
@@ -211,13 +225,12 @@ public class UcControllerSendTieMsg extends TieControllerBase {
 	}// end recordTaxMsgStatus()
 
 	// Set msgEnvelop (byte[]) to TieMsgPackage object
+	//*****************TODO: change enve to pkg
 	public void composeMsgEnvelop(TieMsgPackage msgPkg) throws IOException {
 		// TODO: recipient String
 		String recipientString = msgPkg.getSingleRecipient();
 		TieMsgEnvelope tieMsgEnvelope = createEnvelopeForPackage(recipientString, msgPkg);
-		byte[] envelopeByte = byteEnvelope(tieMsgEnvelope);
-		System.out.println("tieMsgEnvelope in byte: " + Arrays.toString(envelopeByte));
-		msgPkg.setPackageBytes(envelopeByte);
+		msgPkg.setTiemsgEvelope(tieMsgEnvelope);
 	}// end composeMsgEnvelop(.)
 
 	public TieMsgEnvelope createEnvelopeForPackage(String recipient, TieMsgPackage msgPkg) {

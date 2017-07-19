@@ -5,12 +5,13 @@ import org.slf4j.LoggerFactory;
 
 import com.tie.app.TaxDocParser;
 
-public class TieMsgPackage {
+public class TieMsgPackage implements java.io.Serializable{
 	TieMsg tiemsg;// A backpointer towards the tiemsg class
-	byte[] packageBytes;// The whole package to be sent.i.e.,TieMsgEnvelope
+	byte[] packageBytes;// The whole package to be sent.
 	String payload;// The message body for the receipient
 	byte[] payloadEncrypted;
 	String singleRecipient;
+	TieMsgEnvelope tiemsgEvelope;
 	public String getSingleRecipient() {
 		return singleRecipient;
 	}
@@ -23,6 +24,14 @@ public class TieMsgPackage {
 
 	public TieMsgPackage() {
 
+	}
+
+	public TieMsgEnvelope getTiemsgEvelope() {
+		return tiemsgEvelope;
+	}
+
+	public void setTiemsgEvelope(TieMsgEnvelope tiemsgEvelope) {
+		this.tiemsgEvelope = tiemsgEvelope;
 	}
 
 	public TieMsgPackage(TieMsg tiemsg) {

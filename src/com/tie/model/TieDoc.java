@@ -3,7 +3,7 @@ package com.tie.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TieDoc {
+public class TieDoc implements java.io.Serializable{
 	private int tieDocId;
 	private String name;
 	private String code;

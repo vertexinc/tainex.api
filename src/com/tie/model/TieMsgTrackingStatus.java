@@ -1,6 +1,6 @@
 package com.tie.model;
 
-public class TieMsgTrackingStatus {
+public class TieMsgTrackingStatus implements java.io.Serializable{
 	private int tieMsgTrackingStatusId;
 	private String name;
 	private String code;

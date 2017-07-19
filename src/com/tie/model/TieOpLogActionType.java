@@ -1,6 +1,6 @@
 package com.tie.model;
 
-public class TieOpLogActionType {
+public class TieOpLogActionType implements java.io.Serializable{
 	private int tieOpLogActionTypeId;
 	private String name;
 	private String code;

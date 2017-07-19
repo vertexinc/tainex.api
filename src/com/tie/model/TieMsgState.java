@@ -1,6 +1,6 @@
 package com.tie.model;
 
-public class TieMsgState {
+public class TieMsgState implements java.io.Serializable{
 	private int tieMsgStateId;
 	private String name;
 	private String code;

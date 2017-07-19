@@ -3,6 +3,8 @@
  */
 package com.tie.app.cts;
 
+import java.io.IOException;
+
 import com.tie.model.TieMsg;
 import com.tie.model.TieMsgPackage;
 import com.tie.model.TieUser;
@@ -13,6 +15,5 @@ import com.tie.model.TieUser;
  */
 public interface ICts {
 	String fecthcEncryptionKey(TieUser user);
-	void sendTieMsg(TieMsg tiemsg);
-	void sendTieMsgPackage(TieMsgPackage tieMsgPackage);
+	void sendTieMsgPackage(byte[] tieMsgPackageByte) throws ClassNotFoundException, IOException;
 }

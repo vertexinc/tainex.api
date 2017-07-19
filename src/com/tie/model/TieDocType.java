@@ -1,6 +1,6 @@
 package com.tie.model;
 
-public class TieDocType {
+public class TieDocType implements java.io.Serializable{
 	private int tieDocTypeId;
 	private String name;
 	private String code;

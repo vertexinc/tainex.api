@@ -159,26 +159,37 @@ public class CbcrXmlProcessor {
 		// Set as a blank space here
 		retval.setSendingEntityIN(" ");
 
-		CountryCodeType transmittingCountry = CountryCodeType.fromValue(tieMsg.getTransmittingCountry());
-		retval.setTransmittingCountry(transmittingCountry);
+		if (tieMsg.getTransmittingCountry() != null) {
+			CountryCodeType transmittingCountry = CountryCodeType.fromValue(tieMsg.getTransmittingCountry());
+			retval.setTransmittingCountry(transmittingCountry);
+		}
 
 		composeReceivingCountry(tieMsg, retval);
-
 		MessageTypeEnumType messageTypeEnum = MessageTypeEnumType.fromValue("CBC");
 		retval.setMessageType(messageTypeEnum);
 		//
-		LanguageCodeType languageCode = LanguageCodeType.fromValue(tieMsg.getLanguage().toUpperCase());
-		retval.setLanguage(languageCode);
+		if (tieMsg.getLanguage() != null) {
+			LanguageCodeType languageCode = LanguageCodeType.fromValue(tieMsg.getLanguage().toUpperCase());
+			retval.setLanguage(languageCode);
+		}
 
-		retval.setWarning(tieMsg.getWarning());
+		if (tieMsg.getWarning() != null) {
+			retval.setWarning(tieMsg.getWarning());
+		}
 
-		retval.setContact(tieMsg.getContact());
+		if (tieMsg.getContact() != null) {
+			retval.setContact(tieMsg.getContact());
+		}
 
-		retval.setMessageRefId(tieMsg.getMessageRefId());
+		if (tieMsg.getMessageRefId() != null) {
+			retval.setMessageRefId(tieMsg.getMessageRefId());
+		}
 
-		CbcMessageTypeIndicEnumType cbcMessageTypeIndicEnum = CbcMessageTypeIndicEnumType
-				.fromValue(tieMsg.getMessageTypeIndic());
-		retval.setMessageTypeIndic(cbcMessageTypeIndicEnum);
+		if (tieMsg.getMessageTypeIndic() != null) {
+			CbcMessageTypeIndicEnumType cbcMessageTypeIndicEnum = CbcMessageTypeIndicEnumType
+					.fromValue(tieMsg.getMessageTypeIndic());
+			retval.setMessageTypeIndic(cbcMessageTypeIndicEnum);
+		}
 		//
 		// CorrMessageRefId: Must point to 1 or more previous message
 		composeCorrMessageRefId(tieMsg, retval);

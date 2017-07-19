@@ -1,6 +1,6 @@
 package com.tie.model;
 
-public class CbcrTable3 {
+public class CbcrTable3 implements java.io.Serializable{
 	private int tieDocId;
 	private String countryCode;
 	private String summaryRef;

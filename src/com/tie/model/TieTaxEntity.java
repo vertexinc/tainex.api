@@ -1,6 +1,6 @@
 package com.tie.model;
 
-public class TieTaxEntity {
+public class TieTaxEntity implements java.io.Serializable{
 	private int tieDocId;
 	private String entityCode;
 	private String name;

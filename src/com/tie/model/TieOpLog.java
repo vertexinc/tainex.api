@@ -1,6 +1,6 @@
 package com.tie.model;
 
-public class TieOpLog {
+public class TieOpLog implements java.io.Serializable{
 	private int timeStamp;
 	private int timeYear;
 	private int timeMonth;

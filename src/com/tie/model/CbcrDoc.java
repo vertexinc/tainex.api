@@ -3,7 +3,7 @@ package com.tie.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CbcrDoc extends TieDoc {
+public class CbcrDoc extends TieDoc implements java.io.Serializable{
 //	private List<CbcrTable1> cbcrTable1List = new ArrayList<CbcrTable1>();
 //	private List<CbcrTable2> cbcrTable2List = new ArrayList<CbcrTable2>();
 //	private List<CbcrTable3> cbcrTable3List = new ArrayList<CbcrTable3>();

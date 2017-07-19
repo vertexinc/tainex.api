@@ -7,6 +7,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.lang3.SerializationUtils;
 
 import com.tie.model.TieMsg;
 import com.tie.model.TieMsgEnvelope;
@@ -33,43 +36,9 @@ public class TieCtsStub implements ICts {
 		return "!@#$MySecr3tPassw0rd";
 	}
 
-	@Override
-	// loop through each package and delegate to the send pkg method
-	public void sendTieMsg(TieMsg tieMsg) {
-		// TODO Auto-generated method stub
-		Map<Long, TieMsgPackage> msgPackagesMap = tieMsg.getMsgPackages();
-		// loop through packageList to generate each indivial package
-		for (Object Key : msgPackagesMap.keySet()) {
-			TieMsgPackage tieMsgPackage = msgPackagesMap.get(Key);
-			sendTieMsgPackage(tieMsgPackage);
-		}
-	}
-
-	@Override
-	// create a msg file from the given package and
-	// put it in a designated folder TieAppInbox
-	public void sendTieMsgPackage(TieMsgPackage tieMsgPackage) {
-		// TODO Auto-generated method stub
-		String fileName = null;
-		String sender = null;
-		String receiver = null;
-		String ctsTrackingId = null;
-		String timeStamp = null;
-		try {
-			TieMsgEnvelope tieMsgEnvelope = deserialize(tieMsgPackage.getPackageBytes());
-			sender = tieMsgEnvelope.getSender().getName();
-			// receiver = tieMsgEnvelope.getReceiver().getName();
-			receiver = tieMsgPackage.getSingleRecipient();
-			ctsTrackingId = Integer.toString(tieMsgPackage.getTiemsg().getTieMsgId());
-			timeStamp = tieMsgEnvelope.getSendTime().toString().replaceAll("\\s+", "").replaceAll(":", "");
-			fileName = sender + receiver + ctsTrackingId + "_" + timeStamp + ".txt";
-			writeToFile(tieMsgPackage.getPackageBytes(), fileName);
-		} catch (ClassNotFoundException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
+	/*
+	 * Read & Write file
+	 */
 	// Save the package to local disk
 	public void writeToFile(byte[] bs, String fileName) {
 		String root = "C:/CBCR_sendTieMsgPackage/";
@@ -81,12 +50,57 @@ public class TieCtsStub implements ICts {
 		}
 	}
 
+	// Read the package from the local disk
+	public byte[] readFromFile(String fileName) {
+		Path fileLocation = Paths.get("C:/CBCR_sendTieMsgPackage/" + fileName);
+		byte[] data = null;
+		try {
+			data = Files.readAllBytes(fileLocation);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return data;
+	}
+
+	/*
+	 * Send & Receive message package
+	 */
+	@Override
+	// create a msg file from the given package and
+	// put it in a designated folder TieAppInbox
+	public void sendTieMsgPackage(byte[] tieMsgPackageByte) throws ClassNotFoundException, IOException {
+		// TODO Auto-generated method stub
+		String fileName = null;
+		String sender = null;
+		String receiver = null;
+		String ctsTrackingId = null;
+		String timeStamp = null;
+		TieMsgPackage tieMsgPackage = deserializePkg(tieMsgPackageByte);
+		TieMsgEnvelope tieMsgEnvelope = tieMsgPackage.getTiemsgEvelope();
+		sender = tieMsgEnvelope.getSender().getName();
+		receiver = tieMsgPackage.getSingleRecipient();
+		ctsTrackingId = Integer.toString(tieMsgPackage.getTiemsg().getTieMsgId());
+		timeStamp = tieMsgEnvelope.getSendTime().toString().replaceAll("\\s+", "").replaceAll(":", "");
+		fileName = sender + receiver + ctsTrackingId + "_" + timeStamp + ".txt";
+		writeToFile(tieMsgPackageByte, fileName);
+	}
+
+	public TieMsgPackage receiveTieMsgPackage(byte[] tieMsgPkgData) throws ClassNotFoundException, IOException {
+		TieMsgPackage tieMsgPackage = deserializePkg(tieMsgPkgData);
+		System.out.println("tieMsgpkg: " + tieMsgPackage.getPayload());
+		return null;
+	}
+
+	/*
+	 * Byte to obj
+	 */
+
+	// TieMsgPkg byte to obj
 	// byte to obj
-	public TieMsgEnvelope deserialize(byte[] data) throws IOException, ClassNotFoundException {
-		ByteArrayInputStream in = new ByteArrayInputStream(data);
-		ObjectInputStream is = new ObjectInputStream(in);
-		TieMsgEnvelope tieMsgEnvelope = (TieMsgEnvelope) is.readObject();
-		return tieMsgEnvelope;
+	public TieMsgPackage deserializePkg(byte[] data) throws IOException, ClassNotFoundException {
+		TieMsgPackage tieMsgPackage = (TieMsgPackage) SerializationUtils.deserialize(data);
+		return tieMsgPackage;
 	}
 
 	public String[] checkForNewMessage(String receipientString) {

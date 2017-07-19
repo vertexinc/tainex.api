@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TieMsg {
+public class TieMsg implements java.io.Serializable{
 	private int tieMsgId;
 	private String subject;
 	private String code;

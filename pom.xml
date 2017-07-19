@@ -23,22 +23,22 @@
 		</pluginManagement>
 		<plugins>
 			<plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>jaxb2-maven-plugin</artifactId>
-            <version>1.6</version>
-            <executions>
-                <execution>
-                    <id>xjc</id>
-                    <goals>
-                        <goal>xjc</goal>
-                    </goals>
-                </execution>
-            </executions>
-            <configuration>
-                <!-- The package of your generated sources -->
-                <packageName>com.jaxb.generatedClass</packageName>
-            </configuration>
-        </plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxb2-maven-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>xjc</id>
+						<goals>
+							<goal>xjc</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<!-- The package of your generated sources -->
+					<packageName>com.jaxb.generatedClass</packageName>
+				</configuration>
+			</plugin>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.6</version>
@@ -73,6 +73,11 @@
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>2.6.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.5</version>
 		</dependency>
 
 		<dependency>
