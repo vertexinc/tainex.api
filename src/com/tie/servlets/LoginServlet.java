@@ -150,7 +150,7 @@ public class LoginServlet extends HttpServlet {
 				try {
 					selectCurrentMsg(request, response, sessionController, messageId);
 				} catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException
-						| IllegalBlockSizeException | BadPaddingException e) {
+						| IllegalBlockSizeException | BadPaddingException | JAXBException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -485,9 +485,10 @@ public class LoginServlet extends HttpServlet {
 	 * @throws NoSuchPaddingException 
 	 * @throws NoSuchAlgorithmException 
 	 * @throws InvalidKeyException 
+	 * @throws JAXBException 
 	 */
 	public void selectCurrentMsg(HttpServletRequest request, HttpServletResponse response,
-			TieSessionController sessionController, int messageId) throws ServletException, IOException, InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
+			TieSessionController sessionController, int messageId) throws ServletException, IOException, InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, JAXBException {
 
 		System.out.println("Current Msg Id" + messageId);
 		TieMsg msg = sessionController.handleSelectCurrentMsg(messageId);
@@ -514,7 +515,7 @@ public class LoginServlet extends HttpServlet {
 
 	}// end selectCurrentMsg(....)
 	
-	public void receiveMessage(TieMsg msg) throws ClassNotFoundException, IOException, InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException{
+	public void receiveMessage(TieMsg msg) throws ClassNotFoundException, IOException, InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException, JAXBException{
 		UcControllerReceiveTieMsg controllerReceiveTieMsg = new UcControllerReceiveTieMsg();
 		String username = msg.getUserName();
 		String[] fileList = controllerReceiveTieMsg.checkForNewMessages(username);

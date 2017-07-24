@@ -1,7 +1,11 @@
 package com.tie.xmlprocessor.cbcrxmlprocessor;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -18,6 +22,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
@@ -58,6 +63,7 @@ public class CbcrXmlProcessor {
 	 * @return
 	 * @throws JAXBException
 	 */
+	//TODO:read and reverse
 	public String composeXmlString(TieMsg tieMsg) throws JAXBException {
 		String retval = null;
 		if (tieMsg == null)
@@ -86,6 +92,21 @@ public class CbcrXmlProcessor {
 		System.out.println();
 		System.out.println("========Validation result========");
 		System.out.println(valid);
+		return retval;
+	}
+
+	public TieMsg deComposeXmlString(String tieMsgXMLString) throws JAXBException {
+		TieMsg retval = null;
+
+		JAXBContext jaxbContext = JAXBContext.newInstance(CBCOECD.class);
+		Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+
+		StringReader reader = new StringReader(tieMsgXMLString);
+		
+
+		CBCOECD cbcoecd = (CBCOECD) unmarshaller.unmarshal(reader);
+		
+		System.out.println("Mapped CBCOECD : " + cbcoecd.getCbcBody().toString());
 		return retval;
 	}
 

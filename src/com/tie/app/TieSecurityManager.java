@@ -66,7 +66,7 @@ public class TieSecurityManager extends TieControllerBase {
 	String decryptMsgBody( TieMsgPackage tieMsgPkg) throws UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException{
 		String key = fecthcEncryptionKey(tieMsgPkg.getTiemsg().getSender());
 		String tieMsgPayload = decryptText(key,tieMsgPkg.getPayloadEncrypted());
-		return key;
+		return tieMsgPayload;
 	}
 
 	private String decryptText(String key, byte[] payloadEncrypted) throws UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
