@@ -94,7 +94,7 @@ public class CbcrXmlProcessor {
 		System.out.println(valid);
 		return retval;
 	}
-
+	
 	public TieMsg deComposeXmlString(String tieMsgXMLString) throws JAXBException {
 		TieMsg retval = null;
 
@@ -105,6 +105,8 @@ public class CbcrXmlProcessor {
 		
 
 		CBCOECD cbcoecd = (CBCOECD) unmarshaller.unmarshal(reader);
+		TieMsg tieMsg = new TieMsg();
+		//TODO Implement the decomposing functions
 		
 		System.out.println("Mapped CBCOECD : " + cbcoecd.getCbcBody().toString());
 		return retval;
@@ -160,6 +162,17 @@ public class CbcrXmlProcessor {
 		}
 		return retval;
 	}
+	
+	protected TieMsg decomposeCBCOECD(CBCOECD cbcOECD,TieMsg tieMsg){
+		//Decompose messageSpec
+		tieMsg = deComposeMessageSpec(cbcOECD,tieMsg);
+		
+		//Decompose cbcBody
+		tieMsg = deComposeCbcBodyList(cbcOECD,tieMsg);
+		return tieMsg;
+	}
+	
+
 
 	/**
 	 * Compose MessageSpec tag from the given message.
@@ -224,6 +237,72 @@ public class CbcrXmlProcessor {
 		// no sub element found
 
 		return retval;
+	}
+	
+	protected TieMsg deComposeMessageSpec(CBCOECD cbcOECD, TieMsg tieMsg) {
+		// TODO Auto-generated method stub
+		MessageSpecType msgSpecType = cbcOECD.getMessageSpec();
+		//Map sendingEntityId
+		String sendingEntityIdNum = msgSpecType.getSendingEntityIN();
+		tieMsg.setSendingEntityIdNum(sendingEntityIdNum);
+		
+		//Map transmittingCountry
+		if(msgSpecType.getTransmittingCountry() != null){
+			String transmittingCountryString = msgSpecType.getTransmittingCountry().toString();
+			tieMsg.setTransmittingCountry(transmittingCountryString);
+		}
+		
+		//Map receivingCountry
+		decomposeReceivingCountry(tieMsg,msgSpecType);
+		
+		//Map messageType
+		if(msgSpecType.getMessageType() != null){
+			String messageType = msgSpecType.getMessageType().toString();
+			tieMsg.setMessageType(messageType);
+		}
+		
+		//Map language
+		if(msgSpecType.getLanguage() != null){
+			String language = msgSpecType.getLanguage().toString();
+			tieMsg.setLanguage(language);
+		}
+		
+		//Map warning
+		if(msgSpecType.getWarning() != null){
+			String warning = msgSpecType.getMessageType().toString();
+			tieMsg.setWarning(warning);
+		}
+		
+		//Map contact
+		if(msgSpecType.getContact() != null){
+			String contact = msgSpecType.getContact().toString();
+			tieMsg.setContact(contact);
+		}
+		
+		//Map messageRefId
+		if(msgSpecType.getMessageRefId() != null){
+			String messageRefId = msgSpecType.getMessageRefId();
+		}
+		
+		//Map messageTypeIndic
+		if(msgSpecType.getMessageTypeIndic() != null){
+			String messageTypeIndic = msgSpecType.getMessageTypeIndic().toString();
+			tieMsg.setMessageTypeIndic(messageTypeIndic);
+		}
+		// TODO CorrMessageRefId: Must point to 1 or more previous message
+				//composeCorrMessageRefId(tieMsg, retval);
+		//Map reportingPeriod
+		if(msgSpecType.getReportingPeriod() != null){
+			String reportingPeriod = msgSpecType.getReportingPeriod().toString();
+			tieMsg.setReportingPeriod(reportingPeriod);
+		}
+		
+		//Map timeStamp
+		if(msgSpecType.getTimestamp() != null){
+			String timestamp = msgSpecType.getTimestamp().toString();
+			tieMsg.setTimestamp(timestamp);
+		}
+		return tieMsg;
 	}
 
 	private XMLGregorianCalendar XMLdate(String dateString, String dateFormat) {
@@ -291,6 +370,12 @@ public class CbcrXmlProcessor {
 		// No need for element list
 
 		return retval;
+	}
+	
+	
+	private TieMsg deComposeCbcBodyList(CBCOECD cbcOECD, TieMsg tieMsg) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	/**
@@ -603,6 +688,24 @@ public class CbcrXmlProcessor {
 			for (String country : recivingCountryList) {
 				receivingCounty.add(CountryCodeType.fromValue(country));
 			}
+		}
+	}
+	
+	private void decomposeReceivingCountry(TieMsg tieMsg, MessageSpecType messageSpecType){
+		if(messageSpecType.getReceivingCountry() != null){
+			List<CountryCodeType> receivingCounty = messageSpecType.getReceivingCountry();
+			int receivingCountyListSize =receivingCounty.size();
+			int index = 0;
+			StringBuilder receivingCountyString = new StringBuilder();
+			while(index < receivingCountyListSize){
+				receivingCountyString.append(receivingCounty.get(index).toString());
+				if(index<receivingCountyListSize - 1){
+					receivingCountyString.append(",");
+				}
+				index++;
+			}
+			String receivingCountry = receivingCountyString.toString();
+			tieMsg.setReceivingCountries(receivingCountry);
 		}
 	}
 
