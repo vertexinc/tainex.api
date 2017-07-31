@@ -63,7 +63,7 @@ public class CbcrXmlProcessor {
 	 * @return
 	 * @throws JAXBException
 	 */
-	//TODO:read and reverse
+	// TODO:read and reverse
 	public String composeXmlString(TieMsg tieMsg) throws JAXBException {
 		String retval = null;
 		if (tieMsg == null)
@@ -94,7 +94,7 @@ public class CbcrXmlProcessor {
 		System.out.println(valid);
 		return retval;
 	}
-	
+
 	public TieMsg deComposeXmlString(String tieMsgXMLString) throws JAXBException {
 		TieMsg retval = null;
 
@@ -102,12 +102,11 @@ public class CbcrXmlProcessor {
 		Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
 
 		StringReader reader = new StringReader(tieMsgXMLString);
-		
 
 		CBCOECD cbcoecd = (CBCOECD) unmarshaller.unmarshal(reader);
 		TieMsg tieMsg = new TieMsg();
-		//TODO Implement the decomposing functions
-		
+		// TODO Implement the decomposing functions
+		tieMsg = decomposeCBCOECD(cbcoecd, tieMsg);
 		System.out.println("Mapped CBCOECD : " + cbcoecd.getCbcBody().toString());
 		return retval;
 	}
@@ -162,17 +161,14 @@ public class CbcrXmlProcessor {
 		}
 		return retval;
 	}
-	
-	protected TieMsg decomposeCBCOECD(CBCOECD cbcOECD,TieMsg tieMsg){
-		//Decompose messageSpec
-		tieMsg = deComposeMessageSpec(cbcOECD,tieMsg);
-		
-		//Decompose cbcBody
-		tieMsg = deComposeCbcBodyList(cbcOECD,tieMsg);
+
+	protected TieMsg decomposeCBCOECD(CBCOECD cbcOECD, TieMsg tieMsg) {
+		// Decompose messageSpec
+		tieMsg = deComposeMessageSpec(cbcOECD, tieMsg);
+		// Decompose cbcBody
+		tieMsg = deComposeCbcBodyList(cbcOECD, tieMsg);
 		return tieMsg;
 	}
-	
-
 
 	/**
 	 * Compose MessageSpec tag from the given message.
@@ -238,67 +234,67 @@ public class CbcrXmlProcessor {
 
 		return retval;
 	}
-	
+
 	protected TieMsg deComposeMessageSpec(CBCOECD cbcOECD, TieMsg tieMsg) {
 		// TODO Auto-generated method stub
 		MessageSpecType msgSpecType = cbcOECD.getMessageSpec();
-		//Map sendingEntityId
+		// Map sendingEntityId
 		String sendingEntityIdNum = msgSpecType.getSendingEntityIN();
 		tieMsg.setSendingEntityIdNum(sendingEntityIdNum);
-		
-		//Map transmittingCountry
-		if(msgSpecType.getTransmittingCountry() != null){
+
+		// Map transmittingCountry
+		if (msgSpecType.getTransmittingCountry() != null) {
 			String transmittingCountryString = msgSpecType.getTransmittingCountry().toString();
 			tieMsg.setTransmittingCountry(transmittingCountryString);
 		}
-		
-		//Map receivingCountry
-		decomposeReceivingCountry(tieMsg,msgSpecType);
-		
-		//Map messageType
-		if(msgSpecType.getMessageType() != null){
+
+		// Map receivingCountry
+		decomposeReceivingCountry(tieMsg, msgSpecType);
+
+		// Map messageType
+		if (msgSpecType.getMessageType() != null) {
 			String messageType = msgSpecType.getMessageType().toString();
 			tieMsg.setMessageType(messageType);
 		}
-		
-		//Map language
-		if(msgSpecType.getLanguage() != null){
+
+		// Map language
+		if (msgSpecType.getLanguage() != null) {
 			String language = msgSpecType.getLanguage().toString();
 			tieMsg.setLanguage(language);
 		}
-		
-		//Map warning
-		if(msgSpecType.getWarning() != null){
+
+		// Map warning
+		if (msgSpecType.getWarning() != null) {
 			String warning = msgSpecType.getMessageType().toString();
 			tieMsg.setWarning(warning);
 		}
-		
-		//Map contact
-		if(msgSpecType.getContact() != null){
+
+		// Map contact
+		if (msgSpecType.getContact() != null) {
 			String contact = msgSpecType.getContact().toString();
 			tieMsg.setContact(contact);
 		}
-		
-		//Map messageRefId
-		if(msgSpecType.getMessageRefId() != null){
+
+		// Map messageRefId
+		if (msgSpecType.getMessageRefId() != null) {
 			String messageRefId = msgSpecType.getMessageRefId();
 		}
-		
-		//Map messageTypeIndic
-		if(msgSpecType.getMessageTypeIndic() != null){
+
+		// Map messageTypeIndic
+		if (msgSpecType.getMessageTypeIndic() != null) {
 			String messageTypeIndic = msgSpecType.getMessageTypeIndic().toString();
 			tieMsg.setMessageTypeIndic(messageTypeIndic);
 		}
 		// TODO CorrMessageRefId: Must point to 1 or more previous message
-				//composeCorrMessageRefId(tieMsg, retval);
-		//Map reportingPeriod
-		if(msgSpecType.getReportingPeriod() != null){
+		// composeCorrMessageRefId(tieMsg, retval);
+		// Map reportingPeriod
+		if (msgSpecType.getReportingPeriod() != null) {
 			String reportingPeriod = msgSpecType.getReportingPeriod().toString();
 			tieMsg.setReportingPeriod(reportingPeriod);
 		}
-		
-		//Map timeStamp
-		if(msgSpecType.getTimestamp() != null){
+
+		// Map timeStamp
+		if (msgSpecType.getTimestamp() != null) {
 			String timestamp = msgSpecType.getTimestamp().toString();
 			tieMsg.setTimestamp(timestamp);
 		}
@@ -371,12 +367,18 @@ public class CbcrXmlProcessor {
 
 		return retval;
 	}
-	
-	
+
 	private TieMsg deComposeCbcBodyList(CBCOECD cbcOECD, TieMsg tieMsg) {
 		// TODO Auto-generated method stub
+		if (cbcOECD.getCbcBody() != null) {
+			for (CbcBodyType cbcBody : cbcOECD.getCbcBody()) {
+				TieDoc doc = deComposeCbcBody(cbcBody,tieMsg);
+				tieMsg.getTieDocList().add(doc);
+			}
+		}
 		return null;
 	}
+
 
 	/**
 	 * Compose one CbcBody for the given doc in the message
@@ -410,6 +412,14 @@ public class CbcrXmlProcessor {
 		}
 
 		return retval;
+	}
+	
+	private TieDoc deComposeCbcBody(CbcBodyType cbcBody,TieMsg tieMsg) {
+		// TODO Auto-generated method stub
+		TieDoc doc = new TieDoc();
+		deComposeReportingEntity(cbcBody.getReportingEntity(),doc,tieMsg);
+
+		return null;
 	}
 
 	private CorrectableAdditionalInfoType composeAdditionalInfo(ObjectFactory objFactory, TieMsg tieMsg, TieDoc doc,
@@ -606,6 +616,24 @@ public class CbcrXmlProcessor {
 		return retval;
 	}
 
+	private void deComposeReportingEntity(CorrectableReportingEntityType reportingEntity,TieDoc tieDoc,TieMsg tieMsg) {
+		// TODO Auto-generated method stub
+		TieTaxEntity tieTaxEntity = new TieTaxEntity();
+		String reportEntityRole = reportingEntity.getReportingRole().toString();
+		tieDoc.setReportingEntityRole(reportEntityRole);
+		//Decompose entitySpec
+		decomposeEntity(tieMsg,reportingEntity,tieDoc);
+		
+		//Decompose docSpec
+	}
+
+
+	//Iterate through the entityList to map the entity obj
+	private void decomposeEntity(TieMsg tieMsg, CorrectableReportingEntityType reportingEntity, TieDoc tieDoc) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	private DocSpecType composeDocSpec(ObjectFactory objFactory, TieMsg tieMsg, TieDoc doc) {
 		// TODO Auto-generated method stub
 		// 1. Need how many element?
@@ -690,16 +718,16 @@ public class CbcrXmlProcessor {
 			}
 		}
 	}
-	
-	private void decomposeReceivingCountry(TieMsg tieMsg, MessageSpecType messageSpecType){
-		if(messageSpecType.getReceivingCountry() != null){
+
+	private void decomposeReceivingCountry(TieMsg tieMsg, MessageSpecType messageSpecType) {
+		if (messageSpecType.getReceivingCountry() != null) {
 			List<CountryCodeType> receivingCounty = messageSpecType.getReceivingCountry();
-			int receivingCountyListSize =receivingCounty.size();
+			int receivingCountyListSize = receivingCounty.size();
 			int index = 0;
 			StringBuilder receivingCountyString = new StringBuilder();
-			while(index < receivingCountyListSize){
+			while (index < receivingCountyListSize) {
 				receivingCountyString.append(receivingCounty.get(index).toString());
-				if(index<receivingCountyListSize - 1){
+				if (index < receivingCountyListSize - 1) {
 					receivingCountyString.append(",");
 				}
 				index++;
